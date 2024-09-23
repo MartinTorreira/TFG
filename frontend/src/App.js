@@ -3,9 +3,11 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import { Sidebar } from "./components/Sidebar.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/user/Login.js";
 import Home from "./components/Home.jsx";
+import Login from "./components/user/Login.js";
 import Register from "./components/user/Register.js";
+import ProfileSettings from "./components/user/ProfileSettings.js";
+
 import { Toaster } from "sonner";
 
 export default function App() {
@@ -29,6 +31,7 @@ export default function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/" element={<Home />} />
             <Route path="/users/signUp" element={<Register />} />
+            <Route path="/users/profile" element={<ProfileSettings />} />
           </Routes>
         </div>
       </div>

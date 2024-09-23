@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { FileUploadIcon } from "../../icons/FileUploadIcon";
 import { DeleteImageIcon } from "../../icons/DeleteImageIcon";
 
-const FileUpload = ({ onFileChange }) => {
+const FileUpload = ({ label, onFileChange }) => {
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null); // Añadimos una referencia al input del archivo
 
@@ -33,12 +33,12 @@ const FileUpload = ({ onFileChange }) => {
 
   return (
     <section className="flex flex-col w-full">
-      <label
+      { label ? <label
         htmlFor="email"
         className="block mb-2 text-sm font-medium text-gray-900"
       >
         Avatar
-      </label>
+      </label> : null} 
       <div
         className="flex flex-col items-center  w-full p-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 h-32"
         onDragOver={(e) => e.preventDefault()}

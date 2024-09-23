@@ -18,6 +18,7 @@ const Login = () => {
 
   const onErrors = () => {
     toast.error("Credenciales incorrectas");
+    console.log("asdasd")
   };
 
   const reauthenticationCallback = () => {
@@ -38,11 +39,12 @@ const Login = () => {
     );
 
     localStorage.setItem("user", JSON.stringify(authenticatedUser.user));
+    localStorage.setItem("avatar", authenticatedUser.user.avatar);
     handleNavigate("/home");
   };
 
   const handleLogin = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     login(userName, password, onSuccess, onErrors, reauthenticationCallback);
     console.log(userName, password);
   };

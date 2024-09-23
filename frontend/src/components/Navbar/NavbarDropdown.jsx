@@ -21,6 +21,10 @@ export const NavbarDropdown = ({ imagePath }) => {
     navigate("/home");
   };
 
+  const handleNavigate = () => {
+    navigate("/users/profile");
+  };
+
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -28,8 +32,13 @@ export const NavbarDropdown = ({ imagePath }) => {
           <img src={imagePath} className="w-10 h-10 rounded-full" />
         </button>
       </DropdownTrigger>
+      
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="edit">Mi perfil</DropdownItem>
+        <DropdownItem key="edit">
+          <button onClick={() => handleNavigate()}>Mi perfil
+            </button>
+        </DropdownItem>
+        
         <DropdownItem key="delete" className="text-danger" color="danger">
           <button onClick={handleLogout}>Cerrar sesión</button>
         </DropdownItem>

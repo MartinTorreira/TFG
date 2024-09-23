@@ -24,7 +24,7 @@ const Home = () => {
     return(
         <div>
             <img src={avatar} ></img>
-            {console.log("HOME: " + user.avatar)}
+            {console.log("TOKEN: " + token)}
         </div>
     )
 

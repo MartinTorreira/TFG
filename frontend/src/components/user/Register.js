@@ -10,6 +10,7 @@ import { config } from "../../config/constants.js";
 import FileUpload from "../form/FileUpload.jsx";
 
 const Register = () => {
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -246,7 +247,7 @@ const Register = () => {
               </div>
 
               <div className="flex">
-                <FileUpload onFileChange={handleSubmitAvatar} />
+                <FileUpload label={true} onFileChange={handleSubmitAvatar} />
               </div>
 
               <div className="flex items-start">

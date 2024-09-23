@@ -1,0 +1,24 @@
+GET http://localhost:8080/user/3/changePassword
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+###
+
+POST http://localhost:8080/user/3/changePassword
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+###
+
+POST http://localhost:8080/user/3/changePassword
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
+
+###
+

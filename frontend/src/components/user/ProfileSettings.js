@@ -38,13 +38,8 @@ const ProfileSettings = () => {
   };
 
   const onErrors = (error) => {
-    console.log("El error es ");
-    if (
-      error.globalError &&
-      error.globalError.includes("DuplicateInstanceException")
-    ) {
-      toast.error("Nombre de usuario ya registrado");
-    } else if (
+    console.log("ERROR" + error.globalError)
+     if (
       error.globalError &&
       error.globalError.includes("DuplicateEmailException")
     ) {
@@ -73,6 +68,7 @@ const ProfileSettings = () => {
 
     const updatedUser = {
       id: user.id,
+      userName,
       firstName,
       lastName,
       email,

@@ -72,9 +72,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateProfile(Long id, String firstName, String lastName, String email, String avatar) throws InstanceNotFoundException {
+    public User updateProfile(Long id, String userName, String firstName, String lastName, String email, String avatar) throws InstanceNotFoundException, DuplicateInstanceException,DuplicateEmailException {
 
         User user = permissionChecker.checkUser(id);
+
+        if (!user.getUserName().equals(userName) && userDao.existsByUserName(userName)) {
+            throw new DuplicateInstanceException("Nombre de usuario ya registrado", userName);
+        }
+
+        if (!user.getEmail().equals(email) && userDao.existsByEmail(email)) {
+            throw new DuplicateEmailException("Email ya registrado", email);
+        }
+
+        user.setUserName(userName);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);

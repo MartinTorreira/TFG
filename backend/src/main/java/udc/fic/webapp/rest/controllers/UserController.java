@@ -119,13 +119,13 @@ public class UserController {
     @PutMapping("/{id}/updateProfile")
     public UserDto updateProfile(@RequestAttribute Long userId, @PathVariable Long id,
                                  @Validated({UserDto.UpdateValidations.class}) @RequestBody UserDto userDto)
-            throws InstanceNotFoundException, PermissionException {
+            throws InstanceNotFoundException,  DuplicateInstanceException, DuplicateEmailException,PermissionException {
 
         if (!id.equals(userId)) {
             throw new PermissionException();
         }
 
-        return toUserDto(userService.updateProfile(id, userDto.getFirstName(), userDto.getLastName(),
+        return toUserDto(userService.updateProfile(id, userDto.getUserName(), userDto.getFirstName(), userDto.getLastName(),
                 userDto.getEmail(), userDto.getAvatar()));
 
     }

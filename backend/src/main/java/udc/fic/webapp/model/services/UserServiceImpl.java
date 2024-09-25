@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
         User user = permissionChecker.checkUser(id);
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new IncorrectPasswordException();
+            throw new IncorrectPasswordException("Contraseña incorrecta", oldPassword);
         } else {
             user.setPassword(passwordEncoder.encode(newPassword));
         }

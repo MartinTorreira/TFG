@@ -14,14 +14,16 @@ export const NavbarDropdown = ({ imagePath }) => {
   const { setToken } = useContext(LoginContext);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
     setToken(null);
     localStorage.removeItem("avatar");
     localStorage.removeItem(config.SERVICE_TOKEN_NAME);
     navigate("/home");
   };
 
-  const handleNavigate = () => {
+  const handleNavigate = (e) => {
+    //e.preventDefault();
     navigate("/users/profile");
   };
 

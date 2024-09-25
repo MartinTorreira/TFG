@@ -69,7 +69,7 @@ import {
   export const logout = () => removeServiceToken();
   
   export const updateProfile = ( user, onSuccess, onErrors) =>
-    appFetch(`/users/${user.id}`, fetchConfig("PUT", user), onSuccess, onErrors);
+    appFetch(`/user/${user.id}/updateProfile`, fetchConfig("PUT", user), onSuccess, onErrors);
   
   export const changePassword = (
     id,
@@ -79,7 +79,7 @@ import {
     onErrors
   ) =>
     appFetch(
-      `/users/${id}/changePassword`,
+      `/user/${id}/changePassword`,
       fetchConfig("POST", { oldPassword, newPassword }),
       onSuccess,
       onErrors

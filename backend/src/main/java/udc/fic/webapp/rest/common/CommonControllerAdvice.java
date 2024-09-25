@@ -25,6 +25,8 @@ public class CommonControllerAdvice {
 	private final static String PERMISSION_EXCEPTION_CODE = "project.exceptions.PermissionException";
 	private final static String SESSION_ALREADY_STARTED_EXCEPTION_CODE = "project.exceptions.SessionAlreadyStartedException";
 	private final static String NON_EXISTENT_SESSION_EXCEPTION = "project.exceptions.NonExistentSession";
+	private final static String INCORRECT_PASSWORD_EXCEPTION = "project.exceptions.IncorrectPasswordException";
+
 
 	@Autowired
 	private MessageSource messageSource;
@@ -110,6 +112,20 @@ public class CommonControllerAdvice {
 
 		String errorMessage = messageSource.getMessage(NON_EXISTENT_SESSION_EXCEPTION, null, exception.getLocalizedMessage(),
 				locale);
+
+		return new ErrorsDto(errorMessage);
+	}
+
+
+	//IncorrectPasswordException
+	@ExceptionHandler(IncorrectPasswordException.class)
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ResponseBody
+	public ErrorsDto handleIncorrectPasswordException(IncorrectPasswordException exception, Locale locale){
+
+		String nameMessage = messageSource.getMessage(exception.getName(), null, exception.getName(), locale);
+		String errorMessage = messageSource.getMessage(INCORRECT_PASSWORD_EXCEPTION,
+				new Object[] {nameMessage, exception.getKey().toString()}, INCORRECT_PASSWORD_EXCEPTION, locale);
 
 		return new ErrorsDto(errorMessage);
 	}

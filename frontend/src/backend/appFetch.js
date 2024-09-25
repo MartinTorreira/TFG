@@ -119,7 +119,7 @@ export const fetchConfig = (method, body) => {
 
 export const appFetch = (path, options, onSuccess, onErrors) => { 
 
-	console.log(options);
+	console.log("back " + path + options);
 
 	fetch(`${config.BASE_PATH}${path}`, options)
         .then((response) => handleResponse(response, onSuccess, onErrors))

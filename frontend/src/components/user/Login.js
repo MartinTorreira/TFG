@@ -30,6 +30,7 @@ const Login = () => {
   };
 
   const onSuccess = (authenticatedUser) => {
+    
     setToken(authenticatedUser.serviceToken);
     setUser(authenticatedUser.user);
 
@@ -44,7 +45,7 @@ const Login = () => {
   };
 
   const handleLogin = (e) => {
-    //e.preventDefault();
+    e.preventDefault();
     login(userName, password, onSuccess, onErrors, reauthenticationCallback);
     console.log(userName, password);
   };

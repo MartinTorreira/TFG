@@ -26,3 +26,4 @@ export const validateRegisterForm = ({ userName, firstName, lastName, email, pas
   
     return formErrors;
   };
+

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { LoginContext } from "./context/LoginContext";
 import { config } from "../config/constants";
+import {CardGrid} from "./CardGrid";
 
 const Home = () => {
 
@@ -23,8 +24,10 @@ const Home = () => {
 
     return(
         <div>
-            <img src={avatar} ></img>
-            {console.log("TOKEN: " + token)}
+            {token === null ? 
+                <h1>No estás logeado</h1> : <h1>logged</h1>
+            }
+            {<p>{token}</p>}
         </div>
     )
 

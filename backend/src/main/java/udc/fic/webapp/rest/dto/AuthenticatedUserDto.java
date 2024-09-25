@@ -16,7 +16,7 @@ public class AuthenticatedUserDto {
 
     }
 
-    public String getServiceToken() {
+    public String getServiceToken() {   
         return serviceToken;
     }
 

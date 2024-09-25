@@ -21,20 +21,16 @@ export default function App() {
     <BrowserRouter>
       <Sidebar isOpen={isSidebarOpen} className="z-20" />
       <Toaster richColors position="bottom-center" />
-      <div className="relative flex min-h-screen">
-        <div className="flex-1 flex flex-col relative">
-          <div className="sticky top-0 z-50">
-            <Navbar />
-          </div>
-          <Routes>
-            <Route path="/users/login" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/users/signUp" element={<Register />} />
-            <Route path="/users/profile" element={<ProfileSettings />} />
-          </Routes>
+      <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">    <Navbar />
+        <Routes>
+          <Route path="/users/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/users/signUp" element={<Register />} />
+          <Route path="/users/profile" element={<ProfileSettings />} />
+        </Routes>
         </div>
-      </div>
+    
       {/* <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/users/signup" element={<Register />} /> 

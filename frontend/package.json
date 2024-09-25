@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
     "@carbon/react": "^1.66.0",
+    "@files-ui/react": "^1.2.4",
     "@freshworks/crayons": "^4.2.0",
     "@headlessui/react": "^2.1.8",
     "@lemonsqueezy/wedges": "^1.4.0",

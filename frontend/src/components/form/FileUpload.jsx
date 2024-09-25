@@ -4,13 +4,13 @@ import { DeleteImageIcon } from "../../icons/DeleteImageIcon";
 
 const FileUpload = ({ label, onFileChange }) => {
   const [file, setFile] = useState(null);
-  const fileInputRef = useRef(null); // Añadimos una referencia al input del archivo
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      onFileChange(selectedFile); // Asegúrate de manejar el archivo aquí
+      onFileChange(selectedFile); 
     }
   };
 
@@ -19,15 +19,15 @@ const FileUpload = ({ label, onFileChange }) => {
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
       setFile(droppedFile);
-      onFileChange(droppedFile); // Asegúrate de manejar el archivo aquí
+      onFileChange(droppedFile); 
     }
   };
 
   const handleRemove = () => {
     setFile(null);
-    onFileChange(null); // Asegúrate de manejar el archivo nulo aquí
+    onFileChange(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Reinicia el input del archivo
+      fileInputRef.current.value = "";
     }
   };
 

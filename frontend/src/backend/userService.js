@@ -93,7 +93,7 @@ import {
     onErrors
   ) => {
     appFetch(
-      `/users/${userId}/changeAvatar`,
+      `/user/${userId}/changeAvatar`,
       fetchConfig("POST", { url }),
       onSuccess,
       onErrors

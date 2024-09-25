@@ -4,13 +4,13 @@ import { uploadFile } from "../../firebase/config.js";
 import { config } from "../../config/constants.js";
 import { InputProfile } from "../form/InputProfile.jsx";
 import ButtonSubmit from "../form/ButtonSubmit.jsx";
-import { updateProfile } from "../../backend/userService.js";
+import { changeAvatar, updateProfile } from "../../backend/userService.js";
 import { changePassword } from "../../backend/userService.js";
 import { toast } from "sonner";
 
 const ProfileSettings = () => {
   // ------ Context -----------------------------------------------
-  const { user, setImage } = useContext(LoginContext);
+  const { user, updateUserAvatar } = useContext(LoginContext);
 
   // ------ User Information ----------------------------------------
   const [userName, setUsername] = useState(user?.userName || "");
@@ -24,7 +24,7 @@ const ProfileSettings = () => {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
 
   // ------ User Avatar ---------------------------------------------
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const [userAvatar, setUserAvatar] = useState(user?.avatar || "");
 
   // ------ Errors & Validation -------------------------------------
@@ -32,13 +32,12 @@ const ProfileSettings = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [globalError, setGlobalError] = useState("");
 
-  
   const onSuccess = () => {
     toast.success("Datos actualizados");
   };
 
   const onErrors = (error) => {
-    console.log("El error es " );
+    console.log("El error es ");
     if (
       error.globalError &&
       error.globalError.includes("DuplicateInstanceException")
@@ -57,22 +56,24 @@ const ProfileSettings = () => {
     }
   };
 
-
   const handleUpdateProfile = () => {
     const updatedUser = {
-    //  userName,
       id: user.id,
       firstName,
       lastName,
       email,
-      avatar
-    }
+      avatar,
+    };
 
     // Se guarda el usuario en el localStorage para mantener los valores de los placeholder de los inputs
-    updateProfile(updatedUser, () => {
-      onSuccess();
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-    }, onErrors);
+    updateProfile(
+      updatedUser,
+      () => {
+        onSuccess();
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      },
+      onErrors
+    );
   };
 
   const handleChangePassword = () => {
@@ -83,16 +84,27 @@ const ProfileSettings = () => {
     changePassword(user.id, oldPassword, newPassword, onSuccess, onErrors);
   };
 
+  const handleChangeAvatar = (files) => {
+    const selectedFile = files[0];
+    if (selectedFile) {
+      setAvatar(selectedFile);
+    }
+  };
+
   const handleSubmitAvatar = async () => {
+    if (!avatar) {
+      toast.error("No se ha seleccionado ningún archivo");
+      return;
+    }
+
     const result = await uploadFile(avatar);
     const fullPath = result.metadata.fullPath;
     const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
 
     setUserAvatar(route);
-    localStorage.setItem("avatar", route);
-    setImage(route);
+    updateUserAvatar(route);
+    changeAvatar(user.id, route, onSuccess, onErrors);
   };
-
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -132,7 +144,7 @@ const ProfileSettings = () => {
               type="file"
               accept=".jpeg, .png, .jpg, .svg"
               id="formFile"
-              onChange={(e) => setAvatar(e.target.files[0])}
+              onChange={(e) => handleChangeAvatar(e.target.files)}
             />
             <button onClick={handleSubmitAvatar}>Subir Avatar</button>
           </div>

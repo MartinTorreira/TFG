@@ -7,6 +7,7 @@ import ButtonSubmit from "../form/ButtonSubmit.jsx";
 import { changeAvatar, updateProfile } from "../../backend/userService.js";
 import { changePassword } from "../../backend/userService.js";
 import { toast } from "sonner";
+import { EditIcon } from "../../icons/EditoIcon.jsx";
 
 const ProfileSettings = () => {
   // ------ Context -----------------------------------------------
@@ -56,13 +57,26 @@ const ProfileSettings = () => {
     }
   };
 
-  const handleUpdateProfile = () => {
+  // Cambiar datos personales y/o avatar
+  const handleUpdateProfile = async () => {
+    let avatarUrl = userAvatar;
+
+    if (avatar) {
+      const result = await uploadFile(avatar);
+      const fullPath = result.metadata.fullPath;
+      avatarUrl = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
+
+      setUserAvatar(avatarUrl);
+      updateUserAvatar(avatarUrl);
+      changeAvatar(user.id, avatarUrl, onSuccess, onErrors);
+    }
+
     const updatedUser = {
       id: user.id,
       firstName,
       lastName,
       email,
-      avatar,
+      avatar: avatarUrl,
     };
 
     // Se guarda el usuario en el localStorage para mantener los valores de los placeholder de los inputs
@@ -88,22 +102,14 @@ const ProfileSettings = () => {
     const selectedFile = files[0];
     if (selectedFile) {
       setAvatar(selectedFile);
+
+      // Leer el archivo seleccionado y actualizar el estado del avatar
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUserAvatar(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
     }
-  };
-
-  const handleSubmitAvatar = async () => {
-    if (!avatar) {
-      toast.error("No se ha seleccionado ningún archivo");
-      return;
-    }
-
-    const result = await uploadFile(avatar);
-    const fullPath = result.metadata.fullPath;
-    const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
-
-    setUserAvatar(route);
-    updateUserAvatar(route);
-    changeAvatar(user.id, route, onSuccess, onErrors);
   };
 
   useEffect(() => {
@@ -123,6 +129,10 @@ const ProfileSettings = () => {
     }
   };
 
+  const handleButtonClick = () => {
+    document.getElementById("formFile").click();
+  };
+
   return (
     <div className="flex flex-col items-center p-10 space-y-10 mx-auto max-w-7xl">
       {/* Avatar y Datos públicos */}
@@ -134,24 +144,33 @@ const ProfileSettings = () => {
         {/* Avatar centralizado */}
         <div className="flex justify-center items-center py-6">
           <div className="flex flex-col items-center gap-2">
-            <img
-              src={userAvatar || user.avatar}
-              alt="profile-picture"
-              className="h-28 w-28 object-cover rounded-full mb-4"
-            />
             <input
-              className="relative block w-full max-w-xs rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out hover:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:bg-neutral-700 dark:focus:border-primary"
+              className="hidden"
               type="file"
               accept=".jpeg, .png, .jpg, .svg"
               id="formFile"
               onChange={(e) => handleChangeAvatar(e.target.files)}
             />
-            <button onClick={handleSubmitAvatar}>Subir Avatar</button>
+            <button
+              className="relative block w-full max-w-xs rounded group"
+              onClick={handleButtonClick}
+            >
+              <div className="relative h-28 w-28 mb-4">
+                <img
+                  src={userAvatar || user.avatar}
+                  alt="profile-picture"
+                  className="h-full w-full object-cover rounded-full border border-gray-800 transition-all duration-300 group-hover:brightness-50"
+                />
+                <div className="absolute inset-0 flex justify-center items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <p className="text-white text-lg font-semibold">Cambiar</p>
+                </div>
+              </div>
+            </button>
           </div>
         </div>
 
         {/* Datos personales */}
-        <div className="mt-10 flex flex-col lg:grid lg:grid-cols-2 gap-y-6 px-40">
+        <div className="mt-2 flex flex-col lg:grid lg:grid-cols-2 gap-y-6 px-40">
           <div className="flex justify-center">
             <InputProfile
               label={"Username"}

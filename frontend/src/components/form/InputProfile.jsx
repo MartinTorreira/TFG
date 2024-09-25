@@ -29,10 +29,10 @@ export const InputProfile = ({
         <input
           type={type}
           className={`bg-gray-200 text-gray-900 text-md rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2 pl-2 pr-10 placeholder:italic placeholder:text-gray-600 font-semibold w-full`}
-          placeholder={isEditing ? "" : placeholder} // Cambia el placeholder según el estado de edición
+          placeholder={isEditing || type === "password" ? "" : placeholder} // Cambia el placeholder según el estado de edición
           required={required}
           onChange={onChange}
-          value={isEditing ? value : ""} // Si estamos editando, muestra el valor, de lo contrario, vacío
+          value={isEditing || type === "password" ? value : ""} // Si estamos editando o es un campo de contraseña, muestra el valor, de lo contrario, vacío
           onFocus={() => setIsEditing(true)} // Establece isEditing en true cuando se enfoca el input
           onBlur={() => setIsEditing(false)} // Establece isEditing en false cuando pierde el foco
           disabled={edit && !isEditing} // Deshabilita el input si no estamos editando

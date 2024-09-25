@@ -7,6 +7,7 @@ import Home from "./components/Home.jsx";
 import Login from "./components/user/Login.js";
 import Register from "./components/user/Register.js";
 import ProfileSettings from "./components/user/ProfileSettings.js";
+import Stats from "./components/user/Stats.js";
 
 import { Toaster } from "sonner";
 
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/users/signUp" element={<Register />} />
           <Route path="/users/profile" element={<ProfileSettings />} />
+          <Route path="/users/stats" element={<Stats />} />
         </Routes>
         </div>
     

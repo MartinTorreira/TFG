@@ -63,7 +63,7 @@ const ProfileSettings = () => {
 
       setUserAvatar(avatarUrl);
       updateUserAvatar(avatarUrl);
-      changeAvatar(user.id, avatarUrl, onSuccess, onErrors);
+      changeAvatar(user.id, avatarUrl, ()=>{}, onErrors);
     }
 
     const updatedUser = {
@@ -155,10 +155,10 @@ const ProfileSettings = () => {
                 <img
                   src={userAvatar || user.avatar}
                   alt="profile-picture"
-                  className="h-full w-full object-cover rounded-full border border-gray-800 transition-all duration-300 group-hover:brightness-50"
+                  className="h-full w-full object-cover rounded-full border border-gray-800 transition-all duration-300 group-hover:brightness-50 group-hover:opacity-20"
                 />
                 <div className="absolute inset-0 flex justify-center items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <p className="text-white text-lg font-semibold">Cambiar</p>
+                  <p className="text-dark text-lg font-semibold">Cambiar</p>
                 </div>
               </div>
             </button>

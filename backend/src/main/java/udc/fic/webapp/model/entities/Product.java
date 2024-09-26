@@ -1,6 +1,13 @@
 package udc.fic.webapp.model.entities;
 
+import udc.fic.webapp.model.entities.Category;
+import udc.fic.webapp.model.entities.User;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -10,18 +17,20 @@ public class Product {
     private String description;
     private double price;
     private int quantity;
-    private String image;
+    private List<String> images;
     private User user;
+    private Category category;
 
     public Product() {}
 
-    public Product(String name, String description, double price, int quantity, String image, User user) {
+    public Product(String name, String description, double price, int quantity, List<String> images, User user, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
-        this.image = image;
+        this.images = images;
         this.user = user;
+        this.category = category;
     }
 
     @Id
@@ -34,6 +43,8 @@ public class Product {
         this.id = id;
     }
 
+    @Column(name = "name", unique = true)
+    @Size(max = 60)
     public String getName() {
         return name;
     }
@@ -42,6 +53,7 @@ public class Product {
         this.name = name;
     }
 
+    @Size(max = 255) // Descripción opcional
     public String getDescription() {
         return description;
     }
@@ -50,6 +62,8 @@ public class Product {
         this.description = description;
     }
 
+    @Column(name = "price", nullable = false)
+    @Positive
     public double getPrice() {
         return price;
     }
@@ -58,6 +72,8 @@ public class Product {
         this.price = price;
     }
 
+    @Column(name = "quantity", nullable = false)
+    @Min(value = 1)
     public int getQuantity() {
         return quantity;
     }
@@ -66,17 +82,30 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getImage() {
-        return image;
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image")
+    public List<String> getImage() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(List<String> image) {
+        this.images = image;
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    public User getUser () {
+    @JoinColumn(name = "categoryId", nullable = false)
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    public User getUser() {
         return user;
     }
 

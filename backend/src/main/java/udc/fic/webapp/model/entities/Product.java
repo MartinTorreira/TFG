@@ -14,13 +14,13 @@ public class Product {
     private String description;
     private double price;
     private int quantity;
-    private List<String> images;
+    private List<Product_Images> images;
     private User user;
     private Category category;
 
     public Product() {}
 
-    public Product(String name, String description, double price, int quantity, List<String> images, User user, Category category) {
+    public Product(String name, String description, double price, int quantity, List<Product_Images> images, User user, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -79,14 +79,12 @@ public class Product {
         this.quantity = quantity;
     }
 
-    @ElementCollection
-    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "image")
-    public List<String> getImage() {
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Product_Images> getImage() {
         return images;
     }
 
-    public void setImage(List<String> image) {
+    public void setImage(List<Product_Images> image) {
         this.images = image;
     }
 

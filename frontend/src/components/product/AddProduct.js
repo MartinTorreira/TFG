@@ -2,36 +2,76 @@ import React, { useContext, useState } from "react";
 import ButtonSubmit from "../form/ButtonSubmit";
 import { CategoryDisplay } from "./CategoryDisplay";
 import { LoginContext } from "../context/LoginContext";
-import FileUpload from "../form/FileUpload.jsx";
+import ProductImageUpload from "../form/ProductImageUpload";
+import { uploadFile } from "../../firebase/config";
+import { config } from "../../config/constants";
+import { addProduct } from "../../backend/productService";
 
 const AddProduct = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isSubcategory, setIsSubcategory] = useState(false);
 
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState(null);
+  const [images, setImages] = useState([]);
+
   const { user } = useContext(LoginContext);
 
-  // Definimos las categorías y subcategorías
-  const categories = {
-    Electronics: ["Mobile Phones", "Laptops", "Cameras"],
-    Clothing: ["Men", "Women", "Children"],
-    Home: ["Furniture", "Kitchen", "Garden"],
+  const handleSubmitImages = (files) => {
+    const imagesArray = Array.from(files);
+    setImages(imagesArray);
   };
 
-  const handleOptionChange = (e) => {
-    const value = e.target.value;
-    setSelectedOption(value);
-    // Verificamos si la opción seleccionada es una categoría o no
-    setIsSubcategory(categories.hasOwnProperty(value));
+  const uploadImages = async () => {
+    const uploadedImages = [];
+
+    for (const image of images) {
+      try {
+        const result = await uploadFile(image);
+        const fullPath = result.metadata.fullPath;
+        const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
+
+        uploadedImages.push(route);
+        console.log("Image subida: ", route);
+      } catch (error) {
+        console.log("Error al subir la imagen:", error);
+      }
+    }
+    return uploadedImages;
   };
 
-  const handleSubcategoryChange = (e) => {
-    setSelectedOption(e.target.value);
-    setIsSubcategory(false); // Regresar a mostrar categorías
+  const handleCategorySelect = (category) => {
+    if (category.subcategoryIds.length === 0) {
+      console.log("llego aqui", category.id);
+      setCategory(category.id);
+    } else return;
   };
 
-  const onSuccess = () => {};
+  const onSuccess = () => {
+    console.log("arriba espsña");
+  };
 
-  const onErrors = () => {};
+  const onErrors = () => {
+    console.log("gibraltar español");
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+    const imageList = await uploadImages();
+    const product = {
+      name,
+      quantity,
+      price,
+      description,
+      imageList,
+      category,
+    };
+
+    addProduct(product, onSuccess, onErrors);
+  };
 
   return (
     <section className="bg-white">
@@ -39,7 +79,7 @@ const AddProduct = () => {
         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
           Vender producto
         </h2>
-        <form action="#">
+        <form onSubmit={handleSubmit}>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div className="sm:col-span-2">
               <label
@@ -49,6 +89,8 @@ const AddProduct = () => {
                 Nombre del producto
               </label>
               <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 type="text"
                 name="name"
                 id="name"
@@ -65,6 +107,8 @@ const AddProduct = () => {
                 Cantidad
               </label>
               <input
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
                 type="number"
                 name="item-weight"
                 id="item-weight"
@@ -82,6 +126,8 @@ const AddProduct = () => {
                 Precio
               </label>
               <input
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 type="number"
                 step="any"
                 name="price"
@@ -99,7 +145,7 @@ const AddProduct = () => {
               >
                 Categoría/Subcategoría
               </label>
-              <CategoryDisplay />
+              <CategoryDisplay onCategorySelect={handleCategorySelect} />
             </div>
 
             <div className="sm:col-span-2">
@@ -110,6 +156,8 @@ const AddProduct = () => {
                 Descripción
               </label>
               <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 id="description"
                 rows="8"
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -117,8 +165,8 @@ const AddProduct = () => {
               ></textarea>
             </div>
 
-            <div>
-              <FileUpload
+            <div className="sm:col-span-2">
+              <ProductImageUpload
                 label={"Añadir fotos"}
                 onFileChange={handleSubmitImages}
               />
@@ -126,7 +174,7 @@ const AddProduct = () => {
           </div>
 
           <div className="mt-10">
-            <ButtonSubmit label={"Guardar"} dark={true} />
+            <ButtonSubmit label={"Guardar"} dark={true} fn={handleSubmit} />
           </div>
         </form>
       </div>

@@ -64,6 +64,7 @@ const FileUpload = ({ label, onFileChange }) => {
         <input
           type="file"
           id="fileInput"
+          multiple="multiple"
           ref={fileInputRef}
           className="hidden"
           onChange={handleFileChange}

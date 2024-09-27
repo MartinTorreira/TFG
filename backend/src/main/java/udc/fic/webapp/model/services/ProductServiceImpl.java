@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
+import udc.fic.webapp.rest.dto.ProductConversor;
+import udc.fic.webapp.rest.dto.ProductDto;
+
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -32,15 +36,24 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryDao.findById(categoryId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.category", categoryId));
 
-        // Comprobar si la categoría tiene subcateogorías
+        // Comprobar si la categoría tiene subcategorías
         if (categoryDao.existsByParentCategoryId(categoryId)) {
             throw new IllegalArgumentException("project.entities.category.hasSubcategories");
         }
 
-        Product product = new Product(name, description, price, quantity, images, user, category);
+        // Crear el producto sin imágenes
+        Product product = new Product(name, description, price, quantity, null, user, category);
+        product = productDao.save(product);
 
+        // Convertir lista de imágenes en una lista de objetos Product_Images
+        Product finalProduct = product;
+        List<Product_Images> productImages = images.stream()
+                .map(image -> new Product_Images(finalProduct, image))
+                .collect(Collectors.toList());
+
+        // Asignar las imágenes al producto y guardar de nuevo
+        product.setImage(productImages);
         return productDao.save(product);
-
     }
 
     @Override

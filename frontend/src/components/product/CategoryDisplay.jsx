@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useCategoryStore } from "../store/useCategoryStore";
 import "./CategoryDisplay.css";
 
-export const CategoryDisplay = () => {
+export const CategoryDisplay = ({ onCategorySelect }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { categories, loading, error, fetchCategories } = useCategoryStore();
@@ -29,6 +29,11 @@ export const CategoryDisplay = () => {
     return rootCategories;
   };
 
+  const handleCategoryClick = (category) => {
+    onCategorySelect(category);
+    setIsOpen(false);
+  };
+
   const renderCategories = (categories) => {
     return (
       <ul className="bg-white border rounded-lg transform scale-0 group-hover:scale-100 absolute transition duration-200 origin-top min-w-32">
@@ -36,6 +41,7 @@ export const CategoryDisplay = () => {
           <li
             key={category.id}
             className="relative px-3 py-1 hover:bg-gray-100"
+            onClick={() => handleCategoryClick(category)}
           >
             <button className="w-full text-left flex items-center outline-none focus:outline-none">
               <span className="pr-1 flex-1">{category.name}</span>
@@ -83,7 +89,6 @@ export const CategoryDisplay = () => {
             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
           </svg>
         </span>
-        {/* Aquí puedes añadir el texto o cualquier otro contenido dentro del botón */}
       </button>
       {isOpen && renderCategories(organizedCategories)}
     </div>

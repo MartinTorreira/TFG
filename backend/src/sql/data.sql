@@ -22,3 +22,5 @@ INSERT INTO Category (name, parent_category_id) VALUES ('Accesorios', @moda_id);
 INSERT INTO Category (name, parent_category_id) VALUES ('Equipamiento Deportivo', @deportes_id);
 INSERT INTO Category (name, parent_category_id) VALUES ('Ropa Deportiva', @deportes_id);
 INSERT INTO Category (name, parent_category_id) VALUES ('Calzado Deportivo', @deportes_id);
+
+

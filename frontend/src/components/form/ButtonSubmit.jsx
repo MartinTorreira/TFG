@@ -2,6 +2,7 @@ const ButtonSubmit = ({ label, fn, dark }) => {
   return (
     <div className="flex justify-end">
       <button
+        type="button"
         className={`font-semibold py-2 px-4 border-2 rounded ${
           dark
             ? "bg-gray-900 text-white border-gray-900 hover:opacity-90 hover:border-gray-900"

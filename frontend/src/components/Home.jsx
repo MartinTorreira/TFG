@@ -18,12 +18,7 @@ const Home = () => {
     }
   }, [setToken, setUser]);
 
-  return (
-    <div>
-      {token === null ? <h1>No estás logeado</h1> : <h1>logged</h1>}
-      {<p>{token}</p>}
-    </div>
-  );
+  return <CardGrid />;
 };
 
 export default Home;

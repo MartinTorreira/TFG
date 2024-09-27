@@ -66,7 +66,7 @@ const FileUpload = ({ label, onFileChange }) => {
         {fileList.length >= 10 ? null : uploadButton}
       </Upload>
       <Modal
-        visible={previewOpen}
+        open={previewOpen}
         footer={null}
         onCancel={() => setPreviewOpen(false)}
       >

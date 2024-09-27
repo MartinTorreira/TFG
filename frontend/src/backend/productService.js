@@ -1,11 +1,4 @@
-import {
-  fetchConfig,
-  appFetch,
-  setServiceToken,
-  getServiceToken,
-  removeServiceToken,
-  setReauthenticationCallback,
-} from "./appFetch";
+import { fetchConfig, appFetch } from "./appFetch";
 
 export const getProducts = async (onSuccess, onErrors) => {
   const url =
@@ -33,7 +26,7 @@ export const addProduct = (
   onErrors,
   reauthenticationCallback,
 ) => {
-  appFetch(`/posts/`, fetchConfig("POST", product), onSuccess, onErrors);
+  appFetch(`/product/add`, fetchConfig("POST", product), onSuccess, onErrors);
 };
 
 export const getAllCategories = (onSuccess, onErrors) => {

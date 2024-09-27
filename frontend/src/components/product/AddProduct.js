@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import ButtonSubmit from "../form/ButtonSubmit";
 import { CategoryDisplay } from "./CategoryDisplay";
 import { LoginContext } from "../context/LoginContext";
 import ProductImageUpload from "../form/ProductImageUpload";
@@ -8,9 +7,6 @@ import { config } from "../../config/constants";
 import { addProduct } from "../../backend/productService";
 
 const AddProduct = () => {
-  const [selectedOption, setSelectedOption] = useState("");
-  const [isSubcategory, setIsSubcategory] = useState(false);
-
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
@@ -47,7 +43,7 @@ const AddProduct = () => {
     if (category.subcategoryIds.length === 0) {
       console.log("llego aqui", category.id);
       setCategory(category.id);
-    } else return;
+    }
   };
 
   const onSuccess = () => {
@@ -66,9 +62,11 @@ const AddProduct = () => {
       quantity,
       price,
       description,
-      imageList,
-      category,
+      images: imageList,
+      categoryDto: { id: category },
     };
+
+    console.log(product);
 
     addProduct(product, onSuccess, onErrors);
   };
@@ -76,10 +74,10 @@ const AddProduct = () => {
   return (
     <section className="bg-white">
       <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-        <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+        <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white ">
           Vender producto
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div className="sm:col-span-2">
               <label
@@ -94,7 +92,7 @@ const AddProduct = () => {
                 type="text"
                 name="name"
                 id="name"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 font-light text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 placeholder="Escribe el nombre del producto"
                 required
               />
@@ -112,7 +110,7 @@ const AddProduct = () => {
                 type="number"
                 name="item-weight"
                 id="item-weight"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-light rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 placeholder="12"
                 required
               />
@@ -121,7 +119,7 @@ const AddProduct = () => {
             <div className="w-full">
               <label
                 htmlFor="price"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 "
               >
                 Precio
               </label>
@@ -132,7 +130,7 @@ const AddProduct = () => {
                 step="any"
                 name="price"
                 id="price"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-light rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                 placeholder="14,99€"
                 required
               />
@@ -145,7 +143,9 @@ const AddProduct = () => {
               >
                 Categoría/Subcategoría
               </label>
-              <CategoryDisplay onCategorySelect={handleCategorySelect} />
+              <CategoryDisplay
+                onCategorySelect={(e) => handleCategorySelect(e)}
+              />
             </div>
 
             <div className="sm:col-span-2">
@@ -160,7 +160,7 @@ const AddProduct = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 id="description"
                 rows="8"
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                className="block p-2.5 w-full text-sm text-gray-900 font-light bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder="Escribe la descripción del producto"
               ></textarea>
             </div>
@@ -174,7 +174,8 @@ const AddProduct = () => {
           </div>
 
           <div className="mt-10">
-            <ButtonSubmit label={"Guardar"} dark={true} fn={handleSubmit} />
+            {/* <ButtonSubmit label={"Guardar"} dark={true} fn={handleSubmit} /> */}
+            <button onClick={handleSubmit}>Submit</button>
           </div>
         </form>
       </div>

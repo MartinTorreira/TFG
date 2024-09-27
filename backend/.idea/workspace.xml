@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product_Images.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product_Images.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ProductConversor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ProductConversor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sql/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/CardItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/CardItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/form/ButtonSubmit.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/form/ButtonSubmit.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/form/FileUpload.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/form/FileUpload.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/form/ProductImageUpload.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/form/ProductImageUpload.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/AddProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/AddProduct.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CategoryDisplay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CategoryDisplay.jsx" afterDir="false" />
     </list>
@@ -140,7 +130,7 @@
       <workItem from="1727430396701" duration="6433000" />
       <workItem from="1727438010187" duration="8520000" />
       <workItem from="1727473700450" duration="85000" />
-      <workItem from="1727473888737" duration="1342000" />
+      <workItem from="1727473888737" duration="3695000" />
     </task>
     <servers />
   </component>

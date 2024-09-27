@@ -4,6 +4,7 @@ import "./CategoryDisplay.css";
 
 export const CategoryDisplay = ({ onCategorySelect }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("--");
 
   const { categories, loading, error, fetchCategories } = useCategoryStore();
 
@@ -30,8 +31,11 @@ export const CategoryDisplay = ({ onCategorySelect }) => {
   };
 
   const handleCategoryClick = (category) => {
-    onCategorySelect(category);
-    setIsOpen(false);
+    if (category.subcategories.length === 0) {
+      setSelectedCategory(category.name);
+      onCategorySelect(category);
+      setIsOpen(false);
+    }
   };
 
   const renderCategories = (categories) => {
@@ -79,7 +83,7 @@ export const CategoryDisplay = ({ onCategorySelect }) => {
         className="flex items-center justify-between outline-none focus:outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-3 dark:bg-gray-700"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="ml-2">--</span>
+        <span className="">{selectedCategory}</span>
         <span>
           <svg
             className="fill-current h-4 w-4 transform group-hover:-rotate-180"

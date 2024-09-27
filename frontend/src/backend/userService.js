@@ -8,7 +8,6 @@ import {
   } from "./appFetch";
   
   const processLoginSignUp = (authenticatedUser, reauthenticationCallback, onSuccess) => {
-    console.log("ProcessLoginSignUp");
     setServiceToken(authenticatedUser.serviceToken);
     setReauthenticationCallback(reauthenticationCallback);
     onSuccess(authenticatedUser);
@@ -76,15 +75,21 @@ import {
     oldPassword,
     newPassword,
     onSuccess,
-    onErrors
-  ) =>
+    onErrors,
+    reauthenticationCallback
+  ) =>{
+
+    setReauthenticationCallback(reauthenticationCallback);
+
     appFetch(
       `/user/${id}/changePassword`,
       fetchConfig("POST", { oldPassword, newPassword }),
       onSuccess,
-      onErrors
+      onErrors,
     );
   
+  }
+    
   
   export const changeAvatar = (
     userId,

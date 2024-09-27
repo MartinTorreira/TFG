@@ -1,10 +1,6 @@
 package udc.fic.webapp.rest.dto;
 
-import udc.fic.webapp.model.entities.Category;
 import udc.fic.webapp.model.entities.Product;
-import udc.fic.webapp.model.entities.User;
-
-import java.util.List;
 
 
 public class ProductConversor {

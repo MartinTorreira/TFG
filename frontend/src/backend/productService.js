@@ -1,3 +1,12 @@
+import {
+  fetchConfig,
+  appFetch,
+  setServiceToken,
+  getServiceToken,
+  removeServiceToken,
+  setReauthenticationCallback,
+} from "./appFetch";
+
 export const getProducts = async (onSuccess, onErrors) => {
   const url =
     "https://wallapop3.p.rapidapi.com/search?query=camaras&minPrice=10&maxPrice=20&sort=mostRecent";
@@ -16,4 +25,17 @@ export const getProducts = async (onSuccess, onErrors) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const addProduct = (
+  product,
+  onSuccess,
+  onErrors,
+  reauthenticationCallback,
+) => {
+  appFetch(`/posts/`, fetchConfig("POST", product), onSuccess, onErrors);
+};
+
+export const getAllCategories = (onSuccess, onErrors) => {
+  appFetch(`/product/allCategories`, fetchConfig("GET"), onSuccess, onErrors);
 };

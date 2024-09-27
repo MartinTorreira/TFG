@@ -8,6 +8,7 @@ import { changeAvatar, updateProfile } from "../../backend/userService.js";
 import { changePassword } from "../../backend/userService.js";
 import { toast } from "sonner";
 import { EditIcon } from "../../icons/EditoIcon.jsx";
+import { setReauthenticationCallback } from "../../backend/appFetch.js";
 
 const ProfileSettings = () => {
   // ------ Context -----------------------------------------------
@@ -52,6 +53,10 @@ const ProfileSettings = () => {
     }
   };
 
+  const reauthenticationCallback = () => {
+    toast.error("Reauthenticate");
+  }
+
   // Cambiar datos personales y/o avatar
   const handleUpdateProfile = async () => {
     let avatarUrl = userAvatar;
@@ -91,7 +96,7 @@ const ProfileSettings = () => {
       setErrors({ ...errors, password: "Las contraseñas no coinciden" });
       return;
     }
-    changePassword(user.id, oldPassword, newPassword, onSuccess, onErrors);
+    changePassword(user.id, oldPassword, newPassword, onSuccess, onErrors, reauthenticationCallback);
   };
 
   const handleChangeAvatar = (files) => {

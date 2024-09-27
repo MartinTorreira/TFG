@@ -3,14 +3,20 @@ import { NotificationOff } from "../../icons/NotificationOff";
 import { NotificationOn } from "../../icons/NotificationOn";
 import { LoginContext } from "../context/LoginContext";
 import { NavbarDropdown } from "./NavbarDropdown";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ notification }) => {
   const { user, token } = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/product/add");
+  };
 
   function isLogged() {}
 
   return (
-    <nav className="backdrop-blur-3xl shadow-md">
+    <nav className="backdrop-blur-3xl shadow-md top-0 sticky z-50">
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Left */}
         <div className="flex items-center font-semibold">
@@ -43,8 +49,11 @@ const Navbar = ({ notification }) => {
         <div className="flex items-center gap-x-3 font-semibold">
           <button className="mr-3">
             {notification ? <NotificationOn /> : <NotificationOff />}
-          </button> 
-          <button className="bg-gray-900 border border-gray-800 hover:opacity-70 text-white p-2 py-2 rounded">
+          </button>
+          <button
+            className="bg-gray-900 border border-gray-800 hover:opacity-70 text-white p-2 py-2 rounded"
+            onClick={() => handleNavigate()}
+          >
             Vender
           </button>
 
@@ -54,7 +63,8 @@ const Navbar = ({ notification }) => {
           ) : (
             <a
               className="border border-gray-800 p-2 rounded hover:opacity-70"
-              href="/users/login"  >
+              href="/users/login"
+            >
               Iniciar sesión
             </a>
           )}

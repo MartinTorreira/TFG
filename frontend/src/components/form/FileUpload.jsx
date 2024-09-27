@@ -10,7 +10,7 @@ const FileUpload = ({ label, onFileChange }) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      onFileChange(selectedFile); 
+      onFileChange(selectedFile);
     }
   };
 
@@ -19,7 +19,7 @@ const FileUpload = ({ label, onFileChange }) => {
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
       setFile(droppedFile);
-      onFileChange(droppedFile); 
+      onFileChange(droppedFile);
     }
   };
 
@@ -33,12 +33,14 @@ const FileUpload = ({ label, onFileChange }) => {
 
   return (
     <section className="flex flex-col w-full">
-      { label ? <label
-        htmlFor="email"
-        className="block mb-2 text-sm font-medium text-gray-900"
-      >
-        Avatar
-      </label> : null} 
+      {label ? (
+        <label
+          htmlFor="email"
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          {label}
+        </label>
+      ) : null}
       <div
         className="flex flex-col items-center  w-full p-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 h-32"
         onDragOver={(e) => e.preventDefault()}
@@ -50,14 +52,19 @@ const FileUpload = ({ label, onFileChange }) => {
           htmlFor="fileInput"
           className="mt-3 cursor-pointer text-center text-sm font-light text-neutral-600"
         >
-          {file
-            ? file.name
-            : <p className="text-gray-600">Arrastra y suelta la imagen o haz click<br></br> para seleccionar [.png, .svg, .jpeg, .jpg]</p>}
+          {file ? (
+            file.name
+          ) : (
+            <p className="text-gray-600">
+              Arrastra y suelta la imagen o haz click<br></br> para seleccionar
+              [.png, .svg, .jpeg, .jpg]
+            </p>
+          )}
         </label>
         <input
           type="file"
           id="fileInput"
-          ref={fileInputRef} 
+          ref={fileInputRef}
           className="hidden"
           onChange={handleFileChange}
           accept=".png, .svg, .jpeg, .jpg"
@@ -73,7 +80,7 @@ const FileUpload = ({ label, onFileChange }) => {
               onClick={handleRemove}
               className="absolute -top-1 -right-2 w-4 h-4 flex items-center justify-center hover:opacity-50"
             >
-              <DeleteImageIcon/>
+              <DeleteImageIcon />
             </button>
           </div>
         )}

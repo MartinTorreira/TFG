@@ -32,11 +32,20 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryDao.findById(categoryId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.category", categoryId));
 
+        // Comprobar si la categoría tiene subcateogorías
+        if (categoryDao.existsByParentCategoryId(categoryId)) {
+            throw new IllegalArgumentException("project.entities.category.hasSubcategories");
+        }
 
         Product product = new Product(name, description, price, quantity, images, user, category);
 
         return productDao.save(product);
 
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        return categoryDao.findAll();
     }
 
 

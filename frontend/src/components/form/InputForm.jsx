@@ -12,7 +12,7 @@ export const InputForm = ({ label, type, value, onChange, placeholder, required 
       <input
         type={type}
         name="email"
-        className={`border-gray-300 bg-gray-200 border border-gray-400 text-gray-900 text-md  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 placeholder:italic font-semibold`}
+        className={`border-gray-300 bg-transparent border border-gray-400 text-gray-900 text-md  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 placeholder:italic font-semibold`}
         placeholder={placeholder}
         required={required}
         onChange={onChange}

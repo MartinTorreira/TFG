@@ -34,22 +34,23 @@ export const NavbarDropdown = ({ imagePath }) => {
           <img src={imagePath} className="w-10 h-10 rounded-full" />
         </button>
       </DropdownTrigger>
-      
+
       <DropdownMenu aria-label="Static Actions">
+        <DropdownItem key="edit">
+          <button onClick={() => handleNavigate("/users/profile")}>
+            Mi perfil
+          </button>
+        </DropdownItem>
 
         <DropdownItem key="edit">
-          <button onClick={() => handleNavigate("/users/profile")}>Mi perfil
-            </button>
-        </DropdownItem>
-        
-        <DropdownItem key="edit">
-          <button onClick={() => handleNavigate("/users/stats")}>Estadísticas</button>
+          <button onClick={() => handleNavigate("/users/stats")}>
+            Estadísticas
+          </button>
         </DropdownItem>
 
         <DropdownItem key="delete" className="text-danger" color="danger">
           <button onClick={handleLogout}>Cerrar sesión</button>
         </DropdownItem>
-
       </DropdownMenu>
     </Dropdown>
   );

@@ -1,8 +1,5 @@
 package udc.fic.webapp.model.entities;
 
-import udc.fic.webapp.model.entities.Category;
-import udc.fic.webapp.model.entities.User;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;

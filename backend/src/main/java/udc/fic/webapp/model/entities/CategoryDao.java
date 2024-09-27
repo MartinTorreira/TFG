@@ -15,4 +15,6 @@ public interface CategoryDao extends PagingAndSortingRepository<Category, Long> 
 
     Optional<Category> findById(Long id);
 
+    boolean existsByParentCategoryId(Long categoryId);
+
 }

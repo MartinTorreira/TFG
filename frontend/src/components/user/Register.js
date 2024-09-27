@@ -70,9 +70,9 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-  
+
     setIsSubmitting(true);
-  
+
     const validationErrors = validateRegisterForm({
       userName,
       firstName,
@@ -81,19 +81,19 @@ const Register = () => {
       password,
       confirmPassword,
     });
-  
+
     setErrors(validationErrors);
-  
+
     if (Object.keys(validationErrors).length === 0) {
       const user = getParams();
-  
+
       // Si no hay avatar, establece uno por defecto
       if (!avatar) {
         user.avatar = `https://ui-avatars.com/api/?name=${user.userName}`;
       } else {
         user.avatar = avatar; // Usar el avatar subido si está disponible
       }
-  
+
       signUp(user, onSuccess, onErrors, reauthenticationCallback);
     }
   };
@@ -121,12 +121,12 @@ const Register = () => {
     if (!file) {
       return;
     }
-  
+
     try {
       const result = await uploadFile(file);
       const fullPath = result.metadata.fullPath;
       const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
-  
+
       // Guardar avatar en el localStorage y actualizar el estado
       localStorage.setItem("avatar", route);
       setAvatar(route);
@@ -246,7 +246,10 @@ const Register = () => {
               </div>
 
               <div className="flex">
-                <FileUpload onFileChange={handleSubmitAvatar} />
+                <FileUpload
+                  onFileChange={handleSubmitAvatar}
+                  label={"Avatar"}
+                />
               </div>
 
               <div className="flex items-start">
@@ -258,17 +261,6 @@ const Register = () => {
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
                     required=""
                   />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label htmlFor="terms" className="font-light text-gray-500">
-                    I accept the{" "}
-                    <a
-                      className="font-medium text-primary-600 hover:underline"
-                      href="#"
-                    >
-                      Terms and Conditions
-                    </a>
-                  </label>
                 </div>
               </div>
               <button

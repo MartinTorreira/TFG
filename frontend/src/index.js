@@ -8,9 +8,9 @@ import { LoginProvider } from "./components/context/LoginContext.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LoginProvider>
-      <App />
-    </LoginProvider>
+      <LoginProvider>
+        <App />
+      </LoginProvider>
   </React.StrictMode>
 );
 

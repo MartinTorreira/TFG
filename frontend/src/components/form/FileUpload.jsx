@@ -42,15 +42,15 @@ const FileUpload = ({ label, onFileChange }) => {
         </label>
       ) : null}
       <div
-        className="flex flex-col items-center  w-full p-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 h-32"
+        className="flex flex-col justify-center items-center w-full p-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 h-32"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDrop}
       >
-        <FileUploadIcon size={36} color={"text-gray-600"} />
+        {!file && <FileUploadIcon size={36} color={"text-gray-600"} />}
 
         <label
           htmlFor="fileInput"
-          className="mt-3 cursor-pointer text-center text-sm font-light text-neutral-600"
+          className="cursor-pointer text-center text-sm font-light text-neutral-600"
         >
           {file ? (
             file.name
@@ -75,7 +75,7 @@ const FileUpload = ({ label, onFileChange }) => {
             <img
               src={URL.createObjectURL(file)}
               alt="Preview"
-              className="w-12 h-12 object-cover rounded-full border border-neutral-300 dark:border-neutral-600"
+              className="w-12 h-12 object-cover rounded-full border border-neutral-300"
             />
             <button
               onClick={handleRemove}

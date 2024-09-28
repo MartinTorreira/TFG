@@ -139,7 +139,7 @@ const Register = () => {
   return (
     <section className="mt-20">
       <div className="flex flex-col items-center justify-start px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="bg-gray-50 rounded-lg shadow md:mt-0 w-lg xl:p-0">
+        <div className="bg-gray-50 rounded-lg shadow md:mt-0 w-lg xl:p-0 border ring-2 ring-gray-100">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Crear una cuenta
@@ -252,24 +252,15 @@ const Register = () => {
                 />
               </div>
 
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="terms"
-                    aria-describedby="terms"
-                    type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
-                    required=""
-                  />
-                </div>
-              </div>
-              <button
-                onClick={handleRegister}
-                type="submit"
-                className="w-full text-black bg-gray-200 border hover:border-gray-900 transition all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Crear cuenta
-              </button>
+              <section className="flex mt-20">
+                <button
+                  onClick={handleRegister}
+                  type="submit"
+                  className="w-full bg-gray-900 text-white border hover:opacity-90  transition all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Crear cuenta
+                </button>
+              </section>
               <div className="flex justify-end text-center font-semibold underline">
                 <a className="text-sm text-gray-500" href="/users/login">
                   Iniciar sesión{" "}

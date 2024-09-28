@@ -39,8 +39,8 @@ const ProfileSettings = () => {
   };
 
   const onErrors = (error) => {
-    console.log("ERROR" + error.globalError)
-     if (
+    console.log("ERROR" + error.globalError);
+    if (
       error.globalError &&
       error.globalError.includes("DuplicateEmailException")
     ) {
@@ -55,7 +55,7 @@ const ProfileSettings = () => {
 
   const reauthenticationCallback = () => {
     toast.error("Reauthenticate");
-  }
+  };
 
   // Cambiar datos personales y/o avatar
   const handleUpdateProfile = async () => {
@@ -68,7 +68,7 @@ const ProfileSettings = () => {
 
       setUserAvatar(avatarUrl);
       updateUserAvatar(avatarUrl);
-      changeAvatar(user.id, avatarUrl, ()=>{}, onErrors);
+      changeAvatar(user.id, avatarUrl, () => {}, onErrors);
     }
 
     const updatedUser = {
@@ -87,7 +87,7 @@ const ProfileSettings = () => {
         onSuccess();
         localStorage.setItem("user", JSON.stringify(updatedUser));
       },
-      onErrors
+      onErrors,
     );
   };
 
@@ -96,7 +96,14 @@ const ProfileSettings = () => {
       setErrors({ ...errors, password: "Las contraseñas no coinciden" });
       return;
     }
-    changePassword(user.id, oldPassword, newPassword, onSuccess, onErrors, reauthenticationCallback);
+    changePassword(
+      user.id,
+      oldPassword,
+      newPassword,
+      onSuccess,
+      onErrors,
+      reauthenticationCallback,
+    );
   };
 
   const handleChangeAvatar = (files) => {
@@ -135,7 +142,7 @@ const ProfileSettings = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-10 space-y-10 mx-auto max-w-7xl">
+    <div className="flex flex-col items-center p-10 space-y-10 mx-auto max-w-6xl">
       {/* Avatar y Datos públicos */}
       <section className="w-full p-6 rounded-lg shadow bg-gray-50">
         <h2 className="font-semibold text-2xl text-gray-400 mb-10 text-center">
@@ -238,7 +245,7 @@ const ProfileSettings = () => {
       </section>
 
       {/* Cambiar contraseña */}
-      <section className="w-full p-6 rounded-lg shadow border border-gray-200">
+      <section className="w-full p-6 rounded-lg shadow border border-gray-200 bg-gray-50">
         <h2 className="font-semibold text-2xl text-gray-400 mb-10 text-center">
           Cambiar contraseña
         </h2>

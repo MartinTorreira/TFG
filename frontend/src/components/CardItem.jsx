@@ -7,7 +7,7 @@ import { FavoriteIconFilled } from "../icons/FavoriteIconFilled.jsx";
 
 // favorite and cart are booleans
 
-export const CardItem = ({ path, favorite, cart }) => {
+export const CardItem = ({ path, favorite, cart, name }) => {
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:scale-105 transition-all group">
       <div className="relative translate-y-20 transform opacity-0 transition-all group-hover:translate-y-16 group-hover:opacity-100 -mt-10 ml-4">
@@ -23,7 +23,7 @@ export const CardItem = ({ path, favorite, cart }) => {
       <div className="px-5 pb-5 mt-4">
         <a href="#">
           <h5 className="mt-2 font-bold text-gray-600 font-smemibold tracking-tight dark:text-white">
-            Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
+            {name}
           </h5>
         </a>
         <div className="flex items-center justify-between gap-x-2 mt-4">

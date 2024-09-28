@@ -1,6 +1,7 @@
 package udc.fic.webapp.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
@@ -43,11 +44,21 @@ public class ProductController {
         return new ResponseEntity<>(createdPostDto, HttpStatus.CREATED);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<Page<ProductDto>> getLatestProducts(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                              @RequestParam(name = "size", defaultValue = "9") int size) {
+
+        Page<ProductDto> products = productService.getLatestProducts(page, size).map(ProductConversor::toDto);
+        return ResponseEntity.ok(products);
+    }
+
+
 
     @GetMapping("/allCategories")
     public ResponseEntity<List<CategoryDto>> getCategories() {
         return new ResponseEntity<>(CategoryConversor.toDtoList(productService.getCategories()), HttpStatus.OK);
     }
+
 
 
 }

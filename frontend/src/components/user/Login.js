@@ -18,7 +18,7 @@ const Login = () => {
 
   const onErrors = () => {
     toast.error("Credenciales incorrectas");
-    console.log("asdasd")
+    console.log("asdasd");
   };
 
   const reauthenticationCallback = () => {
@@ -30,13 +30,12 @@ const Login = () => {
   };
 
   const onSuccess = (authenticatedUser) => {
-    
     setToken(authenticatedUser.serviceToken);
     setUser(authenticatedUser.user);
 
     localStorage.setItem(
       config.SERVICE_TOKEN_NAME,
-      `Bearer ${authenticatedUser.serviceToken}`
+      `Bearer ${authenticatedUser.serviceToken}`,
     );
 
     localStorage.setItem("user", JSON.stringify(authenticatedUser.user));
@@ -120,7 +119,7 @@ const Login = () => {
               <button
                 onClick={handleLogin}
                 type="submit"
-                className="w-full text-black bg-gray-200 border hover:border-gray-900 transition all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className="w-full bg-gray-900 text-white border hover:opacity-90  transition all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Iniciar sesión
               </button>

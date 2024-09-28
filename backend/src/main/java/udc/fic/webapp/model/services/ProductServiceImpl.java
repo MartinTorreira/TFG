@@ -1,6 +1,9 @@
 package udc.fic.webapp.model.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.*;
@@ -41,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
             throw new IllegalArgumentException("project.entities.category.hasSubcategories");
         }
 
+
         // Crear el producto sin imágenes
         Product product = new Product(name, description, price, quantity, null, user, category);
         product = productDao.save(product);
@@ -54,6 +58,12 @@ public class ProductServiceImpl implements ProductService {
         // Asignar las imágenes al producto y guardar de nuevo
         product.setImage(productImages);
         return productDao.save(product);
+    }
+
+    @Override
+    public Page<Product> getLatestProducts(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+        return productDao.findAll(pageRequest);
     }
 
     @Override

@@ -28,7 +28,7 @@ export const InputProfile = ({
       <div className="relative flex items-center">
         <input
           type={type}
-          className={`bg-gray-100 text-gray-900 text-md rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2 pl-2 pr-10 placeholder:text-gray-600 font-semibold w-full`}
+          className={`bg-gray-100 border  rounded-t text-gray-900 text-md focus:ring-primary-600 focus:border-primary-600 block p-2 pl-2 pr-10 placeholder:text-gray-600 font-semibold w-full`}
           placeholder={isEditing || type === "password" ? "" : placeholder} // Cambia el placeholder según el estado de edición
           required={required}
           onChange={onChange}
@@ -41,7 +41,7 @@ export const InputProfile = ({
           <button
             type="button"
             onClick={handleButtonClick}
-            className="absolute right-2 border rounded-lg p-1 hover:opacity-90 transition"
+            className="absolute right-2 border rounded-lg p-1 hover:opacity-90 transition hover:bg-gray-300"
           >
             <EditIcon size={24} color={"text-gray-800"} />
           </button>

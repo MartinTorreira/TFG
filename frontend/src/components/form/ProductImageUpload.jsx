@@ -48,15 +48,13 @@ const FileUpload = ({ label, onFileChange }) => {
   return (
     <section className="flex flex-col w-full">
       {label && (
-        <label
-          htmlFor="fileInput"
-          className="block mb-2 text-sm font-medium text-gray-900"
-        >
+        <label htmlFor="fileInput" className="block mb-2 text-sm text-gray-600">
           {label}
         </label>
       )}
       <Upload
         listType="picture-card"
+        accept=".png, .svg, .jpeg, .jpg"
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}

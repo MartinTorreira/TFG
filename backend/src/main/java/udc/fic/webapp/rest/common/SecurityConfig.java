@@ -32,14 +32,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
 				.authorizeRequests()
+
+
 				.antMatchers(HttpMethod.GET, "/user/getUsers").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/allCategories").permitAll()
+				.antMatchers(HttpMethod.GET, "/product/").permitAll()
+				.antMatchers(HttpMethod.GET, "/product/*").permitAll()
+
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/loginFromServiceToken").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/*/changePassword").authenticated()
 				.antMatchers(HttpMethod.POST, "/user/*/changeAvatar").authenticated()
 				.antMatchers(HttpMethod.POST, "/product/add").authenticated()
+
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
 
 				// .antMatchers(HttpMethod.POST, "/users/*/changePassword").hasAnyRole("VIEWER", "TICKET_SELLER")

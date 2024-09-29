@@ -10,7 +10,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const FileUpload = ({ label, onFileChange }) => {
+const ProductImageUpload = ({ label, onFileChange }) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState([]);
@@ -26,7 +26,7 @@ const FileUpload = ({ label, onFileChange }) => {
   const handleChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     if (onFileChange) {
-      onFileChange(newFileList);
+      onFileChange(newFileList.map((file) => file.originFileObj));
     }
   };
 
@@ -34,7 +34,7 @@ const FileUpload = ({ label, onFileChange }) => {
     const updatedFileList = fileList.filter((item) => item.uid !== file.uid);
     setFileList(updatedFileList);
     if (onFileChange) {
-      onFileChange(updatedFileList);
+      onFileChange(updatedFileList.map((file) => file.originFileObj));
     }
   };
 
@@ -74,4 +74,4 @@ const FileUpload = ({ label, onFileChange }) => {
   );
 };
 
-export default FileUpload;
+export default ProductImageUpload;

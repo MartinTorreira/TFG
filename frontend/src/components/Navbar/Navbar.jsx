@@ -16,7 +16,7 @@ const Navbar = ({ notification }) => {
   function isLogged() {}
 
   return (
-    <nav className="backdrop-blur-3xl shadow-md top-0 sticky z-50">
+    <nav className="backdrop-blur-3xl shadow-md top-0 sticky z-50 bg-gray-100/60">
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Left */}
         <div className="flex items-center font-semibold">

@@ -5,6 +5,8 @@ import { uploadFile } from "../../firebase/config";
 import { config } from "../../config/constants";
 import { addProduct } from "../../backend/productService";
 import { validateAddProduct } from "../../utils/formValidations.js";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -16,9 +18,10 @@ const AddProduct = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleSubmitImages = (files) => {
-    const imagesArray = Array.from(files);
-    setImages(imagesArray);
+    setImages(files);
   };
 
   const uploadImages = async () => {
@@ -29,9 +32,9 @@ const AddProduct = () => {
         const fullPath = result.metadata.fullPath;
         const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
         uploadedImages.push(route);
-        console.log("Image subida: ", route);
+        console.log("Image uploaded: ", route);
       } catch (error) {
-        console.log("Error al subir la imagen:", error);
+        console.log("Error uploading image:", error);
       }
     }
     return uploadedImages;
@@ -39,17 +42,16 @@ const AddProduct = () => {
 
   const handleCategorySelect = (category) => {
     if (category.subcategoryIds.length === 0) {
-      console.log("llego aqui", category.id);
       setCategory(category.id);
     }
   };
 
   const onSuccess = () => {
-    console.log("arriba espsña");
+    toast.success("Product added successfully");
   };
 
   const onErrors = () => {
-    console.log("gibraltar español");
+    toast.error("Failed to add product");
   };
 
   const handleSubmit = async (event) => {
@@ -70,13 +72,14 @@ const AddProduct = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       addProduct(product, onSuccess, onErrors);
+      navigate("../home");
     }
   };
 
   return (
     <section className="mt-16">
-      <div className="flex flex-col items-center justify-start px-10 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="bg-gray-50 rounded-lg shadow md:mt-0 w-full max-w-3xl xl:p-0 border ring-2 ring-gray-100">
+      <div className="flex flex-col items-center justify-start px-10 py-8 mx-auto lg:py-0">
+        <div className="bg-gray-50 rounded-lg shadow md:mt-0 w-full max-w-3xl xl:p-0 shadow-lg">
           <div className="py-4 px-4 mx-auto max-w-2xl lg:py-10">
             <h2 className="mb-4 text-2xl font-bold text-gray-900">
               Vender producto
@@ -88,7 +91,7 @@ const AddProduct = () => {
                     htmlFor="name"
                     className="block mb-2 text-sm text-gray-600"
                   >
-                    Nombre del producto
+                    Product Name
                   </label>
                   <input
                     value={name}
@@ -97,7 +100,7 @@ const AddProduct = () => {
                     name="name"
                     id="name"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-semibold rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder:font-normal placeholder:italic"
-                    placeholder="Escribe el nombre del producto"
+                    placeholder="Enter product name"
                     required
                   />
                   {isSubmitted && errors.name && (
@@ -109,7 +112,7 @@ const AddProduct = () => {
                     htmlFor="item-weight"
                     className="block mb-2 text-sm text-gray-600"
                   >
-                    Cantidad
+                    Quantity
                   </label>
                   <input
                     value={quantity}
@@ -132,7 +135,7 @@ const AddProduct = () => {
                     htmlFor="price"
                     className="block mb-2 text-sm text-gray-600"
                   >
-                    Precio
+                    Price
                   </label>
                   <div className="relative">
                     <input
@@ -145,7 +148,7 @@ const AddProduct = () => {
                       name="price"
                       id="price"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-semibold rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pl-8 placeholder:font-normal placeholder:italic"
-                      placeholder="14,99"
+                      placeholder="14.99"
                       required
                     />
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-600">
@@ -162,7 +165,7 @@ const AddProduct = () => {
                     htmlFor="text"
                     className="block mb-2 text-sm text-gray-600"
                   >
-                    Categoría/Subcategoría
+                    Category/Subcategory
                   </label>
                   <CategoryDisplay
                     onCategorySelect={(e) => handleCategorySelect(e)}
@@ -177,7 +180,7 @@ const AddProduct = () => {
                     htmlFor="description"
                     className="block mb-2 text-sm text-gray-600"
                   >
-                    Descripción
+                    Description
                   </label>
                   <textarea
                     value={description}
@@ -185,13 +188,13 @@ const AddProduct = () => {
                     id="description"
                     rows="8"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-semibold rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder:font-normal placeholder:italic"
-                    placeholder="Escribe la descripción del producto"
+                    placeholder="Enter product description"
                   ></textarea>
                 </div>
 
                 <div className="sm:col-span-2">
                   <ProductImageUpload
-                    label={"Añadir fotos"}
+                    label={"Add Photos"}
                     onFileChange={handleSubmitImages}
                   />
                   {isSubmitted && errors.images && (
@@ -205,7 +208,7 @@ const AddProduct = () => {
                   type="submit"
                   className="w-full bg-gray-900 text-white border hover:opacity-90 transition all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
-                  Guardar
+                  Save
                 </button>
               </div>
             </form>

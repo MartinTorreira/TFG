@@ -31,7 +31,7 @@ import { fetchConfig, appFetch } from "./appFetch";
 
 export const getProducts = (state, onSuccess, onErrors) => {
   appFetch(
-    `/products/?page=${state.page}$size=${state.size}`,
+    `/product/?page=${state.page}&size=${state.size}`,
     fetchConfig("GET"),
     onSuccess,
     onErrors,

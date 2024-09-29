@@ -23,10 +23,16 @@ const Home = () => {
   }, [setToken, setUser]);
 
   useEffect(() => {
-    fetchProducts();
-  }, [price, category, fetchProducts, filteredProducts, products, query]);
+    // Ejecutar fetchProducts cada 10 segundos
+    const intervalId = setInterval(() => {
+      fetchProducts();
+    }, 10000); // 10000 ms = 10 segundos
 
-  return <CardGrid productList={filteredProducts} />;
+    // Limpiar el intervalo cuando el componente se desmonta
+    return () => clearInterval(intervalId);
+  }, [fetchProducts, products.length]);
+
+  return <CardGrid productList={products} />;
 };
 
 export default Home;

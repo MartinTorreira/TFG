@@ -71,5 +71,12 @@ public class ProductServiceImpl implements ProductService {
         return categoryDao.findAll();
     }
 
+    @Override
+    public Product findProductById(Long id) throws InstanceNotFoundException {
+        Product product = productDao.findById(id)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", id));
+        return product;
+    }
+
 
 }

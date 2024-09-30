@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { LoginContext } from "./context/LoginContext";
 import { config } from "../config/constants";
-import { CardGrid } from "./CardGrid";
+import { CardGrid } from "./product/CardGrid.jsx";
 import { useProductStore } from "./store/useProductStore";
 
 const Home = () => {
@@ -23,14 +23,14 @@ const Home = () => {
   }, [setToken, setUser]);
 
   useEffect(() => {
-    // Ejecutar fetchProducts cada 10 segundos
+    // Ejecutar fetchProducts cada 10s
     const intervalId = setInterval(() => {
       fetchProducts();
-    }, 10000); // 10000 ms = 10 segundos
+    }, 10000);
 
     // Limpiar el intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId);
-  }, [fetchProducts, products.length]);
+  }, [fetchProducts]);
 
   return <CardGrid productList={products} />;
 };

@@ -5,7 +5,7 @@
 body {
     margin: 0;
     font-family: Inter, Onest, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-        "Helvetica Neue", sans-serif;
+        "Helvetica Neue", sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -16,6 +16,15 @@ code {
 }
 
 ::selection {
+    background-color: black;
+    color: white;
+}
+
+.radix-themes {
+    --default-font-family: Inter, Onest, Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif --heading-font-family: ;
+}
+.radix-themes ::selection {
     background-color: black;
     color: white;
 }

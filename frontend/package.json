@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
     "@carbon/react": "^1.66.0",
+    "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@files-ui/react": "^1.2.4",
@@ -19,6 +20,7 @@
     "@nextui-org/react": "^2.4.6",
     "@nextui-org/system": "^2.2.6",
     "@nextui-org/theme": "^2.2.11",
+    "@radix-ui/themes": "^3.1.4",
     "@subframe/core": "^1.122.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

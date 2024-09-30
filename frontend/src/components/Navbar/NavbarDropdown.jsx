@@ -31,7 +31,11 @@ export const NavbarDropdown = ({ imagePath }) => {
     <Dropdown>
       <DropdownTrigger>
         <button variant="bordered">
-          <img src={imagePath} className="w-10 h-10 rounded-full" />
+          <img
+            src={imagePath}
+            className="w-10 h-10 rounded-full border border-gray-300"
+            alt="Profile avatar"
+          />
         </button>
       </DropdownTrigger>
 

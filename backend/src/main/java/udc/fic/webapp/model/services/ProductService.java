@@ -19,5 +19,7 @@ public interface ProductService {
 
     List<Category> getCategories();
 
+    Product findProductById(Long id) throws InstanceNotFoundException;
+
 
 }

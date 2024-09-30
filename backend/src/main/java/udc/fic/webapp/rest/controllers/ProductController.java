@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import udc.fic.webapp.model.entities.Category;
 import udc.fic.webapp.model.entities.Product;
+import udc.fic.webapp.model.entities.ProductDao;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.model.services.ProductService;
 import udc.fic.webapp.model.services.UserService;
@@ -25,6 +26,8 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductDao productDao;
 
     @PostMapping("/add")
     public ResponseEntity<ProductDto> addProduct(@RequestAttribute Long userId, @RequestBody ProductDto productDto) throws InstanceNotFoundException {
@@ -59,6 +62,11 @@ public class ProductController {
         return new ResponseEntity<>(CategoryConversor.toDtoList(productService.getCategories()), HttpStatus.OK);
     }
 
+    @GetMapping("/{productId}/details")
+    public ResponseEntity<ProductDto> getProductDetails(@PathVariable Long productId) throws InstanceNotFoundException {
+        Product product = productService.findProductById(productId);
+        return new ResponseEntity<>(ProductConversor.toDto(product), HttpStatus.OK);
+    }
 
 
 }

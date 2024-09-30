@@ -144,7 +144,7 @@ const ProfileSettings = () => {
   return (
     <div className="flex flex-col items-center p-10 space-y-10 mx-auto max-w-6xl">
       {/* Avatar y Datos públicos */}
-      <section className="w-full p-6 rounded-lg shadow bg-gray-50">
+      <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
         <h2 className="font-semibold text-2xl text-gray-400 mb-10 text-center">
           Datos públicos
         </h2>
@@ -245,7 +245,7 @@ const ProfileSettings = () => {
       </section>
 
       {/* Cambiar contraseña */}
-      <section className="w-full p-6 rounded-lg shadow border border-gray-200 bg-gray-50">
+      <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
         <h2 className="font-semibold text-2xl text-gray-400 mb-10 text-center">
           Cambiar contraseña
         </h2>

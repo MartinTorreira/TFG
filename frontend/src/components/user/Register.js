@@ -139,7 +139,7 @@ const Register = () => {
   return (
     <section className="mt-20">
       <div className="flex flex-col items-center justify-start px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="bg-gray-50 rounded-lg shadow md:mt-0 w-lg xl:p-0 border ring-2 ring-gray-100">
+        <div className="bg-gray-50 rounded-lg shadow-md md:mt-0 w-lg xl:p-0 border-2 border-gray-200">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Crear una cuenta

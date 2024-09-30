@@ -10,6 +10,7 @@ import ProfileSettings from "./components/user/ProfileSettings.js";
 import Stats from "./components/user/Stats.js";
 import { Toaster } from "sonner";
 import AddProduct from "./components/product/AddProduct";
+import ProductDetails from "./components/product/ProductDetails";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -22,8 +23,10 @@ export default function App() {
     <BrowserRouter>
       <Sidebar isOpen={isSidebarOpen} className="z-20" />
       <Toaster richColors position="bottom-center" />
-      <div class="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]">
+      <div className="fixed inset-0 z-0 h-full w-full bg-gray-100 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
         {" "}
+      </div>
+      <div className="relative z-10 mb-10">
         <Navbar />
         <Routes>
           <Route path="/users/login" element={<Login />} />
@@ -33,13 +36,13 @@ export default function App() {
           <Route path="/users/profile" element={<ProfileSettings />} />
           <Route path="/users/stats" element={<Stats />} />
           <Route path="/product/add" element={<AddProduct />} />
+          <Route
+            path="/product/:id/details"
+            element={<ProductDetails />}
+          />{" "}
+          {/* Ruta con parámetro de ID */}
         </Routes>
       </div>
-
-      {/* <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/users/signup" element={<Register />} />
-          <Route path="/users/profile" element={<Profile />}/> */}
     </BrowserRouter>
   );
 }

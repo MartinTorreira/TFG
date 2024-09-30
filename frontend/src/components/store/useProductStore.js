@@ -34,4 +34,17 @@ export const useProductStore = create((set, get) => ({
       console.error(error);
     }
   },
+
+  getProductById: (id) => {
+    const { products } = get();
+
+    console.log("llego aqui");
+
+    if (products.length === 0) {
+      get().fetchProducts();
+      return null;
+    }
+
+    return products.find((product) => product.id === id);
+  },
 }));

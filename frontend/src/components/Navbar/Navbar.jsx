@@ -9,8 +9,8 @@ const Navbar = ({ notification }) => {
   const { user, token } = useContext(LoginContext);
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    navigate("/product/add");
+  const handleNavigate = (path) => {
+    navigate(path);
   };
 
   function isLogged() {}
@@ -20,9 +20,12 @@ const Navbar = ({ notification }) => {
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Left */}
         <div className="flex items-center font-semibold">
-          <span className="ml-2 text-xl font-bold text-gray-900">
+          <button
+            onClick={() => handleNavigate("./home")}
+            className="ml-2 text-xl font-bold text-gray-900"
+          >
             Dashboard
-          </span>
+          </button>
           <div className="hidden md:flex space-x-8 ml-12">
             <a
               href="#"
@@ -52,7 +55,7 @@ const Navbar = ({ notification }) => {
           </button>
           <button
             className="bg-gray-900 border border-gray-800 hover:opacity-70 text-white p-2 py-2 rounded"
-            onClick={() => handleNavigate()}
+            onClick={() => handleNavigate("/product/add")}
           >
             Vender
           </button>

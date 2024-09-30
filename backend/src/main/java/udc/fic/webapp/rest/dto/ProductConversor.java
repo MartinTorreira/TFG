@@ -31,6 +31,7 @@ public class ProductConversor {
     public final static ProductDto toDto(Product product) {
 
         ProductDto dto = new ProductDto();
+        dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());

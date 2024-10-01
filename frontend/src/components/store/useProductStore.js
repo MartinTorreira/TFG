@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { getProducts } from "../../backend/productService";
+import { getProductById } from "../../backend/productService";
 
 export const useProductStore = create((set, get) => ({
   price: "",
@@ -38,10 +39,8 @@ export const useProductStore = create((set, get) => ({
   getProductById: (id) => {
     const { products } = get();
 
-    console.log("llego aqui");
-
     if (products.length === 0) {
-      get().fetchProducts();
+      get().getProductById(id);
       return null;
     }
 

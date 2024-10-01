@@ -26,7 +26,7 @@ const Home = () => {
     // Ejecutar fetchProducts cada 10s
     const intervalId = setInterval(() => {
       fetchProducts();
-    }, 10000);
+    }, 5000);
 
     // Limpiar el intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId);

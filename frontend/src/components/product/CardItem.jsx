@@ -15,7 +15,7 @@ export const CardItem = ({ product, favorite, cart }) => {
   };
 
   return (
-    <div className="relative w-full max-w-sm bg-white border border-gray-200 rounded-xl shadow transition-all group">
+    <div className="relative w-full max-w-sm bg-gray-300 rounded-xl shadow transition-all group">
       <div className="absolute top-1 right-2 z-10">
         <Badge variant="surface" color="blue" className="text-xs rounded-full">
           {product.categoryDto.name}
@@ -32,14 +32,14 @@ export const CardItem = ({ product, favorite, cart }) => {
         {" "}
         {/* Increased height */}
         <img
-          className="w-full h-full object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-10 cursor-pointer rounded-t-lg"
+          className="w-full h-full object-cover transition-opacity duration-200 ease-in-out group-hover:opacity-10 cursor-pointer rounded-t-lg"
           src={product.images[0]}
           alt={`${product.name}`}
           onClick={handleImageClick}
         />
       </div>
 
-      <div className="px-5 pb-3 mt-2">
+      <div className="px-3 pb-3">
         {" "}
         {/* Reduced padding and margin */}
         <a href="#">
@@ -47,28 +47,28 @@ export const CardItem = ({ product, favorite, cart }) => {
             {product.name}
           </h5>
         </a>
-        <div className="flex items-center justify-between gap-x-2 mt-2">
+        <div className="flex items-center justify-between gap-x-2">
           {" "}
           {/* Reduced margin */}
-          <span className="text-2xl font-bold text-gray-900 dark:text-white">
+          <span className="text-xl font-bold text-gray-900">
             {product.price.toFixed(2).replace(".", ",")} €
           </span>
           <div className="flex flex-row gap-x-3">
             <button
               title={favorite ? "Quitar de favoritos" : "Añadir a favoritos"}
-              className="border-2 border-black/20 p-2 rounded-lg"
+              className="border border-gray-400 p-2 rounded-lg"
             >
               {favorite ? (
-                <FavoriteIconFilled size={24} />
+                <FavoriteIconFilled size={20} />
               ) : (
-                <FavoriteIcon size={24} />
+                <FavoriteIcon size={20} />
               )}
             </button>
             <button
               title={cart ? "Quitar del carro" : "Añadir al carro"}
-              className="border-2 border-black/20 p-2 rounded-lg"
+              className="border border-gray-400 p-2 rounded-lg"
             >
-              {cart ? <CartIconFilled size={24} /> : <CartIcon size={24} />}
+              {cart ? <CartIconFilled size={20} /> : <CartIcon size={20} />}
             </button>
           </div>
         </div>

@@ -1,6 +1,5 @@
-const { nextui } = require("@nextui-org/theme");
 /** @type {import('tailwindcss').Config} */
-
+const { nextui } = require("@nextui-org/theme");
 const withMT = require("@material-tailwind/react/utils/withMT");
 const { fontFamily } = require("tailwindcss/defaultTheme");
 

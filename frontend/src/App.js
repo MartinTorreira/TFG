@@ -17,15 +17,15 @@ export default function App() {
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+    //d4c9c9
   };
 
   return (
     <BrowserRouter>
       <Sidebar isOpen={isSidebarOpen} className="z-20" />
       <Toaster richColors position="bottom-center" />
-      <div className="fixed inset-0 z-0 h-full w-full bg-gray-100 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
-        {" "}
-      </div>
+      {/* <div className="fixed inset-0 z-0 h-full w-full bg-gray-100 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]"> */}
+      <div className="fixed inset-0 z-0 h-full w-full bg-[#d4c9c9]"> </div>
       <div className="relative z-10 mb-10">
         <Navbar />
         <Routes>

@@ -1,6 +1,7 @@
 import { fetchConfig, appFetch } from "./appFetch";
 
 export const getProducts = (state, onSuccess, onErrors) => {
+  console.log(`/product/?page=${state.page}&size=${state.size}`);
   appFetch(
     `/product/?page=${state.page}&size=${state.size}`,
     fetchConfig("GET"),
@@ -22,7 +23,7 @@ export const getAllCategories = (onSuccess, onErrors) => {
   appFetch(`/product/allCategories`, fetchConfig("GET"), onSuccess, onErrors);
 };
 
-export const getProductDetails = (productId, onSuccess, onErrors) => {
+export const getProductById = (productId, onSuccess, onErrors) => {
   appFetch(
     `/product/${productId}/details`,
     fetchConfig("GET"),

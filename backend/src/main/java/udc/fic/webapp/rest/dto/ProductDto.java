@@ -17,11 +17,12 @@ public class ProductDto {
     private String description;
     private double price;
     private int quantity;
+    private String quality;
     private List<String> images;
 
     public ProductDto() {}
 
-    public ProductDto(Long id, UserDto userDto, CategoryDto categoryDto, String name, String description, double price, int quantity, List<String> images) {
+    public ProductDto(Long id, UserDto userDto, CategoryDto categoryDto, String name, String description, double price, int quantity, String quality, List<String> images) {
         this.id = id;
         this.userDto = userDto;
         this.categoryDto = categoryDto;
@@ -29,6 +30,7 @@ public class ProductDto {
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.quality = quality;
         this.images = images;
     }
 
@@ -38,6 +40,14 @@ public class ProductDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
     }
 
     @NotNull(groups = {AllValidations.class})

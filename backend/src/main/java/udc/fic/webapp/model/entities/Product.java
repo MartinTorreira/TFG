@@ -9,16 +9,32 @@ import java.util.List;
 @Entity
 public class Product {
 
+    public enum Quality {
+        NEEDS_REPAIR, WORN, USED, GOOD, LIKE_NEW, NEW
+    }
+
     private long id;
     private String name;
     private String description;
     private double price;
     private int quantity;
+    private Quality quality;
     private List<Product_Images> images;
     private User user;
     private Category category;
 
     public Product() {}
+
+    public Product(String name, String description, double price, int quantity, Quality quality ,List<Product_Images> images, User user, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.quality = quality;
+        this.images = images;
+        this.user = user;
+        this.category = category;
+    }
 
     public Product(String name, String description, double price, int quantity, List<Product_Images> images, User user, Category category) {
         this.name = name;
@@ -50,7 +66,7 @@ public class Product {
         this.name = name;
     }
 
-    @Size(max = 255) // Descripción opcional
+    @Size(max = 255)
     public String getDescription() {
         return description;
     }
@@ -78,6 +94,14 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public Quality getQuality() {
+        return quality;
+    }
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Product_Images> getImage() {

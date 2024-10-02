@@ -31,6 +31,8 @@ public class ProductController {
 
     @PostMapping("/add")
     public ResponseEntity<ProductDto> addProduct(@RequestAttribute Long userId, @RequestBody ProductDto productDto) throws InstanceNotFoundException {
+        System.out.println("#######################################################################################################################################################################################################################################################");
+        System.out.println(productDto.getQuality());
 
         Product product = productService.addProduct(
                 userId,
@@ -39,8 +41,10 @@ public class ProductController {
                 productDto.getDescription(),
                 productDto.getPrice(),
                 productDto.getQuantity(),
+                productDto.getQuality(),
                 productDto.getImages()
         );
+        System.out.println(product.getQuality());
 
         ProductDto createdPostDto = ProductConversor.toDto(product);
 

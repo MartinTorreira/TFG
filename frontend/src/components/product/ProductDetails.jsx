@@ -3,10 +3,35 @@ import { useParams } from "react-router-dom";
 import { ImageSlider } from "./ImageSlider.jsx";
 import { getProductById } from "../../backend/productService.js";
 import { motion } from "framer-motion";
+import { Badge } from "@radix-ui/themes";
+import { qualities } from "../../utils/Qualities.js";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+
+  const [label, setLabel] = useState("");
+  const [color, setColor] = useState("");
+
+  function getQualityData(quality) {
+    const qualityItem = qualities.find((item) => item.value === quality);
+
+    if (qualityItem) {
+      console.log(qualityItem.color);
+      setLabel(qualityItem.label);
+      setColor(qualityItem.color);
+    } else {
+      // Manejar el caso en que no se encuentre la calidad
+      setLabel("Desconocido");
+      setColor("gray"); // O el color por defecto que desees
+    }
+  }
+
+  useEffect(() => {
+    if (product) {
+      getQualityData(product.quality);
+    }
+  }, [product]);
 
   const onSuccess = (data) => {
     setProduct(data);
@@ -42,9 +67,14 @@ const ProductDetails = () => {
             </div>
 
             <div className="mt-6 sm:mt-8 lg:mt-0 text-center lg:text-left">
-              <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                {product.name}
-              </h1>
+              <div className="flex flex-row items-center gap-x-6">
+                <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+                  {product.name}
+                </h1>
+                <Badge color={color} className="text-xs rounded">
+                  {label}
+                </Badge>
+              </div>
               <div className="mt-4 sm:items-center sm:gap-4 sm:flex sm:flex-col lg:flex-row">
                 <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
                   {product.price.toFixed(2).replace(".", ",")}

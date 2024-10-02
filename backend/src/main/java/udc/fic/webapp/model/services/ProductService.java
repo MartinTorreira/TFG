@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-    Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, List<String> images)
+    Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, String quality, List<String> images)
             throws InstanceNotFoundException;
 
     Page<Product> getLatestProducts(int page, int size);

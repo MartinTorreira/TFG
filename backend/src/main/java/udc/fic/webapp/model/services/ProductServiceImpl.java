@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, List<String> images)
+    public Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, String quality, List<String> images)
             throws InstanceNotFoundException {
 
         User user = userDao.findById(userId)
@@ -44,10 +44,22 @@ public class ProductServiceImpl implements ProductService {
             throw new IllegalArgumentException("project.entities.category.hasSubcategories");
         }
 
-
         // Crear el producto sin imágenes
-        Product product = new Product(name, description, price, quantity, null, user, category);
+        Product product = new Product(name, description, price, quantity,null, user, category);
         product = productDao.save(product);
+
+
+        // Comprobar si la quality es un valor válido
+        Product.Quality productQuality;
+        try {
+            productQuality = Product.Quality.valueOf(quality.toUpperCase());
+            System.out.println("##################################################"+ productQuality);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("################################################## MAL");
+            throw new IllegalArgumentException("Invalid quality value: " + quality);
+        }
+        product.setQuality(productQuality);
 
         // Convertir lista de imágenes en una lista de objetos Product_Images
         Product finalProduct = product;

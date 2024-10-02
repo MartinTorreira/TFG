@@ -22,7 +22,7 @@ export const CardItem = ({ product, favorite, cart }) => {
       onClick={handleImageClick} // Maneja el clic en el CardItem
     >
       <div className="absolute top-1 right-2 z-10">
-        <Badge variant="surface" color="teal" className="text-xs rounded-full">
+        <Badge variant="surface" color="gray" className="rounded">
           {product.categoryDto.name}
         </Badge>
       </div>

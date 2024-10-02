@@ -8,6 +8,7 @@ import { validateAddProduct } from "../../utils/formValidations.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { LoginContext } from "../context/LoginContext";
+import { QualityDisplay } from "./QualityDisplay";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ const AddProduct = () => {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState(null);
+  const [quality, setQuality] = useState("");
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -49,6 +51,12 @@ const AddProduct = () => {
     }
   };
 
+  const handleQualitySelect = (quality) => {
+    if (quality !== null) {
+      setQuality(quality);
+    }
+  };
+
   const onSuccess = () => {
     toast.success("Product added successfully");
   };
@@ -68,6 +76,7 @@ const AddProduct = () => {
       description,
       images: imageList,
       categoryDto: { id: category },
+      quality,
     };
 
     const validationErrors = validateAddProduct(product);
@@ -172,6 +181,21 @@ const AddProduct = () => {
                   </label>
                   <CategoryDisplay
                     onCategorySelect={(e) => handleCategorySelect(e)}
+                  />
+                  {isSubmitted && errors.category && (
+                    <p className="text-red-500 text-sm">{errors.category}</p>
+                  )}
+                </div>
+
+                <div className="w-full flex flex-col">
+                  <label
+                    htmlFor="text"
+                    className="block mb-2 text-sm text-gray-600"
+                  >
+                    Quality
+                  </label>
+                  <QualityDisplay
+                    onQualitySelect={(e) => handleQualitySelect(e)}
                   />
                   {isSubmitted && errors.category && (
                     <p className="text-red-500 text-sm">{errors.category}</p>

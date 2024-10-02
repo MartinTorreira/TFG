@@ -37,6 +37,7 @@ CREATE TABLE Product (
                      description TEXT,
                      price DOUBLE NOT NULL,
                      quantity INT NOT NULL,
+                     quality TINYINT,
                      userId BIGINT NOT NULL,
                      categoryId BIGINT NOT NULL,
                      CONSTRAINT Product_PK PRIMARY KEY (id),

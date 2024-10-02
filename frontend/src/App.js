@@ -18,30 +18,33 @@ export default function App() {
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
     //d4c9c9
+    //bg-[#f0fffe]
   };
 
   return (
     <BrowserRouter>
       <Sidebar isOpen={isSidebarOpen} className="z-20" />
       <Toaster richColors position="bottom-center" />
-      {/* <div className="fixed inset-0 z-0 h-full w-full bg-gray-100 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]"> */}
-      <div className="fixed inset-0 z-0 h-full w-full bg-[#d4c9c9]"> </div>
-      <div className="relative z-10 mb-10">
-        <Navbar />
-        <Routes>
-          <Route path="/users/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/users/signUp" element={<Register />} />
-          <Route path="/users/profile" element={<ProfileSettings />} />
-          <Route path="/users/stats" element={<Stats />} />
-          <Route path="/product/add" element={<AddProduct />} />
-          <Route
-            path="/product/:id/details"
-            element={<ProductDetails />}
-          />{" "}
-          {/* Ruta con parámetro de ID */}
-        </Routes>
+      <div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#61c5c1_130%)]"></div>{" "}
+      <div className="fixed inset-0 z-0 h-full w-full bg-[conic-gradient(at_right,_var(--tw-gradient-stops))] from-rose-100 to-teal-100">
+        {" "}
+        <div className="relative z-10 mb-10">
+          <Navbar />
+          <Routes>
+            <Route path="/users/login" element={<Login />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/users/signUp" element={<Register />} />
+            <Route path="/users/profile" element={<ProfileSettings />} />
+            <Route path="/users/stats" element={<Stats />} />
+            <Route path="/product/add" element={<AddProduct />} />
+            <Route
+              path="/product/:id/details"
+              element={<ProductDetails />}
+            />{" "}
+            {/* Ruta con parámetro de ID */}
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );

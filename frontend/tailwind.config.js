@@ -13,7 +13,15 @@ module.exports = withMT({
       fontFamily: {
         roboto: ["Inter", "Onest", "Roboto", "sans-serif"],
       },
+      colors: {
+        accent: "#c0e4e4",
+        "accent-ligth": "#e1f1f1",
+        "accent-dark": "#73afaf",
+      },
+      backgroundBlendMode: {
+        "color-dodge": "color-dodge",
+      },
     },
   },
-  plugins: [nextui()],
+  plugins: [nextui({})],
 });

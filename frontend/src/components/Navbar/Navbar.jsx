@@ -4,10 +4,20 @@ import { NotificationOn } from "../../icons/NotificationOn";
 import { LoginContext } from "../context/LoginContext";
 import { NavbarDropdown } from "./NavbarDropdown";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Navbar = ({ notification }) => {
   const { user, token } = useContext(LoginContext);
   const navigate = useNavigate();
+
+  const handleNavigateAddProduct = () => {
+    if (token !== null) {
+      navigate("product/add");
+    } else {
+      toast.error("Debes iniciar sesión para acceder a esta página");
+      navigate("/users/login");
+    }
+  };
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -54,8 +64,8 @@ const Navbar = ({ notification }) => {
             {notification ? <NotificationOn /> : <NotificationOff />}
           </button>
           <button
-            className="bg-gray-900 border border-gray-800 hover:opacity-70 text-white p-2 py-2 rounded"
-            onClick={() => handleNavigate("/product/add")}
+            className="bg-accent-dark border border-accent hover:opacity-70 text-white p-2 py-2 rounded"
+            onClick={() => handleNavigateAddProduct()}
           >
             Vender
           </button>

@@ -5,7 +5,7 @@ export const CartIconFilled = ({ size }) => {
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="currentColor"
+      fill="#73afaf"
       className="icon icon-tabler icons-tabler-filled icon-tabler-shopping-cart"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

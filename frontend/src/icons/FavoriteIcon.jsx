@@ -6,7 +6,7 @@ export const FavoriteIcon = ({ size }) => {
       height={size}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke="#73afaf"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"

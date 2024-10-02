@@ -119,7 +119,7 @@ const Login = () => {
               <button
                 onClick={handleLogin}
                 type="submit"
-                className="w-full bg-gray-900 text-white border hover:opacity-90  transition all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className="w-full bg-gray-900 text-white border hover:opacity-90  transition all focus:ring-4 focus:outline-none focus:ring-accent-dark font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Iniciar sesión
               </button>

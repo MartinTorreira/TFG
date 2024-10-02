@@ -16,7 +16,7 @@ code {
 }
 
 ::selection {
-    background-color: black;
+    background-color: red;
     color: white;
 }
 
@@ -25,6 +25,6 @@ code {
         "Open Sans", "Helvetica Neue", sans-serif --heading-font-family: ;
 }
 .radix-themes ::selection {
-    background-color: black;
-    color: white;
+    background-color: #c0e4e4;
+    color: black;
 }

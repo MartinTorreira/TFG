@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { CategoryDisplay } from "./CategoryDisplay";
 import ProductImageUpload from "../form/ProductImageUpload";
 import { uploadFile } from "../../firebase/config";
@@ -7,6 +7,7 @@ import { addProduct } from "../../backend/productService";
 import { validateAddProduct } from "../../utils/formValidations.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { LoginContext } from "../context/LoginContext";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -17,6 +18,8 @@ const AddProduct = () => {
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const { token } = useContext(LoginContext);
 
   const navigate = useNavigate();
 
@@ -99,7 +102,7 @@ const AddProduct = () => {
                     type="text"
                     name="name"
                     id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-semibold rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder:font-normal placeholder:italic"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-semibold rounded-lg focus:ring-accent focus:border-primary-600 block w-full p-2.5 placeholder:font-normal placeholder:italic"
                     placeholder="Enter product name"
                     required
                   />
@@ -206,9 +209,9 @@ const AddProduct = () => {
               <div className="mt-10">
                 <button
                   type="submit"
-                  className="w-full bg-gray-900 text-white border hover:opacity-90 transition all focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  className="w-full bg-gray-900 text-white border hover:opacity-90 transition all focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
-                  Save
+                  Añadir
                 </button>
               </div>
             </form>

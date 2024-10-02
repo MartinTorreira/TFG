@@ -40,13 +40,13 @@ export const NavbarDropdown = ({ imagePath }) => {
       </DropdownTrigger>
 
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="edit">
+        <DropdownItem key="profile">
           <button onClick={() => handleNavigate("/users/profile")}>
             Mi perfil
           </button>
         </DropdownItem>
 
-        <DropdownItem key="edit">
+        <DropdownItem key="stats">
           <button onClick={() => handleNavigate("/users/stats")}>
             Estadísticas
           </button>

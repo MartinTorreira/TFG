@@ -21,5 +21,6 @@ public interface ProductService {
 
     Product findProductById(Long id) throws InstanceNotFoundException;
 
+    Page<Product> getProductsByUserId(Long userId, int page, int size) throws InstanceNotFoundException;
 
 }

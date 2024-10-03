@@ -8,12 +8,14 @@ export const useProductStore = create((set, get) => ({
   query: "",
   products: [],
   filteredProducts: [],
+  favouriteProducts: [],
 
   setPriceFilter: (price) => set({ price }),
   setCategoryFilter: (category) => set({ category }),
   setFilteredQuery: (query) => set({ query }),
   setProducts: (products) => set({ products }),
   setFilteredProducts: (filteredProducts) => set({ filteredProducts }),
+  setFavoriteProducts: (favouriteProducts) => set({ favouriteProducts }),
 
   getFilters: () => ({
     price: get().price,
@@ -45,5 +47,11 @@ export const useProductStore = create((set, get) => ({
     }
 
     return products.find((product) => product.id === id);
+  },
+
+  getFavoriteProducts: () => {
+    const { products } = get();
+
+    return products.filter((product) => product.isFavourite);
   },
 }));

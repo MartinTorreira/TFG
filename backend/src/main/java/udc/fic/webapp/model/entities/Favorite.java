@@ -1,61 +1,63 @@
-// package udc.fic.webapp.model.entities;
 
-// import javax.persistence.*;
-// import java.time.LocalDateTime;
-// import java.util.Date;
+package udc.fic.webapp.model.entities;
 
-// @Entity
-// public class Favorite {
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
-//     private Long id;
-//     private User user;
-//     private Product product;
-//     private LocalDateTime favoritedAt;
+@Entity
+public class Favorite {
 
-//     public Favorite() {}
+    private Long id;
+    private User user;
+    private Product product;
+    private LocalDateTime favoritedAt;
 
-//     public Favorite(User user, Product product, LocalDateTime favoritedAt) {
-//         this.user = user;
-//         this.product = product;
-//         this.favoritedAt = favoritedAt;
-//     }
+    public Favorite() {}
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     public Long getId() {
-//         return id;
-//     }
+    public Favorite(User user, Product product, LocalDateTime favoritedAt) {
+        this.user = user;
+        this.product = product;
+        this.favoritedAt = favoritedAt;
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+        return id;
+    }
 
-//     @ManyToOne
-//     @JoinColumn(name = "userId", nullable = false)
-//     public User getUser() {
-//         return user;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public void setUser(User user) {
-//         this.user = user;
-//     }
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    public User getUser() {
+        return user;
+    }
 
-//     @ManyToOne
-//     @JoinColumn(name = "productId", nullable = false)
-//     public Product getProduct() {
-//         return product;
-//     }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-//     public void setProduct(Product product) {
-//         this.product = product;
-//     }
+    @ManyToOne
+    @JoinColumn(name = "productId", nullable = false)
+    public Product getProduct() {
+        return product;
+    }
 
-//     @Column(name = "favoritedAt", nullable = false)
-//     public LocalDateTime getFavoritedAt() {
-//         return favoritedAt;
-//     }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-//     public void setFavoritedAt(LocalDateTime favoritedAt) {
-//         this.favoritedAt = favoritedAt;
-//     }
-// }
+
+    @Column(name = "favoritedAt", nullable = false)
+    public LocalDateTime getFavoritedAt() {
+        return favoritedAt;
+    }
+
+    public void setFavoritedAt(LocalDateTime favoritedAt) {
+        this.favoritedAt = favoritedAt;
+    }
+}

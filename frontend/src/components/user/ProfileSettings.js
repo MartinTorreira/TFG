@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { EditIcon } from "../../icons/EditoIcon.jsx";
 import { setReauthenticationCallback } from "../../backend/appFetch.js";
 
+
 const ProfileSettings = () => {
   // ------ Context -----------------------------------------------
   const { user, updateUserAvatar } = useContext(LoginContext);
@@ -68,7 +69,8 @@ const ProfileSettings = () => {
 
       setUserAvatar(avatarUrl);
       updateUserAvatar(avatarUrl);
-      changeAvatar(user.id, avatarUrl, () => {}, onErrors);
+    //  changeAvatar(user.id, avatarUrl, () => {}, onErrors);
+
     }
 
     const updatedUser = {
@@ -106,19 +108,20 @@ const ProfileSettings = () => {
     );
   };
 
-  const handleChangeAvatar = (files) => {
-    const selectedFile = files[0];
-    if (selectedFile) {
-      setAvatar(selectedFile);
 
-      // Leer el archivo seleccionado y actualizar el estado del avatar
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUserAvatar(reader.result);
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-  };
+
+  const handleChangeAvatar = async(files) => {
+    const avatar = files[0];
+    setAvatar(avatar);
+    const result = await uploadFile(avatar);
+		const fullPath = result.metadata.fullPath;
+		const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
+
+		setUserAvatar(route);
+		localStorage.setItem("avatar", route);
+
+		changeAvatar(user.id, route, onSuccess, onErrors);
+  }
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));

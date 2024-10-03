@@ -89,6 +89,7 @@ export const removeServiceToken = () =>
   localStorage.removeItem(config.SERVICE_TOKEN_NAME);
 
 export const fetchConfig = (method, body) => {
+  console.log("fetchConfig => ", method, body);
   const fConfig = {
     method: method,
   };

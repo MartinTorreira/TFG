@@ -37,8 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/user/getUsers").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/allCategories").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/").permitAll()
-				.antMatchers(HttpMethod.GET, "/product/").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/*/details").permitAll()
+				.antMatchers(HttpMethod.GET, "/product/favorites").authenticated()
+				.antMatchers(HttpMethod.GET, "/product/*/productList*").permitAll()
+
 
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
@@ -46,8 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/user/*/changePassword").authenticated()
 				.antMatchers(HttpMethod.POST, "/user/*/changeAvatar").authenticated()
 				.antMatchers(HttpMethod.POST, "/product/add").authenticated()
+				.antMatchers(HttpMethod.POST, "/product/*/addFavorite").authenticated()
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
+
+				.antMatchers(HttpMethod.DELETE, "/product/*/removeFavorite").authenticated()
 
 				// .antMatchers(HttpMethod.POST, "/users/*/changePassword").hasAnyRole("VIEWER", "TICKET_SELLER")
 				// .antMatchers(HttpMethod.GET, "/catalog/billboard").permitAll()

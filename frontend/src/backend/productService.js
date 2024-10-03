@@ -31,3 +31,41 @@ export const getProductById = (productId, onSuccess, onErrors) => {
     onErrors,
   );
 };
+
+export const getProductsByUserId = (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/product/${userId}/productList`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors,
+  );
+};
+
+export const addToFavorites = (productId, onSuccess, onErrors) => {
+  appFetch(
+    `/product/${productId}/addFavorite`,
+    fetchConfig("POST"),
+    onSuccess,
+    onErrors,
+  );
+};
+
+export const removeFromFavorites = (productId, onSuccess, onErrors) => {
+  appFetch(
+    `/product/${productId}/removeFavorite`,
+    fetchConfig("DELETE"),
+    onSuccess,
+    onErrors,
+  );
+};
+
+export const getFavourites = () => {
+  return new Promise((resolve, reject) => {
+    appFetch(
+      `/product/favorites`,
+      fetchConfig("GET"),
+      (data) => resolve(data), // Callback para el éxito
+      (error) => reject(error), // Callback para el error
+    );
+  });
+};

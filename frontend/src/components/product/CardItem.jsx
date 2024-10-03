@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Avatar } from "../Avatar.jsx";
 import { CartIcon } from "../../icons/CartIcon.jsx";
 import { CartIconFilled } from "../../icons/CartIconFilled.jsx";
@@ -7,19 +7,71 @@ import { FavoriteIconFilled } from "../../icons/FavoriteIconFilled.jsx";
 import { Badge } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import useFavoriteStore from "../store/useFavoriteStore.js";
+import { LoginContext } from "../context/LoginContext.js";
+import {
+  removeFromFavorites,
+  addToFavorites,
+} from "../../backend/productService.js";
+import { EditIcon } from "../../icons/EditoIcon.jsx";
 
-export const CardItem = ({ product, favorite, cart }) => {
+export const CardItem = ({ product, cart }) => {
   const navigate = useNavigate();
+  const { favorites, setFavorites, removeFavorite, addFavorite, isFavorite } =
+    useFavoriteStore();
+
+  const favorite = isFavorite(product.id);
+  const { token, user } = useContext(LoginContext);
+  const [isAnimating, setIsAnimating] = useState(false); // Estado para controlar la animación
 
   const handleImageClick = () => {
-    // Navega a la página de detalles del producto
     navigate(`/product/${product.id}/details`);
   };
 
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation();
+    setIsAnimating(true); // Activamos la animación al hacer clic
+
+    if (!token) {
+      navigate("../users/login");
+    } else {
+      const favoriteId = product.id;
+
+      if (!favorite) {
+        addToFavorites(
+          favoriteId,
+          (newFavorite) => {
+            addFavorite(newFavorite);
+            setIsAnimating(false); // Detenemos la animación una vez se añade a favoritos
+          },
+          (errors) => {
+            console.log(errors);
+            setIsAnimating(false); // Detenemos la animación en caso de error
+          },
+        );
+      } else {
+        removeFromFavorites(
+          favoriteId,
+          () => {
+            removeFavorite(favoriteId);
+            setIsAnimating(false); // Detenemos la animación una vez se elimina de favoritos
+          },
+          (errors) => {
+            console.log(errors);
+            setIsAnimating(false); // Detenemos la animación en caso de error
+          },
+        );
+      }
+    }
+  };
+
+  // Comparar userId del contexto con userDto.id del producto
+  const isOwnProduct = product.userDto.id === user.id;
+
   return (
     <motion.div
-      className="relative w-full max-w-sm bg-gray-100 rounded-xl shadow transition-all group"
-      onClick={handleImageClick} // Maneja el clic en el CardItem
+      className={`relative w-full max-w-sm bg-gray-100 rounded-xl shadow transition-all group`}
+      onClick={handleImageClick}
     >
       <div className="absolute top-1 right-2 z-10">
         <Badge variant="surface" color="gray" className="rounded">
@@ -39,7 +91,7 @@ export const CardItem = ({ product, favorite, cart }) => {
           className="w-full h-full object-cover transition-opacity duration-500 ease-in-out cursor-pointer rounded"
           src={product.images[0]}
           alt={`${product.name}`}
-          onClick={handleImageClick} // También puedes manejar el clic aquí
+          onClick={handleImageClick}
         />
       </div>
 
@@ -52,22 +104,43 @@ export const CardItem = ({ product, favorite, cart }) => {
             {product.price.toFixed(2).replace(".", ",")} €
           </span>
           <div className="flex flex-row gap-x-3 mb-2">
-            <button
-              title={favorite ? "Quitar de favoritos" : "Añadir a favoritos"}
-              className="border border-gray-300/80 p-2 rounded-lg"
-            >
-              {favorite ? (
-                <FavoriteIconFilled size={20} />
-              ) : (
-                <FavoriteIcon size={20} />
-              )}
-            </button>
-            <button
-              title={cart ? "Quitar del carro" : "Añadir al carro"}
-              className="border border-gray-300/80 p-2 rounded-lg"
-            >
-              {cart ? <CartIconFilled size={20} /> : <CartIcon size={20} />}
-            </button>
+            {isOwnProduct ? (
+              <button
+                title="Este es tu producto"
+                className="border border-gray-100 p-2 bg-accent-dark rounded-lg"
+              >
+                <EditIcon size={20} color={"text-gray-100"} />
+              </button>
+            ) : (
+              <>
+                <motion.button
+                  title={
+                    favorite ? "Quitar de favoritos" : "Añadir a favoritos"
+                  }
+                  className="border border-gray-300/80 p-2 rounded-lg"
+                  onClick={(e) => handleFavoriteClick(e)}
+                  whileTap={{ scale: 1.2 }} // Animación de escalado al hacer clic
+                  animate={{ scale: isAnimating ? 1.3 : 1 }} // Animación de rebote
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                  }}
+                >
+                  {favorite ? (
+                    <FavoriteIconFilled size={20} />
+                  ) : (
+                    <FavoriteIcon size={20} />
+                  )}
+                </motion.button>
+                <button
+                  title={cart ? "Quitar del carro" : "Añadir al carro"}
+                  className="border border-gray-300/80 p-2 rounded-lg"
+                >
+                  {cart ? <CartIconFilled size={20} /> : <CartIcon size={20} />}
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

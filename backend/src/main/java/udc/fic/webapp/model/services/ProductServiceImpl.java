@@ -53,10 +53,8 @@ public class ProductServiceImpl implements ProductService {
         Product.Quality productQuality;
         try {
             productQuality = Product.Quality.valueOf(quality.toUpperCase());
-            System.out.println("##################################################"+ productQuality);
 
         } catch (IllegalArgumentException e) {
-            System.out.println("################################################## MAL");
             throw new IllegalArgumentException("Invalid quality value: " + quality);
         }
         product.setQuality(productQuality);
@@ -88,6 +86,16 @@ public class ProductServiceImpl implements ProductService {
         Product product = productDao.findById(id)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", id));
         return product;
+    }
+
+    @Override
+    public Page<Product> getProductsByUserId(Long userId, int page, int size) throws InstanceNotFoundException {
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", userId));
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+
+        return productDao.findByUserId(userId, pageRequest);
     }
 
 

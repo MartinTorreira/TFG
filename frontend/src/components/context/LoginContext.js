@@ -9,19 +9,16 @@ export function LoginProvider({ children }) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
-    // Recuperar el token del localStorage al cargar la aplicación
     const storedToken = localStorage.getItem(config.SERVICE_TOKEN_NAME);
     if (storedToken) {
       setToken(storedToken);
     }
 
-    // Recuperar el usuario del localStorage
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
 
-    // Recuperar el avatar del localStorage
     const storedAvatar = localStorage.getItem("avatar");
     if (storedAvatar) {
       setImage(storedAvatar);
@@ -29,14 +26,13 @@ export function LoginProvider({ children }) {
   }, []);
 
   const updateUserAvatar = (newAvatar) => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      avatar: newAvatar,
-    }));
+    setUser((prevUser) => {
+      const updatedUser = { ...prevUser, avatar: newAvatar };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      return updatedUser;
+    });
     setImage(newAvatar);
     localStorage.setItem("avatar", newAvatar);
-    const updatedUser = { ...user, avatar: newAvatar };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ImageSlider } from "./ImageSlider.jsx";
-import { getProductById } from "../../backend/productService.js";
+import { addToFavorites, getProductById } from "../../backend/productService.js";
 import { motion } from "framer-motion";
 import { Badge } from "@radix-ui/themes";
 import { qualities } from "../../utils/Qualities.js";
@@ -41,12 +41,21 @@ const ProductDetails = () => {
     console.log("Error", error);
   };
 
+
+  const handleFavoriteClick = (productId) => {
+    console.log("Se está añadiendo a favs el producto con id: ", productId);
+    addToFavorites(Number(productId), onSuccess, onErrors);
+  }
+
+
   useEffect(() => {
     const productId = Number(id);
     getProductById(productId, onSuccess, onErrors);
   }, [id, setProduct]);
 
   if (!product) return null;
+
+
 
   return (
     <motion.section
@@ -92,8 +101,8 @@ const ProductDetails = () => {
               </div>
 
               <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:flex-col lg:flex-row sm:mt-8">
-                <a
-                  href="#"
+                <button
+                  onClick={() => handleFavoriteClick(product.id)}
                   title=""
                   className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all "
                   role="button"
@@ -116,7 +125,7 @@ const ProductDetails = () => {
                     />
                   </svg>
                   Añadir a favoritos
-                </a>
+                </button>
 
                 <a
                   href="#"

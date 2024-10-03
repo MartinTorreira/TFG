@@ -89,7 +89,7 @@ const AddProduct = () => {
   };
 
   return (
-    <section className="mt-16 mb-20">
+    <section className="mt-16 mb-20 ">
       <div className="flex flex-col items-center justify-start px-10 py-8 mx-auto lg:py-0">
         <div className="bg-gray-50 rounded-lg md:mt-0 w-full max-w-3xl xl:p-0 shadow-lg border border-gray-400">
           <div className="py-4 px-4 mx-auto max-w-2xl lg:py-10">

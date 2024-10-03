@@ -23,10 +23,8 @@ const Navbar = ({ notification }) => {
     navigate(path);
   };
 
-  function isLogged() {}
-
   return (
-    <nav className="backdrop-blur-3xl shadow-md top-0 sticky z-50 bg-gray-100/60">
+    <nav className="backdrop-blur-3xl shadow-md sticky top-0 z-50 bg-gray-100/60">
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Left */}
         <div className="flex items-center font-semibold">
@@ -47,14 +45,14 @@ const Navbar = ({ notification }) => {
               href="#"
               className="text-gray-600 hover:text-gray-900 hover:underline"
             >
-              Favoritos
-            </a>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-gray-900 hover:underline"
-            >
               Mi carro
             </a>
+            <button
+              onClick={() => handleNavigate("./product/favorites")}
+              className="text-gray-600 hover:text-gray-900 hover:underline"
+            >
+              Favoritos
+            </button>
           </div>
         </div>
 

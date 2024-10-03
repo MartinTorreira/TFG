@@ -5,7 +5,7 @@ export const FavoriteIconFilled = ({ size }) => {
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="#73afaf"
+      fill="#f04141"
       className="icon icon-tabler icons-tabler-filled icon-tabler-heart"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

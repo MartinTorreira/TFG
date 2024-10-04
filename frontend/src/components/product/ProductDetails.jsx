@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ImageSlider } from "./ImageSlider.jsx";
-import { addToFavorites, getProductById } from "../../backend/productService.js";
+import {
+  addToFavorites,
+  getProductById,
+} from "../../backend/productService.js";
 import { motion } from "framer-motion";
 import { Badge } from "@radix-ui/themes";
 import { qualities } from "../../utils/Qualities.js";
+import useFavoriteStore from "../store/useFavoriteStore.js";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-
+  const { addFavorite } = useFavoriteStore();
   const [label, setLabel] = useState("");
   const [color, setColor] = useState("");
 
@@ -41,12 +45,18 @@ const ProductDetails = () => {
     console.log("Error", error);
   };
 
-
   const handleFavoriteClick = (productId) => {
     console.log("Se está añadiendo a favs el producto con id: ", productId);
-    addToFavorites(Number(productId), onSuccess, onErrors);
-  }
-
+    addToFavorites(
+      id,
+      (newFavorite) => {
+        addFavorite(newFavorite);
+      },
+      (errors) => {
+        console.log(errors);
+      },
+    );
+  };
 
   useEffect(() => {
     const productId = Number(id);
@@ -54,8 +64,6 @@ const ProductDetails = () => {
   }, [id, setProduct]);
 
   if (!product) return null;
-
-
 
   return (
     <motion.section
@@ -155,7 +163,9 @@ const ProductDetails = () => {
               </div>
 
               <hr className="my-6 md:my-8 border-gray-300" />
-
+              <h3 className="mb-4 text-lg font-semibold text-gray-700">
+                {product.categoryDto.name}
+              </h3>
               <p className="mb-6 text-gray-800 ">{product.description}</p>
             </div>
           </div>

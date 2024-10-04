@@ -24,8 +24,20 @@ export default function App() {
     <BrowserRouter>
       <Sidebar isOpen={isSidebarOpen} className="z-20" />
       <Toaster richColors position="bottom-center" />
-      <div className="absolute backdrop-blur-3xl inset-0 -z-10 min-h-screen w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#f4f4f5_40%,#61c5c1_130%)]"></div>
-      <div className="relative z-0 min-h-screen w-full bg-[conic-gradient(at_right,_var(--tw-gradient-stops))] from-rose-100 to-teal-100">
+      {/* Fondo con manchas verdes muy sutiles */}
+      <div className="absolute inset-0 -z-10 min-h-screen w-full bg-gray-200">
+        <div className="relative min-h-screen w-full">
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `radial-gradient(circle at 30% 40%, rgba(97, 197, 193, 0.15), transparent 25%),
+                           radial-gradient(circle at 70% 60%, rgba(97, 197, 193, 0.1), transparent 25%)`,
+            }}
+          ></div>
+        </div>
+      </div>
+
+      <div className="relative z-0 min-h-screen w-full">
         <Navbar />
         <div className="relative z-10 mb-10">
           <Routes>

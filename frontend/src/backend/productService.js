@@ -19,6 +19,25 @@ export const addProduct = (
   appFetch(`/product/add`, fetchConfig("POST", product), onSuccess, onErrors);
 };
 
+export const updateProduct = (productId, productDto, onSuccess, onErrors) => {
+  console.log("ID BACK" + productDto.id);
+  appFetch(
+    `/product/${Number(productId)}/update`,
+    fetchConfig("PUT", productDto),
+    onSuccess,
+    onErrors,
+  );
+};
+
+export const deleteProduct = (productId, onSuccess, onErrors) => {
+  appFetch(
+    `/product/${productId}/delete`,
+    fetchConfig("DELETE"),
+    onSuccess,
+    onErrors,
+  );
+};
+
 export const getAllCategories = (onSuccess, onErrors) => {
   appFetch(`/product/allCategories`, fetchConfig("GET"), onSuccess, onErrors);
 };
@@ -36,6 +55,20 @@ export const getProductsByUserId = (userId, onSuccess, onErrors) => {
   appFetch(
     `/product/${userId}/productList`,
     fetchConfig("GET"),
+    onSuccess,
+    onErrors,
+  );
+};
+
+export const changeProductImages = async (
+  productId,
+  images,
+  onSuccess,
+  onErrors,
+) => {
+  appFetch(
+    `/product/${productId}/changeImages`,
+    fetchConfig("PUT", images),
     onSuccess,
     onErrors,
   );

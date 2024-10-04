@@ -1,25 +1,21 @@
 package udc.fic.webapp.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.web.bind.annotation.*;
-import udc.fic.webapp.model.entities.Category;
 import udc.fic.webapp.model.entities.Favorite;
 import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.ProductDao;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.model.services.FavoriteService;
 import udc.fic.webapp.model.services.ProductService;
-import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.dto.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/product")
@@ -51,6 +47,39 @@ public class ProductController {
         return new ResponseEntity<>(createdPostDto, HttpStatus.CREATED);
     }
 
+
+    @PutMapping("/{productId}/update")
+    public ResponseEntity<ProductDto> editProduct(@RequestAttribute Long userId, @PathVariable Long productId, @RequestBody ProductDto productDto) throws InstanceNotFoundException {
+
+        // Moficar tabla Product_Images asociada
+        productDao.deleteAllImagesByProductId(productId);
+
+        Product product = productService.updateProduct(
+                userId,
+                productId,
+                productDto.getCategoryDto().getId(),
+                productDto.getName(),
+                productDto.getDescription(),
+                productDto.getPrice(),
+                productDto.getQuantity(),
+                productDto.getQuality(),
+                productDto.getImages()
+        );
+
+        ProductDto updatedProductDto = ProductConversor.toDto(product);
+
+
+        return new ResponseEntity<>(updatedProductDto, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{productId}/delete")
+    public ResponseEntity<Void> deleteProduct(@RequestAttribute Long userId, @PathVariable Long productId) throws InstanceNotFoundException {
+        productService.deleteProduct(userId, productId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
     @GetMapping("/")
     public ResponseEntity<Page<ProductDto>> getLatestProducts(@RequestParam(name = "page", defaultValue = "0") int page,
                                                               @RequestParam(name = "size", defaultValue = "9") int size) {
@@ -78,6 +107,13 @@ public class ProductController {
     @GetMapping("/allCategories")
     public ResponseEntity<List<CategoryDto>> getCategories() {
         return new ResponseEntity<>(CategoryConversor.toDtoList(productService.getCategories()), HttpStatus.OK);
+    }
+
+
+    @PutMapping("/{productId}/changeImages")
+    public ResponseEntity<Void> changeProductImages(@RequestAttribute Long userId, @PathVariable Long productId, @RequestBody List<String> images) throws InstanceNotFoundException {
+        productService.changeProductImages(userId, productId, images);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

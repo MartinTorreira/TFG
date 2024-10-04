@@ -49,7 +49,7 @@ CREATE TABLE Product (
 CREATE TABLE product_images (
                     product_id BIGINT NOT NULL,
                     image VARCHAR(255),
-                    PRIMARY KEY (product_id, image),
+                    PRIMARY KEY (product_id, image) ,
                     FOREIGN KEY (product_id) REFERENCES Product(id)
 ) ENGINE = InnoDB;
 

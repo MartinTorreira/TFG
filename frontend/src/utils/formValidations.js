@@ -66,3 +66,17 @@ export const validateAddProduct = ({
 
   return formErrors;
 };
+
+export const validateUpdateProduct = ({ price, images }) => {
+  let formErrors = {};
+
+  if (!images) {
+    formErrors.images = "Debes añadir imágenes";
+  }
+
+  if (price <= 0) {
+    formErrors.price = "El precio debe ser mayor que 0";
+  }
+
+  return formErrors;
+};

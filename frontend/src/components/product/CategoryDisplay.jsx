@@ -30,7 +30,8 @@ export const CategoryDisplay = ({ onCategorySelect }) => {
     return rootCategories;
   };
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (event, category) => {
+    event.preventDefault();
     if (category.subcategories.length === 0) {
       setSelectedCategory(category.name);
       onCategorySelect(category);
@@ -40,12 +41,18 @@ export const CategoryDisplay = ({ onCategorySelect }) => {
 
   const renderCategories = (categories) => {
     return (
-      <ul className="bg-white border rounded-lg transform scale-0 group-hover:scale-100 absolute transition duration-200 origin-top min-w-32">
+      <ul
+        className="bg-white border rounded-lg transform scale-0 group-hover:scale-100 absolute transition duration-200 origin-top min-w-32"
+        onClick={(e) => e.stopPropagation()}
+      >
         {categories.map((category) => (
           <li
             key={category.id}
             className="relative px-3 py-1 hover:bg-gray-100"
-            onClick={() => handleCategoryClick(category)}
+            onClick={(event) => {
+              event.stopPropagation();
+              handleCategoryClick(event, category);
+            }}
           >
             <button className="w-full text-left flex items-center outline-none focus:outline-none">
               <span className="pr-1 flex-1">{category.name}</span>

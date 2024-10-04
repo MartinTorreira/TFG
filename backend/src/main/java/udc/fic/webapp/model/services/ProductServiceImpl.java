@@ -70,16 +70,64 @@ public class ProductServiceImpl implements ProductService {
         return productDao.save(product);
     }
 
+
+
+    @Override
+    public Product updateProduct(Long userId, Long productId, Long categoryId, String name, String description, double price, int quantity, String quality, List<String> images) throws InstanceNotFoundException {
+        Product product = productDao.findById(productId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", productId));
+
+        if (!Long.valueOf(product.getUser().getId()).equals(userId)) {
+            throw new IllegalArgumentException("project.entities.product.notOwner");
+        }
+
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", userId));
+
+        Category category = categoryDao.findById(categoryId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.category", categoryId));
+
+
+        product.setCategory(category);
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setQuantity(quantity);
+        product.setQuality(quality != null ? Product.Quality.valueOf(quality.toUpperCase()) : null);
+        product.setImage(images.stream()
+                .map(image -> new Product_Images(product, image))
+                .collect(Collectors.toList()));
+
+        return productDao.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Long userId, Long productId) throws InstanceNotFoundException {
+        Product product = productDao.findById(productId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", productId));
+
+        if (!Long.valueOf(product.getUser().getId()).equals(userId)) {
+            throw new IllegalArgumentException("project.entities.product.notOwner");
+        }
+
+        productDao.delete(product);
+    }
+
+
     @Override
     public Page<Product> getLatestProducts(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
         return productDao.findAll(pageRequest);
     }
 
+
+
     @Override
     public List<Category> getCategories() {
         return categoryDao.findAll();
     }
+
+
 
     @Override
     public Product findProductById(Long id) throws InstanceNotFoundException {
@@ -87,6 +135,8 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", id));
         return product;
     }
+
+
 
     @Override
     public Page<Product> getProductsByUserId(Long userId, int page, int size) throws InstanceNotFoundException {
@@ -96,6 +146,26 @@ public class ProductServiceImpl implements ProductService {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
 
         return productDao.findByUserId(userId, pageRequest);
+    }
+
+    @Override
+    public void changeProductImages(Long userId, Long productId, List<String> images) throws InstanceNotFoundException {
+        Product product = productDao.findById(productId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", productId));
+
+        if (!Long.valueOf(product.getUser().getId()).equals(userId)) {
+            throw new IllegalArgumentException("project.entities.product.notOwner");
+        }
+
+        // Delete actual images
+        productDao.deleteAllImagesByProductId(productId);
+
+        product.setImage(images.stream()
+                .map(image -> new Product_Images(product, image))
+                .collect(Collectors.toList()));
+
+        productDao.save(product);
+
     }
 
 

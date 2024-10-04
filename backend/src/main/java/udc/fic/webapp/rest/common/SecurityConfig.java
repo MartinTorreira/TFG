@@ -41,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/product/favorites").authenticated()
 				.antMatchers(HttpMethod.GET, "/product/*/productList*").permitAll()
 
-
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/loginFromServiceToken").permitAll()
@@ -51,7 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/product/*/addFavorite").authenticated()
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
+				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()
+				.antMatchers(HttpMethod.PUT, "/product/*/changeImages").authenticated()
 
+				.antMatchers(HttpMethod.DELETE, "/product/*/delete").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/product/*/removeFavorite").authenticated()
 
 				// .antMatchers(HttpMethod.POST, "/users/*/changePassword").hasAnyRole("VIEWER", "TICKET_SELLER")

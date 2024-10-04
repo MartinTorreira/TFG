@@ -13,7 +13,7 @@ export const QualityDisplay = ({ onQualitySelect }) => {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block" onClick={(e) => e.preventDefault()}>
       <button
         className="flex items-center justify-between bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-3"
         onClick={() => setIsOpen(!isOpen)}
@@ -30,12 +30,18 @@ export const QualityDisplay = ({ onQualitySelect }) => {
         </span>
       </button>
       {isOpen && (
-        <ul className="absolute bg-white border rounded-lg shadow-lg mt-1">
+        <ul
+          className="absolute bg-white border rounded-lg shadow-lg mt-1"
+          onClick={(e) => e.stopPropagation()}
+        >
           {qualities.map((quality) => (
             <li
               key={quality.value}
               className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => handleQualityClick(quality)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleQualityClick(quality);
+              }}
             >
               {quality.label}
             </li>

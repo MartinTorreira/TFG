@@ -30,8 +30,8 @@ export default function App() {
           <div
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(circle at 30% 40%, rgba(97, 197, 193, 0.15), transparent 25%),
-                           radial-gradient(circle at 70% 60%, rgba(97, 197, 193, 0.1), transparent 25%)`,
+              background: `radial-gradient(circle at 30% 40%, rgba(97, 197, 193, 0.3), transparent 25%),
+                           radial-gradient(circle at 70% 60%, rgba(97, 197, 193, 0.3), transparent 25%)`,
             }}
           ></div>
         </div>

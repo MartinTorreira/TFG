@@ -14,9 +14,9 @@ module.exports = withMT({
         roboto: ["Inter", "Onest", "Roboto", "sans-serif"],
       },
       colors: {
-        accent: "#c0e4e4",
-        "accent-ligth": "#e1f1f1",
-        "accent-dark": "#73afaf",
+        accent: "#60dcd0",
+        "accent-ligth": "#bde7e0",
+        "accent-dark": "#46beb1",
       },
       backgroundBlendMode: {
         "color-dodge": "color-dodge",

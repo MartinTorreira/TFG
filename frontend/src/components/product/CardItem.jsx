@@ -186,6 +186,7 @@ export const CardItem = ({ product, cart }) => {
           </div>
         </div>
       </motion.div>
+      {console.log(product.id)}
       <UpdateProductModal
         product={product}
         isOpen={isModalOpen}

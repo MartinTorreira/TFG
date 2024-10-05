@@ -17,9 +17,9 @@ export const FavoriteList = ({ favoriteList }) => {
   }
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 lg:w-3/4 sm:w-full mx-auto">
       {/* Cabecera de la tabla */}
-      <div className="bg-accent-ligth p-2 rounded-lg shadow mb-1 items-center">
+      <div className="bg-accent/20 p-2 rounded-lg shadow mb-1 items-center">
         <div className="grid grid-cols-6 gap-4 font-semibold text-gray-600 text-center">
           <h3>Producto</h3>
           <h3>Categoría</h3>

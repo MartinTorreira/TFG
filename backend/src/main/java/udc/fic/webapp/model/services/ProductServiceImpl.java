@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, String quality, List<String> images)
+    public Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, String quality, Double latitude, Double longitude, List<String> images)
             throws InstanceNotFoundException {
 
         User user = userDao.findById(userId)
@@ -45,15 +45,13 @@ public class ProductServiceImpl implements ProductService {
         }
 
         // Crear el producto sin imágenes
-        Product product = new Product(name, description, price, quantity,null, user, category);
+        Product product = new Product(name, description, price, quantity, latitude, longitude, user, category);
         product = productDao.save(product);
-
 
         // Comprobar si la quality es un valor válido
         Product.Quality productQuality;
         try {
             productQuality = Product.Quality.valueOf(quality.toUpperCase());
-
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid quality value: " + quality);
         }
@@ -71,9 +69,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
     @Override
-    public Product updateProduct(Long userId, Long productId, Long categoryId, String name, String description, double price, int quantity, String quality, List<String> images) throws InstanceNotFoundException {
+    public Product updateProduct(Long userId, Long productId, Long categoryId, String name, String description, double price, int quantity, double latitude, double longitude, String quality, List<String> images) throws InstanceNotFoundException {
         Product product = productDao.findById(productId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", productId));
 
@@ -87,13 +84,14 @@ public class ProductServiceImpl implements ProductService {
         Category category = categoryDao.findById(categoryId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.category", categoryId));
 
-
         product.setCategory(category);
         product.setName(name);
         product.setDescription(description);
         product.setPrice(price);
         product.setQuantity(quantity);
         product.setQuality(quality != null ? Product.Quality.valueOf(quality.toUpperCase()) : null);
+        product.setLatitude(latitude);
+        product.setLongitude(longitude);
         product.setImage(images.stream()
                 .map(image -> new Product_Images(product, image))
                 .collect(Collectors.toList()));

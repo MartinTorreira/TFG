@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { LoginContext } from "../context/LoginContext";
 import { QualityDisplay } from "./QualityDisplay";
+import Map from "./maps/Map.js";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -17,13 +18,26 @@ const AddProduct = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState(null);
   const [quality, setQuality] = useState("");
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const [images, setImages] = useState([]);
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   const { token } = useContext(LoginContext);
 
   const navigate = useNavigate();
+
+  const handleLocationSelect = (lat, lng) => {
+    console.log("COORDENDAS", lat, lng);
+    setLatitude(lat);
+    setLongitude(lng);
+    closeModal();
+  };
 
   const handleSubmitImages = (files) => {
     setImages(files);
@@ -77,8 +91,11 @@ const AddProduct = () => {
       images: imageList,
       categoryDto: { id: category },
       quality,
+      latitude,
+      longitude,
     };
 
+    console.log("LOCATION" + latitude, longitude);
     const validationErrors = validateAddProduct(product);
     setErrors(validationErrors);
 
@@ -218,6 +235,21 @@ const AddProduct = () => {
                     placeholder="Enter product description"
                   ></textarea>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                >
+                  Open Map
+                </button>
+                {isOpen && (
+                  <Map
+                    isOpen={isOpen}
+                    closeModal={closeModal}
+                    onLocationSelect={handleLocationSelect}
+                  />
+                )}
 
                 <div className="sm:col-span-2">
                   <ProductImageUpload

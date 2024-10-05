@@ -11,10 +11,10 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-    Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, String quality, List<String> images)
+    Product addProduct(Long userId, Long categoryId, String name, String description, double price, int quantity, String quality, Double latitude, Double longitude, List<String> images)
             throws InstanceNotFoundException;
 
-    Product updateProduct(Long userId, Long productId, Long categoryId, String name, String description, double price, int quantity, String quality, List<String> images)
+    Product updateProduct(Long userId, Long productId, Long categoryId, String name, String description, double price, int quantity, double latitude, double longitude, String quality, List<String> images)
             throws InstanceNotFoundException;
 
     void deleteProduct(Long userId, Long productId) throws InstanceNotFoundException;

@@ -38,6 +38,8 @@ CREATE TABLE Product (
                      price DOUBLE NOT NULL,
                      quantity INT NOT NULL,
                      quality TINYINT,
+                     latitude DOUBLE NOT NULL,
+                     longitude DOUBLE NOT NULL,
                      userId BIGINT NOT NULL,
                      categoryId BIGINT NOT NULL,
                      CONSTRAINT Product_PK PRIMARY KEY (id),

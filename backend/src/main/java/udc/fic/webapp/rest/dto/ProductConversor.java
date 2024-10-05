@@ -21,6 +21,8 @@ public class ProductConversor {
         product.setPrice(dto.getPrice());
         product.setQuantity(dto.getQuantity());
         product.setQuality(Product.Quality.valueOf(dto.getQuality().toString()));
+        product.setLatitude(dto.getLatitude());
+        product.setLongitude(dto.getLongitude());
         product.setImage(convertImages(dto.getImages(), product));
         product.setCategory(CategoryConversor.toEntity(dto.getCategoryDto()));
         product.setUser(UserConversor.toUser(dto.getUserDto()));
@@ -38,6 +40,8 @@ public class ProductConversor {
         dto.setPrice(product.getPrice());
         dto.setQuantity(product.getQuantity());
         dto.setQuality(product.getQuality().toString());
+        dto.setLatitude(product.getLatitude());
+        dto.setLongitude(product.getLongitude());
         dto.setImages(product.getImage().stream().map(Product_Images::getImage).collect(Collectors.toList()));
         dto.setCategory(CategoryConversor.toDto(product.getCategory()));
         dto.setUserDto(UserConversor.toUserDto(product.getUser()));

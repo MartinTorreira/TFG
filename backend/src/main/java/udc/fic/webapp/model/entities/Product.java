@@ -19,29 +19,46 @@ public class Product {
     private double price;
     private int quantity;
     private Quality quality;
+    private Double latitude;
+    private Double longitude;
     private List<Product_Images> images;
     private User user;
     private Category category;
 
     public Product() {}
 
-    public Product(String name, String description, double price, int quantity, Quality quality ,List<Product_Images> images, User user, Category category) {
+    public Product(String name, String description, double price, int quantity, Quality quality, Double latitude, Double longitude ,List<Product_Images> images, User user, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.quality = quality;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.images = images;
         this.user = user;
         this.category = category;
     }
 
-    public Product(String name, String description, double price, int quantity, List<Product_Images> images, User user, Category category) {
+    public Product(String name, String description, double price, int quantity, Double latitude, Double longitude, List<Product_Images> images, User user, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.images = images;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.user = user;
+        this.category = category;
+    }
+
+    public Product(String name, String description, double price, int quantity, Double latitude, Double longitude, User user, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.user = user;
         this.category = category;
     }
@@ -130,5 +147,23 @@ public class Product {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Column(name = "latitude", nullable = false)
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    @Column(name = "longitude", nullable = false)
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }

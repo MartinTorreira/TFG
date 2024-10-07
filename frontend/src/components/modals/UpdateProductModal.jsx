@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { CategoryDisplay } from "../product/CategoryDisplay";
 import { uploadFile } from "../../firebase/config";
 import { config } from "../../config/constants";
@@ -8,6 +8,19 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { QualityDisplay } from "../product/QualityDisplay";
 import UpdateFileUpload from "../form/UpdateFileUpload.jsx";
+import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
 import {
   Modal,
   ModalContent,
@@ -17,6 +30,23 @@ import {
   Button,
 } from "@nextui-org/react";
 
+const options = {
+  scrollwheel: true,
+  mapTypeControl: false,
+  streetViewControl: false,
+  fullscreenControl: false,
+};
+
+const containerStyle = {
+  width: "100%",
+  height: "400px",
+};
+
+const center = {
+  lat: 43.45,
+  lng: -80.49,
+};
+
 export const UpdateProductModal = ({ product, isOpen, onClose }) => {
   const [name, setName] = useState(product?.name || "");
   const [quantity, setQuantity] = useState(product.quantity);
@@ -24,32 +54,36 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
   const [description, setDescription] = useState(product.description);
   const [category, setCategory] = useState(product.categoryDto.id);
   const [quality, setQuality] = useState(product.quality);
+  const [latitude, setLatitude] = useState(product.latitude);
+  const [longitude, setLongitude] = useState(product.longitude);
   const [images, setImages] = useState(product.images || []);
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [selected, setSelected] = useState({
+    lat: product.latitude,
+    lng: product.longitude,
+  });
   const navigate = useNavigate();
+  const mapRef = useRef();
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyC3DouYAkc3zzgNFpRiouHVw2fMChNSnJw",
+    libraries: ["places"],
+  });
 
   const handleSubmitImages = (files) => {
     setImages(files);
   };
 
-  const uploadImages = async () => {
-    const uploadedImages = [];
-    for (const image of images) {
-      if (typeof image === "string") {
-        uploadedImages.push(image);
-      } else {
-        try {
-          const result = await uploadFile(image);
-          const fullPath = result.metadata.fullPath;
-          const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
-          uploadedImages.push(route);
-        } catch (error) {
-          console.log("Error uploading image:", error);
-        }
-      }
+  const handleMapClick = (event) => {
+    const lat = event.latLng.lat();
+    const lng = event.latLng.lng();
+    setLatitude(lat);
+    setLongitude(lng);
+    setSelected({ lat, lng });
+    if (mapRef.current) {
+      mapRef.current.panTo({ lat, lng });
     }
-    return uploadedImages;
   };
 
   const handleCategorySelect = (event, category) => {
@@ -84,6 +118,8 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
       images: imageList,
       categoryDto: { id: category },
       quality,
+      latitude,
+      longitude,
     };
 
     const validationErrors = validateAddProduct(productDto);
@@ -95,6 +131,27 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
       navigate("../home");
     }
   };
+
+  const uploadImages = async () => {
+    const uploadedImages = [];
+    for (const image of images) {
+      if (typeof image === "string") {
+        uploadedImages.push(image);
+      } else {
+        try {
+          const result = await uploadFile(image);
+          const fullPath = result.metadata.fullPath;
+          const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
+          uploadedImages.push(route);
+        } catch (error) {
+          console.log("Error uploading image:", error);
+        }
+      }
+    }
+    return uploadedImages;
+  };
+
+  if (!isLoaded) return <div>Loading...</div>;
 
   return (
     <>
@@ -110,7 +167,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
               <ModalHeader className="flex flex-col gap-1">
                 Editar producto
               </ModalHeader>
-              <ModalBody className="max-h-[70vh] overflow-y-hidden">
+              <ModalBody className="max-h-[70vh] overflow-y-auto">
                 <section className="mb-10 -mt-10">
                   <div className="flex flex-col items-center justify-start px-10 py-8 mx-auto lg:py-0">
                     <div className="rounded-lg md:mt-0 w-full max-w-3xl xl:p-0">
@@ -122,7 +179,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 htmlFor="name"
                                 className="block mb-2 text-sm text-gray-600"
                               >
-                                Product Name
+                                Nombre del producto
                               </label>
                               <input
                                 value={name}
@@ -145,7 +202,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 htmlFor="item-weight"
                                 className="block mb-2 text-sm text-gray-600"
                               >
-                                Quantity
+                                Cantidad
                               </label>
                               <input
                                 value={quantity === 0 ? "" : quantity}
@@ -172,7 +229,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 htmlFor="price"
                                 className="block mb-2 text-sm text-gray-600"
                               >
-                                Price
+                                Precio
                               </label>
                               <div className="relative">
                                 <input
@@ -204,7 +261,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 htmlFor="text"
                                 className="block mb-2 text-sm text-gray-600"
                               >
-                                Category/Subcategory
+                                Categoría/Subcategoría
                               </label>
                               <CategoryDisplay
                                 onCategorySelect={(event, category) =>
@@ -223,7 +280,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 htmlFor="text"
                                 className="block mb-2 text-sm text-gray-600"
                               >
-                                Quality
+                                Calidad
                               </label>
                               <QualityDisplay
                                 onQualitySelect={(e) => handleQualitySelect(e)}
@@ -240,7 +297,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 htmlFor="description"
                                 className="block mb-2 text-sm text-gray-600"
                               >
-                                Description
+                                Descripción
                               </label>
                               <textarea
                                 value={description === 0 ? "" : description}
@@ -248,7 +305,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 id="description"
                                 rows="8"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-semibold rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 placeholder:font-medium placeholder:italic"
-                                placeholder="Descripción"
+                                placeholder="Introduce una nueva descripción del producto"
                                 required
                               />
                               {isSubmitted && errors.description && (
@@ -257,7 +314,38 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                                 </p>
                               )}
                             </div>
-                            <div className="flex w-max">
+
+                            <div className="sm:col-span-2 mt-4">
+                              <div className="space-y-3">
+                                <label
+                                  htmlFor="description"
+                                  className="block mb-2 text-sm text-gray-600"
+                                >
+                                  {" "}
+                                  Cambiar ubicación
+                                </label>
+                                <PlacesAutocomplete setSelected={setSelected} />
+                                <GoogleMap
+                                  mapContainerStyle={containerStyle}
+                                  zoom={10}
+                                  center={selected || center}
+                                  onClick={handleMapClick}
+                                  onLoad={(map) => (mapRef.current = map)}
+                                  options={options}
+                                >
+                                  {selected && <MarkerF position={selected} />}
+                                </GoogleMap>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-col w-max mt-4">
+                              <label
+                                htmlFor="description"
+                                className="block mb-2 text-sm text-gray-600"
+                              >
+                                {" "}
+                                Cambiar imágenes
+                              </label>
                               <UpdateFileUpload
                                 onFileChange={handleSubmitImages}
                                 images={images}
@@ -289,5 +377,50 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
         </ModalContent>
       </Modal>
     </>
+  );
+};
+
+const PlacesAutocomplete = ({ setSelected }) => {
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions,
+  } = usePlacesAutocomplete();
+
+  const handleSelect = async (address) => {
+    setValue(address, false);
+    clearSuggestions();
+
+    const results = await getGeocode({ address });
+    const { lat, lng } = await getLatLng(results[0]);
+    setSelected({ lat, lng });
+  };
+
+  return (
+    <Combobox onSelect={handleSelect}>
+      <ComboboxInput
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        disabled={!ready}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm font-semibold rounded-lg focus:ring-accent focus:border-primary-600 block w-full p-2.5 placeholder:font-medium placeholder:italic"
+        placeholder="Buscar una dirección"
+      />
+      <ComboboxPopover style={{ zIndex: 1000 }}>
+        {" "}
+        {/* Ajustar el z-index */}
+        <ComboboxList>
+          {status === "OK" &&
+            data.map(({ place_id, description }) => (
+              <ComboboxOption
+                key={place_id}
+                value={description}
+                className="cursor-pointer hover:bg-gray-200"
+              />
+            ))}
+        </ComboboxList>
+      </ComboboxPopover>
+    </Combobox>
   );
 };

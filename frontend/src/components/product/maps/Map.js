@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { MarkerF } from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -13,7 +14,13 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-// Estilos del contenedor del mapa
+const options = {
+  scrollwheel: true,
+  mapTypeControl: false,
+  streetViewControl: false,
+  fullscreenControl: false,
+};
+
 const containerStyle = {
   width: "100%",
   height: "400px",
@@ -24,13 +31,18 @@ const center = {
   lng: -80.49,
 };
 
-export default function Map({ isOpen, closeModal, onLocationSelect }) {
+export default function Map({
+  isOpen,
+  closeModal,
+  onLocationSelect,
+  selected,
+  setSelected,
+}) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyA2poFl_0IHTWEc2kFDwAB6snNKKg5hoFw",
+    googleMapsApiKey: "AIzaSyC3DouYAkc3zzgNFpRiouHVw2fMChNSnJw",
     libraries: ["places"],
   });
 
-  const [selected, setSelected] = useState(null);
   const mapRef = useRef();
 
   const handleMapClick = (event) => {
@@ -71,8 +83,9 @@ export default function Map({ isOpen, closeModal, onLocationSelect }) {
               center={selected || center}
               onClick={handleMapClick}
               onLoad={(map) => (mapRef.current = map)}
+              options={options}
             >
-              {selected && <Marker position={selected} />}
+              {selected && <MarkerF position={selected} />}
             </GoogleMap>
 
             <button
@@ -81,18 +94,6 @@ export default function Map({ isOpen, closeModal, onLocationSelect }) {
             >
               Select Location
             </button>
-
-            {/* Mostrar las coordenadas seleccionadas */}
-            {selected && (
-              <div className="mt-4">
-                <p>
-                  Latitud: <span className="font-bold">{selected.lat}</span>
-                </p>
-                <p>
-                  Longitud: <span className="font-bold">{selected.lng}</span>
-                </p>
-              </div>
-            )}
           </div>
         </div>
       )}

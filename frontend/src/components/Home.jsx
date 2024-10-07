@@ -32,7 +32,7 @@ const Home = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchProducts();
-    }, 5000);
+    }, 500);
 
     return () => clearInterval(intervalId);
   }, [fetchProducts]);

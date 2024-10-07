@@ -14,6 +14,7 @@ import { UpdateProductModal } from "../modals/UpdateProductModal.jsx";
 import { DeleteIcon } from "../../icons/DeleteIcon.jsx";
 import { deleteProduct } from "../../backend/productService.js";
 import { toast } from "sonner";
+import { Alert } from "./Alert.jsx";
 
 import {
   removeFromFavorites,
@@ -28,9 +29,14 @@ export const CardItem = ({ product, cart }) => {
   const { token, user } = useContext(LoginContext);
   const [isAnimating, setIsAnimating] = useState(false); // Estado para controlar la animación
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false); // Estado para controlar el modal de confirmación
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
+    setIsAlertOpen(true); // Mostrar el modal de confirmación
+  };
+
+  const handleConfirmDelete = () => {
     deleteProduct(
       product.id,
       () => {
@@ -43,6 +49,7 @@ export const CardItem = ({ product, cart }) => {
     );
 
     toast.success("Producto eliminado correctamente");
+    setIsAlertOpen(false); // Cerrar el modal de confirmación
   };
 
   const handleEditClick = (e) => {
@@ -136,16 +143,16 @@ export const CardItem = ({ product, cart }) => {
                   <button
                     onClick={(e) => handleEditClick(e)}
                     title="Este es tu producto"
-                    className="border border-gray-500 p-2 rounded-lg hover:opacity-80 transition-all"
+                    className="border border-gray-300 p-2 rounded-lg hover:opacity-80 transition-all"
                   >
                     <EditIcon size={20} color={"text-gray-800"} />
                   </button>
                   <button
                     onClick={(e) => handleDeleteClick(e)}
                     title="Este es tu producto"
-                    className="border border-red-200 p-2 bg-transparent rounded-lg hover:opacity-80 transition-all"
+                    className="border border-red-100 p-2 bg-transparent rounded-lg hover:opacity-80 transition-all"
                   >
-                    <DeleteIcon size={20} color={"text-red-400"} />
+                    <DeleteIcon size={20} color={"text-red-400 "} />
                   </button>
                 </>
               ) : (
@@ -164,12 +171,15 @@ export const CardItem = ({ product, cart }) => {
                       damping: 20,
                     }}
                   >
-                    {favorite ? (
-                      <FavoriteIconFilled size={20} />
-                    ) : (
-                      <FavoriteIcon size={20} />
-                    )}
+                    <span className="hover:scale-125 transition-transform duration-300 ease-in-out">
+                      {favorite ? (
+                        <FavoriteIconFilled size={20} />
+                      ) : (
+                        <FavoriteIcon size={20} />
+                      )}
+                    </span>
                   </motion.button>
+
                   <button
                     title={cart ? "Quitar del carro" : "Añadir al carro"}
                     className="border border-gray-300/80 p-2 rounded-lg"
@@ -191,6 +201,11 @@ export const CardItem = ({ product, cart }) => {
         product={product}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+      <Alert
+        isOpen={isAlertOpen}
+        onClose={() => setIsAlertOpen(false)}
+        onConfirm={handleConfirmDelete}
       />
     </>
   );

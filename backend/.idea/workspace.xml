@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/AddProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/AddProduct.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/maps/Map.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/maps/Map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/modals/UpdateProductModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/modals/UpdateProductModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useCategoryStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useCategoryStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useProductStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useProductStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +155,10 @@
       <workItem from="1728131751306" duration="1993000" />
       <workItem from="1728133777190" duration="14956000" />
       <workItem from="1728257339409" duration="608000" />
-      <workItem from="1728291601902" duration="11928000" />
+      <workItem from="1728291601902" duration="24481000" />
+      <workItem from="1728395324430" duration="73000" />
+      <workItem from="1728395405622" duration="109000" />
+      <workItem from="1728395560562" duration="1268000" />
     </task>
     <servers />
   </component>

@@ -20,11 +20,14 @@ export default function App() {
     setSidebarOpen(!isSidebarOpen);
   };
 
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
   return (
     <BrowserRouter>
-      <Sidebar isOpen={isSidebarOpen} className="z-20" />
+      <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} className="z-50" />
       <Toaster richColors position="bottom-center" />
-      {/* Fondo con manchas verdes muy sutiles */}
       <div className="absolute inset-0 -z-10 min-h-screen w-full bg-gray-200">
         <div className="relative min-h-screen w-full">
           <div
@@ -42,8 +45,11 @@ export default function App() {
         <div className="relative z-10 mb-10">
           <Routes>
             <Route path="/users/login" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/home"
+              element={<Home toggleSidebar={toggleSidebar} />}
+            />
+            <Route path="/" element={<Home toggleSidebar={toggleSidebar} />} />
             <Route path="/users/signUp" element={<Register />} />
             <Route path="/users/profile" element={<ProfileSettings />} />
             <Route path="/users/stats" element={<Stats />} />

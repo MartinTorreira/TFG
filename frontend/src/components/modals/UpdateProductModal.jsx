@@ -2,13 +2,13 @@ import React, { useState, useRef } from "react";
 import { CategoryDisplay } from "../product/CategoryDisplay";
 import { uploadFile } from "../../firebase/config";
 import { config } from "../../config/constants";
-import { updateProduct } from "../../backend/productService";
 import { validateAddProduct } from "../../utils/formValidations.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { QualityDisplay } from "../product/QualityDisplay";
 import UpdateFileUpload from "../form/UpdateFileUpload.jsx";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import { useProductStore } from "../store/useProductStore.js";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -99,7 +99,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
     }
   };
 
-  const onSuccess = () => {
+  const onSuccess = (productDto) => {
     toast.success("Product updated successfully");
   };
 
@@ -126,7 +126,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      updateProduct(product.id, productDto, onSuccess, onErrors);
+      updateProduct(product.id, productDto, onSuccess(productDto), onErrors);
       onClose();
       navigate("../home");
     }
@@ -150,6 +150,8 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
     }
     return uploadedImages;
   };
+
+  const updateProduct = useProductStore((state) => state.updateProduct);
 
   if (!isLoaded) return <div>Loading...</div>;
 

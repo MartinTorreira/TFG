@@ -5,6 +5,7 @@ export const useCategoryStore = create((set) => ({
   categories: [],
   loading: false,
   error: null,
+
   fetchCategories: () => {
     set({ loading: true, error: null });
     getAllCategories(

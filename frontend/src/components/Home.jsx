@@ -3,12 +3,14 @@ import { LoginContext } from "./context/LoginContext";
 import { config } from "../config/constants";
 import { CardGrid } from "./product/CardGrid.jsx";
 import { useProductStore } from "./store/useProductStore";
-import useFavoriteStore from "./store/useFavoriteStore"; // Asegúrate de que la ruta sea correcta
+import useFavoriteStore from "./store/useFavoriteStore";
+import SearchBar from "./SearchBar.jsx";
+import { CategoryIcon } from "../icons/CategoryIcon.jsx";
 
-const Home = () => {
-  const { price, category, fetchProducts, products } = useProductStore();
+const Home = ({ toggleSidebar }) => {
+  const { fetchProducts, filteredProducts } = useProductStore();
   const { loadFavorites } = useFavoriteStore();
-  let { token, setToken, setUser, user } = useContext(LoginContext);
+  let { token, setToken, setUser } = useContext(LoginContext);
 
   useEffect(() => {
     const bearer = localStorage.getItem(config.SERVICE_TOKEN_NAME);
@@ -22,22 +24,27 @@ const Home = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      await loadFavorites(); // Cargar favoritos
-      await fetchProducts(); // Cargar productos
+      await loadFavorites();
+      await fetchProducts();
     };
 
-    loadData(); // Llama a la función async
-  }, [loadFavorites, fetchProducts]); // Asegúrate de que las dependencias sean correctas
+    loadData();
+  }, [loadFavorites, fetchProducts]);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      fetchProducts();
-    }, 500);
-
-    return () => clearInterval(intervalId);
-  }, [fetchProducts]);
-
-  return <CardGrid productList={products} />;
+  return (
+    <>
+      <div className="mt-20 w-1/4 mx-auto h-full py-4 flex justify-between items-center gap-x-2 ">
+        <SearchBar />
+        <button
+          onClick={toggleSidebar}
+          className="bg-gray-900 text-gray-100 p-3 rounded-full"
+        >
+          <CategoryIcon size={28} />
+        </button>
+      </div>
+      <CardGrid productList={filteredProducts} />
+    </>
+  );
 };
 
 export default Home;

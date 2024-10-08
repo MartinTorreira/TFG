@@ -40,9 +40,9 @@ export function Sidebar({ isOpen, onClose }) {
   const clearFilters = () => {
     setSelectedCategory("Todas");
     setSelectedCategoryId(null);
-    setRange([100, 500]);
+    setRange([0, 1000]);
     setCategoryFilter("all");
-    setPriceFilter([100, 500]);
+    setPriceFilter([0, 1000]);
     setSelectedQuality("--");
     setQualityFilter("--");
   };
@@ -92,11 +92,32 @@ export function Sidebar({ isOpen, onClose }) {
           >
             <button className="w-full text-left flex items-center outline-none focus:outline-none">
               <span className="pr-1 flex-1">{category.name}</span>
-              [...]
+              {category.subcategories.length > 0 && (
+                <svg
+                  className="fill-current h-4 w-4 transform transition duration-150"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              )}
             </button>
             {category.subcategories.length > 0 && (
               <ul className="bg-white border rounded-sm absolute top-0 right-0 transition duration-150 ease-in-out origin-top-left min-w-32 z-40">
-                [...]
+                {category.subcategories.map((subcategory) => (
+                  <li
+                    key={subcategory.id}
+                    className="relative px-3 py-1 hover:bg-gray-100"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handleCategorySelect(subcategory.id, subcategory.name);
+                    }}
+                  >
+                    <button className="w-full text-left flex items-center outline-none focus:outline-none">
+                      <span className="pr-1 flex-1">{subcategory.name}</span>
+                    </button>
+                  </li>
+                ))}
               </ul>
             )}
           </li>

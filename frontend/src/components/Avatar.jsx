@@ -1,8 +1,8 @@
-export const Avatar = ({ userName, imagePath }) => {
+export const Avatar = ({ userName, imagePath, size }) => {
   return (
     <div class="flex items-center gap-4">
       <img
-        className="w-10 h-10 rounded-full opacity-75 transition-opacity group-hover:opacity-100 border border-gray-400"
+        className={`w-${size} h-${size} rounded-full opacity-75 transition-opacity group-hover:opacity-100 border border-gray-400`}
         src={imagePath}
         alt="Avatar"
       />

@@ -114,6 +114,7 @@ export const CardItem = ({ product, cart }) => {
         </div>
         <div className="relative translate-y-20 transform opacity-0 transition-all group-hover:translate-y-16 group-hover:opacity-100 -mt-10 ml-4 z-20">
           <Avatar
+            size={"10"}
             className="opacity-100 transition-opacity"
             userName={product.userDto.userName}
             imagePath={product.userDto.avatar}
@@ -122,7 +123,7 @@ export const CardItem = ({ product, cart }) => {
         <div className="relative w-full h-64 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-transparent to-black/70 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 pointer-events-none"></div>
           <img
-            className="w-full h-full object-cover transition-opacity duration-500 ease-in-out cursor-pointer rounded"
+            className="w-full h-full object-fit transition-opacity duration-500 ease-in-out cursor-pointer rounded"
             src={product.images[0]}
             alt={`${product.name}`}
             onClick={handleImageClick}
@@ -148,7 +149,7 @@ export const CardItem = ({ product, cart }) => {
                     <EditIcon size={20} color={"text-gray-800"} />
                   </button>
                   <button
-                    onClick={(e) => handleDeleteClick(e)}
+                    onClick={() => handleDeleteClick()}
                     title="Este es tu producto"
                     className="border border-red-100 p-2 bg-transparent rounded-lg hover:opacity-80 transition-all"
                   >
@@ -196,7 +197,6 @@ export const CardItem = ({ product, cart }) => {
           </div>
         </div>
       </motion.div>
-      {console.log(product.id)}
       <UpdateProductModal
         product={product}
         isOpen={isModalOpen}

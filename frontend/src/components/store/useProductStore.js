@@ -8,6 +8,7 @@ export const useProductStore = create((set, get) => ({
   price: "",
   category: "all",
   query: "",
+  quality: "--",
   products: [],
   filteredProducts: [],
   favouriteProducts: [],
@@ -23,6 +24,14 @@ export const useProductStore = create((set, get) => ({
   },
   setFilteredQuery: (query) => {
     set({ query });
+    get().filterProducts();
+  },
+  setQualityFilter: (quality) => {
+    set({ quality });
+    get().filterProducts();
+  },
+  setStateFilter: (state) => {
+    set({ state });
     get().filterProducts();
   },
   setProducts: (products) => set({ products }),
@@ -51,7 +60,7 @@ export const useProductStore = create((set, get) => ({
   },
 
   filterProducts: () => {
-    const { query, category, price, products } = get();
+    const { query, category, price, quality, state, products } = get();
     let filteredProducts = products;
     // Filtrar por texto de búsqueda
     if (query) {
@@ -72,8 +81,21 @@ export const useProductStore = create((set, get) => ({
       const [minPrice, maxPrice] = price.map(Number);
       filteredProducts = filteredProducts.filter((product) => {
         const productPrice = Number(product.price);
-        console.log("DATOOS" + productPrice, minPrice, maxPrice);
         return productPrice >= minPrice && productPrice <= maxPrice;
+      });
+    }
+
+    // Filtrar por calidad
+    if (quality && quality !== "--") {
+      filteredProducts = filteredProducts.filter((product) => {
+        return product.quality === quality;
+      });
+    }
+
+    // Filtrar por estado
+    if (state && state !== "Todos") {
+      filteredProducts = filteredProducts.filter((product) => {
+        return product.state === state;
       });
     }
 

@@ -27,6 +27,8 @@ export const PriceSlider = ({ value, onValueChange }) => {
         step={10}
         minValue={0}
         maxValue={1000}
+        formatOptions={{ style: "currency", currency: "EUR" }}
+        tooltipValueFormatOptions={{ style: "currency", currency: "EUR" }}
         classNames={{
           base: "max-w-md",
           filler: "bg-gray-900",

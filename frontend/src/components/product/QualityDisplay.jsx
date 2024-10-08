@@ -13,7 +13,10 @@ export const QualityDisplay = ({ onQualitySelect }) => {
   };
 
   return (
-    <div className="relative inline-block" onClick={(e) => e.preventDefault()}>
+    <div
+      className="relative inline-block w-full"
+      onClick={(e) => e.preventDefault()}
+    >
       <button
         className="flex items-center justify-between bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none block w-full p-3"
         onClick={() => setIsOpen(!isOpen)}
@@ -31,7 +34,7 @@ export const QualityDisplay = ({ onQualitySelect }) => {
       </button>
       {isOpen && (
         <ul
-          className="absolute bg-white border rounded-lg shadow-lg mt-1"
+          className="absolute bg-white border rounded-lg shadow-lg mt-1 w-full"
           onClick={(e) => e.stopPropagation()}
         >
           {qualities.map((quality) => (

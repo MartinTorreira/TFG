@@ -88,13 +88,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 
-	@Bean
+	//@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
 			throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 
-	@Bean
+//	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

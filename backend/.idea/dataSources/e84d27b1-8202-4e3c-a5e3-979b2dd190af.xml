@@ -1,50 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="webapp@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.53">
-    <root id="1">
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <Grants>webapp|schema||martin|localhost|ALTER|G
-webapp|schema||martin|localhost|ALTER ROUTINE|G
-webapp|schema||martin|localhost|CREATE|G
-webapp|schema||martin|localhost|CREATE ROUTINE|G
-webapp|schema||martin|localhost|CREATE TEMPORARY TABLES|G
-webapp|schema||martin|localhost|CREATE VIEW|G
-webapp|schema||martin|localhost|DELETE|G
-webapp|schema||martin|localhost|DROP|G
-webapp|schema||martin|localhost|EVENT|G
-webapp|schema||martin|localhost|EXECUTE|G
-webapp|schema||martin|localhost|INDEX|G
-webapp|schema||martin|localhost|INSERT|G
-webapp|schema||martin|localhost|LOCK TABLES|G
-webapp|schema||martin|localhost|REFERENCES|G
-webapp|schema||martin|localhost|SELECT|G
-webapp|schema||martin|localhost|SHOW VIEW|G
-webapp|schema||martin|localhost|TRIGGER|G
-webapp|schema||martin|localhost|UPDATE|G
-webapp|schema||martin|localhost|grant option|G
-webapptest|schema||martin|localhost|ALTER|G
-webapptest|schema||martin|localhost|ALTER ROUTINE|G
-webapptest|schema||martin|localhost|CREATE|G
-webapptest|schema||martin|localhost|CREATE ROUTINE|G
-webapptest|schema||martin|localhost|CREATE TEMPORARY TABLES|G
-webapptest|schema||martin|localhost|CREATE VIEW|G
-webapptest|schema||martin|localhost|DELETE|G
-webapptest|schema||martin|localhost|DROP|G
-webapptest|schema||martin|localhost|EVENT|G
-webapptest|schema||martin|localhost|EXECUTE|G
-webapptest|schema||martin|localhost|INDEX|G
-webapptest|schema||martin|localhost|INSERT|G
-webapptest|schema||martin|localhost|LOCK TABLES|G
-webapptest|schema||martin|localhost|REFERENCES|G
-webapptest|schema||martin|localhost|SELECT|G
-webapptest|schema||martin|localhost|SHOW VIEW|G
-webapptest|schema||martin|localhost|TRIGGER|G
-webapptest|schema||martin|localhost|UPDATE|G
-webapptest|schema||martin|localhost|grant option|G</Grants>
-      <ServerVersion>8.4.2</ServerVersion>
-    </root>
+    <root id="1"/>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
     </collation>

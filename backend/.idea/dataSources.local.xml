@@ -15,5 +15,24 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="mysql" uuid="137205c1-f545-4422-bef2-0622ef0add66">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
+      <user-name>${dataSource.user}</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="webapptest@localhost" uuid="ab0d5445-9a2f-4799-816d-31e5fdf0a197">
+      <database-info product="MySQL" version="8.4.2" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="8.4.2" exact-driver-version="8.2">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>martin</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
   </component>
 </project>

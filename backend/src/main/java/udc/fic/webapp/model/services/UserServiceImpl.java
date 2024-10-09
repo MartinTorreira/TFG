@@ -67,8 +67,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User loginFromId(Long id) {
-        return null;
+    public User loginFromId(Long id) throws InstanceNotFoundException {
+        return permissionChecker.checkUser(id);
     }
 
     @Override

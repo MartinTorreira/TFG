@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/FavoriteServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,9 +48,12 @@
   "keyToString": {
     "HTTP Request.All in generated-requests.executor": "Run",
     "HTTP Request.generated-requests | #1.executor": "Run",
-    "JUnit.All in webapp.executor": "Coverage",
+    "JUnit.All in webapp.executor": "Run",
     "JUnit.BackendApplicationTests.executor": "Run",
     "JUnit.BackendApplicationTests.simpleTest.executor": "Run",
+    "JUnit.FavoriteServiceTest.executor": "Debug",
+    "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
+    "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
     "JUnit.ProductServiceTest.executor": "Coverage",
     "JUnit.ProductServiceTest.testAddProduct.executor": "Run",
     "JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor": "Run",
@@ -92,11 +96,58 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.All in webapp">
+  <component name="RunManager" selected="JUnit.FavoriteServiceTest">
     <configuration name="All in webapp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FavoriteServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FavoriteServiceTest.testAddFavorite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
+      <option name="METHOD_NAME" value="testAddFavorite" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FavoriteServiceTest.testAddFavoriteSameUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
+      <option name="METHOD_NAME" value="testAddFavoriteSameUser" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -112,54 +163,6 @@
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
       <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ProductServiceTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductServiceTest.testChangeProductImages" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ProductServiceTest" />
-      <option name="METHOD_NAME" value="testChangeProductImages" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductServiceTest.testGetProductsByUserIdWithInvalidId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ProductServiceTest" />
-      <option name="METHOD_NAME" value="testGetProductsByUserIdWithInvalidId" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductServiceTest.testUpdateProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ProductServiceTest" />
-      <option name="METHOD_NAME" value="testUpdateProduct" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -180,11 +183,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FavoriteServiceTest" />
+        <item itemvalue="JUnit.FavoriteServiceTest.testAddFavoriteSameUser" />
+        <item itemvalue="JUnit.FavoriteServiceTest.testAddFavorite" />
         <item itemvalue="JUnit.All in webapp" />
         <item itemvalue="JUnit.ProductServiceTest" />
-        <item itemvalue="JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId" />
-        <item itemvalue="JUnit.ProductServiceTest.testChangeProductImages" />
-        <item itemvalue="JUnit.ProductServiceTest.testUpdateProduct" />
       </list>
     </recent_temporary>
   </component>
@@ -245,7 +248,7 @@
       <workItem from="1728401096343" duration="4098000" />
       <workItem from="1728480969960" duration="2735000" />
       <workItem from="1728483738459" duration="1323000" />
-      <workItem from="1728485172757" duration="3666000" />
+      <workItem from="1728485172757" duration="5998000" />
     </task>
     <servers />
   </component>
@@ -263,10 +266,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1728488853940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1728488876602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1728488611828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1728488920158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1728487230509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>

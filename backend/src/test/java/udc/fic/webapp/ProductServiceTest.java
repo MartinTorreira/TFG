@@ -1,19 +1,11 @@
 package udc.fic.webapp;
 
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import udc.fic.webapp.model.entities.Category;
@@ -25,7 +17,6 @@ import udc.fic.webapp.model.services.ProductService;
 import udc.fic.webapp.model.services.UserService;
 
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -277,9 +268,6 @@ public class ProductServiceTest {
         assertThrows(InstanceNotFoundException.class, () -> productService.changeProductImages(user.getId(), Long.valueOf(-1), newImages));
 
     }
-
-
-
 
 
 }

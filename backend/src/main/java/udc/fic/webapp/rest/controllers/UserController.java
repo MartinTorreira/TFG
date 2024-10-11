@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,24 +16,14 @@ import udc.fic.webapp.rest.common.JwtGenerator;
 import udc.fic.webapp.rest.common.JwtInfo;
 import udc.fic.webapp.rest.dto.AuthenticatedUserDto;
 import udc.fic.webapp.rest.dto.ChangePasswordParamsDto;
+import udc.fic.webapp.rest.dto.LoginParamsDto;
 import udc.fic.webapp.rest.dto.UserDto;
-import udc.fic.webapp.rest.dto.LoginParamsDto;
-import udc.fic.webapp.model.exceptions.DuplicateEmailException;
-import udc.fic.webapp.model.exceptions.DuplicateInstanceException;
-import udc.fic.webapp.rest.dto.LoginParamsDto;
-
-
-import static udc.fic.webapp.rest.dto.UserConversor.toAuthenticatedUserDto;
-import static udc.fic.webapp.rest.dto.UserConversor.toUserDtoList;
-import static udc.fic.webapp.rest.dto.UserConversor.toUser;
-import static udc.fic.webapp.rest.dto.UserConversor.toUserDto;
-
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.net.URI;
-import java.util.Locale;
 import java.util.List;
+import java.util.Locale;
+
+import static udc.fic.webapp.rest.dto.UserConversor.*;
 
 
 

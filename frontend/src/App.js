@@ -12,6 +12,9 @@ import { Toaster } from "sonner";
 import AddProduct from "./components/product/AddProduct";
 import ProductDetails from "./components/product/ProductDetails";
 import { FavoritePage } from "./components/product/FavoritePage";
+import PaypalPayment from "./components/payment/PaypalPayment.jsx";
+import PaymentError from "./components/payment/PaymentError.jsx";
+import PaymentSuccess from "./components/payment/PaymentSuccess.jsx";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -53,9 +56,14 @@ export default function App() {
             <Route path="/users/signUp" element={<Register />} />
             <Route path="/users/profile" element={<ProfileSettings />} />
             <Route path="/users/stats" element={<Stats />} />
+
             <Route path="/product/add" element={<AddProduct />} />
             <Route path="/product/favorites" element={<FavoritePage />} />
             <Route path="/product/:id/details" element={<ProductDetails />} />
+
+            <Route path="/payment" element={<PaypalPayment />} />
+            <Route path="/payment/error" element={<PaymentError />} />
+            <Route path="/payment/success" element={<PaymentSuccess />} />
           </Routes>
         </div>
       </div>

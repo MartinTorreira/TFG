@@ -31,12 +31,9 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<ProductDto> addProduct(@RequestAttribute Long userId, @RequestBody ProductDto productDto) throws InstanceNotFoundException {
 
-        System.out.println(productDto.getLatitude());
-
         if (productDto.getLongitude() < -180 || productDto.getLongitude() > 180) {
             throw new IllegalArgumentException("Invalid longitude value: " + productDto.getLongitude());
         }
-
 
         Product product = productService.addProduct(
                 userId,

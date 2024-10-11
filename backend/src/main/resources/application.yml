@@ -30,7 +30,15 @@ spring:
       use-sql-comments: true
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  mvc:
+    dispatch-options-request: true
+
 project:
   jwt:
     signKey: Bu:GW8bgPlEw
     expirationMinutes: 1440
+
+paypal:
+  client-id: AfAuDL8Y-RaJ90kX1mAJfQy2mGGefCc1ovLwoVE74NKZCEmie7xnfiwP6om2MnAwAm0YhB6_zTfJSfWa
+  client-secret: EMS3jRmLXBkyqhrlHmvv0bGulNtMRDFzV11FDuPaKJAqapuuQmfEfHmWkHN4mM-3XlV2kRjcNvltc2_2
+  mode: sandbox

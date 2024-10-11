@@ -20,6 +20,7 @@
     "@nextui-org/react": "^2.4.6",
     "@nextui-org/system": "^2.2.6",
     "@nextui-org/theme": "^2.2.11",
+    "@paypal/react-paypal-js": "^8.7.0",
     "@radix-ui/themes": "^3.1.4",
     "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.19.3",

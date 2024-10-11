@@ -13,7 +13,7 @@ export function Sidebar({ isOpen, onClose }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const [range, setRange] = useState([100, 500]);
+  const [range, setRange] = useState([0, 1000]);
   const [selectedQuality, setSelectedQuality] = useState("--");
 
   const { categories, loading, error, fetchCategories } = useCategoryStore();

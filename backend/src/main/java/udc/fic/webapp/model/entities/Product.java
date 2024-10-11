@@ -9,6 +9,8 @@ import java.util.List;
 @Entity
 public class Product {
 
+
+
     public enum Quality {
         NEEDS_REPAIR, WORN, USED, GOOD, LIKE_NEW, NEW
     }
@@ -24,10 +26,24 @@ public class Product {
     private List<Product_Images> images;
     private User user;
     private Category category;
+    private List<PurchaseItem> purchaseItems;
+
 
     public Product() {}
 
-    public Product(String name, String description, double price, int quantity, Quality quality, Double latitude, Double longitude ,List<Product_Images> images, User user, Category category) {
+    public Product(String name, String description, double price, int quantity, Double latitude, Double longitude, User user, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.user = user;
+        this.category = category;
+    }
+
+
+    public Product(String name, String description, double price, int quantity, Quality quality, Double latitude, Double longitude, List<Product_Images> images, User user, Category category) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -40,28 +56,20 @@ public class Product {
         this.category = category;
     }
 
-    public Product(String name, String description, double price, int quantity, Double latitude, Double longitude, List<Product_Images> images, User user, Category category) {
+    public Product(String name, String description, double price, int quantity, Quality quality, Double latitude, Double longitude, List<Product_Images> images, User user, Category category, List<PurchaseItem> purchaseItems) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
-        this.images = images;
+        this.quality = quality;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.images = images;
         this.user = user;
         this.category = category;
+        this.purchaseItems = purchaseItems;
     }
 
-    public Product(String name, String description, double price, int quantity, Double latitude, Double longitude, User user, Category category) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.user = user;
-        this.category = category;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -115,10 +123,10 @@ public class Product {
     public Quality getQuality() {
         return quality;
     }
+
     public void setQuality(Quality quality) {
         this.quality = quality;
     }
-
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Product_Images> getImage() {
@@ -165,5 +173,14 @@ public class Product {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<PurchaseItem> getPurchaseItems() {
+        return purchaseItems;
+    }
+
+    public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
+        this.purchaseItems = purchaseItems;
     }
 }

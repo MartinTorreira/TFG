@@ -8,7 +8,7 @@ import SearchBar from "./SearchBar.jsx";
 import { CategoryIcon } from "../icons/CategoryIcon.jsx";
 
 const Home = ({ toggleSidebar }) => {
-  const { fetchProducts, filteredProducts } = useProductStore();
+  const { fetchProducts, filteredProducts, removeProduct } = useProductStore();
   const { loadFavorites } = useFavoriteStore();
   let { token, setToken, setUser } = useContext(LoginContext);
 
@@ -29,7 +29,7 @@ const Home = ({ toggleSidebar }) => {
     };
 
     loadData();
-  }, [loadFavorites, fetchProducts]);
+  }, [loadFavorites, fetchProducts, removeProduct]);
 
   return (
     <>

@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../backend/productService";
 import { LoginContext } from "../context/LoginContext";
 import { toast } from "sonner";
+import { useProductStore } from "../store/useProductStore";
 
 const PayPalPayment = () => {
   const { id } = useParams();
@@ -11,13 +12,18 @@ const PayPalPayment = () => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { fetchProducts, removeProduct } = useProductStore();
 
   // TODO - ENCAPSULAR ESTA FUNCIÓN EN UNA CLASE DE SERVICIO
 
-  const createOrder = async (data, actions) => {
-    console.log("VENDEDOR: ", product.userDto.id);
-    console.log("COMPRADOR: ", user.id);
+  const handleExitPurchase = async () => {
+    removeProduct(product.id);
+    await fetchProducts(); // Asegúrate de que la lista esté actualizada
+    navigate("../home");
+    toast.success("Producto comprado correctamente");
+  };
 
+  const createOrder = async (data, actions) => {
     if (!product) {
       setError(new Error("Product not loaded"));
       return;
@@ -80,8 +86,7 @@ const PayPalPayment = () => {
 
       const details = await response.json();
       console.log("Transaction details:", details);
-      navigate("./home");
-      toast.success("Compra realizada con éxito");
+      handleExitPurchase();
     } catch (err) {
       setError(err);
     }

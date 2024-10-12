@@ -128,4 +128,13 @@ export const useProductStore = create((set, get) => ({
       console.error(error);
     }
   },
+
+  removeProduct: (productId) => {
+    set((state) => ({
+      products: state.products.filter((product) => product.id !== productId),
+      filteredProducts: state.filteredProducts.filter(
+        (product) => product.id !== productId,
+      ),
+    }));
+  },
 }));

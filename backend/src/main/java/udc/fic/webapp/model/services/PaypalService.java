@@ -19,7 +19,6 @@ public class PaypalService {
     private PayPalHttpClient payPalClient;
 
     public Order createOrder(Double amount, String currency, String description, String cancelUrl, String successUrl) throws IOException {
-        // Format the amount to ensure it uses a dot as the decimal separator
         String formattedAmount = String.format(Locale.US, "%.2f", amount);
 
         OrderRequest orderRequest = new OrderRequest();

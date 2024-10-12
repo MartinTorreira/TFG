@@ -15,6 +15,7 @@ import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -38,6 +39,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Purchase createPurchase(Long buyerId, Long sellerId, List<Long> productIds, List<Integer> quantities, Double amount, String paymentMethod, String orderId) throws InstanceNotFoundException {
+        System.out.println("Received createPurchase request with orderId: " + orderId);
 
         User buyer = userDao.findById(buyerId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", buyerId));
@@ -51,9 +53,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setAmount(amount);
         purchase.setPurchaseDate(new Date());
 
-        // Generate a unique orderId if not provided
+        // Use the orderId provided by PayPal
         if (orderId == null || orderId.isEmpty()) {
-            orderId = UUID.randomUUID().toString();
+            throw new IllegalArgumentException("orderId must be provided by PayPal");
         }
         purchase.setOrderId(orderId);
 
@@ -82,6 +84,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItemDao.save(purchaseItem);
         }
 
+        System.out.println("Purchase created with orderId: " + purchase.getOrderId());
         return purchase;
     }
 
@@ -100,8 +103,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Long getPurchaseIdFromOrderId(String orderId) throws InstanceNotFoundException {
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Looking for orderId: " + orderId); // Add logging
+
         Purchase purchase = purchaseDao.findByOrderId(orderId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", orderId));
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Found purchase with id: " + purchase.getId()); // Add logging
         return purchase.getId();
     }
 

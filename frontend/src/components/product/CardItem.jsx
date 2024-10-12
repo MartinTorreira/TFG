@@ -33,7 +33,7 @@ export const CardItem = ({ product, cart }) => {
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
-    setIsAlertOpen(true); // Mostrar el modal de confirmación
+    setIsAlertOpen(true);
   };
 
   const handleConfirmDelete = () => {
@@ -49,7 +49,7 @@ export const CardItem = ({ product, cart }) => {
     );
 
     toast.success("Producto eliminado correctamente");
-    setIsAlertOpen(false); // Cerrar el modal de confirmación
+    setIsAlertOpen(false);
   };
 
   const handleEditClick = (e) => {
@@ -63,7 +63,7 @@ export const CardItem = ({ product, cart }) => {
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation();
-    setIsAnimating(true); // Activamos la animación al hacer clic
+    setIsAnimating(true);
 
     if (!token) {
       navigate("../users/login");
@@ -75,11 +75,11 @@ export const CardItem = ({ product, cart }) => {
           favoriteId,
           (newFavorite) => {
             addFavorite(newFavorite);
-            setIsAnimating(false); // Detenemos la animación una vez se añade a favoritos
+            setIsAnimating(false);
           },
           (errors) => {
             console.log(errors);
-            setIsAnimating(false); // Detenemos la animación en caso de error
+            setIsAnimating(false);
           },
         );
       } else {
@@ -87,18 +87,17 @@ export const CardItem = ({ product, cart }) => {
           favoriteId,
           () => {
             removeFavorite(favoriteId);
-            setIsAnimating(false); // Detenemos la animación una vez se elimina de favoritos
+            setIsAnimating(false);
           },
           (errors) => {
             console.log(errors);
-            setIsAnimating(false); // Detenemos la animación en caso de error
+            setIsAnimating(false);
           },
         );
       }
     }
   };
 
-  // Comparar userId del contexto con userDto.id del producto
   const isOwnProduct = product.userDto.id === user.id;
 
   return (
@@ -139,7 +138,7 @@ export const CardItem = ({ product, cart }) => {
               {product.price.toFixed(2).replace(".", ",")} €
             </span>
             <div className="flex flex-row gap-x-3 mb-2">
-              {isOwnProduct || token === null ? (
+              {token && isOwnProduct ? (
                 <>
                   <button
                     onClick={(e) => handleEditClick(e)}
@@ -164,8 +163,8 @@ export const CardItem = ({ product, cart }) => {
                     }
                     className="border border-gray-300/80 p-2 rounded-lg"
                     onClick={(e) => handleFavoriteClick(e)}
-                    whileTap={{ scale: 1.2 }} // Animación de escalado al hacer clic
-                    animate={{ scale: isAnimating ? 1.3 : 1 }} // Animación de rebote
+                    whileTap={{ scale: 1.2 }}
+                    animate={{ scale: isAnimating ? 1.3 : 1 }}
                     transition={{
                       type: "spring",
                       stiffness: 260,

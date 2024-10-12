@@ -1,14 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../backend/productService";
+import { LoginContext } from "../context/LoginContext";
+import { toast } from "sonner";
 
 const PayPalPayment = () => {
   const { id } = useParams();
-  const [error, setError] = useState(null);
+  const { user } = useContext(LoginContext);
   const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  // TODO - ENCAPSULAR ESTA FUNCIÓN EN UNA CLASE DE SERVICIO
 
   const createOrder = async (data, actions) => {
+    console.log("VENDEDOR: ", product.userDto.id);
+    console.log("COMPRADOR: ", user.id);
+
     if (!product) {
       setError(new Error("Product not loaded"));
       return;
@@ -21,10 +30,10 @@ const PayPalPayment = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          buyerId: 1, // Replace with actual buyer ID
-          sellerId: 2, // Replace with actual seller ID
-          productIds: [product.id], // Replace with actual product IDs
-          quantities: [1], // Replace with actual quantities
+          buyerId: user.id,
+          sellerId: product.userDto.id,
+          productIds: [product.id],
+          quantities: [1],
           amount: product.price,
           currency: "EUR",
           paymentMethod: "paypal",
@@ -37,11 +46,12 @@ const PayPalPayment = () => {
       }
 
       const order = await response.json();
+      console.log("Order created: ", order);
       if (order.approvalUrl) {
         const urlParams = new URLSearchParams(
           new URL(order.approvalUrl).search,
         );
-        return urlParams.get("token"); // Return the EC token
+        return urlParams.get("token");
       } else {
         throw new Error("Approval URL not found");
       }
@@ -51,26 +61,30 @@ const PayPalPayment = () => {
   };
 
   const onApprove = async (data, actions) => {
-    return fetch(
-      `http://localhost:8080/purchase/execute?paymentId=${data.orderID}&PayerID=${data.payerID}`,
-      {
-        method: "POST",
-      },
-    )
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
-        return response.json();
-      })
-      .then((details) => {
-        alert("Transaction completed by " + details.payer.name.given_name);
-      })
-      .catch((err) => {
-        setError(err);
-      });
+    try {
+      const response = await fetch(
+        `http://localhost:8080/purchase/execute?orderId=${data.orderID}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            userId: user.id,
+          },
+        },
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
+      }
+
+      const details = await response.json();
+      console.log("Transaction details:", details);
+      navigate("./home");
+      toast.success("Compra realizada con éxito");
+    } catch (err) {
+      setError(err);
+    }
   };
 
   const onSuccess = (data) => {

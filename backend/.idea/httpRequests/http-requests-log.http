@@ -1,3 +1,24 @@
+POST http://localhost:8080/purchase/create
+Content-Type: application/json
+Content-Length: 146
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "buyerId": 1,
+  "sellerId": 2,
+  "productIds": [1],
+  "quantities": [1],
+  "amount": "100",
+  "currency": "EUR",
+  "paymentMethod": "paypal"
+}
+
+<> 2024-10-12T173137.200.json
+
+###
+
 GET http://localhost:8080/user/3/changePassword
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.1
 Accept-Encoding: br, deflate, gzip, x-gzip

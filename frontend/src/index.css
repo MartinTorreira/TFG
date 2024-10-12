@@ -16,8 +16,8 @@ code {
 }
 
 ::selection {
-    background-color: red;
-    color: white;
+    background-color: #c0e4e4;
+    color: black;
 }
 
 .radix-themes {

@@ -10,7 +10,7 @@ export const getProducts = (state, onSuccess, onErrors) => {
   );
 };
 
-export const addProduct = (
+export const addProduct = async (
   product,
   onSuccess,
   onErrors,
@@ -19,8 +19,12 @@ export const addProduct = (
   appFetch(`/product/add`, fetchConfig("POST", product), onSuccess, onErrors);
 };
 
-export const updateProduct = (productId, productDto, onSuccess, onErrors) => {
-  console.log("ID BACK" + productDto.id);
+export const updateProduct = async (
+  productId,
+  productDto,
+  onSuccess,
+  onErrors,
+) => {
   appFetch(
     `/product/${Number(productId)}/update`,
     fetchConfig("PUT", productDto),
@@ -29,7 +33,7 @@ export const updateProduct = (productId, productDto, onSuccess, onErrors) => {
   );
 };
 
-export const deleteProduct = (productId, onSuccess, onErrors) => {
+export const deleteProduct = async (productId, onSuccess, onErrors) => {
   appFetch(
     `/product/${productId}/delete`,
     fetchConfig("DELETE"),

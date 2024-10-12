@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import {
   getProducts,
+  addProduct as addProductService,
+  deleteProduct as deleteProductService,
   updateProduct as updateProductService,
 } from "../../backend/productService";
 
@@ -120,21 +122,43 @@ export const useProductStore = create((set, get) => ({
     return products.filter((product) => product.isFavourite);
   },
 
-  updateProduct: async (productId, updatedProduct) => {
+  addProduct: async (product) => {
     try {
-      await updateProductService(productId, updatedProduct);
-      await get().fetchProducts();
+      await addProductService(
+        product,
+        () => {
+          get().fetchProducts();
+        },
+        (errors) => {
+          console.error(errors);
+        },
+      );
     } catch (error) {
       console.error(error);
     }
   },
 
-  removeProduct: (productId) => {
-    set((state) => ({
-      products: state.products.filter((product) => product.id !== productId),
-      filteredProducts: state.filteredProducts.filter(
-        (product) => product.id !== productId,
-      ),
-    }));
+  updateProduct: async (productId, updatedProduct) => {
+    try {
+      await updateProductService(productId, updatedProduct);
+      get().fetchProducts();
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  removeProduct: async (productId) => {
+    try {
+      await deleteProductService(
+        productId,
+        () => {},
+        (errors) => {
+          console.log(errors);
+        },
+      );
+      get().fetchProducts();
+    } catch (error) {
+      console.error(error);
+    }
   },
 }));

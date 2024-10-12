@@ -8,6 +8,7 @@ import { Badge } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import useFavoriteStore from "../store/useFavoriteStore.js";
+import { useProductStore } from "../store/useProductStore.js";
 import { LoginContext } from "../context/LoginContext.js";
 import { EditIcon } from "../../icons/EditoIcon.jsx";
 import { UpdateProductModal } from "../modals/UpdateProductModal.jsx";
@@ -24,12 +25,13 @@ import {
 export const CardItem = ({ product, cart }) => {
   const navigate = useNavigate();
   const { removeFavorite, addFavorite, isFavorite } = useFavoriteStore();
+  const { removeProduct } = useProductStore();
 
   const favorite = isFavorite(product.id);
   const { token, user } = useContext(LoginContext);
-  const [isAnimating, setIsAnimating] = useState(false); // Estado para controlar la animación
+  const [isAnimating, setIsAnimating] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false); // Estado para controlar el modal de confirmación
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -37,20 +39,30 @@ export const CardItem = ({ product, cart }) => {
   };
 
   const handleConfirmDelete = () => {
-    deleteProduct(
-      product.id,
-      () => {
-        // Eliminar producto de la lista de favoritos
-        removeFavorite(product.id);
-      },
-      (errors) => {
-        console.log(errors);
-      },
-    );
-
+    try {
+      removeFavorite(product.id);
+      removeProduct(product.id);
+    } catch (error) {
+      console.log(error);
+    }
     toast.success("Producto eliminado correctamente");
     setIsAlertOpen(false);
   };
+
+  // const handleConfirmDelete = () => {
+  //   deleteProduct(
+  //     product.id,
+  //     () => {
+  //       removeFavorite(product.id);
+  //     },
+  //     (errors) => {
+  //       console.log(errors);
+  //     },
+  //   );
+
+  //   toast.success("Producto eliminado correctamente");
+  //   setIsAlertOpen(false);
+  // };
 
   const handleEditClick = (e) => {
     e.stopPropagation();
@@ -148,7 +160,7 @@ export const CardItem = ({ product, cart }) => {
                     <EditIcon size={20} color={"text-gray-800"} />
                   </button>
                   <button
-                    onClick={() => handleDeleteClick()}
+                    onClick={(e) => handleDeleteClick(e)}
                     title="Este es tu producto"
                     className="border border-red-100 p-2 bg-transparent rounded-lg hover:opacity-80 transition-all"
                   >

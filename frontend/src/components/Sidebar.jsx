@@ -8,7 +8,6 @@ export function Sidebar({ isOpen, onClose }) {
   const setPriceFilter = useProductStore((state) => state.setPriceFilter);
   const setCategoryFilter = useProductStore((state) => state.setCategoryFilter);
   const setQualityFilter = useProductStore((state) => state.setQualityFilter);
-  const setStateFilter = useProductStore((state) => state.setStateFilter);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Todas");

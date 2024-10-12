@@ -7,7 +7,6 @@ import { addProduct } from "../../backend/productService";
 import { validateAddProduct } from "../../utils/formValidations.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { LoginContext } from "../context/LoginContext";
 import { QualityDisplay } from "./QualityDisplay";
 import Map from "./maps/Map.js";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
@@ -29,8 +28,6 @@ const AddProduct = () => {
   const [selected, setSelected] = useState(null);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
-  const { token } = useContext(LoginContext);
 
   const navigate = useNavigate();
 

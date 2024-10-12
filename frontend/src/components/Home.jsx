@@ -6,11 +6,13 @@ import { useProductStore } from "./store/useProductStore";
 import useFavoriteStore from "./store/useFavoriteStore";
 import SearchBar from "./SearchBar.jsx";
 import { CategoryIcon } from "../icons/CategoryIcon.jsx";
+import { addProduct } from "../backend/productService.js";
 
 const Home = ({ toggleSidebar }) => {
-  const { fetchProducts, filteredProducts, removeProduct } = useProductStore();
+  const { fetchProducts, filteredProducts, updateProduct, removeProduct } =
+    useProductStore();
   const { loadFavorites } = useFavoriteStore();
-  let { token, setToken, setUser } = useContext(LoginContext);
+  let { setToken, setUser } = useContext(LoginContext);
 
   useEffect(() => {
     const bearer = localStorage.getItem(config.SERVICE_TOKEN_NAME);
@@ -29,7 +31,7 @@ const Home = ({ toggleSidebar }) => {
     };
 
     loadData();
-  }, [loadFavorites, fetchProducts, removeProduct]);
+  }, [loadFavorites, fetchProducts]);
 
   return (
     <>

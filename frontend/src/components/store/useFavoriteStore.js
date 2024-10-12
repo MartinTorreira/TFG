@@ -9,11 +9,9 @@ const useFavoriteStore = create((set, get) => ({
   loadFavorites: async () => {
     try {
       const response = await getFavourites();
-      console.log("Response from getFavourites:", response); // Verifica el contenido
 
       if (response && response.content) {
         set({ favorites: response.content });
-        console.log("Favorites set:", response.content); // Verifica que se haya actualizado el estado
       } else {
         console.warn("No content found in the response.");
       }

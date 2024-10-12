@@ -1,8 +1,6 @@
 package udc.fic.webapp.rest.controllers;
 
-import com.paypal.api.payments.*;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.orders.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,9 @@ import udc.fic.webapp.rest.dto.PurchaseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/purchase")
@@ -28,16 +28,12 @@ public class PurchaseController {
     private PurchaseService purchaseService;
 
     @Autowired
-    private APIContext apiContext;
-
-    @Autowired
     private PaypalService paypalService;
 
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createPurchase(@RequestBody PurchaseDto dto) throws InstanceNotFoundException {
-
-        String cancelUrl = "http://localhost:8080/payment/cancel";
-        String successUrl = "http://localhost:8080/payment/success";
+        String cancelUrl = "http://localhost:8080/purchase/cancel";
+        String successUrl = "http://localhost:8080/purchase/success?orderId=" + dto.getOrderId();
 
         Purchase purchase = purchaseService.createPurchase(
                 dto.getBuyerId(),
@@ -45,79 +41,61 @@ public class PurchaseController {
                 dto.getProductIds(),
                 dto.getQuantities(),
                 dto.getAmount(),
-                dto.getPaymentMethod()
+                dto.getPaymentMethod(),
+                dto.getOrderId()
         );
 
         try {
-
-            // Crear el pago utilizando el servicio de PayPal
-            Payment payment = paypalService.createPayment(
-                    Double.valueOf(dto.getAmount()),
+            Order order = paypalService.createOrder(
+                    dto.getAmount(),
                     dto.getCurrency(),
-                    dto.getPaymentMethod(),
-                    "sale",
                     "Descripcion",
                     cancelUrl,
                     successUrl
             );
 
-            // Retornar el ID de la orden a la respuesta
-            String approvalUrl = "";
-            for (Links links : payment.getLinks()) {
-                if (links.getRel().equals("approval_url")) {
-                    approvalUrl = links.getHref();
-                    break;
-                }
-            }
+            String approvalUrl = order.links().stream()
+                    .filter(link -> "approve".equals(link.rel()))
+                    .findFirst()
+                    .map(link -> link.href())
+                    .orElse("");
 
-            // Retornar tanto el ID de pago como la URL de aprobación
             Map<String, String> response = new HashMap<>();
-            response.put("paymentId", payment.getId());
+            response.put("orderId", order.id());
             response.put("approvalUrl", approvalUrl);
             return ResponseEntity.ok(response);
-        } catch (PayPalRESTException e) {
+        } catch (IOException e) {
             logger.error("Error occurred:: ", e);
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                Map.of("error", "Error creating payment")
+                Map.of("error", "Error creating order")
         );
     }
 
-    private String createPaypalPayment(PurchaseDto dto) throws PayPalRESTException {
-        Amount amount = new Amount();
-        amount.setCurrency(dto.getCurrency().replaceAll("%0A", ""));
-        amount.setTotal(String.format(Locale.US, "%.2f", dto.getAmount()));
+    @PostMapping("/execute")
+    public ResponseEntity<String> executePayment(@RequestParam("orderId") String orderId) {
+        try {
+            Order order = paypalService.captureOrder(orderId);
+            if ("COMPLETED".equals(order.status())) {
+                Long purchaseId = purchaseService.getPurchaseIdFromOrderId(orderId);
+                purchaseService.completePurchase(purchaseId);
+                return ResponseEntity.ok("Payment successful");
+            }
+        } catch (IOException | InstanceNotFoundException e) {
+            logger.error("Error occurred:: ", e);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Payment execution failed");
+    }
 
-        Transaction transaction = new Transaction();
-        transaction.setDescription(dto.getPaymentMethod().replaceAll("%0A", ""));
-        transaction.setAmount(amount);
+    @GetMapping("/success")
+    public String paymentSuccess(
+            @RequestParam("orderId") String orderId
+    ) {
+        return "paymentSuccess";
+    }
 
-        List<Transaction> transactions = new ArrayList<>();
-        transactions.add(transaction);
-
-        Payer payer = new Payer();
-        payer.setPaymentMethod(dto.getPaymentMethod().replaceAll("%0A", ""));
-
-        Payment payment = new Payment();
-        payment.setIntent("sale");
-        payment.setPayer(payer);
-        payment.setTransactions(transactions);
-
-        RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/payment/cancel");
-        redirectUrls.setReturnUrl("http://localhost:8080/payment/execute");
-        payment.setRedirectUrls(redirectUrls);
-
-        logger.info("Creating PayPal payment with details: {}", payment);
-
-        Payment createdPayment = payment.create(apiContext);
-
-        logger.info("Created PayPal payment: {}", createdPayment);
-
-        return createdPayment.getLinks().stream()
-                .filter(link -> link.getRel().equals("approval_url"))
-                .findFirst()
-                .map(Links::getHref)
-                .orElseThrow(() -> new RuntimeException("Approval URL not found"));
+    @GetMapping("/cancel")
+    public String paymentCancel() {
+        return "paymentCancel";
     }
 }

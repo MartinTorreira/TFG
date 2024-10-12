@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { LoginContext } from "../context/LoginContext";
 import { QualityDisplay } from "./QualityDisplay";
 import Map from "./maps/Map.js";
-import { GoogleMap, Marker } from "@react-google-maps/api";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -277,7 +277,7 @@ const AddProduct = () => {
                       zoom={10}
                       center={selected}
                     >
-                      <Marker position={selected} />
+                      <MarkerF position={selected} />
                     </GoogleMap>
                   </div>
                 )}

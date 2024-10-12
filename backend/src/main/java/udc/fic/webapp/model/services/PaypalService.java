@@ -1,66 +1,83 @@
 package udc.fic.webapp.model.services;
 
-import com.paypal.api.payments.*;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.PayPalRESTException;
-import lombok.RequiredArgsConstructor;
+import com.paypal.orders.*;
+import com.paypal.core.PayPalHttpClient;
+import com.paypal.http.HttpResponse;
+import com.paypal.http.exceptions.HttpException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 @Service
-@RequiredArgsConstructor
 public class PaypalService {
 
-    private final APIContext apiContext;
+    @Autowired
+    private PayPalHttpClient payPalClient;
 
-    public Payment createPayment(
-            Double total,
-            String currency,
-            String method,
-            String intent,
-            String description,
-            String cancelUrl,
-            String successUrl
-    ) throws PayPalRESTException {
-        Amount amount = new Amount();
-        amount.setCurrency(currency.replaceAll("%0A", ""));
-        amount.setTotal(String.format(Locale.forLanguageTag(currency.replaceAll("%0A", "")), "%.2f", total));
+    public Order createOrder(Double amount, String currency, String description, String cancelUrl, String successUrl) throws IOException {
+        // Format the amount to ensure it uses a dot as the decimal separator
+        String formattedAmount = String.format(Locale.US, "%.2f", amount);
 
-        Transaction transaction = new Transaction();
-        transaction.setDescription(description.replaceAll("%0A", ""));
-        transaction.setAmount(amount);
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.checkoutPaymentIntent("CAPTURE");
 
-        List<Transaction> transactions = new ArrayList<>();
-        transactions.add(transaction);
+        ApplicationContext applicationContext = new ApplicationContext()
+                .cancelUrl(cancelUrl)
+                .returnUrl(successUrl);
+        orderRequest.applicationContext(applicationContext);
 
-        Payer payer = new Payer();
-        payer.setPaymentMethod(method.replaceAll("%0A", ""));
+        List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
+        PurchaseUnitRequest purchaseUnitRequest = new PurchaseUnitRequest()
+                .description(description)
+                .amountWithBreakdown(new AmountWithBreakdown()
+                        .currencyCode(currency)
+                        .value(formattedAmount));
+        purchaseUnits.add(purchaseUnitRequest);
+        orderRequest.purchaseUnits(purchaseUnits);
 
+        OrdersCreateRequest request = new OrdersCreateRequest().requestBody(orderRequest);
 
-        Payment payment = new Payment();
-        payment.setIntent(intent.replaceAll("%0A", ""));
-        payment.setPayer(payer);
-        payment.setTransactions(transactions);
-
-        RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl(cancelUrl.replaceAll("%0A", ""));
-        redirectUrls.setReturnUrl(successUrl.replaceAll("%0A", ""));
-
-        payment.setRedirectUrls(redirectUrls);
-
-        return payment.create(apiContext);
+        try {
+            HttpResponse<Order> response = payPalClient.execute(request);
+            return response.result();
+        } catch (HttpException e) {
+            throw new IOException("Error creating order: " + e.getMessage(), e);
+        }
     }
 
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
-        Payment payment = new Payment();
-        payment.setId(paymentId.replaceAll("%0A", ""));
 
-        PaymentExecution paymentExecution = new PaymentExecution();
-        paymentExecution.setPayerId(payerId.replaceAll("%0A", ""));
+    public Order captureOrder(String orderId) throws IOException {
+        OrdersCaptureRequest request = new OrdersCaptureRequest(orderId);
+        request.requestBody(new OrderRequest());
 
-        return payment.execute(apiContext, paymentExecution);
+        try {
+            HttpResponse<Order> response = payPalClient.execute(request);
+            return response.result();
+        } catch (HttpException e) {
+            throw new IOException("Error capturing order: " + e.getMessage(), e);
+        }
+    }
+
+    private OrderRequest buildRequestBody(Double total, String currency, String description, String cancelUrl, String successUrl) {
+        OrderRequest orderRequest = new OrderRequest();
+        orderRequest.checkoutPaymentIntent("CAPTURE");
+
+        ApplicationContext applicationContext = new ApplicationContext()
+                .cancelUrl(cancelUrl)
+                .returnUrl(successUrl);
+        orderRequest.applicationContext(applicationContext);
+
+        List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
+        PurchaseUnitRequest purchaseUnitRequest = new PurchaseUnitRequest()
+                .description(description)
+                .amountWithBreakdown(new AmountWithBreakdown().currencyCode(currency).value(String.format("%.2f", total)));
+        purchaseUnits.add(purchaseUnitRequest);
+        orderRequest.purchaseUnits(purchaseUnits);
+
+        return orderRequest;
     }
 }

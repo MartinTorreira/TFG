@@ -37,8 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/product/*/details").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/favorites").authenticated()
 				.antMatchers(HttpMethod.GET, "/product/*/productList*").permitAll()
-				.antMatchers(HttpMethod.GET, "/payment/success").permitAll()
-
+				.antMatchers(HttpMethod.GET, "/payment/success").authenticated()
+				.antMatchers(HttpMethod.GET, "/payment/error").permitAll()
+				.antMatchers(HttpMethod.GET, "/purchase/success").permitAll()
 
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
@@ -47,11 +48,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/user/*/changeAvatar").authenticated()
 				.antMatchers(HttpMethod.POST, "/product/add").authenticated()
 				.antMatchers(HttpMethod.POST, "/product/*/addFavorite").authenticated()
-				.antMatchers(HttpMethod.POST, "/payment/create").permitAll()
-				.antMatchers(HttpMethod.POST, "/payment/capture").permitAll()
-				.antMatchers(HttpMethod.POST, "/payment/execute").permitAll()
-
 				.antMatchers(HttpMethod.POST, "/purchase/create").permitAll()
+				.antMatchers(HttpMethod.POST, "/purchase/execute").permitAll()
+				.antMatchers(HttpMethod.POST, "/payment/create").authenticated()
 
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
@@ -60,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.DELETE, "/product/*/delete").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/product/*/removeFavorite").authenticated()
-				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permitir solicitudes OPTIONS
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
 				.anyRequest().authenticated();
 	}
@@ -77,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedOrigin("http://192.168.1.36:3000");
 		config.addAllowedOrigin("https://660d2bd96ddfa2943b33731c.mockapi.io");
 		config.addAllowedOrigin("https://www.sandbox.paypal.com");
-		config.addAllowedOrigin("https://www.paypal.com*");
+		config.addAllowedOrigin("https://www.paypal.com");
 		config.addAllowedOrigin("https://api.sandbox.paypal.com");
 		config.addAllowedOrigin("https://sandbox.paypal.com/sdk/js?client-id=AfAuDL8Y-RaJ90kX1mAJfQy2mGGefCc1ovLwoVE74NKZCEmie7xnfiwP6om2MnAwAm0YhB6_zTfJSfWa");
 		config.addAllowedHeader("*");

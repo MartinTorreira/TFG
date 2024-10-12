@@ -19,6 +19,8 @@ public class Purchase {
     private User seller;
     private List<PurchaseItem> items;
     private PaymentMethod paymentMethod;
+    private String orderId;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,5 +87,14 @@ public class Purchase {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    @Column(name = "order_id", unique = true, nullable = false)
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

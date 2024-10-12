@@ -43,6 +43,7 @@ export const getAllCategories = (onSuccess, onErrors) => {
 };
 
 export const getProductById = (productId, onSuccess, onErrors) => {
+  console.log("GETPRODUCTBYID" + productId);
   appFetch(
     `/product/${productId}/details`,
     fetchConfig("GET"),

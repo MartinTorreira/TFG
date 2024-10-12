@@ -139,7 +139,7 @@ export const CardItem = ({ product, cart }) => {
               {product.price.toFixed(2).replace(".", ",")} €
             </span>
             <div className="flex flex-row gap-x-3 mb-2">
-              {isOwnProduct ? (
+              {isOwnProduct || token === null ? (
                 <>
                   <button
                     onClick={(e) => handleEditClick(e)}

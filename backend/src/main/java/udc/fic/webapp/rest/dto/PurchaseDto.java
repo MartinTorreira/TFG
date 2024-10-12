@@ -11,6 +11,7 @@ public class PurchaseDto {
     private Double amount;
     private String currency;
     private String paymentMethod;
+    private String orderId;
 
     public PurchaseDto() {
     }
@@ -69,5 +70,13 @@ public class PurchaseDto {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

@@ -61,7 +61,7 @@ export default function App() {
             <Route path="/product/favorites" element={<FavoritePage />} />
             <Route path="/product/:id/details" element={<ProductDetails />} />
 
-            <Route path="/payment" element={<PaypalPayment />} />
+            <Route path="/product/:id/payment" element={<PaypalPayment />} />
             <Route path="/payment/error" element={<PaymentError />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
           </Routes>

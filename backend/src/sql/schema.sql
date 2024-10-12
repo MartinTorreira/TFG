@@ -64,6 +64,7 @@ CREATE TABLE Purchase (
                           purchaseDate DATETIME NOT NULL,
                           amount DOUBLE NOT NULL,
                           payment_method VARCHAR(255) NOT NULL,
+                          order_id VARCHAR(255) NOT NULL UNIQUE,
                           CONSTRAINT Purchase_PK PRIMARY KEY (id),
                           CONSTRAINT Buyer_FK FOREIGN KEY (buyer_id) REFERENCES User(id) ON DELETE CASCADE,
                           CONSTRAINT Seller_FK FOREIGN KEY (seller_id) REFERENCES User(id) ON DELETE CASCADE

@@ -5,34 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItemDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PaypalService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/PaypalConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PaypalController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PaypalDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/PayPalConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/BackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/BackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PaypalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PaypalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/PaypalConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PaypalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PaypalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/FavoriteServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/FavoriteServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/backend/productService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/productService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/AddProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/AddProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/ProductDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/ProductDetails.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,59 +61,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.All in generated-requests.executor": "Run",
-    "HTTP Request.generated-requests | #1.executor": "Run",
-    "JUnit.All in webapp.executor": "Run",
-    "JUnit.BackendApplicationTests.executor": "Run",
-    "JUnit.BackendApplicationTests.simpleTest.executor": "Run",
-    "JUnit.FavoriteServiceTest.executor": "Run",
-    "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
-    "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
-    "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
-    "JUnit.ProductServiceTest.executor": "Coverage",
-    "JUnit.ProductServiceTest.testAddProduct.executor": "Run",
-    "JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor": "Run",
-    "JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor": "Run",
-    "JUnit.ProductServiceTest.testChangeProductImages.executor": "Run",
-    "JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor": "Run",
-    "JUnit.ProductServiceTest.testUpdateProduct.executor": "Run",
-    "JUnit.UserServiceTest.executor": "Coverage",
-    "JUnit.UserServiceTest.simpleTest.executor": "Run",
-    "JUnit.UserServiceTest.testLoginFromNonExistentId.executor": "Run",
-    "JUnit.UserServiceTest.testSignUpAndLoginFromId.executor": "Run",
-    "JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "test",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "two.files.diff.last.used.file": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.All in generated-requests.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in webapp.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BackendApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BackendApplicationTests.simpleTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FavoriteServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FavoriteServiceTest.testAddFavorite.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.ProductServiceTest.testAddProduct.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testChangeProductImages.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testUpdateProduct.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.UserServiceTest.simpleTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testLoginFromNonExistentId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testSignUpAndLoginFromId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature-03/Purchase&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "PLAIN_TEXT"
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser">
     <configuration name="All in webapp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
@@ -278,12 +270,24 @@
       <workItem from="1728485172757" duration="6277000" />
       <workItem from="1728491898550" duration="7164000" />
       <workItem from="1728564341669" duration="16232000" />
-      <workItem from="1728644580762" duration="16061000" />
+      <workItem from="1728644580762" duration="22741000" />
+      <workItem from="1728737322917" duration="6805000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

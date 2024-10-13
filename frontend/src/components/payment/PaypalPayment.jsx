@@ -12,8 +12,6 @@ const PayPalPayment = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  let purchaseIdVar = "";
-
   // TODO - ENCAPSULAR ESTA FUNCIÓN EN UNA CLASE DE SERVICIO
 
   const handleExitPurchase = () => {
@@ -50,7 +48,6 @@ const PayPalPayment = () => {
       }
 
       const order = await response.json();
-      purchaseIdVar = JSON.stringify(order.purchase.id);
 
       if (order.approvalUrl) {
         const urlParams = new URLSearchParams(

@@ -1,13 +1,16 @@
 package udc.fic.webapp.rest.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class PurchaseDto {
 
+    private Long id;
     private Long buyerId;
     private Long sellerId;
     private List<Long> productIds;
     private List<Integer> quantities;
+    private Date purchaseDate;
     private Double amount;
     private String currency;
     private String paymentMethod;
@@ -16,6 +19,14 @@ public class PurchaseDto {
     public PurchaseDto() {
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public Long getBuyerId() {
         return buyerId;
     }
@@ -78,5 +89,15 @@ public class PurchaseDto {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+
+
+    public Date getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 }

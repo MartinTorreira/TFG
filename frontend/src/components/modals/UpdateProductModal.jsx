@@ -410,8 +410,6 @@ const PlacesAutocomplete = ({ setSelected }) => {
         placeholder="Buscar una dirección"
       />
       <ComboboxPopover style={{ zIndex: 1000 }}>
-        {" "}
-        {/* Ajustar el z-index */}
         <ComboboxList>
           {status === "OK" &&
             data.map(({ place_id, description }) => (

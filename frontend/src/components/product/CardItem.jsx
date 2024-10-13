@@ -173,6 +173,7 @@ export const CardItem = ({ product, cart }) => {
                     title={
                       favorite ? "Quitar de favoritos" : "Añadir a favoritos"
                     }
+                    disabled={token !== null ? false : true}
                     className="border border-gray-300/80 p-2 rounded-lg"
                     onClick={(e) => handleFavoriteClick(e)}
                     whileTap={{ scale: 1.2 }}
@@ -184,7 +185,7 @@ export const CardItem = ({ product, cart }) => {
                     }}
                   >
                     <span className="hover:scale-125 transition-transform duration-300 ease-in-out">
-                      {favorite ? (
+                      {favorite && token !== null ? (
                         <FavoriteIconFilled size={20} />
                       ) : (
                         <FavoriteIcon size={20} />

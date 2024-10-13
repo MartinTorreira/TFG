@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.Purchase;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.model.services.PaypalService;
@@ -111,5 +112,13 @@ public class PurchaseController {
     @GetMapping("/cancel")
     public String paymentCancel() {
         return "paymentCancel";
+    }
+
+
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<PurchaseDto> getPurchaseByProductId(@PathVariable Long productId) throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = purchaseService.getPurchaseByProductId(productId);
+        return ResponseEntity.ok(purchaseDto);
     }
 }

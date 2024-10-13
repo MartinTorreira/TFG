@@ -141,6 +141,33 @@ export const useProductStore = create((set, get) => ({
   updateProduct: async (productId, updatedProduct) => {
     try {
       await updateProductService(productId, updatedProduct);
+      set((state) => {
+        const products = state.products.map((product) =>
+          product.id === productId
+            ? { ...product, ...updatedProduct }
+            : product,
+        );
+        const filteredProducts = state.filteredProducts.map((product) =>
+          product.id === productId
+            ? { ...product, ...updatedProduct }
+            : product,
+        );
+        return { products, filteredProducts };
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  removeProduct2: async (productId) => {
+    try {
+      await deleteProductService(
+        productId,
+        () => {},
+        (errors) => {
+          console.log(errors);
+        },
+      );
       get().fetchProducts();
     } catch (error) {
       console.error(error);
@@ -156,7 +183,15 @@ export const useProductStore = create((set, get) => ({
           console.log(errors);
         },
       );
-      get().fetchProducts();
+      set((state) => {
+        const products = state.products.filter(
+          (product) => product.id !== productId,
+        );
+        const filteredProducts = state.filteredProducts.filter(
+          (product) => product.id !== productId,
+        );
+        return { products, filteredProducts };
+      });
     } catch (error) {
       console.error(error);
     }

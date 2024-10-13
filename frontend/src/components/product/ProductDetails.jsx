@@ -21,6 +21,7 @@ import { Alert } from "./Alert.jsx";
 import { deleteProduct } from "../../backend/productService.js";
 import { removeFromFavorites } from "../../backend/productService.js";
 import { BuyIcon } from "../../icons/BuyIcon.jsx";
+import { ChatIcon } from "../../icons/ChatIcon.jsx";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -50,7 +51,8 @@ const ProductDetails = () => {
   }
 
   const handleBuyClick = () => {
-    navigate(`/product/${product?.id}/payment`);
+    const id = product?.id;
+    navigate(`/product/${id}/payment`);
   };
 
   const handleEditClick = (e) => {
@@ -144,7 +146,49 @@ const ProductDetails = () => {
         <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
           <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16 flex flex-col">
             <div className="shrink-0 max-w-md lg:max-w-lg">
-              <ImageSlider images={product.images} />
+              <div className="flex flex-col gap-y-4">
+                <ImageSlider images={product.images} />
+                {user.id !== product.userDto.id ? (
+                  <section className="flex flex-row space-x-2">
+                    <button
+                      onClick={() => handleFavoriteClick(product.id)}
+                      className="flex w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all"
+                    >
+                      <span className="flex flex-row items-center space-x-2">
+                        <svg
+                          className="w-5 h-5 transition-all"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill={`${favorite ? "red" : "none"}`}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke={`${favorite ? "red" : "currentColor"}`}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                          />
+                        </svg>
+                        <p className="text-base">
+                          {favorite ? "Me gusta" : "Añadir"}
+                        </p>
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => {}}
+                      className="flex w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all"
+                    >
+                      <span className="flex flex-row items-center space-x-2">
+                        <ChatIcon className="w-5 h-5" />
+                        <p className="text-base">Chatear</p>
+                      </span>
+                    </button>
+                  </section>
+                ) : null}
+              </div>
             </div>
 
             <div className="mt-6 sm:mt-8 lg:mt-0 text-center lg:text-left sm:flex md:flex-col">
@@ -164,32 +208,6 @@ const ProductDetails = () => {
               </div>
               {user.id !== product.userDto.id ? (
                 <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:flex-col lg:flex-row sm:mt-8">
-                  <button
-                    onClick={() => handleFavoriteClick(product.id)}
-                    className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all "
-                  >
-                    <span className="flex flex-row gap-x-2">
-                      <svg
-                        className="w-5 h-5 -ms-2 me-2"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill={`${favorite ? "red" : "none"}`}
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke={`${favorite ? "red" : "currentColor"}`}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                        />
-                      </svg>
-                    </span>
-                    {favorite ? "Eliminar de favoritos" : "Añadir a favoritos"}
-                  </button>
-
                   <button
                     onClick={handleBuyClick}
                     className="flexitems-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all "

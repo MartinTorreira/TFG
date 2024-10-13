@@ -2,8 +2,10 @@ package udc.fic.webapp.model.services;
 
 import com.paypal.orders.Order;
 import org.springframework.stereotype.Service;
+import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.Purchase;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
+import udc.fic.webapp.rest.dto.PurchaseDto;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,4 +20,8 @@ public interface PurchaseService {
     Long getPurchaseIdFromOrderId(String orderId) throws InstanceNotFoundException;
 
     void completePurchase(Long purchaseId) throws InstanceNotFoundException;
+
+    Product getProductByOrderId(String orderId) throws InstanceNotFoundException;
+
+    PurchaseDto getPurchaseByProductId(Long productId) throws InstanceNotFoundException;
 }

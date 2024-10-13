@@ -15,6 +15,7 @@ import { FavoritePage } from "./components/product/FavoritePage";
 import PaypalPayment from "./components/payment/PaypalPayment.jsx";
 import PaymentError from "./components/payment/PaymentError.jsx";
 import PaymentSuccess from "./components/payment/PaymentSuccess.jsx";
+import { OrderConfirmation } from "./components/payment/OrderConfirmation.jsx";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -64,6 +65,10 @@ export default function App() {
             <Route path="/product/:id/payment" element={<PaypalPayment />} />
             <Route path="/payment/error" element={<PaymentError />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route
+              path="/payment/purchaseTicket/:id"
+              element={<OrderConfirmation />}
+            />
           </Routes>
         </div>
       </div>

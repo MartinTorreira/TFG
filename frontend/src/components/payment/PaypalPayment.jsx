@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../backend/productService";
 import { LoginContext } from "../context/LoginContext";
 import { toast } from "sonner";
-import { useProductStore } from "../store/useProductStore";
 
 const PayPalPayment = () => {
   const { id } = useParams();
@@ -12,14 +11,13 @@ const PayPalPayment = () => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { fetchProducts, removeProduct } = useProductStore();
+
+  let purchaseIdVar = "";
 
   // TODO - ENCAPSULAR ESTA FUNCIÓN EN UNA CLASE DE SERVICIO
 
-  const handleExitPurchase = async () => {
-    removeProduct(product.id);
-    await fetchProducts(); // Asegúrate de que la lista esté actualizada
-    navigate("../home");
+  const handleExitPurchase = () => {
+    navigate(`../payment/purchaseTicket/${id}/`);
     toast.success("Producto comprado correctamente");
   };
 
@@ -52,7 +50,8 @@ const PayPalPayment = () => {
       }
 
       const order = await response.json();
-      console.log("Order created: ", order);
+      purchaseIdVar = JSON.stringify(order.purchase.id);
+
       if (order.approvalUrl) {
         const urlParams = new URLSearchParams(
           new URL(order.approvalUrl).search,
@@ -84,8 +83,6 @@ const PayPalPayment = () => {
         throw new Error(errorText);
       }
 
-      const details = await response.json();
-      console.log("Transaction details:", details);
       handleExitPurchase();
     } catch (err) {
       setError(err);

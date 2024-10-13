@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
+import udc.fic.webapp.rest.dto.PurchaseDto;
 
 import java.io.IOException;
 import java.util.Date;
@@ -102,21 +103,53 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public Long getPurchaseIdFromOrderId(String orderId) throws InstanceNotFoundException {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Looking for orderId: " + orderId); // Add logging
-
-        Purchase purchase = purchaseDao.findByOrderId(orderId)
-                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", orderId));
-
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Found purchase with id: " + purchase.getId()); // Add logging
-        return purchase.getId();
-    }
-
-    @Override
     public void completePurchase(Long purchaseId) throws InstanceNotFoundException {
         Purchase purchase = purchaseDao.findById(purchaseId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
-       // purchase.setCompleted(true);
+        // purchase.setCompleted(true);
         purchaseDao.save(purchase);
     }
+
+
+    @Override
+    public Long getPurchaseIdFromOrderId(String orderId) throws InstanceNotFoundException {
+        Purchase purchase = purchaseDao.findByOrderId(orderId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", orderId));
+
+        return purchase.getId();
+    }
+
+
+    @Override
+    public Product getProductByOrderId(String orderId) throws InstanceNotFoundException {
+        Purchase purchase = purchaseDao.findByOrderId(orderId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", orderId));
+
+        Optional<PurchaseItem> purchaseItem = purchaseItemDao.findByPurchaseId(purchase.getId());
+        if (purchaseItem.isPresent()) {
+            return purchaseItem.get().getProduct();
+        } else {
+            throw new InstanceNotFoundException("project.entities.product", orderId);
+        }
+    }
+
+    @Override
+    public PurchaseDto getPurchaseByProductId(Long productId) throws InstanceNotFoundException {
+        PurchaseItem purchaseItem = purchaseItemDao.findByProductId(productId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", productId));
+
+        Purchase purchase = purchaseItem.getPurchase();
+        PurchaseDto purchaseDto = new PurchaseDto();
+        purchaseDto.setId(purchase.getId());
+        purchaseDto.setBuyerId(purchase.getBuyer().getId());
+        purchaseDto.setSellerId(purchase.getSeller().getId());
+        purchaseDto.setAmount(purchase.getAmount());
+        purchaseDto.setPurchaseDate(purchase.getPurchaseDate());
+        purchaseDto.setOrderId(purchase.getOrderId());
+        purchaseDto.setPaymentMethod(purchase.getPaymentMethod().toString());
+
+        return purchaseDto;
+    }
+
+
 }

@@ -1,5 +1,3 @@
-import { LoadScript } from "@react-google-maps/api";
-
 export const getPlaceName = async (lat, lng) => {
   return new Promise((resolve, reject) => {
     if (!window.google || !window.google.maps) {

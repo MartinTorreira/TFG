@@ -32,7 +32,7 @@ const Navbar = ({ notification }) => {
             onClick={() => handleNavigate("./home")}
             className="ml-2 text-xl font-bold text-gray-900"
           >
-            Dashboard
+            TFG
           </button>
           <div className="hidden md:flex space-x-8 ml-12">
             <a

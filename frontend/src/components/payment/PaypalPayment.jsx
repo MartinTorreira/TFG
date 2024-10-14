@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProductById } from "../../backend/productService";
 import { LoginContext } from "../context/LoginContext";
 import { toast } from "sonner";
+import { useProductStore } from "../store/useProductStore.js";
 
 const PayPalPayment = () => {
   const { id } = useParams();
@@ -11,10 +12,10 @@ const PayPalPayment = () => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  // TODO - ENCAPSULAR ESTA FUNCIÓN EN UNA CLASE DE SERVICIO
+  const fetchProducts = useProductStore((state) => state.fetchProducts);
 
   const handleExitPurchase = () => {
+    fetchProducts(); // TODO - Hacer una función para quirar el producto de la lista sin borrarlo
     navigate(`../payment/purchaseTicket/${id}/`);
     toast.success("Producto comprado correctamente");
   };

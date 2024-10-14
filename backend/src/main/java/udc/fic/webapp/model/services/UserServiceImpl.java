@@ -123,4 +123,10 @@ public class UserServiceImpl implements UserService {
         user.setAvatar(newAvatar);
     }
 
+
+    @Override
+    public User getUserById(Long id) throws InstanceNotFoundException {
+       return userDao.findById(id).orElseThrow(() -> new InstanceNotFoundException("User", id));
+    }
+
 }

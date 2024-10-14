@@ -1,4 +1,7 @@
+// Purchase.java
 package udc.fic.webapp.model.entities;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +23,6 @@ public class Purchase {
     private List<PurchaseItem> items;
     private PaymentMethod paymentMethod;
     private String orderId;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

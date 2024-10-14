@@ -7,6 +7,9 @@ import com.paypal.core.PayPalHttpClient;
 import com.paypal.http.HttpResponse;
 import com.paypal.http.exceptions.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.*;
@@ -17,7 +20,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -149,6 +151,18 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchaseDto.setPaymentMethod(purchase.getPaymentMethod().toString());
 
         return purchaseDto;
+    }
+
+    @Override
+    public Page<Purchase> getPurchasesByUserId(Long userId, int page, int size) throws InstanceNotFoundException {
+
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", userId));
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+
+        return purchaseDao.findByBuyerId(userId, pageRequest);
+
     }
 
 

@@ -13,11 +13,13 @@ const PayPalPayment = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const fetchProducts = useProductStore((state) => state.fetchProducts);
+  let purchaseId = "";
 
   const handleExitPurchase = () => {
+    console.log("PURCHASEID" + purchaseId);
     fetchProducts(); // TODO - Hacer una función para quirar el producto de la lista sin borrarlo
-    navigate(`../payment/purchaseTicket/${id}/`);
-    toast.success("Producto comprado correctamente");
+    navigate(`../purchase/orderSummary/${purchaseId}/`);
+    toast.success("Compra realizada correctamente");
   };
 
   const createOrder = async (data, actions) => {
@@ -54,6 +56,8 @@ const PayPalPayment = () => {
         const urlParams = new URLSearchParams(
           new URL(order.approvalUrl).search,
         );
+        console.log("aaaa" + order.purchase.id);
+        purchaseId = order.purchase.id;
         return urlParams.get("token");
       } else {
         throw new Error("Approval URL not found");

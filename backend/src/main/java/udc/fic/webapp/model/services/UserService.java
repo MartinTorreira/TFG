@@ -24,4 +24,6 @@ public interface UserService {
     List<User> findAll();
 
     void changeAvatar(Long id, String url) throws InstanceNotFoundException;
+
+    User getUserById(Long id) throws InstanceNotFoundException;
 }

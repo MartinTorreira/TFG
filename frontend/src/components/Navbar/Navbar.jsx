@@ -35,12 +35,12 @@ const Navbar = ({ notification }) => {
             TFG
           </button>
           <div className="hidden md:flex space-x-8 ml-12">
-            <a
-              href="#"
+            <button
+              onClick={() => handleNavigate("./users/my-purchases")}
               className="text-gray-600 hover:text-gray-900 font-bold hover:underline"
             >
-              Team
-            </a>
+              Mis compras
+            </button>
             <a
               href="#"
               className="text-gray-600 hover:text-gray-900 hover:underline"

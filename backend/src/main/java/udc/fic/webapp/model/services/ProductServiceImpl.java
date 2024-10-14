@@ -166,6 +166,12 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public List<ProductDto> getProductsByPurchaseId(Long purchaseId) throws InstanceNotFoundException {
+        return productDao.findProductsByPurchaseId(purchaseId).stream()
+                .map(ProductConversor::toDto)
+                .collect(Collectors.toList());
+    }
 
 
 }

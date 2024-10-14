@@ -40,11 +40,11 @@ export const getPurchaseByProductId = async (
   );
 };
 
-// export const getProductsByUserId = (userId, onSuccess, onErrors) => {
-//   appFetch(
-//     `/product/${userId}/productList`,
-//     fetchConfig("GET"),
-//     onSuccess,
-//     onErrors,
-//   );
-// };
+export const getUserPurchases = async (userId, state, onSuccess, onErrors) => {
+  return appFetch(
+    `/purchase/${userId}/getUserPurchases?page=${state.page}&size=${state.size}`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors,
+  );
+};

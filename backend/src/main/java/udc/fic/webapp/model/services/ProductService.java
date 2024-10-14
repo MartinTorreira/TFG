@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import udc.fic.webapp.model.entities.Category;
 import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
+import udc.fic.webapp.rest.dto.ProductDto;
 
 import java.util.List;
 
@@ -28,5 +29,7 @@ public interface ProductService {
     Page<Product> getProductsByUserId(Long userId, int page, int size) throws InstanceNotFoundException;
 
     void changeProductImages(Long userId, Long productId, List<String> images) throws InstanceNotFoundException;
+
+    List<ProductDto> getProductsByPurchaseId(Long purchaseId) throws InstanceNotFoundException;
 
 }

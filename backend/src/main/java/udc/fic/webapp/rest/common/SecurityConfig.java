@@ -1,5 +1,9 @@
 package udc.fic.webapp.rest.common;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,15 +34,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
 				.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/user/getUsers").permitAll()
+				.antMatchers(HttpMethod.GET, "/user/*/getUser").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/allCategories").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/*/details").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/favorites").authenticated()
 				.antMatchers(HttpMethod.GET, "/product/*/productList*").permitAll()
-				.antMatchers(HttpMethod.GET, "/payment/success").authenticated()
-				.antMatchers(HttpMethod.GET, "/payment/error").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/success").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/purchase/*/getUserPurchases").permitAll()
+				.antMatchers(HttpMethod.GET, "/purchase/*/getProducts").permitAll()
 
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
@@ -50,7 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/purchase/create").permitAll()
 				.antMatchers(HttpMethod.POST, "/purchase/execute").permitAll()
 				.antMatchers(HttpMethod.POST, "/payment/create").authenticated()
-
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()
@@ -96,4 +100,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+
 }

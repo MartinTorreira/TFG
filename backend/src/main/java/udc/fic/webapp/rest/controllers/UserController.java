@@ -133,6 +133,11 @@ public class UserController {
         userService.changeAvatar(id, imageUrl);
     }
 
+    @GetMapping("/{id}/getUser")
+    public UserDto getUser(@PathVariable Long id) throws InstanceNotFoundException {
+        return toUserDto(userService.getUserById(id));
+    }
+
 
 
     // Auxiliar functions #############################################################################################

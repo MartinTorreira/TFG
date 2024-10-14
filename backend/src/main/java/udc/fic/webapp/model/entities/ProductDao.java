@@ -9,6 +9,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface ProductDao extends PagingAndSortingRepository<Product, Long> {
 
     Product findProductById(Long id);
@@ -20,5 +22,8 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Long> {
     @Transactional
     @Query("DELETE FROM Product_Images p WHERE p.product.id = :productId")
     void deleteAllImagesByProductId(@Param("productId") Long productId);
+
+    @Query("SELECT pi.product FROM PurchaseItem pi WHERE pi.purchase.id = :purchaseId")
+    List<Product> findProductsByPurchaseId(@Param("purchaseId") Long purchaseId);
 
 }

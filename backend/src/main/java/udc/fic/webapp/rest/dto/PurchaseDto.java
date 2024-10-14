@@ -1,5 +1,7 @@
 package udc.fic.webapp.rest.dto;
 
+import udc.fic.webapp.model.entities.PurchaseItem;
+
 import java.util.Date;
 import java.util.List;
 
@@ -10,11 +12,13 @@ public class PurchaseDto {
     private Long sellerId;
     private List<Long> productIds;
     private List<Integer> quantities;
+    private List<PurchaseItemDto> purchaseItems;
     private Date purchaseDate;
     private Double amount;
     private String currency;
     private String paymentMethod;
     private String orderId;
+
 
     public PurchaseDto() {
     }
@@ -91,7 +95,13 @@ public class PurchaseDto {
         this.orderId = orderId;
     }
 
+    public List<PurchaseItemDto> getPurchaseItems() {
+        return purchaseItems;
+    }
 
+    public void setPurchaseItems(List<PurchaseItemDto> purchaseItems) {
+        this.purchaseItems = purchaseItems;
+    }
 
     public Date getPurchaseDate() {
         return purchaseDate;

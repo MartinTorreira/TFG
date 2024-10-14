@@ -57,7 +57,7 @@ public class ProductController {
     @PutMapping("/{productId}/update")
     public ResponseEntity<ProductDto> editProduct(@RequestAttribute Long userId, @PathVariable Long productId, @RequestBody ProductDto productDto) throws InstanceNotFoundException {
 
-        // Moficar tabla Product_Images asociada
+        // Modificar tabla Product_Images asociada
         productDao.deleteAllImagesByProductId(productId);
 
         Product product = productService.updateProduct(
@@ -149,6 +149,7 @@ public class ProductController {
         favoriteService.removeFavorite(userId, productId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 
 
 

@@ -16,4 +16,6 @@ public interface UserDao extends PagingAndSortingRepository<User, Long> {
 
     List<User> findAll();
 
+    Optional<User> findById(Long id);
+
 }

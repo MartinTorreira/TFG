@@ -2,14 +2,20 @@ package udc.fic.webapp.rest.controllers;
 
 import com.paypal.orders.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.Purchase;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.model.services.PaypalService;
+import udc.fic.webapp.model.services.ProductService;
 import udc.fic.webapp.model.services.PurchaseService;
+import udc.fic.webapp.rest.dto.ProductConversor;
+import udc.fic.webapp.rest.dto.ProductDto;
+import udc.fic.webapp.rest.dto.PurchaseConversor;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 
 import org.slf4j.Logger;
@@ -17,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,6 +37,9 @@ public class PurchaseController {
 
     @Autowired
     private PaypalService paypalService;
+
+    @Autowired
+    private ProductService productService;
 
     @PostMapping("/create")
     public ResponseEntity<?> createPurchase(@RequestBody PurchaseDto dto) {
@@ -121,4 +131,22 @@ public class PurchaseController {
         PurchaseDto purchaseDto = purchaseService.getPurchaseByProductId(productId);
         return ResponseEntity.ok(purchaseDto);
     }
+
+    @GetMapping("/{userId}/getUserPurchases")
+    public ResponseEntity<Page<PurchaseDto>> getPurchasesByUserId(@PathVariable Long userId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "9") int size) throws InstanceNotFoundException {
+
+        Page<PurchaseDto> purchases = purchaseService.getPurchasesByUserId(userId, page, size).map(PurchaseConversor::toDto);
+
+        return ResponseEntity.ok(purchases);
+
+    }
+
+    @GetMapping("/{purchaseId}/getProducts")
+    public ResponseEntity<List<ProductDto>> getProductsByPurchaseId(@PathVariable Long purchaseId) throws InstanceNotFoundException {
+        return ResponseEntity.ok(productService.getProductsByPurchaseId(purchaseId));
+    }
+
+
 }

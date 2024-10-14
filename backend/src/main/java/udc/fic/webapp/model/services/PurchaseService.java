@@ -1,6 +1,7 @@
 package udc.fic.webapp.model.services;
 
 import com.paypal.orders.Order;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.Purchase;
@@ -24,4 +25,8 @@ public interface PurchaseService {
     Product getProductByOrderId(String orderId) throws InstanceNotFoundException;
 
     PurchaseDto getPurchaseByProductId(Long productId) throws InstanceNotFoundException;
+
+    Page<Purchase> getPurchasesByUserId(Long userId, int page, int size) throws InstanceNotFoundException;
+
+
 }

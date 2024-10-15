@@ -4,8 +4,8 @@
 
 body {
     margin: 0;
-    font-family: Inter, Onest, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-        "Helvetica Neue", sans-serif !important;
+    font-family: Lato, Montserrat, Inter, Onest, Roboto, Oxygen, Ubuntu,
+        Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

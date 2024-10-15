@@ -22,6 +22,7 @@ import { deleteProduct } from "../../backend/productService.js";
 import { removeFromFavorites } from "../../backend/productService.js";
 import { BuyIcon } from "../../icons/BuyIcon.jsx";
 import { ChatIcon } from "../../icons/ChatIcon.jsx";
+import { MapPinIcon } from "../../icons/MapPinIcon.jsx";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -284,8 +285,9 @@ const ProductDetails = () => {
             </div>
 
             <div className="lg:col-span-2 w-full justify-center items-center mt-20">
-              <label className="text-xl font-medium">
-                Ubicación del producto
+              <label className="flex flex-row text-xl font-medium space-x-3">
+                <MapPinIcon size={20} color={"text-black -ml-2 mr-2"} />
+                <p>Ubicación del producto</p>
               </label>
               <div className="mt-4">
                 {" "}

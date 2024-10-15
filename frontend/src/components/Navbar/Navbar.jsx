@@ -24,7 +24,7 @@ const Navbar = ({ notification }) => {
   };
 
   return (
-    <nav className="backdrop-blur-3xl shadow-md sticky top-0 z-50 bg-gray-100/60">
+    <nav className="backdrop-blur-3xl  shadow-md sticky top-0 z-50 bg-gray-100/80">
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Left */}
         <div className="flex items-center font-semibold">
@@ -34,22 +34,19 @@ const Navbar = ({ notification }) => {
           >
             TFG
           </button>
-          <div className="hidden md:flex space-x-8 ml-12">
+          <div className="hidden md:flex space-x-2 ml-12">
             <button
               onClick={() => handleNavigate("./users/my-purchases")}
-              className="text-gray-600 hover:text-gray-900 font-bold hover:underline"
+              className="text-accent-darker hover:text-accent-dark border rounded-full hover:border-accent-dark/20 font-bold p-1 px-3 transition-all"
             >
               Mis compras
             </button>
-            <a
-              href="#"
-              className="text-gray-600 hover:text-gray-900 hover:underline"
-            >
+            <button className="text-accent-darker hover:text-accent-dark border rounded-full hover:border-accent-dark/20 font-bold p-1 px-3 transition-all">
               Mi carro
-            </a>
+            </button>
             <button
               onClick={() => handleNavigate("./product/favorites")}
-              className="text-gray-600 hover:text-gray-900 hover:underline"
+              className="text-accent-darker hover:text-accent-dark border rounded-full hover:border-accent-dark/20 font-bold p-1 px-3 transition-all"
             >
               Favoritos
             </button>
@@ -62,7 +59,7 @@ const Navbar = ({ notification }) => {
             {notification ? <NotificationOn /> : <NotificationOff />}
           </button>
           <button
-            className="bg-accent-dark border border-accent hover:opacity-70 text-white p-2 py-2 rounded"
+            className="bg-accent-dark border border-accent hover:opacity-70 text-white p-2 rounded-full px-3 transition-all"
             onClick={() => handleNavigateAddProduct()}
           >
             Vender

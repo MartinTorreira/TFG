@@ -172,13 +172,13 @@ export function Sidebar({ isOpen, onClose }) {
 
       <div className="flex space-x-2">
         <button
-          className="w-full bg-gray-900 text-white py-2 rounded hover:opacity-80 transition duration-200"
+          className="w-full bg-accent-darker text-white font-bold py-2 rounded hover:opacity-80 transition duration-200"
           onClick={applyFilters}
         >
           Aplicar filtros
         </button>
         <button
-          className="w-full bg-gray-500 text-white py-2 rounded hover:opacity-80 transition duration-200"
+          className="w-full text-red-400 font-bold  py-2 border border-red-400 rounded hover:bg-red-50 transition-all"
           onClick={clearFilters}
         >
           Quitar filtros

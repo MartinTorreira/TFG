@@ -13,7 +13,7 @@ const SearchBar = () => {
       type="text"
       placeholder="Buscar productos..."
       onChange={handleInputChange}
-      className="p-3 w-full text-lg font-semibold border border-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent placeholder:italic placeholder:font-light"
+      className="p-3 w-full text-lg font-semibold border border-gray-800 rounded-full bg-gray-100 focus:bg-white focus:outline-none focus:ring-2  focus:ring-accent focus:border-transparent placeholder:italic placeholder:font-light"
     />
   );
 };

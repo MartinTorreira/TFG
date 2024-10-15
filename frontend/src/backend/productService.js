@@ -107,7 +107,11 @@ export const getFavourites = () => {
   });
 };
 
-export const getProductsByPurchaseId = (purchaseId, onSuccess, onErrors) => {
+export const getProductsByPurchaseId = async (
+  purchaseId,
+  onSuccess,
+  onErrors,
+) => {
   appFetch(
     `/purchase/${purchaseId}/getProducts`,
     fetchConfig("GET"),

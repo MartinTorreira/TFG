@@ -52,8 +52,10 @@ const ProductDetails = () => {
   }
 
   const handleBuyClick = () => {
-    const id = product?.id;
-    navigate(`/product/${id}/payment`);
+    //const id = product?.id;
+    //navigate(`/product/${id}/payment`);
+    console.log("aaaa", { state: { productList: product } });
+    navigate("/product/order-summary", { state: { productList: [product] } });
   };
 
   const handleEditClick = (e) => {
@@ -194,7 +196,7 @@ const ProductDetails = () => {
 
             <div className="mt-6 sm:mt-8 lg:mt-0 text-center lg:text-left sm:flex md:flex-col">
               <div className="flex flex-row items-center gap-x-6">
-                <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
+                <h1 className="text-xl font-montserrat font-semibold text-gray-900 sm:text-2xl dark:text-white">
                   {product.name}
                 </h1>
                 <Badge color={color} className="text-xs rounded">
@@ -267,7 +269,9 @@ const ProductDetails = () => {
               <h3 className="mb-4 text-lg font-semibold text-gray-700">
                 {product.categoryDto.name}
               </h3>
-              <p className="mb-6 text-gray-800 ">{product.description}</p>
+              <p className="mb-6 text-gray-800 font-lato text-lg ">
+                {product.description}
+              </p>
             </div>
 
             <div className="lg:col-span-2 w-10/12 justify-center items-center mt-10 text-black">

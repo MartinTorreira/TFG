@@ -285,7 +285,7 @@ const AddProduct = () => {
                 <h2 className="text-lg font-semibold mb-6">Añadir fotos </h2>
                 <div className="sm:col-span-2">
                   <ProductImageUpload
-                    label={"Add Photos"}
+                    label={"Escoge fotos para tu publicación"}
                     onFileChange={handleSubmitImages}
                   />
                   {isSubmitted && errors.images && (
@@ -297,7 +297,7 @@ const AddProduct = () => {
               <div className="mt-10">
                 <button
                   type="submit"
-                  className="w-full bg-accent-dark text-white border border-accent-ligth hover:opacity-90 transition all focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-lg px-5 py-2.5 text-center"
+                  className="w-full bg-accent-darker text-white border border-accent-ligth hover:opacity-90 transition all focus:ring-4 focus:outline-none focus:ring-accent font-medium rounded-lg px-5 py-2.5 text-center"
                 >
                   Publicar anuncio
                 </button>

@@ -34,7 +34,7 @@ export const QualityDisplay = ({ onQualitySelect }) => {
       </button>
       {isOpen && (
         <ul
-          className="absolute bg-white border rounded-lg shadow-lg mt-1 w-full"
+          className="absolute bg-white border rounded-lg shadow-lg mt-1 w-full z-50"
           onClick={(e) => e.stopPropagation()}
         >
           {qualities.map((quality) => (

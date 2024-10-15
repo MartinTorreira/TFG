@@ -1,32 +1,61 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useParams, useNavigate } from "react-router-dom";
-import { getProductById } from "../../backend/productService";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/LoginContext";
 import { toast } from "sonner";
 import { useProductStore } from "../store/useProductStore.js";
+import { updateProduct } from "../../backend/productService.js";
 
 const PayPalPayment = () => {
-  const { id } = useParams();
+  const location = useLocation();
   const { user } = useContext(LoginContext);
-  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState(location.state?.products || []);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const fetchProducts = useProductStore((state) => state.fetchProducts);
+  const { removeFromList } = useProductStore();
   let purchaseId = "";
 
   const handleExitPurchase = () => {
-    console.log("PURCHASEID" + purchaseId);
-    fetchProducts(); // TODO - Hacer una función para quirar el producto de la lista sin borrarlo
-    navigate(`../purchase/orderSummary/${purchaseId}/`);
+    products.forEach((product) => {
+      const productDto = {
+        ...product,
+        quantity: product.quantity,
+      };
+      updateProduct(
+        product.id,
+        productDto,
+        () => {
+          console.log(`Producto ${product.id} actualizado correctamente.`);
+        },
+        (error) => {
+          console.error(`Error actualizando producto ${product.id}:`, error);
+        },
+      );
+    });
+    navigate(`../purchase/order-confirmation/${purchaseId}/`);
     toast.success("Compra realizada correctamente");
   };
 
   const createOrder = async (data, actions) => {
-    if (!product) {
-      setError(new Error("Product not loaded"));
+    if (products.length === 0) {
+      setError(new Error("Products not loaded"));
       return;
     }
+
+    // Ensure all products have the same sellerId
+    const sellerId = products[0].userDto.id;
+    const allSameSeller = products.every(
+      (product) => product.userDto.id === sellerId,
+    );
+
+    if (!allSameSeller) {
+      setError(new Error("All products must have the same seller"));
+      return;
+    }
+
+    console.log(
+      "new quantities => " + products.map((product) => product.quantity),
+    );
 
     try {
       const response = await fetch("http://localhost:8080/purchase/create", {
@@ -36,10 +65,15 @@ const PayPalPayment = () => {
         },
         body: JSON.stringify({
           buyerId: user.id,
-          sellerId: product.userDto.id,
-          productIds: [product.id],
-          quantities: [1],
-          amount: product.price,
+          sellerId: sellerId,
+          productIds: products.map((product) => product.id),
+          quantities: products.map((product) => product.quantity),
+          amount: products
+            .reduce(
+              (total, product) => total + product.price * product.quantity,
+              0,
+            )
+            .toFixed(2),
           currency: "EUR",
           paymentMethod: "paypal",
         }),
@@ -47,6 +81,7 @@ const PayPalPayment = () => {
 
       if (!response.ok) {
         const text = await response.text();
+        console.error("Error response from server:", text);
         throw new Error(text);
       }
 
@@ -56,13 +91,17 @@ const PayPalPayment = () => {
         const urlParams = new URLSearchParams(
           new URL(order.approvalUrl).search,
         );
-        console.log("aaaa" + order.purchase.id);
+        console.log(
+          "Order created successfully, purchase ID:",
+          order.purchase.id,
+        );
         purchaseId = order.purchase.id;
         return urlParams.get("token");
       } else {
         throw new Error("Approval URL not found");
       }
     } catch (err) {
+      console.error("Error creating order:", err);
       setError(err);
     }
   };
@@ -91,19 +130,6 @@ const PayPalPayment = () => {
     }
   };
 
-  const onSuccess = (data) => {
-    setProduct(data);
-  };
-
-  const onErrors = (error) => {
-    console.log("Error fetching product" + error);
-  };
-
-  useEffect(() => {
-    const productId = Number(id);
-    getProductById(productId, onSuccess, onErrors);
-  }, [id]);
-
   return (
     <PayPalScriptProvider
       options={{
@@ -115,7 +141,7 @@ const PayPalPayment = () => {
       <div className="flex mt-20 justify-center min-h-screen ">
         <div className="flex flex-col w-full items-center space-y-10 ">
           {error && <div>Error: {error.message}</div>}
-          {product && (
+          {products.length > 0 && (
             <div>
               <h1 className="text-2xl font-semibold mb-10 text-center">
                 Seleccionar método de pago

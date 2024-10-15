@@ -159,21 +159,6 @@ export const useProductStore = create((set, get) => ({
     }
   },
 
-  removeProduct2: async (productId) => {
-    try {
-      await deleteProductService(
-        productId,
-        () => {},
-        (errors) => {
-          console.log(errors);
-        },
-      );
-      get().fetchProducts();
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
   removeProduct: async (productId) => {
     try {
       await deleteProductService(
@@ -195,5 +180,18 @@ export const useProductStore = create((set, get) => ({
     } catch (error) {
       console.error(error);
     }
+  },
+
+  // remove product from list but not in backend
+  removeFromList: (productId) => {
+    set((state) => {
+      const products = state.products.filter(
+        (product) => product.id !== productId,
+      );
+      const filteredProducts = state.filteredProducts.filter(
+        (product) => product.id !== productId,
+      );
+      return { products, filteredProducts };
+    });
   },
 }));

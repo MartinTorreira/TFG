@@ -11,18 +11,13 @@ module.exports = withMT({
   theme: {
     extend: {
       fontFamily: {
-        roboto: [
-          "Lato",
-          "Montserrat",
-          "Inter",
-          "Onest",
-          "Roboto",
-          "sans-serif",
-        ],
+        // Establece Lato como la fuente por defecto
+        sans: ["Lato", "Inter", "Onest", "Roboto", "sans-serif"],
+        lato: ["Lato"],
       },
       colors: {
         accent: "#60dcd0",
-        "accent-ligth": "#bde7e0",
+        "accent-light": "#bde7e0",
         "accent-dark": "#46beb1",
         "accent-darker": "#3caa9f",
       },

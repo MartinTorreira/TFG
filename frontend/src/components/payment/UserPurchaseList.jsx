@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 export const UserPurchaseList = ({ purchases }) => {
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
-    //   navigate(`../payment/purchaseTicket/${id}/`);
+  const handleNavigate = (id) => {
+    navigate(`../purchase/order-confirmation/${id}/`);
   };
 
   return (
-    <section className="w-9/12 mx-auto bg-gray-50 rounded-lg antialiased dark:bg-gray-900 md:p-8 shadow-sm">
+    <section className="w-9/12 mx-auto bg-gray-50 rounded-lg antialiased dark:bg-gray-900 md:p-8 shadow-md">
       <div className="mx-auto px-4 2xl:px-0">
         <div className="mx-auto max-w-5xl">
           <div className="gap-4 lg:flex lg:items-center lg:justify-between  ">
@@ -128,6 +128,7 @@ export const UserPurchaseList = ({ purchases }) => {
 
                     <div className="flex justify-center sm:justify-end -py-2">
                       <button
+                        onClick={() => handleNavigate(purchase.id)}
                         type="button"
                         className="text-accent-darker hover:underline text-sm font-bold  rounded-lg px-2 hover:opacity-80 transition-all"
                       >

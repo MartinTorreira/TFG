@@ -17,6 +17,8 @@ import PaymentError from "./components/payment/PaymentError.jsx";
 import PaymentSuccess from "./components/payment/PaymentSuccess.jsx";
 import OrderConfirmation from "./components/payment/OrderConfirmation.jsx";
 import UserPurchasesPage from "./components/payment/UserPurchasesPage.jsx";
+import OrderSummary from "./components/payment/OrderSummary.jsx";
+import { useLoadScript } from "@react-google-maps/api";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -28,6 +30,14 @@ export default function App() {
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyC3DouYAkc3zzgNFpRiouHVw2fMChNSnJw",
+    libraries: ["places"],
+  });
+
+  if (loadError) return <div>Error al cargar Google Maps</div>;
+  if (!isLoaded) return <div>Cargando...</div>;
 
   return (
     <BrowserRouter>
@@ -64,17 +74,18 @@ export default function App() {
             <Route path="/product/favorites" element={<FavoritePage />} />
             <Route path="/product/:id/details" element={<ProductDetails />} />
 
-            <Route path="/product/:id/payment" element={<PaypalPayment />} />
+            <Route path="/payment" element={<PaypalPayment />} />
+            <Route path="/product/order-summary" element={<OrderSummary />} />
             <Route path="/payment/error" element={<PaymentError />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route
-              path="/purchase/orderSummary/:id"
-              element={<PaymentSuccess />}
+              path="/purchase/order-confirmation/:id"
+              element={<OrderConfirmation />}
             />
 
             <Route
               path="/payment/purchaseTicket/:id"
-              element={<OrderConfirmation />}
+              element={<OrderSummary />}
             />
           </Routes>
         </div>

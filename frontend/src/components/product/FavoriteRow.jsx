@@ -35,17 +35,17 @@ export const FavoriteRow = ({ item }) => {
             src={productDto.images[0] || "https://via.placeholder.com/64"}
             alt={productDto.name}
           />
-          <span className="font-bold text-gray-500 dark:text-white">
+          <span className="font-semibold text-gray-800 dark:text-white">
             {productDto.name}
           </span>
         </div>
-        <p className="text text-gray-500 dark:text-gray-400 col-span-1 text-center">
+        <p className="font-semibold text-gray-800 col-span-1 text-center">
           {productDto.categoryDto.name}
         </p>
-        <p className="text text-gray-500 dark:text-gray-400 col-span-1 text-center">
+        <p className="font-semibold text-gray-800 col-span-1 text-center">
           {userDto.userName}
         </p>
-        <p className="text text-gray-400 col-span-1 text-center">
+        <p className="font-semibold text-gray-800  col-span-1 text-center">
           {new Date(favoritedAt).toLocaleDateString()}
         </p>
         <p className="font-bold text-gray-900 dark:text-white col-span-1 text-center">

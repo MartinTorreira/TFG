@@ -38,10 +38,10 @@ export default function Map({
   selected,
   setSelected,
 }) {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyC3DouYAkc3zzgNFpRiouHVw2fMChNSnJw",
-    libraries: ["places"],
-  });
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: "AIzaSyC3DouYAkc3zzgNFpRiouHVw2fMChNSnJw",
+  //   libraries: ["places"],
+  // });
 
   const mapRef = useRef();
 
@@ -60,7 +60,7 @@ export default function Map({
     }
   };
 
-  if (!isLoaded) return <div>Loading...</div>;
+  //  if (!isLoaded) return <div>Loading...</div>;
 
   return (
     <>

@@ -114,7 +114,7 @@ public class Product {
     }
 
     @Column(name = "quantity", nullable = false)
-    @Min(value = 1)
+    @Min(value = 0)
     public int getQuantity() {
         return quantity;
     }

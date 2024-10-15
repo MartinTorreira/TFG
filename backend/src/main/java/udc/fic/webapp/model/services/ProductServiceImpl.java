@@ -74,9 +74,9 @@ public class ProductServiceImpl implements ProductService {
         Product product = productDao.findById(productId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", productId));
 
-        if (!Long.valueOf(product.getUser().getId()).equals(userId)) {
-            throw new IllegalArgumentException("project.entities.product.notOwner");
-        }
+      //  if (!Long.valueOf(product.getUser().getId()).equals(userId)) {
+      //      throw new IllegalArgumentException("project.entities.product.notOwner");
+      //  }
 
         User user = userDao.findById(userId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", userId));

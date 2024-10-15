@@ -18,8 +18,8 @@ export const PriceSlider = ({ value, onValueChange }) => {
   return (
     <div>
       <Slider
+        size="sm"
         label="Rango"
-        color="black"
         showTooltip={true}
         showOutline={true}
         value={range}

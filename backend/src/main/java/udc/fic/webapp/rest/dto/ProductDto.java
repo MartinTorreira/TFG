@@ -101,8 +101,7 @@ public class ProductDto {
         this.price = price;
     }
 
-    @NotNull(groups = {AllValidations.class, UpdateValidations.class})
-    @Min(value = 1, groups = {AllValidations.class, UpdateValidations.class})
+
     public int getQuantity() {
         return quantity;
     }

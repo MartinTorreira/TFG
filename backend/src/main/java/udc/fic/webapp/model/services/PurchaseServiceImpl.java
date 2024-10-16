@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
+import udc.fic.webapp.rest.dto.PurchaseConversor;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 
 import java.io.IOException;
@@ -163,6 +164,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         return purchaseDao.findByBuyerId(userId, pageRequest);
 
+    }
+
+    @Override
+    public PurchaseDto getPurchaseById(Long purchaseId) throws InstanceNotFoundException {
+        Purchase purchase = purchaseDao.findById(purchaseId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
+
+        return PurchaseConversor.toDto(purchase);
     }
 
 

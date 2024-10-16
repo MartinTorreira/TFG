@@ -12,7 +12,7 @@ const Home = ({ toggleSidebar }) => {
   const { fetchProducts, filteredProducts } = useProductStore();
   const { loadFavorites } = useFavoriteStore();
   const { setToken, setUser } = useContext(LoginContext);
-  const [showText, setShowText] = useState(false); // Estado para mostrar el texto
+  const [showText, setShowText] = useState(false); 
 
   useEffect(() => {
     const bearer = localStorage.getItem(config.SERVICE_TOKEN_NAME);
@@ -50,9 +50,9 @@ const Home = ({ toggleSidebar }) => {
             {showText && (
               <motion.span
                 className="ml-2 text-xs text-white"
-                initial={{ opacity: 0, translateX: 10 }} // Cambia a 10 para mover hacia la izquierda
-                animate={{ opacity: 1, translateX: 0 }} // Llega a 0 para que el texto se mantenga
-                exit={{ opacity: 0, translateX: 10 }} // Sale hacia la derecha
+                initial={{ opacity: 0, translateX: 10 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                exit={{ opacity: 0, translateX: 10 }} 
                 transition={{ duration: 0.2 }}
               >
                 <p className="text-base">Filtros</p>

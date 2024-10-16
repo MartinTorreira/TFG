@@ -48,3 +48,13 @@ export const getUserPurchases = async (userId, state, onSuccess, onErrors) => {
     onErrors,
   );
 };
+
+
+export const getPurchaseById = async (purchaseId, onSuccess, onErrors) => {
+  return appFetch(
+    `/purchase/${purchaseId}/getPurchase`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors,
+  );
+}

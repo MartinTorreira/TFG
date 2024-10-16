@@ -28,5 +28,6 @@ public interface PurchaseService {
 
     Page<Purchase> getPurchasesByUserId(Long userId, int page, int size) throws InstanceNotFoundException;
 
+    PurchaseDto getPurchaseById(Long purchaseId) throws InstanceNotFoundException;
 
 }

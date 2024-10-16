@@ -15,26 +15,28 @@ const PayPalPayment = () => {
   const { removeFromList } = useProductStore();
   let purchaseId = "";
 
-  const handleExitPurchase = () => {
-    products.forEach((product) => {
-      const productDto = {
-        ...product,
-        quantity: product.quantity,
-      };
-      updateProduct(
-        product.id,
-        productDto,
-        () => {
-          console.log(`Producto ${product.id} actualizado correctamente.`);
-        },
-        (error) => {
-          console.error(`Error actualizando producto ${product.id}:`, error);
-        },
-      );
-    });
+  const handleExitPurchase = async () => {
+    for (const product of products) {
+      const updatedQuantity = product.originalQuantity - product.quantity;
+  
+      try {
+        await updateProduct(product.id, { ...product, quantity: updatedQuantity });
+  
+        console.log("Updaetd quantity", product.originalQuantity , product.quantity);
+        if (updatedQuantity < 1) {
+          console.log("llegooooooo")
+          removeFromList(product.id);
+        }
+      } catch (error) {
+        console.error(`Error updating product ${product.id}:`, error);
+      }
+    }
+  
     navigate(`../purchase/order-confirmation/${purchaseId}/`);
     toast.success("Compra realizada correctamente");
   };
+  
+  
 
   const createOrder = async (data, actions) => {
     if (products.length === 0) {
@@ -42,7 +44,6 @@ const PayPalPayment = () => {
       return;
     }
 
-    // Ensure all products have the same sellerId
     const sellerId = products[0].userDto.id;
     const allSameSeller = products.every(
       (product) => product.userDto.id === sellerId,
@@ -53,11 +54,28 @@ const PayPalPayment = () => {
       return;
     }
 
-    console.log(
-      "new quantities => " + products.map((product) => product.quantity),
-    );
-
     try {
+      const totalAmount = products.reduce((total, product) => {
+        const price = parseFloat(product.price) || 0;
+        const quantity = parseInt(product.quantity) || 0; 
+        if (price < 0 || quantity < 0) {
+          setError(new Error("Product price or quantity cannot be negative"));
+          return total;
+        }
+        return total + price * quantity; 
+      }, 0).toFixed(2); 
+      
+      if (parseFloat(totalAmount) <= 0) { 
+        setError(new Error("Total amount must be greater than zero"));
+        return;
+      }
+      
+
+      if (totalAmount <= 0) {
+        setError(new Error("Total amount must be greater than zero"));
+        return;
+      }
+
       const response = await fetch("http://localhost:8080/purchase/create", {
         method: "POST",
         headers: {
@@ -68,12 +86,7 @@ const PayPalPayment = () => {
           sellerId: sellerId,
           productIds: products.map((product) => product.id),
           quantities: products.map((product) => product.quantity),
-          amount: products
-            .reduce(
-              (total, product) => total + product.price * product.quantity,
-              0,
-            )
-            .toFixed(2),
+          amount: totalAmount,
           currency: "EUR",
           paymentMethod: "paypal",
         }),

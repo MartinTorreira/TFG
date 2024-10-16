@@ -1,7 +1,7 @@
-export const MapPinIcon = ({ size = 24 }) => {
+export const MapPinIcon = ({ size = 24, className = "text-gray-800" }) => {
   return (
     <svg
-      class="w-6 h-6 text-gray-800 dark:text-white"
+      className={`w-6 h-6  dark:text-white ${className}`}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width={size}

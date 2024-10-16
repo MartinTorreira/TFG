@@ -19,4 +19,6 @@ public interface PurchaseDao extends PagingAndSortingRepository<Purchase, Long> 
     @Query("SELECT p FROM Purchase p WHERE p.buyer.id = :buyerId")
     Page<Purchase> findByBuyerId(@Param("buyerId") Long buyerId, Pageable pageable);
 
+    Optional<Purchase> findById(Long id);
+
 }

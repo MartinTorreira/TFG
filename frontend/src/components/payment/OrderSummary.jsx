@@ -6,37 +6,52 @@ const OrderSummary = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Obtener la lista de productos del estado de la navegación
   const productList = location.state?.productList || [];
+
+  // Estado para la cantidad total y las cantidades seleccionadas por el usuario
   const [totalAmount, setTotalAmount] = useState(0);
   const [quantities, setQuantities] = useState(
-    productList.map((product) => product.quantity),
+    productList.map((product) => product.quantity) // Inicializamos las cantidades con la cantidad disponible de cada producto
   );
 
+  // Calcular el importe total basado en las cantidades y precios de los productos
   const getAmount = () => {
     let total = 0;
     productList.forEach((item, index) => {
-      total += item.price * quantities[index];
+      total += item.price * quantities[index]; // Multiplicar precio por cantidad seleccionada
     });
     setTotalAmount(total);
   };
 
   useEffect(() => {
     getAmount();
-  }, [quantities]);
+  }, [quantities]); // Recalcular el total cada vez que cambien las cantidades
 
+  // Actualizar la cantidad de un producto específico
   const handleQuantityChange = (index, newQuantity) => {
     const newQuantities = [...quantities];
-    newQuantities[index] = newQuantity;
+    newQuantities[index] = newQuantity; // Actualizar la cantidad seleccionada en el índice correspondiente
     setQuantities(newQuantities);
   };
 
+  // Manejar el evento para proceder al pago
   const handleProceedToPayment = () => {
     const productsWithQuantities = productList.map((product, index) => ({
       ...product,
-      quantity: product.quantity - quantities[index],
+      quantity: quantities[index], // Asociar las cantidades seleccionadas con los productos
     }));
 
-    // Navigate to the payment page with the updated product quantities
+    const hasNegativeQuantity = productsWithQuantities.some(
+      (product) => product.quantity < 0
+    );
+
+    if (hasNegativeQuantity) {
+      alert("No puedes seleccionar más productos de los disponibles.");
+      return;
+    }
+
+    // Navegar a la página de pago con los productos seleccionados
     navigate("/payment", {
       state: { products: productsWithQuantities },
     });
@@ -58,11 +73,11 @@ const OrderSummary = () => {
                     <tr key={index}>
                       <td className="p-4 w-1/6 px-6 items-center justify-center text-base font-normal text-gray-900 dark:text-white">
                         <QuantitySelector
-                          maxQuantity={product.quantity}
-                          initialQuantity={quantities[index]}
+                          maxQuantity={product.quantity} // Cantidad disponible del producto
+                          initialQuantity={quantities[index]} // Cantidad inicial seleccionada
                           onQuantityChange={(newQuantity) =>
-                            handleQuantityChange(index, newQuantity)
-                          }
+                            handleQuantityChange(index, newQuantity) // Actualización de la cantidad cuando el usuario cambia el valor
+                          } 
                         />
                       </td>
                       <td className="whitespace-nowrap py-4 md:w-[384px]">
@@ -73,7 +88,7 @@ const OrderSummary = () => {
                           >
                             <img
                               className="h-auto w-full max-h-full rounded-md"
-                              src={product.images[0]}
+                              src={product.images[0]} // Primera imagen del producto
                               alt={product.name}
                             />
                           </a>
@@ -83,7 +98,7 @@ const OrderSummary = () => {
                         </div>
                       </td>
                       <td className="p-4 text-right text-base font-bold text-gray-900 dark:text-white">
-                        {product.price.toFixed(2)} €
+                        {product.price.toFixed(2)} € {/* Precio del producto */}
                       </td>
                     </tr>
                   ))}
@@ -95,7 +110,7 @@ const OrderSummary = () => {
                       Total
                     </td>
                     <td className="p-4 text-right text-lg font-bold text-gray-900 dark:text-white">
-                      {totalAmount.toFixed(2)} €
+                      {totalAmount.toFixed(2)} € {/* Total calculado */}
                     </td>
                   </tr>
                 </tbody>

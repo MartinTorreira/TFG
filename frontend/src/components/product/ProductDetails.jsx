@@ -23,6 +23,7 @@ import { removeFromFavorites } from "../../backend/productService.js";
 import { BuyIcon } from "../../icons/BuyIcon.jsx";
 import { ChatIcon } from "../../icons/ChatIcon.jsx";
 import { MapPinIcon } from "../../icons/MapPinIcon.jsx";
+import { UserIcon } from "../../icons/UserIcon.jsx";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -52,9 +53,6 @@ const ProductDetails = () => {
   }
 
   const handleBuyClick = () => {
-    //const id = product?.id;
-    //navigate(`/product/${id}/payment`);
-    console.log("aaaa", { state: { productList: product } });
     navigate("/product/order-summary", { state: { productList: [product] } });
   };
 
@@ -63,19 +61,18 @@ const ProductDetails = () => {
   };
 
   const handleDeleteClick = () => {
-    setIsAlertOpen(true); // Mostrar el modal de confirmación
+    setIsAlertOpen(true);
   };
 
   const handleConfirmDelete = () => {
     deleteProduct(
       product.id,
       () => {
-        // Eliminar producto de la lista de favoritos
         removeFavorite(product.id);
       },
       (errors) => {
         console.log(errors);
-      },
+      }
     );
 
     toast.success("Producto eliminado correctamente");
@@ -97,7 +94,7 @@ const ProductDetails = () => {
           },
           (errors) => {
             console.log(errors);
-          },
+          }
         );
       } else {
         removeFromFavorites(
@@ -107,7 +104,7 @@ const ProductDetails = () => {
           },
           (errors) => {
             console.log(errors);
-          },
+          }
         );
       }
     }
@@ -274,7 +271,23 @@ const ProductDetails = () => {
               </p>
             </div>
 
-            <div className="lg:col-span-2 w-10/12 justify-center items-center mt-10 text-black">
+            <div className="lg:col-span-2 w-full justify-center items-center mt-20">
+              <label className="flex flex-row text-xl font-medium space-x-3">
+                <MapPinIcon size={20} color={"text-black -ml-2 mr-2"} />
+                <p>Ubicación del producto</p>
+              </label>
+              <div className="mt-4">
+                {" "}
+                {/* Añadir margen superior al mapa */}
+                <ReadOnlyMap lat={product.latitude} lng={product.longitude} />
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 w-full justify-center items-center mt-10">
+              <label className="flex flex-row text-xl font-medium space-x-2 mb-10 ">
+                <UserIcon size={"30"} />
+                <p>Vendedor</p>
+              </label>
               <div className="flex flex-row">
                 <Avatar
                   size={"16"}
@@ -285,18 +298,6 @@ const ProductDetails = () => {
                   <p className="ml-1">{product.userDto.userName}</p>
                   <RatingComponent rate={product.userDto.rate} />
                 </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 w-full justify-center items-center mt-20">
-              <label className="flex flex-row text-xl font-medium space-x-3">
-                <MapPinIcon size={20} color={"text-black -ml-2 mr-2"} />
-                <p>Ubicación del producto</p>
-              </label>
-              <div className="mt-4">
-                {" "}
-                {/* Añadir margen superior al mapa */}
-                <ReadOnlyMap lat={product.latitude} lng={product.longitude} />
               </div>
             </div>
           </div>

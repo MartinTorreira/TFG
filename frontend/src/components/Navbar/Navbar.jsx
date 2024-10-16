@@ -37,16 +37,16 @@ const Navbar = ({ notification }) => {
           <div className="hidden md:flex space-x-2 ml-12">
             <button
               onClick={() => handleNavigate("./users/my-purchases")}
-              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 transition-all"
+              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[19px] hover:decoration-4 transition-all"
             >
               Mis compras
             </button>
-            <button className="text-black hover:text-accent-dark font-semibold p-1 px-3 transition-all">
+            <button className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[19px] hover:decoration-4 transition-all">
               Mi carro
             </button>
             <button
               onClick={() => handleNavigate("./product/favorites")}
-              className="text-black hover:text-accent-dark font-semibold p-1 px-3 transition-all"
+              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[19px] hover:decoration-4 transition-all"
             >
               Favoritos
             </button>
@@ -70,7 +70,7 @@ const Navbar = ({ notification }) => {
             <NavbarDropdown imagePath={user.avatar} />
           ) : (
             <a
-              className="border border-gray-800 p-2 rounded hover:opacity-70"
+              className="border border-gray-800 p-2 rounded-full hover:opacity-70 hover:text-accent-darker hover:border-accent-darker transition-all"
               href="/users/login"
             >
               Iniciar sesión

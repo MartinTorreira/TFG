@@ -1,6 +1,7 @@
 package udc.fic.webapp.rest.controllers;
 
 import com.paypal.orders.Order;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -146,6 +147,12 @@ public class PurchaseController {
     @GetMapping("/{purchaseId}/getProducts")
     public ResponseEntity<List<ProductDto>> getProductsByPurchaseId(@PathVariable Long purchaseId) throws InstanceNotFoundException {
         return ResponseEntity.ok(productService.getProductsByPurchaseId(purchaseId));
+    }
+
+
+    @GetMapping("/{purchaseId}/getPurchase")
+    public ResponseEntity<PurchaseDto> getPurchaseById(@PathVariable Long purchaseId) throws InstanceNotFoundException {
+        return ResponseEntity.ok(purchaseService.getPurchaseById(purchaseId));
     }
 
 

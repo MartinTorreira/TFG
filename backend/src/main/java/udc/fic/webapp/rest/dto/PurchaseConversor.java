@@ -22,6 +22,8 @@ public class PurchaseConversor {
         return dto;
     }
 
+
+
     public final static PurchaseItemDto toDto(PurchaseItem purchaseItem) {
         PurchaseItemDto dto = new PurchaseItemDto();
         dto.setId(purchaseItem.getId());

@@ -3,14 +3,20 @@ import usePurchasesStore from "../store/usePurchasesStore";
 import { UserPurchaseList } from "./UserPurchaseList";
 import { LoginContext } from "../context/LoginContext";
 import { NotFound } from "../../icons/NotFound";
+import { useNavigate } from "react-router-dom";
 
 const UserPurchasesPage = () => {
-  const { user } = useContext(LoginContext);
+  const { user, token } = useContext(LoginContext);
   const { purchases, loadPurchases } = usePurchasesStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loadPurchases(user.id);
-  }, [loadPurchases, user]);
+    if (!token) {
+      navigate("../users/login");
+    } else {
+      loadPurchases(user.id);
+    }
+  }, [loadPurchases, user, token, navigate]);
 
   return (
     <>

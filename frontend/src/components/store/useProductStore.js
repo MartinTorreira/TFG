@@ -54,7 +54,7 @@ export const useProductStore = create((set, get) => ({
         },
         (errors) => {
           console.log(errors);
-        },
+        }
       );
     } catch (error) {
       console.error(error);
@@ -67,7 +67,7 @@ export const useProductStore = create((set, get) => ({
     // Filtrar por texto de búsqueda
     if (query) {
       filteredProducts = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(query.toLowerCase()),
+        product.name.toLowerCase().includes(query.toLowerCase())
       );
     }
 
@@ -131,29 +131,8 @@ export const useProductStore = create((set, get) => ({
         },
         (errors) => {
           console.error(errors);
-        },
+        }
       );
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
-  updateProduct: async (productId, updatedProduct) => {
-    try {
-      await updateProductService(productId, updatedProduct);
-      set((state) => {
-        const products = state.products.map((product) =>
-          product.id === productId
-            ? { ...product, ...updatedProduct }
-            : product,
-        );
-        const filteredProducts = state.filteredProducts.map((product) =>
-          product.id === productId
-            ? { ...product, ...updatedProduct }
-            : product,
-        );
-        return { products, filteredProducts };
-      });
     } catch (error) {
       console.error(error);
     }
@@ -166,14 +145,14 @@ export const useProductStore = create((set, get) => ({
         () => {},
         (errors) => {
           console.log(errors);
-        },
+        }
       );
       set((state) => {
         const products = state.products.filter(
-          (product) => product.id !== productId,
+          (product) => product.id !== productId
         );
         const filteredProducts = state.filteredProducts.filter(
-          (product) => product.id !== productId,
+          (product) => product.id !== productId
         );
         return { products, filteredProducts };
       });
@@ -182,16 +161,30 @@ export const useProductStore = create((set, get) => ({
     }
   },
 
-  // remove product from list but not in backend
+  updateProduct: async (productId, updatedProduct) => {
+    try {
+      await updateProductService(productId, updatedProduct);
+      set((state) => {
+        const updatedProducts = state.products.map((product) =>
+          product.id === productId ? { ...product, ...updatedProduct } : product
+        );
+        const filteredProducts = updatedProducts.filter(
+          (product) => product.quantity > 0
+        );
+        return { products: updatedProducts, filteredProducts };
+      });
+    } catch (error) {
+      console.error(`Error updating product ${productId}:`, error);
+    }
+  },
+
   removeFromList: (productId) => {
     set((state) => {
-      const products = state.products.filter(
-        (product) => product.id !== productId,
-      );
-      const filteredProducts = state.filteredProducts.filter(
-        (product) => product.id !== productId,
-      );
+      console.log("Removing product with ID:", productId); 
+      const products = state.products.filter((product) => product.id !== productId);
+      const filteredProducts = state.filteredProducts.filter((product) => product.id !== productId);
       return { products, filteredProducts };
     });
   },
+  
 }));

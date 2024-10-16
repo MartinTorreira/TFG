@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getProductsByPurchaseId } from "../../backend/productService";
 import { getPlaceName } from "../../utils/MapUtils";
 import { getPurchaseById } from "../../backend/paymentService";
-import { MapPinIcon } from "../../icons/MapPinIcon";
 import { Avatar } from "../Avatar.jsx";
 import { RatingComponent } from "../RatingComponent.jsx";
 

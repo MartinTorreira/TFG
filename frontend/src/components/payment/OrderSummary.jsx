@@ -12,7 +12,7 @@ const OrderSummary = () => {
   // Estado para la cantidad total y las cantidades seleccionadas por el usuario
   const [totalAmount, setTotalAmount] = useState(0);
   const [quantities, setQuantities] = useState(
-    productList.map((product) => product.quantity) // Inicializamos las cantidades con la cantidad disponible de cada producto
+    productList.map((product) => product.quantity), // Inicializamos las cantidades con la cantidad disponible de cada producto
   );
 
   // Calcular el importe total basado en las cantidades y precios de los productos
@@ -26,12 +26,16 @@ const OrderSummary = () => {
 
   useEffect(() => {
     getAmount();
-  }, [quantities]); // Recalcular el total cada vez que cambien las cantidades
+  }, [quantities]);
 
-  // Actualizar la cantidad de un producto específico
   const handleQuantityChange = (index, newQuantity) => {
+    const product = productList[index];
+    if (newQuantity > product.quantity) {
+      alert("No puedes seleccionar más productos de los disponibles.");
+      return;
+    }
     const newQuantities = [...quantities];
-    newQuantities[index] = newQuantity; // Actualizar la cantidad seleccionada en el índice correspondiente
+    newQuantities[index] = newQuantity;
     setQuantities(newQuantities);
   };
 
@@ -39,11 +43,12 @@ const OrderSummary = () => {
   const handleProceedToPayment = () => {
     const productsWithQuantities = productList.map((product, index) => ({
       ...product,
-      quantity: quantities[index], // Asociar las cantidades seleccionadas con los productos
+      originalQuantity: product.quantity, // Guardamos la cantidad original para restarla después
+      quantity: quantities[index], // Actualizamos con la cantidad seleccionada
     }));
 
     const hasNegativeQuantity = productsWithQuantities.some(
-      (product) => product.quantity < 0
+      (product) => product.quantity < 0,
     );
 
     if (hasNegativeQuantity) {
@@ -75,9 +80,10 @@ const OrderSummary = () => {
                         <QuantitySelector
                           maxQuantity={product.quantity} // Cantidad disponible del producto
                           initialQuantity={quantities[index]} // Cantidad inicial seleccionada
-                          onQuantityChange={(newQuantity) =>
-                            handleQuantityChange(index, newQuantity) // Actualización de la cantidad cuando el usuario cambia el valor
-                          } 
+                          onQuantityChange={
+                            (newQuantity) =>
+                              handleQuantityChange(index, newQuantity) // Actualización de la cantidad cuando el usuario cambia el valor
+                          }
                         />
                       </td>
                       <td className="whitespace-nowrap py-4 md:w-[384px]">
@@ -98,7 +104,7 @@ const OrderSummary = () => {
                         </div>
                       </td>
                       <td className="p-4 text-right text-base font-bold text-gray-900 dark:text-white">
-                        {product.price.toFixed(2)} € {/* Precio del producto */}
+                        {product.price.toFixed(2)} €
                       </td>
                     </tr>
                   ))}
@@ -110,7 +116,7 @@ const OrderSummary = () => {
                       Total
                     </td>
                     <td className="p-4 text-right text-lg font-bold text-gray-900 dark:text-white">
-                      {totalAmount.toFixed(2)} € {/* Total calculado */}
+                      {totalAmount.toFixed(2)} €
                     </td>
                   </tr>
                 </tbody>

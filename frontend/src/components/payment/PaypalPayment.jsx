@@ -18,61 +18,45 @@ const PayPalPayment = () => {
   const handleExitPurchase = async () => {
     for (const product of products) {
       const updatedQuantity = product.originalQuantity - product.quantity;
-  
+      console.log("EEEEAAA" + updatedQuantity);
+
       try {
-        await updateProduct(product.id, { ...product, quantity: updatedQuantity });
-  
-        console.log("Updaetd quantity", product.originalQuantity , product.quantity);
+        await updateProduct(product.id, {
+          ...product,
+          quantity: updatedQuantity, // Actualizamos la cantidad en el backend
+        });
+
         if (updatedQuantity < 1) {
-          console.log("llegooooooo")
+          console.log("ADSAAAAASDADSASDADÑÑÑÑÑÑ", updateProduct);
           removeFromList(product.id);
         }
       } catch (error) {
         console.error(`Error updating product ${product.id}:`, error);
       }
     }
-  
+
     navigate(`../purchase/order-confirmation/${purchaseId}/`);
     toast.success("Compra realizada correctamente");
   };
-  
-  
 
   const createOrder = async (data, actions) => {
-    if (products.length === 0) {
-      setError(new Error("Products not loaded"));
-      return;
-    }
-
-    const sellerId = products[0].userDto.id;
-    const allSameSeller = products.every(
-      (product) => product.userDto.id === sellerId,
-    );
-
-    if (!allSameSeller) {
-      setError(new Error("All products must have the same seller"));
-      return;
-    }
-
     try {
-      const totalAmount = products.reduce((total, product) => {
-        const price = parseFloat(product.price) || 0;
-        const quantity = parseInt(product.quantity) || 0; 
-        if (price < 0 || quantity < 0) {
-          setError(new Error("Product price or quantity cannot be negative"));
-          return total;
-        }
-        return total + price * quantity; 
-      }, 0).toFixed(2); 
-      
-      if (parseFloat(totalAmount) <= 0) { 
-        setError(new Error("Total amount must be greater than zero"));
-        return;
-      }
-      
+      const totalAmount = products
+        .reduce((total, product) => {
+          const price = parseFloat(product.price) || 0;
+          const quantity = parseInt(product.quantity) || 0;
+          if (price < 0 || quantity < 0) {
+            setError(
+              new Error("El precio o la cantidad no pueden ser negativos"),
+            );
+            return total;
+          }
+          return total + price * quantity;
+        }, 0)
+        .toFixed(2);
 
-      if (totalAmount <= 0) {
-        setError(new Error("Total amount must be greater than zero"));
+      if (parseFloat(totalAmount) <= 0) {
+        setError(new Error("El importe total debe ser mayor que cero"));
         return;
       }
 
@@ -83,7 +67,7 @@ const PayPalPayment = () => {
         },
         body: JSON.stringify({
           buyerId: user.id,
-          sellerId: sellerId,
+          sellerId: products[0].userDto.id,
           productIds: products.map((product) => product.id),
           quantities: products.map((product) => product.quantity),
           amount: totalAmount,
@@ -92,27 +76,11 @@ const PayPalPayment = () => {
         }),
       });
 
-      if (!response.ok) {
-        const text = await response.text();
-        console.error("Error response from server:", text);
-        throw new Error(text);
-      }
-
       const order = await response.json();
-
-      if (order.approvalUrl) {
-        const urlParams = new URLSearchParams(
-          new URL(order.approvalUrl).search,
-        );
-        console.log(
-          "Order created successfully, purchase ID:",
-          order.purchase.id,
-        );
-        purchaseId = order.purchase.id;
-        return urlParams.get("token");
-      } else {
-        throw new Error("Approval URL not found");
-      }
+      purchaseId = order.purchase.id;
+      return new URLSearchParams(new URL(order.approvalUrl).search).get(
+        "token",
+      );
     } catch (err) {
       console.error("Error creating order:", err);
       setError(err);

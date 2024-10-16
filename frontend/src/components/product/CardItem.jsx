@@ -13,7 +13,6 @@ import { LoginContext } from "../context/LoginContext.js";
 import { EditIcon } from "../../icons/EditoIcon.jsx";
 import { UpdateProductModal } from "../modals/UpdateProductModal.jsx";
 import { DeleteIcon } from "../../icons/DeleteIcon.jsx";
-import { deleteProduct } from "../../backend/productService.js";
 import { toast } from "sonner";
 import { Alert } from "./Alert.jsx";
 

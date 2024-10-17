@@ -16,5 +16,8 @@ public interface ShoppingCartService {
 
     ShoppingCartItemDto addItemToCart(Long userId, ShoppingCartItemDto dto) throws InstanceNotFoundException;
 
+    void removeItemFromCart(Long userId, Long cartId) throws InstanceNotFoundException;
+
+    ShoppingCartItemDto updateItemQuantity(Long userId, ShoppingCartItemDto dto) throws InstanceNotFoundException;
 
 }

@@ -1,9 +1,5 @@
 package udc.fic.webapp.rest.common;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/purchase/*/getUserPurchases").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/*/getProducts").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/*/getPurchase").permitAll()
-				.antMatchers(HttpMethod.GET, "/shopping-cart/*/items").authenticated()
+				.antMatchers(HttpMethod.GET, "/shoppingCart/*/getItems").authenticated()
+				.antMatchers(HttpMethod.GET, "/shoppingCart/getProducts").authenticated()
 
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
@@ -57,14 +54,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/purchase/create").permitAll()
 				.antMatchers(HttpMethod.POST, "/purchase/execute").permitAll()
 				.antMatchers(HttpMethod.POST, "/payment/create").authenticated()
-				.antMatchers(HttpMethod.POST, "/shopping-cart/add-item").authenticated()
+				.antMatchers(HttpMethod.POST, "/shoppingCart/addProduct").authenticated()
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/changeImages").authenticated()
+				.antMatchers(HttpMethod.PUT, "/shoppingCart/updateQuantity").authenticated()
+
 
 				.antMatchers(HttpMethod.DELETE, "/product/*/delete").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/product/*/removeFavorite").authenticated()
+				.antMatchers(HttpMethod.DELETE, "/shoppingCart/*/removeFavorite").authenticated()
+				.antMatchers(HttpMethod.DELETE, "/shoppingCart/*/removeItem").authenticated()
+
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
 				.anyRequest().authenticated();

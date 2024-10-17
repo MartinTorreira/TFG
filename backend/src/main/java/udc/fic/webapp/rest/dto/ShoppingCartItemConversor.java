@@ -5,7 +5,7 @@ import udc.fic.webapp.model.entities.ShoppingCartItem;
 
 public class ShoppingCartItemConversor {
 
-    public static ShoppingCartItemDto toDto(ShoppingCartItem shoppingCartItem) {
+    public static ShoppingCartItemDto toShoppingCartDto(ShoppingCartItem shoppingCartItem) {
         ShoppingCartItemDto dto = new ShoppingCartItemDto();
         dto.setId(shoppingCartItem.getId());
         dto.setCartId(shoppingCartItem.getCart().getId());
@@ -14,7 +14,7 @@ public class ShoppingCartItemConversor {
         return dto;
     }
 
-    public static ShoppingCartItem toEntity(ShoppingCartItemDto dto) {
+    public static ShoppingCartItem toShoppingCartEntity(ShoppingCartItemDto dto) {
         ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
         shoppingCartItem.setId(dto.getId());
         shoppingCartItem.setProductId(dto.getProductId());

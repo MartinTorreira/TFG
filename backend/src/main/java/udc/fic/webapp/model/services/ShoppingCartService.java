@@ -1,6 +1,8 @@
 package udc.fic.webapp.model.services;
 
 import org.springframework.stereotype.Service;
+import udc.fic.webapp.model.entities.ShoppingCartItem;
+import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.ShoppingCartItemDto;
 
 import java.util.List;
@@ -10,11 +12,9 @@ public interface ShoppingCartService {
 
     void createShoppingCart(Long userId);
 
-    List<ShoppingCartItemDto> getShoppingCartItems(Long userId);
+    List<ShoppingCartItemDto> getShoppingCartItemsByUser(Long userId) throws InstanceNotFoundException;
 
-    ShoppingCartItemDto addItemToCart(Long cartId, Long productId, Integer quantity);
+    ShoppingCartItemDto addItemToCart(Long userId, ShoppingCartItemDto dto) throws InstanceNotFoundException;
 
-    void removeItemFromCart(Long itemId);
 
-    void updateItemQuantity(Long itemId, Integer quantity);
 }

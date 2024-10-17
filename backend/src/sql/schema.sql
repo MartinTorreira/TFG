@@ -117,10 +117,3 @@ CREATE TABLE Favorite (
                       CONSTRAINT Product_Favorite_FK FOREIGN KEY (productId) REFERENCES Product(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
-
-
-
-
-
-
--- Shopping cart quantity => Cantidad de productos en el carro antes de la compra

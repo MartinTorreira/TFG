@@ -5,27 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItemDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ShoppingCartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartConversor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemConversor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItemDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItemDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserConversor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserConversor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sql/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ShoppingCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ShoppingCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemConversor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemConversor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,87 +52,76 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HTTP Request.All in generated-requests.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in webapp.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BackendApplicationTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BackendApplicationTests.simpleTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.testAddFavorite.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.ProductServiceTest.testAddProduct.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testChangeProductImages.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testUpdateProduct.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Coverage&quot;,
-    &quot;JUnit.UserServiceTest.simpleTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLoginFromNonExistentId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testSignUpAndLoginFromId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature-03/Purchase&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP Request.All in generated-requests.executor": "Run",
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "JUnit.All in webapp.executor": "Run",
+    "JUnit.BackendApplicationTests.executor": "Run",
+    "JUnit.BackendApplicationTests.simpleTest.executor": "Run",
+    "JUnit.FavoriteServiceTest.executor": "Run",
+    "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
+    "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
+    "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
+    "JUnit.ProductServiceTest.executor": "Coverage",
+    "JUnit.ProductServiceTest.testAddProduct.executor": "Run",
+    "JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor": "Run",
+    "JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor": "Run",
+    "JUnit.ProductServiceTest.testChangeProductImages.executor": "Run",
+    "JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor": "Run",
+    "JUnit.ProductServiceTest.testUpdateProduct.executor": "Run",
+    "JUnit.UserServiceTest.executor": "Coverage",
+    "JUnit.UserServiceTest.simpleTest.executor": "Run",
+    "JUnit.UserServiceTest.testLoginFromNonExistentId.executor": "Run",
+    "JUnit.UserServiceTest.testSignUpAndLoginFromId.executor": "Run",
+    "JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.BackendApplication.executor": "Run",
+    "git-widget-placeholder": "feature-03/Purchase",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "two.files.diff.last.used.file": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;PLAIN_TEXT&quot;
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
     ]
   }
-}</component>
-  <component name="RunManager" selected="HTTP Request.generated-requests | #3">
+}]]></component>
+  <component name="RunManager" selected="JUnit.All in webapp">
     <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="2" requestIdentifier="#2" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="Run single request">
       <method v="2" />
     </configuration>
+    <configuration name="generated-requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="4" requestIdentifier="#4" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="All in webapp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FavoriteServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -179,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in webapp" />
+        <item itemvalue="HTTP Request.generated-requests | #4" />
         <item itemvalue="HTTP Request.generated-requests | #3" />
         <item itemvalue="HTTP Request.generated-requests | #2" />
         <item itemvalue="JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser" />
-        <item itemvalue="JUnit.All in webapp" />
-        <item itemvalue="JUnit.FavoriteServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -261,7 +240,7 @@
       <workItem from="1729116537833" duration="2709000" />
       <workItem from="1729119326474" duration="2755000" />
       <workItem from="1729162827426" duration="199000" />
-      <workItem from="1729163192130" duration="2286000" />
+      <workItem from="1729163192130" duration="9642000" />
     </task>
     <servers />
   </component>

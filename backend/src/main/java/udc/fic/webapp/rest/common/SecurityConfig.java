@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/purchase/*/getUserPurchases").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/*/getProducts").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/*/getPurchase").permitAll()
-
+				.antMatchers(HttpMethod.GET, "/shopping-cart/*/items").authenticated()
 
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/purchase/create").permitAll()
 				.antMatchers(HttpMethod.POST, "/purchase/execute").permitAll()
 				.antMatchers(HttpMethod.POST, "/payment/create").authenticated()
+				.antMatchers(HttpMethod.POST, "/shopping-cart/add-item").authenticated()
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()

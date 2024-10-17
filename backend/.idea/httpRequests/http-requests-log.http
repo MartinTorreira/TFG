@@ -1,3 +1,35 @@
+POST http://localhost:8080/shopping-cart/add-item
+Content-Type: application/json
+Content-Length: 41
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "productId": "1",
+  "quantity": "1"
+}
+
+<> 2024-10-17T155406.403.json
+
+###
+
+POST http://localhost:8080/shopping-cart/add-item
+Content-Type: application/json
+Content-Length: 41
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "productId": "1",
+  "quantity": "1"
+}
+
+<> 2024-10-17T155308.403.json
+
+###
+
 GET http://localhost:8080/purchase/15/purchase
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.2.3
 Accept-Encoding: br, deflate, gzip, x-gzip

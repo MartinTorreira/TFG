@@ -1,7 +1,10 @@
 package udc.fic.webapp.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import udc.fic.webapp.model.entities.*;
+import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.ShoppingCartItemDto;
 import udc.fic.webapp.model.services.ShoppingCartService;
 
@@ -14,23 +17,50 @@ public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private ProductDao productDao;
+
     @GetMapping("/{cartId}/items")
-    public List<ShoppingCartItemDto> getCartItems(@PathVariable Long cartId) {
-        return shoppingCartService.getShoppingCartItems(cartId);
+    public ResponseEntity<List<ShoppingCartItemDto>> getCartItems(@RequestAttribute Long userId) throws InstanceNotFoundException {
+
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        List<ShoppingCartItemDto> items = shoppingCartService.getShoppingCartItemsByUser(userId);
+
+        return ResponseEntity.ok(items);
+
     }
 
-    @PostMapping("/{cartId}/items")
-    public ShoppingCartItemDto addItemToCart(@PathVariable Long cartId, @RequestParam Long productId, @RequestParam Integer quantity) {
-        return shoppingCartService.addItemToCart(cartId, productId, quantity);
+    @PostMapping("/add-item")
+    public ResponseEntity<ShoppingCartItemDto> addItemToCart(@RequestAttribute Long userId, @RequestBody ShoppingCartItemDto dto) throws InstanceNotFoundException {
+
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Check if product quantity is greater than cart quantity
+        Product product = productDao.findById(dto.getProductId())
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+
+        if (product.getQuantity() < dto.getQuantity()) {
+            throw new IllegalArgumentException("Cart quantity must be less than product quantity");
+        }
+
+        ShoppingCartItemDto item = shoppingCartService.addItemToCart(userId, dto);
+
+        return ResponseEntity.ok(item);
+
     }
 
-    @DeleteMapping("/items/{itemId}")
-    public void removeItemFromCart(@PathVariable Long itemId) {
-        shoppingCartService.removeItemFromCart(itemId);
-    }
 
-    @PutMapping("/items/{itemId}")
-    public void updateItemQuantity(@PathVariable Long itemId, @RequestParam Integer quantity) {
-        shoppingCartService.updateItemQuantity(itemId, quantity);
-    }
+  //  @GetMapping("/{userId}/items")
+  //  public List<ShoppingCartItemDto> getUserCartItems(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        //return shoppingCartService.getShoppingCartItemsByUser(userId);
+ //       return null;
+  //  }
+
+
 }

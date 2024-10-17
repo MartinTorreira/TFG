@@ -8,8 +8,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import udc.fic.webapp.model.entities.Product;
+import udc.fic.webapp.model.entities.ShoppingCart;
 import udc.fic.webapp.model.entities.User;
 import udc.fic.webapp.model.exceptions.*;
+import udc.fic.webapp.model.services.ShoppingCartService;
 import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.common.ErrorsDto;
 import udc.fic.webapp.rest.common.JwtGenerator;
@@ -38,6 +41,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private ShoppingCartService shoppingCartService;
+
+    @Autowired
     private MessageSource messageSource;
 
     @Autowired
@@ -63,6 +69,9 @@ public class UserController {
             @Validated({UserDto.AllValidations.class}) @RequestBody UserDto userDto) throws DuplicateInstanceException, DuplicateEmailException {
 
         User user = toUser(userDto);
+
+        ShoppingCart shoppingCart = new ShoppingCart(user);
+        user.setShoppingCart(shoppingCart);
 
         userService.signUp(user);
 

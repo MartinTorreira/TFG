@@ -3,10 +3,8 @@ package udc.fic.webapp.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -25,11 +23,12 @@ public class User {
     private Integer rate;
     private RoleType role;
     private String avatar;
+    private ShoppingCart shoppingCart;
 
 
     public User () {}
 
-    public User(String userName, String password, String firstName, String lastName, String email, int rate, RoleType role, String avatar) {
+    public User(String userName, String password, String firstName, String lastName, String email, int rate, RoleType role, String avatar, ShoppingCart shoppingCart) {
         this.userName = userName;
         this.password = password;
         this.firstName = firstName;
@@ -38,8 +37,20 @@ public class User {
         this.rate = rate;
         this.role = role;
         this.avatar = avatar;
+        this.shoppingCart = shoppingCart;
     }
 
+
+    public User(String userName, String password, String firstName, String lastName, String email, int rate, String avatar, ShoppingCart shoppingCart) {
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.rate = rate;
+        this.avatar = avatar;
+        this.shoppingCart = shoppingCart;
+    }
 
     public User(String userName, String password, String firstName, String lastName, String email, int rate, String avatar) {
         this.userName = userName;
@@ -49,7 +60,9 @@ public class User {
         this.email = email;
         this.rate = rate;
         this.avatar = avatar;
+        this.shoppingCart = new ShoppingCart(this);
     }
+
 
 
     @Id
@@ -124,5 +137,14 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
     }
 }

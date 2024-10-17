@@ -23,6 +23,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    private ShoppingCartService shoppingCartService;
+
+    @Autowired
     private PermissionChecker permissionChecker;
 
     @Autowired
@@ -44,6 +47,10 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(User.RoleType.USER);
+
+
+        // Create a new shopping cart for the user
+       // shoppingCartService.createShoppingCart(user.getId());
 
         userDao.save(user);
 

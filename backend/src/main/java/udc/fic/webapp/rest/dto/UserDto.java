@@ -1,5 +1,6 @@
 package udc.fic.webapp.rest.dto;
 
+import org.springframework.lang.Nullable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,11 +22,11 @@ public class UserDto {
     private Integer rate;
     private String role;
     private String avatar;
+    private ShoppingCartDto cartDto;
 
     public UserDto() {}
 
-    public UserDto(Long id, String userName, String firstName, String lastName, String email, Integer rate, String role, String avatar) {
-
+    public UserDto(Long id, String userName, String firstName, String lastName, String email, Integer rate, String role, String avatar, ShoppingCartDto cartDto) {
         this.id = id;
         this.userName = userName != null ? userName.trim() : null;
         this.firstName = firstName.trim();
@@ -34,8 +35,20 @@ public class UserDto {
         this.rate = rate;
         this.role = role;
         this.avatar = avatar;
-
+        this.cartDto = cartDto;
     }
+
+    public UserDto(Long id, String userName, String firstName, String lastName, String email, Integer rate, String role, String avatar) {
+        this.id = id;
+        this.userName = userName != null ? userName.trim() : null;
+        this.firstName = firstName.trim();
+        this.lastName = lastName.trim();
+        this.email = email.trim();
+        this.rate = rate;
+        this.role = role;
+        this.avatar = avatar;
+    }
+
 
     public Long getId() {
         return id;
@@ -122,4 +135,12 @@ public class UserDto {
         this.rate = rate;
     }
 
+    @Nullable
+    public ShoppingCartDto getCartDto() {
+        return cartDto;
+    }
+
+    public void setCartDto(ShoppingCartDto cartDto) {
+        this.cartDto = cartDto;
+    }
 }

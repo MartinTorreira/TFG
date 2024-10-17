@@ -78,6 +78,7 @@ export default function App() {
             <Route path="/product/order-summary" element={<OrderSummary />} />
             <Route path="/payment/error" element={<PaymentError />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route path="/shoppingCart" element={<PaymentSuccess />} />
             <Route
               path="/purchase/order-confirmation/:id"
               element={<OrderConfirmation />}

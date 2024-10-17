@@ -4,7 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="" />
+    <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItemDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ShoppingCartController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartConversor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemConversor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserConversor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserConversor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sql/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +104,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -234,6 +256,12 @@
       <workItem from="1728991393643" duration="18199000" />
       <workItem from="1729019915828" duration="12241000" />
       <workItem from="1729085937601" duration="6924000" />
+      <workItem from="1729110497917" duration="3846000" />
+      <workItem from="1729114402215" duration="1904000" />
+      <workItem from="1729116537833" duration="2709000" />
+      <workItem from="1729119326474" duration="2755000" />
+      <workItem from="1729162827426" duration="199000" />
+      <workItem from="1729163192130" duration="2286000" />
     </task>
     <servers />
   </component>

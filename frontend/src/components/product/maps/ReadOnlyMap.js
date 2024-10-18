@@ -15,12 +15,6 @@ const options = {
 };
 
 export default function ReadOnlyMap({ lat, lng }) {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyC3DouYAkc3zzgNFpRiouHVw2fMChNSnJw",
-  });
-
-  if (!isLoaded) return <div>Loading...</div>;
-
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}

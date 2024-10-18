@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
-import udc.fic.webapp.rest.dto.ShoppingCartConversor;
-import udc.fic.webapp.rest.dto.ShoppingCartItemConversor;
-import udc.fic.webapp.rest.dto.ShoppingCartItemDto;
+import udc.fic.webapp.rest.dto.*;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +20,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ProductDao productDao;
 
     @Autowired
     private ShoppingCartDao shoppingCartDao;
@@ -70,7 +71,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             }
 
             // User owner of the product cant add it to his cart
-            if (cart.getUser().getId().equals(dto.getProductId())) {
+            Product product = productDao.findById(dto.getProductId())
+                    .orElseThrow(() -> new InstanceNotFoundException("Product not found", dto.getProductId()));
+
+            if (cart.getUser().getId().equals(product.getUser().getId())) {
                 throw new IllegalArgumentException("User cant add his own product to the shopping cart");
             }
 
@@ -130,6 +134,39 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCartItemDao.save(item);
 
             return ShoppingCartItemConversor.toShoppingCartDto(item);
+    }
+
+    @Override
+    public Long getCartItemIdByProductId(Long userId, Long productId) throws InstanceNotFoundException {
+
+            User user = userDao.findById(userId)
+                    .orElseThrow(() -> new InstanceNotFoundException("User not found", userId));
+
+            ShoppingCart cart = shoppingCartDao.findByUserId(userId)
+                    .orElseThrow(() -> new InstanceNotFoundException("Shopping cart not found", userId));
+
+            ShoppingCartItem item = shoppingCartItemDao.findByCartIdAndProductId(cart.getId(), productId)
+                    .orElseThrow(() -> new InstanceNotFoundException("Shopping cart item not found", productId));
+
+            return item.getId();
+    }
+
+    @Override
+    public ProductDto getProductByCartItemId(Long userId, Long cartItemId) throws InstanceNotFoundException {
+
+                User user = userDao.findById(userId)
+                        .orElseThrow(() -> new InstanceNotFoundException("User not found", userId));
+
+                ShoppingCart cart = shoppingCartDao.findByUserId(userId)
+                        .orElseThrow(() -> new InstanceNotFoundException("Shopping cart not found", userId));
+
+                ShoppingCartItem item = shoppingCartItemDao.findById(cartItemId)
+                        .orElseThrow(() -> new InstanceNotFoundException("Shopping cart item not found", cartItemId));
+
+                Product product = productDao.findById(item.getProductId())
+                        .orElseThrow(() -> new InstanceNotFoundException("Product not found", item.getProductId()));
+
+                return ProductConversor.toDto(product);
     }
 
 

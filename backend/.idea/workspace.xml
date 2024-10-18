@@ -6,10 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItemDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItemDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ShoppingCartServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ShoppingCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ShoppingCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/maps/Autocomplete.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/maps/Autocomplete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/maps/LocationModal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/maps/ReadOnlyMap.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/maps/ReadOnlyMap.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +247,12 @@
       <workItem from="1729119326474" duration="2755000" />
       <workItem from="1729162827426" duration="199000" />
       <workItem from="1729163192130" duration="9799000" />
-      <workItem from="1729175158002" duration="2326000" />
+      <workItem from="1729175158002" duration="13085000" />
+      <workItem from="1729201706944" duration="7542000" />
+      <workItem from="1729258304318" duration="8161000" />
+      <workItem from="1729267628931" duration="1706000" />
+      <workItem from="1729269421548" duration="5308000" />
+      <workItem from="1729286585298" duration="3231000" />
     </task>
     <servers />
   </component>

@@ -37,16 +37,19 @@ const Navbar = ({ notification }) => {
           <div className="hidden md:flex space-x-2 ml-12">
             <button
               onClick={() => handleNavigate("./users/my-purchases")}
-              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[19px] hover:decoration-2 transition-all"
+              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all"
             >
               Mis compras
             </button>
-            <button className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[19px] hover:decoration-2 transition-all">
+            <button
+              onClick={() => handleNavigate("./shoppingCart")}
+              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all"
+            >
               Mi carro
             </button>
             <button
               onClick={() => handleNavigate("./product/favorites")}
-              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[19px] hover:decoration-2 transition-all"
+              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all"
             >
               Favoritos
             </button>

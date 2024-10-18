@@ -12,6 +12,7 @@ public class ShoppingCartDto {
         this.id = id;
         this.items = items;
         this.createdAt = createdAt;
+        this.user = userDto;
     }
 
     public interface AllValidations {}

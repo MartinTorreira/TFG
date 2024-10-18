@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Avatar } from "../Avatar.jsx";
 import { CartIcon } from "../../icons/CartIcon.jsx";
 import { CartIconFilled } from "../../icons/CartIconFilled.jsx";
@@ -15,22 +15,30 @@ import { UpdateProductModal } from "../modals/UpdateProductModal.jsx";
 import { DeleteIcon } from "../../icons/DeleteIcon.jsx";
 import { toast } from "sonner";
 import { Alert } from "./Alert.jsx";
+import { deleteItemFromCart } from "../../backend/shoppingCartService.js";
 
 import {
   removeFromFavorites,
   addToFavorites,
 } from "../../backend/productService.js";
+import useCartStore from "../store/useCartStore.js";
 
-export const CardItem = ({ product, cart }) => {
+export const CardItem = ({ product }) => {
   const navigate = useNavigate();
   const { removeFavorite, addFavorite, isFavorite } = useFavoriteStore();
-  const { removeProduct } = useProductStore();
+  const { removeProduct, cart } = useProductStore();
+  const { addToCart, isAdded, cartProducts } = useCartStore();
 
   const favorite = isFavorite(product.id);
   const { token, user } = useContext(LoginContext);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isProductAdded, setIsProductAdded] = useState(isAdded(product.id));
+
+  useEffect(() => {
+    setIsProductAdded(isAdded(product.id));
+  }, [isAdded, product.id, cartProducts]);
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -48,20 +56,41 @@ export const CardItem = ({ product, cart }) => {
     setIsAlertOpen(false);
   };
 
-  // const handleConfirmDelete = () => {
-  //   deleteProduct(
-  //     product.id,
-  //     () => {
-  //       removeFavorite(product.id);
-  //     },
-  //     (errors) => {
-  //       console.log(errors);
-  //     },
-  //   );
+  const handleCartClick = (e, productId) => {
+    e.stopPropagation();
+    setIsAnimating(true);
 
-  //   toast.success("Producto eliminado correctamente");
-  //   setIsAlertOpen(false);
-  // };
+    if (!token) {
+      navigate("../users/login");
+    } else {
+      if (!isProductAdded) {
+        addToCart(
+          productId,
+          1,
+          () => {
+            setIsProductAdded(true);
+            setIsAnimating(false);
+          },
+          (errors) => {
+            console.log(errors);
+            setIsAnimating(false);
+          },
+        );
+      } else {
+        deleteItemFromCart(
+          productId,
+          () => {
+            setIsProductAdded(false);
+            setIsAnimating(false);
+          },
+          (errors) => {
+            console.log(errors);
+            setIsAnimating(false);
+          },
+        );
+      }
+    }
+  };
 
   const handleEditClick = (e) => {
     e.stopPropagation();
@@ -193,10 +222,11 @@ export const CardItem = ({ product, cart }) => {
                   </motion.button>
 
                   <button
+                    onClick={(e) => handleCartClick(e, product.id)}
                     title={cart ? "Quitar del carro" : "Añadir al carro"}
                     className="border border-gray-300/80 p-2 rounded-lg"
                   >
-                    {cart ? (
+                    {isProductAdded ? (
                       <CartIconFilled size={20} />
                     ) : (
                       <CartIcon size={20} />

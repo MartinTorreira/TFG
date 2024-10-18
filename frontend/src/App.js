@@ -19,6 +19,7 @@ import OrderConfirmation from "./components/payment/OrderConfirmation.jsx";
 import UserPurchasesPage from "./components/payment/UserPurchasesPage.jsx";
 import OrderSummary from "./components/payment/OrderSummary.jsx";
 import { useLoadScript } from "@react-google-maps/api";
+import ShoppingCart from "./components/payment/ShoppingCart/ShoppingCartPage.jsx";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -48,8 +49,8 @@ export default function App() {
           <div
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(circle at 30% 40%, rgba(97, 197, 193, 0.3), transparent 25%),
-                           radial-gradient(circle at 70% 60%, rgba(97, 197, 193, 0.3), transparent 25%)`,
+              background: `radial-gradient(circle at 10% 90%, rgba(97, 197, 193, 0.3), transparent 45%),
+                           radial-gradient(circle at 70% 60%, rgba(97, 197, 193, 0.3), transparent 45%)`,
             }}
           ></div>
         </div>
@@ -78,7 +79,7 @@ export default function App() {
             <Route path="/product/order-summary" element={<OrderSummary />} />
             <Route path="/payment/error" element={<PaymentError />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
-            <Route path="/shoppingCart" element={<PaymentSuccess />} />
+            <Route path="/shoppingCart" element={<ShoppingCart />} />
             <Route
               path="/purchase/order-confirmation/:id"
               element={<OrderConfirmation />}

@@ -1,3 +1,4 @@
+// src/components/PayPalPayment.js
 import React, { useState, useContext } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,16 +19,14 @@ const PayPalPayment = () => {
   const handleExitPurchase = async () => {
     for (const product of products) {
       const updatedQuantity = product.originalQuantity - product.quantity;
-      console.log("EEEEAAA" + updatedQuantity);
 
       try {
         await updateProduct(product.id, {
           ...product,
-          quantity: updatedQuantity, // Actualizamos la cantidad en el backend
+          quantity: updatedQuantity,
         });
 
         if (updatedQuantity < 1) {
-          console.log("ADSAAAAASDADSASDADÑÑÑÑÑÑ", updateProduct);
           removeFromList(product.id);
         }
       } catch (error) {
@@ -40,15 +39,28 @@ const PayPalPayment = () => {
   };
 
   const createOrder = async (data, actions) => {
+    if (products.length === 0) {
+      setError(new Error("Products not loaded"));
+      return;
+    }
+
+    const sellerId = products[0].userDto.id;
+    const allSameSeller = products.every(
+      (product) => product.userDto.id === sellerId,
+    );
+
+    if (!allSameSeller) {
+      setError(new Error("All products must have the same seller"));
+      return;
+    }
+
     try {
       const totalAmount = products
         .reduce((total, product) => {
           const price = parseFloat(product.price) || 0;
           const quantity = parseInt(product.quantity) || 0;
           if (price < 0 || quantity < 0) {
-            setError(
-              new Error("El precio o la cantidad no pueden ser negativos"),
-            );
+            setError(new Error("Product price or quantity cannot be negative"));
             return total;
           }
           return total + price * quantity;
@@ -56,7 +68,7 @@ const PayPalPayment = () => {
         .toFixed(2);
 
       if (parseFloat(totalAmount) <= 0) {
-        setError(new Error("El importe total debe ser mayor que cero"));
+        setError(new Error("Total amount must be greater than zero"));
         return;
       }
 
@@ -67,7 +79,7 @@ const PayPalPayment = () => {
         },
         body: JSON.stringify({
           buyerId: user.id,
-          sellerId: products[0].userDto.id,
+          sellerId: sellerId,
           productIds: products.map((product) => product.id),
           quantities: products.map((product) => product.quantity),
           amount: totalAmount,
@@ -76,11 +88,23 @@ const PayPalPayment = () => {
         }),
       });
 
+      if (!response.ok) {
+        const text = await response.text();
+        console.error("Error response from server:", text);
+        throw new Error(text);
+      }
+
       const order = await response.json();
-      purchaseId = order.purchase.id;
-      return new URLSearchParams(new URL(order.approvalUrl).search).get(
-        "token",
-      );
+
+      if (order.approvalUrl) {
+        const urlParams = new URLSearchParams(
+          new URL(order.approvalUrl).search,
+        );
+        purchaseId = order.purchase.id;
+        return urlParams.get("token");
+      } else {
+        throw new Error("Approval URL not found");
+      }
     } catch (err) {
       console.error("Error creating order:", err);
       setError(err);
@@ -120,6 +144,12 @@ const PayPalPayment = () => {
       }}
     >
       <div className="flex mt-20 justify-center min-h-screen ">
+        {products.map((product) =>
+          console.log(
+            "Quantity: " + product.quantity,
+            "Original Quantity: " + product.originalQuantity,
+          ),
+        )}
         <div className="flex flex-col w-full items-center space-y-10 ">
           {error && <div>Error: {error.message}</div>}
           {products.length > 0 && (

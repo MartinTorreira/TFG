@@ -7,10 +7,12 @@ import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.ProductConversor;
 import udc.fic.webapp.rest.dto.ProductDto;
+import udc.fic.webapp.rest.dto.ShoppingCartItemConversor;
 import udc.fic.webapp.rest.dto.ShoppingCartItemDto;
 import udc.fic.webapp.model.services.ShoppingCartService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/shoppingCart")
@@ -80,25 +82,21 @@ public class ShoppingCartController {
 
 
     @GetMapping("/getProducts")
-    public ResponseEntity<List<ProductDto>> getProducts(@RequestAttribute Long userId) throws InstanceNotFoundException {
+    public ResponseEntity<List<ShoppingCartItemDto>> getProducts(@RequestAttribute Long userId) throws InstanceNotFoundException {
 
         User user = userDao.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        List<ShoppingCartItemDto> items = shoppingCartService.getShoppingCartItemsByUser(userId);
+        ShoppingCart cart = shoppingCartDao.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Shopping cart not found"));
 
-        List<Product> products = items.stream()
-                .map(item -> {
-                    return productDao.findById(item.getProductId())
-                            .orElseThrow(() -> new IllegalArgumentException("Product not found"));
-                })
-                .toList();
+        List<ShoppingCartItemDto> items = cart.getItems().stream()
+                .map(ShoppingCartItemConversor::toShoppingCartDto)
+                .collect(Collectors.toList());
 
-        List<ProductDto> productDtos = products.stream().map(ProductConversor::toDto).toList();
-
-        return ResponseEntity.ok(productDtos);
-
+        return ResponseEntity.ok(items);
     }
+
 
 
     @PutMapping("/updateQuantity")
@@ -110,6 +108,31 @@ public class ShoppingCartController {
         ShoppingCartItemDto item = shoppingCartService.updateItemQuantity(userId, dto);
 
         return ResponseEntity.ok(item);
+
+    }
+
+    @GetMapping("/{productId}/getItemId")
+    public ResponseEntity<Long> getCartItemIdByProductId(@RequestAttribute Long userId, @PathVariable Long productId) throws InstanceNotFoundException {
+
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Long cartItemId = shoppingCartService.getCartItemIdByProductId(userId, productId);
+
+        return ResponseEntity.ok(cartItemId);
+
+    }
+
+
+    @GetMapping("/{cartItemId}/getProduct")
+    public ResponseEntity<ProductDto> getProductByCartItemId(@RequestAttribute Long userId, @PathVariable Long cartItemId) throws InstanceNotFoundException {
+
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        ProductDto product = shoppingCartService.getProductByCartItemId(userId, cartItemId);
+
+        return ResponseEntity.ok(product);
 
     }
 

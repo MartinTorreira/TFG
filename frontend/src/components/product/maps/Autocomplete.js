@@ -14,12 +14,6 @@ import {
 import "@reach/combobox/styles.css";
 
 export default function Autocomplete() {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyA2poFl_0IHTWEc2kFDwAB6snNKKg5hoFw",
-    libraries: ["places"],
-  });
-
-  if (!isLoaded) return <div>Loading...</div>;
   return <Map />;
 }
 

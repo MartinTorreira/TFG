@@ -118,7 +118,7 @@ const OrderConfirmation = () => {
                                   : 0}
                               </span>
                               <span className="text-right text-base font-bold text-gray-900 dark:text-white">
-                                {product?.price.toFixed(2).replace(".", ",")} €
+                                {purchase?.amount?.toFixed(2).replace(".",",")}{" €"}
                               </span>
                             </div>
                           </div>

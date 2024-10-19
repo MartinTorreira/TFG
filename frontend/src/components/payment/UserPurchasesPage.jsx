@@ -21,7 +21,7 @@ const UserPurchasesPage = () => {
   return (
     <>
       {purchases.length > 0 ? (
-        <div className="mt-10 lg:w-3/4 mx-auto items-center">
+        <div className="mt-10 lg:w-3/5 mx-auto items-center">
           <UserPurchaseList purchases={purchases} />
         </div>
       ) : (

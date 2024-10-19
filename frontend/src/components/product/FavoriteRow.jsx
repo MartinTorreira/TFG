@@ -27,15 +27,15 @@ export const FavoriteRow = ({ item }) => {
   };
 
   return (
-    <div className="bg-white shadow rounded-lg p-4 mb-4 hover:bg-gray-50 transition-all">
+    <div className="bg-white shadow rounded-lg  mb-4 hover:bg-gray-50 transition-all p-2">
       <div className="grid grid-cols-6 gap-4 items-center">
-        <div className="flex items-center col-span-1 text-center">
+        <div className="w-full  h-full flex items-center col-span-1 text-center">
           <img
-            className="w-16 h-16 rounded-lg mr-4"
+            className="w-20 ml-1"
             src={productDto.images[0] || "https://via.placeholder.com/64"}
             alt={productDto.name}
           />
-          <span className="font-semibold text-gray-800 dark:text-white">
+          <span className="font-semibold text-gray-800 text-left ml-2">
             {productDto.name}
           </span>
         </div>
@@ -53,7 +53,7 @@ export const FavoriteRow = ({ item }) => {
         </p>
         <div className="flex justify-center text-center items-center space-x-6">
           <button
-            className="font-medium text-gray-800 dark:text-blue-500 hover:underline col-span-1 text-center"
+            className="underline font-medium text-gray-800 dark:text-blue-500 hover:underline col-span-1 text-center"
             onClick={() => {
               handleNavigate();
             }}

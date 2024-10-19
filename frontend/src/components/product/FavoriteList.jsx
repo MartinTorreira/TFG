@@ -24,7 +24,7 @@ export const FavoriteList = ({ favoriteList }) => {
           <h3>Producto</h3>
           <h3>Categoría</h3>
           <h3>Usuario</h3>
-          <h3>Marcado como favorito</h3>
+          <h3>Añadido el</h3>
           <h3>Precio</h3>
           <h3>Acciones</h3>
         </div>

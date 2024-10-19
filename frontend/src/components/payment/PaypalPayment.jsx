@@ -6,6 +6,8 @@ import { LoginContext } from "../context/LoginContext";
 import { toast } from "sonner";
 import { useProductStore } from "../store/useProductStore.js";
 import { updateProduct } from "../../backend/productService.js";
+import useCartStore from "../store/useCartStore";
+import { getItemByProductId } from "../../backend/shoppingCartService.js";
 
 const PayPalPayment = () => {
   const location = useLocation();
@@ -14,7 +16,22 @@ const PayPalPayment = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { removeFromList } = useProductStore();
+  const { removeFromCart } = useCartStore();
   let purchaseId = "";
+
+  const removeFromCartList = async () => {
+    products.forEach(async (product) => {
+      try {
+        await getItemByProductId(
+          product.id,
+          (itemId) => removeFromCart(itemId),
+          (error) => console.log("Error removing item from cart:", error)
+        );
+      } catch (error) {
+        console.log("Error in handleDeleteClick:", error);
+      }
+    });
+  };
 
   const handleExitPurchase = async () => {
     for (const product of products) {
@@ -46,7 +63,7 @@ const PayPalPayment = () => {
 
     const sellerId = products[0].userDto.id;
     const allSameSeller = products.every(
-      (product) => product.userDto.id === sellerId,
+      (product) => product.userDto.id === sellerId
     );
 
     if (!allSameSeller) {
@@ -98,7 +115,7 @@ const PayPalPayment = () => {
 
       if (order.approvalUrl) {
         const urlParams = new URLSearchParams(
-          new URL(order.approvalUrl).search,
+          new URL(order.approvalUrl).search
         );
         purchaseId = order.purchase.id;
         return urlParams.get("token");
@@ -121,7 +138,7 @@ const PayPalPayment = () => {
             "Content-Type": "application/json",
             userId: user.id,
           },
-        },
+        }
       );
 
       if (!response.ok) {
@@ -129,6 +146,7 @@ const PayPalPayment = () => {
         throw new Error(errorText);
       }
 
+      await removeFromCartList();
       handleExitPurchase();
     } catch (err) {
       setError(err);
@@ -147,8 +165,8 @@ const PayPalPayment = () => {
         {products.map((product) =>
           console.log(
             "Quantity: " + product.quantity,
-            "Original Quantity: " + product.originalQuantity,
-          ),
+            "Original Quantity: " + product.originalQuantity
+          )
         )}
         <div className="flex flex-col w-full items-center space-y-10 ">
           {error && <div>Error: {error.message}</div>}

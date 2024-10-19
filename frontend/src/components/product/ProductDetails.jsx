@@ -132,15 +132,8 @@ const ProductDetails = () => {
   if (!product) return null;
 
   return (
-    <motion.section
+    <section
       className="py-8 bg-transparent md:py-16 dark:bg-gray-900 antialiased"
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{
-        duration: 0.4,
-        delay: 0.5,
-        ease: [0, 0.71, 0.2, 1.01],
-      }}
     >
       <section className="py-8 bg-transparent md:py-16 dark:bg-gray-900 antialiased">
         <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
@@ -152,7 +145,7 @@ const ProductDetails = () => {
                   <section className="flex flex-row space-x-2">
                     <button
                       onClick={() => handleFavoriteClick(product.id)}
-                      className="flex w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all"
+                      className="flex w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 transition-all"
                     >
                       <span className="flex flex-row items-center space-x-2">
                         <svg
@@ -179,7 +172,7 @@ const ProductDetails = () => {
                     </button>
                     <button
                       onClick={() => {}}
-                      className="flex w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-100 transition-all"
+                      className="flex w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 transition-all"
                     >
                       <span className="flex flex-row items-center space-x-2">
                         <ChatIcon className="w-5 h-5" />
@@ -214,7 +207,7 @@ const ProductDetails = () => {
                   >
                     <span className="flex flex-row gap-x-2">
                       <BuyIcon size="20" />
-                      Comprar
+                      Comprar ahora
                     </span>
                   </button>
                   <a
@@ -262,7 +255,7 @@ const ProductDetails = () => {
                   </button>
                 </div>
               )}
-              <hr className="my-6 md:my-8 border-gray-300" />
+              <hr className="my-6 md:my-8 border-gray-400" />
               <h3 className="mb-4 text-lg font-semibold text-gray-700">
                 {product.categoryDto.name}
               </h3>
@@ -272,7 +265,7 @@ const ProductDetails = () => {
             </div>
 
             <div className="lg:col-span-2 w-full justify-center items-center mt-20">
-              <label className="flex flex-row text-xl font-medium space-x-3">
+              <label className="flex flex-row text-xl font-semibold space-x-3">
                 <MapPinIcon size={20} color={"text-black -ml-2 mr-2"} />
                 <p>Ubicación del producto</p>
               </label>
@@ -284,7 +277,7 @@ const ProductDetails = () => {
             </div>
 
             <div className="lg:col-span-2 w-full justify-center items-center mt-10">
-              <label className="flex flex-row text-xl font-medium space-x-2 mb-10 ">
+              <label className="flex flex-row text-xl font-semibold space-x-2 mb-10 ">
                 <UserIcon size={"30"} />
                 <p>Vendedor</p>
               </label>
@@ -313,7 +306,7 @@ const ProductDetails = () => {
           onConfirm={handleConfirmDelete}
         />
       </section>
-    </motion.section>
+    </section>
   );
 };
 

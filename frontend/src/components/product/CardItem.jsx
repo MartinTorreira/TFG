@@ -154,7 +154,7 @@ export const CardItem = ({ product }) => {
         </div>
 
         <div className="px-3 pb-1">
-          <h5 className="mt-2 text-gray-800 font-medium tracking-tight">
+          <h5 className="mt-2 text-gray-800 font-medium tracking-tight mb-2">
             {product.name}
           </h5>
           <div className="flex items-center justify-between">

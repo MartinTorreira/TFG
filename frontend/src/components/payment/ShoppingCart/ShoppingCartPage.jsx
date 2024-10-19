@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useCartStore from "../../store/useCartStore";
 import ShoppingCartItem from "./ShoppingCartItem";
 import { useNavigate } from "react-router-dom";
+import { CartIconFilled } from "../../../icons/CartIconFilled";
+import { LoginContext } from "../../context/LoginContext";
+import { NotFound } from "../../../icons/NotFound";
 
 const ShoppingCartPage = () => {
   const {
@@ -19,6 +22,7 @@ const ShoppingCartPage = () => {
   );
 
   const navigate = useNavigate();
+  const { token } = useContext(LoginContext);
 
   // Cargar productos del carrito al montar el componente
   useEffect(() => {
@@ -81,90 +85,102 @@ const ShoppingCartPage = () => {
   }
 
   return (
-    <section className="py-8 antialiased dark:bg-gray-900 md:py-16">
-      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl text-left">
-          Carro de compra
-        </h2>
-        <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8 justify-center">
-          <div className="w-full lg:max-w-2xl xl:max-w-4xl">
-            <div className="space-y-6">
-              {productList.length > 0 ? (
-                productList.map((product, index) => (
-                  <ShoppingCartItem
-                    key={product.id}
-                    product={product}
-                    initialQuantity={quantities[index]} // Cantidad inicial del producto
-                    maxQuantity={product.quantity} // Cantidad máxima disponible del producto
-                    onQuantityChange={(newQuantity) =>
-                      handleQuantityChange(index, newQuantity)
-                    } // Maneja el cambio de cantidad
-                    index={index} // Pasa el índice al componente hijo
-                  />
-                ))
-              ) : (
-                <div>No hay productos en el carrito</div>
-              )}
+    <>
+      {productList.length > 0 ? (
+        <section className="py-8 antialiased dark:bg-gray-900 md:py-16">
+          <div className="mx-auto max-w-screen-xl px-4 2xl:px-0 ">
+            <div className="flex flex-row space-x-4">
+              <CartIconFilled size={"34"} color={"#0f172a"} />
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl text-left">
+                Carro de compra
+              </h2>
             </div>
-          </div>
-
-          <div className="mt-6 lg:mt-0 lg:w-full max-w-sm">
-            <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 mx-auto">
-              <p className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-16">
-                Resumen de compra
-              </p>
-
-              <div className="space-y-4">
-                <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-                  <dt className="text-base font-bold text-gray-900 dark:text-white">
-                    Total
-                  </dt>
-                  <dd className="text-base font-bold text-gray-900 dark:text-white">
-                    {totalAmount.toFixed(2)} €
-                  </dd>
-                </dl>
-              </div>
-
-              <button
-                onClick={() => handleProceedToPayment()}
-                className="flex w-full items-center justify-center rounded-lg bg-accent-darker px-5 py-2.5 text-md font-medium text-white hover:bg-opacity-80"
-              >
-                Proceder a pagar
-              </button>
-
-              <div className="flex items-center justify-center gap-2">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                  {" "}
-                  o{" "}
-                </span>
-                <button
-                  href="#"
-                  title=""
-                  className="inline-flex items-center gap-2 text-sm font-medium text-accent-darker underline hover:no-underline dark:text-primary-500"
-                >
-                  Continua comprando
-                  <svg
-                    className="h-5 w-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 12H5m14 0-4 4m4-4-4-4"
+            <div className="sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8 justify-center">
+              <div className="w-full lg:max-w-2xl xl:max-w-4xl">
+                <div className="space-y-6">
+                  {productList.map((product, index) => (
+                    <ShoppingCartItem
+                      key={product.id}
+                      product={product}
+                      initialQuantity={quantities[index]} // Cantidad inicial del producto
+                      maxQuantity={product.quantity} // Cantidad máxima disponible del producto
+                      onQuantityChange={(newQuantity) =>
+                        handleQuantityChange(index, newQuantity)
+                      } // Maneja el cambio de cantidad
+                      index={index} // Pasa el índice al componente hijo
                     />
-                  </svg>
-                </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 lg:mt-0 lg:w-full max-w-sm">
+                <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 mx-auto">
+                  <p className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-10">
+                    Resumen de compra
+                  </p>
+
+                  <div className="space-y-4 border-b border-gray-200 pt-2 dark:border-gray-700">
+                    <dl className="flex items-center justify-between gap-4 mb-3">
+                      <dt className="text-base font-bold text-gray-900 ">
+                        Precio total
+                      </dt>
+                      <dd className="text-base font-bold text-gray-900 dark:text-white">
+                        {totalAmount.toFixed(2).replace(".",",")} €
+                      </dd>
+                    </dl>
+                  </div>
+
+                  <button
+                    onClick={() => handleProceedToPayment()}
+                    className="flex w-full items-center justify-center rounded-lg bg-accent-darker px-5 py-2.5 text-md font-medium text-white hover:bg-opacity-80"
+                  >
+                    Proceder a pagar
+                  </button>
+
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                      {" "}
+                      o{" "}
+                    </span>
+                    <button
+                      href="#"
+                      title=""
+                      className="inline-flex items-center gap-2 text-sm font-medium text-accent-darker underline hover:no-underline dark:text-primary-500"
+                    >
+                      Continua comprando
+                      <svg
+                        className="h-5 w-5"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 12H5m14 0-4 4m4-4-4-4"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </section>
+      ) : (
+        <div className="flex flex-col space-y-10 items-center justify-center w-full py-20 mt-10">
+          <h1 className="text-5xl font-semibold text-gray-400">
+            No tienes productos en el carro
+          </h1>
+          <span>
+            <NotFound size={90} />
+          </span>
         </div>
-      </div>
-    </section>
+      )}
+    </>
   );
 };
 

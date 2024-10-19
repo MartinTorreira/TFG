@@ -16,6 +16,7 @@ import { DeleteIcon } from "../../icons/DeleteIcon.jsx";
 import { toast } from "sonner";
 import { Alert } from "./Alert.jsx";
 import { deleteItemFromCart } from "../../backend/shoppingCartService.js";
+import { getItemByProductId } from "../../backend/shoppingCartService.js";
 
 import {
   removeFromFavorites,
@@ -27,18 +28,14 @@ export const CardItem = ({ product }) => {
   const navigate = useNavigate();
   const { removeFavorite, addFavorite, isFavorite } = useFavoriteStore();
   const { removeProduct, cart } = useProductStore();
-  const { addToCart, isAdded, cartProducts } = useCartStore();
+  const { addToCart, isAdded, cartProducts, removeFromCart } = useCartStore();
 
   const favorite = isFavorite(product.id);
   const { token, user } = useContext(LoginContext);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [isProductAdded, setIsProductAdded] = useState(isAdded(product.id));
-
-  useEffect(() => {
-    setIsProductAdded(isAdded(product.id));
-  }, [isAdded, product.id, cartProducts]);
+  const isProductAdded = isAdded(product.id); 
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -65,29 +62,16 @@ export const CardItem = ({ product }) => {
     } else {
       if (!isProductAdded) {
         addToCart(
-          productId,
+          productId,  
           1,
-          () => {
-            setIsProductAdded(true);
-            setIsAnimating(false);
-          },
+          () => setIsAnimating(false),
           (errors) => {
             console.log(errors);
             setIsAnimating(false);
-          },
+          }
         );
       } else {
-        deleteItemFromCart(
-          productId,
-          () => {
-            setIsProductAdded(false);
-            setIsAnimating(false);
-          },
-          (errors) => {
-            console.log(errors);
-            setIsAnimating(false);
-          },
-        );
+        getItemByProductId(productId, (itemId) => removeFromCart(itemId), (error) => console.log(error));
       }
     }
   };
@@ -120,7 +104,7 @@ export const CardItem = ({ product }) => {
           (errors) => {
             console.log(errors);
             setIsAnimating(false);
-          },
+          }
         );
       } else {
         removeFromFavorites(
@@ -132,7 +116,7 @@ export const CardItem = ({ product }) => {
           (errors) => {
             console.log(errors);
             setIsAnimating(false);
-          },
+          }
         );
       }
     }
@@ -197,33 +181,28 @@ export const CardItem = ({ product }) => {
                 </>
               ) : (
                 <>
-                  <motion.button
+                  <button
                     title={
                       favorite ? "Quitar de favoritos" : "Añadir a favoritos"
                     }
                     disabled={token !== null ? false : true}
                     className="border border-gray-300/80 p-2 rounded-lg"
                     onClick={(e) => handleFavoriteClick(e)}
-                    whileTap={{ scale: 1.2 }}
-                    animate={{ scale: isAnimating ? 1.3 : 1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 260,
-                      damping: 20,
-                    }}
                   >
-                    <span className="hover:scale-125 transition-transform duration-300 ease-in-out">
+                    <span className={`hover:scale-125 transition-transform duration-300 ease-in-out `}>
                       {favorite && token !== null ? (
                         <FavoriteIconFilled size={20} />
                       ) : (
                         <FavoriteIcon size={20} />
                       )}
                     </span>
-                  </motion.button>
+                  </button>
 
                   <button
                     onClick={(e) => handleCartClick(e, product.id)}
-                    title={cart ? "Quitar del carro" : "Añadir al carro"}
+                    title={
+                      isProductAdded ? "Quitar del carro" : "Añadir al carro"
+                    }
                     className="border border-gray-300/80 p-2 rounded-lg"
                   >
                     {isProductAdded ? (

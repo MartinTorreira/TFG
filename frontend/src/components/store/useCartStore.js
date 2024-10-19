@@ -40,7 +40,7 @@ const useCartStore = create((set, get) => ({
   removeFromCart: async (productId) => {
     console.log("Removing product from cart:", productId);
     try {
-      await new Promise((resolve, reject) => {
+     // await new Promise((resolve, reject) => {
         deleteItemFromCart(
           productId,
           () => {
@@ -48,14 +48,16 @@ const useCartStore = create((set, get) => ({
               const cartProducts = state.cartProducts.filter(
                 (product) => product.id !== productId
               );
+              get().loadCart();
+              get().loadProducts();
               return { cartProducts };
             });
-            resolve();
+            //resolve();
           },
-          (errors) => reject(errors)
+          (errors) => console.log(errors)
         );
-      });
-      get().loadCart();
+      
+   //   get().loadCart();
     } catch (error) {
       console.error(error);
     }
@@ -89,6 +91,8 @@ const useCartStore = create((set, get) => ({
       (product) => product.productId === productId
     );
   },
+
+  
 
   updateQuantity: async (cartItemId, newQuantity) => {
     try {

@@ -55,14 +55,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/product/*/addFavorite").authenticated()
 				.antMatchers(HttpMethod.POST, "/purchase/create").permitAll()
 				.antMatchers(HttpMethod.POST, "/purchase/execute").permitAll()
+				.antMatchers(HttpMethod.POST, "/purchase/refund").authenticated()
 				.antMatchers(HttpMethod.POST, "/payment/create").authenticated()
 				.antMatchers(HttpMethod.POST, "/shoppingCart/addProduct").authenticated()
+
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/changeImages").authenticated()
 				.antMatchers(HttpMethod.PUT, "/shoppingCart/updateQuantity").authenticated()
-
 
 				.antMatchers(HttpMethod.DELETE, "/product/*/delete").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/product/*/removeFavorite").authenticated()

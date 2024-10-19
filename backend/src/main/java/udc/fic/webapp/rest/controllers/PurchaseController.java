@@ -1,6 +1,8 @@
 package udc.fic.webapp.rest.controllers;
 
 import com.paypal.orders.Order;
+import com.paypal.payments.Refund;
+import com.paypal.payments.RefundRequest;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,10 +16,7 @@ import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.model.services.PaypalService;
 import udc.fic.webapp.model.services.ProductService;
 import udc.fic.webapp.model.services.PurchaseService;
-import udc.fic.webapp.rest.dto.ProductConversor;
-import udc.fic.webapp.rest.dto.ProductDto;
-import udc.fic.webapp.rest.dto.PurchaseConversor;
-import udc.fic.webapp.rest.dto.PurchaseDto;
+import udc.fic.webapp.rest.dto.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,8 +101,10 @@ public class PurchaseController {
             Order order = paypalService.captureOrder(orderId);
             if ("COMPLETED".equals(order.status())) {
                 Long purchaseId = purchaseService.getPurchaseIdFromOrderId(orderId);
-                purchaseService.completePurchase(purchaseId);
+                String captureId = order.purchaseUnits().get(0).payments().captures().get(0).id();
+                purchaseService.completePurchase(purchaseId, captureId); // Pass captureId here
                 response.put("message", "Payment successful");
+                response.put("captureId", captureId);
                 return ResponseEntity.ok(response);
             }
         } catch (IOException | InstanceNotFoundException e) {
@@ -153,6 +154,32 @@ public class PurchaseController {
     @GetMapping("/{purchaseId}/getPurchase")
     public ResponseEntity<PurchaseDto> getPurchaseById(@PathVariable Long purchaseId) throws InstanceNotFoundException {
         return ResponseEntity.ok(purchaseService.getPurchaseById(purchaseId));
+    }
+
+    @PostMapping("/refund")
+    public ResponseEntity<?> refundPurchase(@RequestBody RefundRequestDto refundRequest) {
+        try {
+            // Verify the currency matches the original transaction's currency
+            Purchase purchase = purchaseService.getPurchaseByCaptureId(refundRequest.getCaptureId());
+            if (purchase == null) {
+                logger.error("Purchase not found for captureId: " + refundRequest.getCaptureId());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Purchase not found for captureId: " + refundRequest.getCaptureId()));
+            }
+            Refund refund = paypalService.refundOrder(refundRequest.getCaptureId(), refundRequest.getAmount(), refundRequest.getCurrency());
+
+            // Verify the refund status
+            if ("COMPLETED".equals(refund.status())) {
+                return ResponseEntity.ok(Map.of("message", "Refund successful", "refundId", refund.id()));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Refund failed", "status", refund.status()));
+            }
+        } catch (InstanceNotFoundException e) {
+            logger.error("Purchase not found for captureId: " + refundRequest.getCaptureId(), e);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Purchase not found for captureId: " + refundRequest.getCaptureId()));
+        } catch (IOException e) {
+            logger.error("Error refunding order: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Error refunding order: " + e.getMessage(), "exception", e.toString()));
+        }
     }
 
 

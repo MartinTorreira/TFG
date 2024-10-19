@@ -1,9 +1,13 @@
 package udc.fic.webapp.model.services;
 
-import com.paypal.orders.*;
+import com.paypal.payments.Money;
+import com.paypal.payments.Refund;
+import com.paypal.payments.CapturesRefundRequest;
+import com.paypal.payments.RefundRequest;
 import com.paypal.core.PayPalHttpClient;
 import com.paypal.http.HttpResponse;
 import com.paypal.http.exceptions.HttpException;
+import com.paypal.orders.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,4 +83,22 @@ public class PaypalService {
 
         return orderRequest;
     }
+
+
+    public Refund refundOrder(String captureId, Double amount, String currency) throws IOException {
+        RefundRequest refundRequest = new RefundRequest();
+        refundRequest.amount(new Money().currencyCode(currency).value(String.format(Locale.US, "%.2f", amount)));
+
+        CapturesRefundRequest request = new CapturesRefundRequest(captureId);
+        request.requestBody(refundRequest);
+
+        try {
+            HttpResponse<Refund> response = payPalClient.execute(request);
+            return response.result();
+        } catch (HttpException e) {
+            throw new IOException("Error refunding order: " + e.getMessage(), e);
+        }
+    }
+
+
 }

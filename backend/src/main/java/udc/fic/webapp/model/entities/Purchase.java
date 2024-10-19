@@ -23,6 +23,8 @@ public class Purchase {
     private List<PurchaseItem> items;
     private PaymentMethod paymentMethod;
     private String orderId;
+    private String captureId;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,5 +100,14 @@ public class Purchase {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    @Column(name = "capture_id", unique = true, nullable = true)
+    public String getCaptureId() {
+        return captureId;
+    }
+
+    public void setCaptureId(String captureId) {
+        this.captureId = captureId;
     }
 }

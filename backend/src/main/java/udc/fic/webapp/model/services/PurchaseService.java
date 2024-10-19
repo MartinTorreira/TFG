@@ -30,4 +30,7 @@ public interface PurchaseService {
 
     PurchaseDto getPurchaseById(Long purchaseId) throws InstanceNotFoundException;
 
+    void completePurchase(Long purchaseId, String orderId) throws InstanceNotFoundException;
+
+    Purchase getPurchaseByCaptureId(String captureId) throws InstanceNotFoundException;
 }

@@ -17,6 +17,9 @@ import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.PurchaseConversor;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +43,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Autowired
     private PayPalHttpClient payPalClient;
+
+    private static final Logger logger = LoggerFactory.getLogger(PurchaseServiceImpl.class);
+
 
     @Override
     public Purchase createPurchase(Long buyerId, Long sellerId, List<Long> productIds, List<Integer> quantities, Double amount, String paymentMethod, String orderId) throws InstanceNotFoundException {
@@ -173,6 +179,29 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         return PurchaseConversor.toDto(purchase);
     }
+
+
+    @Override
+    public void completePurchase(Long purchaseId, String captureId) throws InstanceNotFoundException {
+        Purchase purchase = purchaseDao.findById(purchaseId)
+                .orElseThrow(() -> new InstanceNotFoundException("Purchase not found", purchaseId));
+        purchase.setCaptureId(captureId);
+        purchaseDao.save(purchase);
+        logger.info("Purchase completed with captureId: {}", captureId);
+    }
+
+    @Override
+    public Purchase getPurchaseByCaptureId(String captureId) throws InstanceNotFoundException {
+        logger.info("Fetching purchase with captureId: {}", captureId);
+        Optional<Purchase> purchaseOpt = purchaseDao.findByCaptureId(captureId);
+        if (purchaseOpt.isEmpty()) {
+            logger.error("No purchase found with captureId: {}", captureId);
+            throw new InstanceNotFoundException("Purchase not found for captureId: " ,captureId);
+        }
+        logger.info("Purchase found: {}", purchaseOpt.get());
+        return purchaseOpt.get();
+    }
+
 
 
 }

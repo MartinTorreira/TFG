@@ -14,7 +14,9 @@ const ShoppingCartPage = () => {
     removeFromCart,
   } = useCartStore();
   const [totalAmount, setTotalAmount] = useState(0);
-  const [quantities, setQuantities] = useState([]);
+  const [quantities, setQuantities] = useState(
+    productList.map((product) => product.quantity)
+  );
 
   const navigate = useNavigate();
 
@@ -41,34 +43,29 @@ const ShoppingCartPage = () => {
     }
   }, [quantities, productList]);
 
-  // Manejar el cambio de cantidad de un producto en el carrito
   const handleQuantityChange = (index, newQuantity) => {
     const product = productList[index];
-    if (newQuantity > product?.quantity) {
+    if (newQuantity > product.quantity) {
       alert("No puedes seleccionar más productos de los disponibles.");
       return;
     }
+
     const newQuantities = [...quantities];
     newQuantities[index] = newQuantity;
-    setQuantities(newQuantities);
+    setQuantities(newQuantities); // Actualiza el estado con las nuevas cantidades
   };
 
-  // Proceder al pago con los productos y cantidades seleccionados
+  // Proceder al pago pasando datos a /payment
   const handleProceedToPayment = () => {
     const productsWithQuantities = productList.map((product, index) => ({
       ...product,
-      originalQuantity: product?.quantity || 0,
-      quantity: quantities[index],
+      originalQuantity: product.quantity, // Cantidad original del producto
+      quantity: quantities[index], // Cantidad seleccionada por el usuario
     }));
 
     const hasNegativeQuantity = productsWithQuantities.some(
       (product) => product.quantity < 0
     );
-
-    if (hasNegativeQuantity) {
-      alert("No puedes seleccionar más productos de los disponibles.");
-      return;
-    }
 
     navigate("/payment", {
       state: { products: productsWithQuantities },
@@ -95,13 +92,14 @@ const ShoppingCartPage = () => {
               {productList.length > 0 ? (
                 productList.map((product, index) => (
                   <ShoppingCartItem
-                    key={index}
+                    key={product.id}
                     product={product}
-                    maxQuantity={product?.quantity || 0}
-                    initialQuantity={quantities[index]}
+                    initialQuantity={quantities[index]} // Cantidad inicial del producto
+                    maxQuantity={product.quantity} // Cantidad máxima disponible del producto
                     onQuantityChange={(newQuantity) =>
                       handleQuantityChange(index, newQuantity)
-                    }
+                    } // Maneja el cambio de cantidad
+                    index={index} // Pasa el índice al componente hijo
                   />
                 ))
               ) : (
@@ -109,7 +107,6 @@ const ShoppingCartPage = () => {
               )}
             </div>
           </div>
-
 
           <div className="mt-6 lg:mt-0 lg:w-full max-w-sm">
             <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 mx-auto">
@@ -129,7 +126,7 @@ const ShoppingCartPage = () => {
               </div>
 
               <button
-                onClick={handleProceedToPayment}
+                onClick={() => handleProceedToPayment()}
                 className="flex w-full items-center justify-center rounded-lg bg-accent-darker px-5 py-2.5 text-md font-medium text-white hover:bg-opacity-80"
               >
                 Proceder a pagar
@@ -165,13 +162,8 @@ const ShoppingCartPage = () => {
               </div>
             </div>
           </div>
-
-
-
         </div>
       </div>
-
-      
     </section>
   );
 };

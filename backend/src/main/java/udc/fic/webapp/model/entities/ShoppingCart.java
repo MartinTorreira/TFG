@@ -1,6 +1,7 @@
 package udc.fic.webapp.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ShoppingCart {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ShoppingCartItem> items = new ArrayList<>();
 

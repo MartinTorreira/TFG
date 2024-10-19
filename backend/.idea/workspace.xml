@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartItem.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useCartStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useCartStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,6 +241,7 @@
       <workItem from="1729267628931" duration="1706000" />
       <workItem from="1729269421548" duration="5308000" />
       <workItem from="1729286585298" duration="5899000" />
+      <workItem from="1729337797759" duration="616000" />
     </task>
     <servers />
   </component>

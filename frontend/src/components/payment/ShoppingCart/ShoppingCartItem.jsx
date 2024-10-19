@@ -18,6 +18,7 @@ const ShoppingCartItem = ({
   maxQuantity,
   initialQuantity,
   onQuantityChange,
+  index, // Asegúrate de recibir el índice como prop
 }) => {
   const navigate = useNavigate();
   const { removeFromCart, updateQuantity } = useCartStore();
@@ -70,8 +71,14 @@ const ShoppingCartItem = ({
   };
 
   const handleQuantityChange = (newQuantity) => {
-    updateQuantity(Number(product?.id), newQuantity);
-    onQuantityChange(newQuantity);
+    const cartId = getItemByProductId(
+      product.id,
+      (itemId) => {
+        updateQuantity(Number(itemId), newQuantity);
+        onQuantityChange(index, newQuantity);
+      },
+      (error) => console.log("Error updating quantity:", error)
+    );
   };
 
   return (
@@ -89,10 +96,11 @@ const ShoppingCartItem = ({
         </label>
         <div className="flex items-center justify-between md:order-3 md:justify-end">
           <QuantitySelector
-            maxQuantity={maxQuantity}
+            maxQuantity={product.quantity}
             initialQuantity={initialQuantity}
             onQuantityChange={handleQuantityChange}
           />
+
           <div className="text-end md:order-4 md:w-32">
             <p className="text-base font-bold text-gray-900 dark:text-white">
               {product?.price?.toFixed(2).replace(".", ",")}
@@ -129,7 +137,7 @@ const ShoppingCartItem = ({
               type="button"
               className="inline-flex space-x-1 items-cente text-sm font-medium text-red-600 hover:underline dark:text-red-500 "
             >
-             <DeleteIcon size={20} />
+              <DeleteIcon size={20} />
               <p>Quitar</p>
             </button>
           </div>

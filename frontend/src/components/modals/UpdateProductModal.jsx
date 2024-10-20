@@ -157,7 +157,7 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
 
   return (
     <>
-      <Modal
+      <Modal className="shadow-xl border border-gray-800"
         isOpen={isOpen}
         onOpenChange={onClose}
         isDismissable={false}
@@ -166,14 +166,14 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
         <ModalContent style={{ width: "90%", maxWidth: "800px" }}>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Editar producto
+              <ModalHeader className="flex flex-col gap-1 items-center text-xl">
+                EDITAR PRODUCTO
               </ModalHeader>
               <ModalBody className="max-h-[70vh] overflow-y-auto">
                 <section className="mb-10 -mt-10">
-                  <div className="flex flex-col items-center justify-start px-10 py-8 mx-auto lg:py-0">
+                  <div className="flex flex-col items-center justify-start px-10 py-2 mx-auto lg:py-0">
                     <div className="rounded-lg md:mt-0 w-full max-w-3xl xl:p-0">
-                      <div className="py-4 px-4 mx-auto max-w-2xl lg:py-10">
+                      <div className="py-4 mx-auto max-w-2xl lg:py-10">
                         <form onSubmit={handleSubmit}>
                           <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div className="sm:col-span-2">
@@ -367,12 +367,20 @@ export const UpdateProductModal = ({ product, isOpen, onClose }) => {
                 </section>
               </ModalBody>
               <ModalFooter>
-                <Button auto onClick={handleSubmit}>
-                  Actualizar producto
-                </Button>
-                <Button flat onClick={onClose}>
-                  Cancelar
-                </Button>
+                <div className="flex flex-row justify-end space-x-2 mt-4 mb-4 mr-14">
+                  <button
+                    className="rounded-full bg-accent-darker text-white px-4 py-1"
+                    onClick={handleSubmit}
+                  >
+                    Actualizar 
+                  </button>
+                  <button
+                    className="rounded-full border border-gray-800  text-gray-800 px-4 py-1"
+                    onClick={onClose}
+                  >
+                    Cancelar
+                  </button>
+                </div>
               </ModalFooter>
             </>
           )}

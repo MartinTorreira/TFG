@@ -50,7 +50,7 @@ const OrderConfirmation = () => {
   }, [id]);
 
   return (
-    <section className="w-5/12 mt-20 mx-auto shadow-md rounded-lg bg-green-100 antialiased dark:bg-gray-900 md:py-8 sm:p-10">
+    <section className="w-5/12 mt-20 mx-auto shadow-md rounded-lg bg-green-100/60 antialiased dark:bg-gray-900 md:py-8 sm:p-10">
       <form action="#" className="mx-auto max-w-screen-xl">
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-row items-center justify-between">

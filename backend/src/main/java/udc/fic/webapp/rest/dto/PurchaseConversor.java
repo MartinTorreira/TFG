@@ -20,6 +20,7 @@ public class PurchaseConversor {
         dto.setOrderId(purchase.getOrderId());
         dto.setPurchaseItems(purchase.getItems().stream().map(PurchaseConversor::toDto).collect(Collectors.toList()));
         dto.setCaptureId(purchase.getCaptureId());
+        dto.setIsRefunded(purchase.getIsRefunded());
         return dto;
     }
 
@@ -39,6 +40,7 @@ public class PurchaseConversor {
         purchase.setPaymentMethod(Purchase.PaymentMethod.valueOf(dto.getPaymentMethod()));
         purchase.setOrderId(dto.getOrderId());
         purchase.setCaptureId(dto.getCaptureId());
+        purchase.setIsRefunded(dto.getIsRefunded());
         return purchase;
     }
 

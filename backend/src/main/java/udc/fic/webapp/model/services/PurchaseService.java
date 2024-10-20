@@ -9,7 +9,9 @@ import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface PurchaseService {
@@ -33,4 +35,6 @@ public interface PurchaseService {
     void completePurchase(Long purchaseId, String orderId) throws InstanceNotFoundException;
 
     Purchase getPurchaseByCaptureId(String captureId) throws InstanceNotFoundException;
+
+
 }

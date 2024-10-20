@@ -2,16 +2,13 @@ package udc.fic.webapp.rest.controllers;
 
 import com.paypal.orders.Order;
 import com.paypal.payments.Refund;
-import com.paypal.payments.RefundRequest;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
-import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.Purchase;
+import udc.fic.webapp.model.entities.PurchaseDao;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.model.services.PaypalService;
 import udc.fic.webapp.model.services.ProductService;
@@ -40,6 +37,10 @@ public class PurchaseController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private PurchaseDao purchaseDao;
+
 
     @PostMapping("/create")
     public ResponseEntity<?> createPurchase(@RequestBody PurchaseDto dto) {
@@ -181,6 +182,20 @@ public class PurchaseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Error refunding order: " + e.getMessage(), "exception", e.toString()));
         }
     }
+
+
+    @PutMapping("/{purchaseId}/changeRefundStatus")
+    public ResponseEntity<PurchaseDto> changeRefundStatus(@PathVariable Long purchaseId, @RequestBody PurchaseDto purchaseDto) throws InstanceNotFoundException {
+
+        Purchase purchase = purchaseDao.findById(purchaseId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
+
+        purchase.setIsRefunded(purchaseDto.getIsRefunded());
+
+        return ResponseEntity.ok(PurchaseConversor.toDto(purchaseDao.save(purchase)));
+    }
+
+
 
 
 }

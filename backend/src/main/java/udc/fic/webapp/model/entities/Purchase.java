@@ -24,7 +24,21 @@ public class Purchase {
     private PaymentMethod paymentMethod;
     private String orderId;
     private String captureId;
+    private Boolean isRefunded;
 
+    public Purchase(){}
+
+    public Purchase(Date purchaseDate, Double amount, User buyer, User seller, List<PurchaseItem> items, PaymentMethod paymentMethod, String orderId, String captureId, Boolean isRefunded) {
+        this.purchaseDate = purchaseDate;
+        this.amount = amount;
+        this.buyer = buyer;
+        this.seller = seller;
+        this.items = items;
+        this.paymentMethod = paymentMethod;
+        this.orderId = orderId;
+        this.captureId = captureId;
+        this.isRefunded = isRefunded;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,5 +123,13 @@ public class Purchase {
 
     public void setCaptureId(String captureId) {
         this.captureId = captureId;
+    }
+
+    @Column(name = "is_refunded", nullable = true)
+    public Boolean getIsRefunded() {
+        return isRefunded;
+    }
+    public void setIsRefunded(Boolean isRefunded) {
+        this.isRefunded = isRefunded;
     }
 }

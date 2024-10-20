@@ -108,7 +108,7 @@ const OrderSummary = () => {
                       </td>
                     </tr>
                   ))}
-                  <tr>
+                  <tr className="">
                     <td
                       className="p-4 text-lg font-bold text-gray-900 dark:text-white"
                       colSpan={2}

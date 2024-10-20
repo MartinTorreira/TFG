@@ -12,7 +12,7 @@ module.exports = withMT({
     extend: {
       fontFamily: {
         // Establece Lato como la fuente por defecto
-        sans: ["Lato", "Inter", "Onest", "Roboto", "sans-serif"],
+        sans: ["Switzer","Lato", "Inter", "Onest", "Roboto", "sans-serif"],
         lato: ["Lato"],
       },
       colors: {

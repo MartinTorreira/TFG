@@ -24,7 +24,7 @@ const Navbar = ({ notification }) => {
   };
 
   return (
-    <nav className="backdrop-blur-3xl shadow-sm sticky top-0 z-50 bg-gray-100">
+    <nav className="backdrop-blur-3xl shadow-sm sticky top-0 z-50 bg-gray-100 ">
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Left */}
         <div className="flex items-center font-semibold">
@@ -37,19 +37,19 @@ const Navbar = ({ notification }) => {
           <div className="hidden md:flex space-x-2 ml-12">
             <button
               onClick={() => handleNavigate("./users/my-purchases")}
-              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all"
+              className="text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all uppercase"
             >
               Mis compras
             </button>
             <button
               onClick={() => handleNavigate("./shoppingCart")}
-              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all"
+              className="text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all uppercase"
             >
               Mi carro
             </button>
             <button
               onClick={() => handleNavigate("./product/favorites")}
-              className="text-black hover:text-accent-dark  font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all"
+              className="text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all uppercase"
             >
               Favoritos
             </button>

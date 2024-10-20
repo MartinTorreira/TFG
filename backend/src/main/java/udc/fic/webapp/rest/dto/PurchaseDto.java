@@ -19,7 +19,7 @@ public class PurchaseDto {
     private String paymentMethod;
     private String orderId;
     private String captureId;
-
+    private Boolean isRefunded;
 
     public PurchaseDto() {
     }
@@ -118,5 +118,13 @@ public class PurchaseDto {
 
     public void setCaptureId(String captureId) {
         this.captureId = captureId;
+    }
+
+    public Boolean getIsRefunded() {
+        return isRefunded;
+    }
+
+    public void setIsRefunded(Boolean isRefunded) {
+        this.isRefunded = isRefunded;
     }
 }

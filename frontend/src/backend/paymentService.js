@@ -58,3 +58,20 @@ export const getPurchaseById = async (purchaseId, onSuccess, onErrors) => {
     onErrors,
   );
 }
+
+
+export const changeRefundStatus = async (
+  purchaseId,
+  isRefunded,
+  onSuccess,
+  onErrors
+) => {
+  appFetch(
+    `/purchase/${Number(purchaseId)}/changeRefundStatus`,
+    fetchConfig("PUT", isRefunded),
+    onSuccess,
+    onErrors,
+  );
+};
+
+

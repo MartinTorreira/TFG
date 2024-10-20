@@ -7,6 +7,7 @@ import com.paypal.core.PayPalHttpClient;
 import com.paypal.http.HttpResponse;
 import com.paypal.http.exceptions.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -69,6 +70,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
         purchase.setOrderId(orderId);
         purchase.setCaptureId("");
+        purchase.setIsRefunded(false);
 
         Purchase.PaymentMethod paymentMethodValue;
         try {
@@ -202,7 +204,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         logger.info("Purchase found: {}", purchaseOpt.get());
         return purchaseOpt.get();
     }
-
 
 
 }

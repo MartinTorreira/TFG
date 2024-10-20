@@ -6,6 +6,7 @@ import { LoginContext } from "../context/LoginContext";
 import { NotFound } from "../../icons/NotFound";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { changeRefundStatus } from "../../backend/paymentService";
 
 const UserPurchasesPage = () => {
   const { user, token } = useContext(LoginContext);
@@ -20,7 +21,7 @@ const UserPurchasesPage = () => {
     }
   }, [loadPurchases, user, token, navigate]);
 
-  const handleRefund = async (captureId, amount) => {
+  const handleRefund = async (captureId, amount, productId) => {
     console.log("Refunding purchase with captureId:", captureId);
     try {
       const response = await fetch("http://localhost:8080/purchase/refund", {
@@ -40,12 +41,30 @@ const UserPurchasesPage = () => {
         const errorText = await response.text();
         throw new Error(errorText);
       }
+      toast.success(
+        "Reembolso realizado correctamente. En breve recibirás el importe en tu cuenta."
+      );
 
       const result = await response.json();
-      toast.success("Reembolso realizado correctamente");
     } catch (err) {
       console.error("Error processing refund:", err);
       toast.error("Error al procesar el reembolso");
+    }
+
+    try {
+      changeRefundStatus(
+        productId,
+        { isRefunded: "true" },
+        () => {
+          console.log("Status change");
+        },
+        (error) => {
+          console.log("Error changing status", error);
+        }
+      );
+    } catch (err) {
+      console.error("Error changing status:", err);
+      toast.error("Error al cambiar el estado del reembolso");
     }
   };
 

@@ -1,3 +1,4 @@
+// src/store/usePurchasesStore.js
 import { create } from "zustand";
 import { getUserPurchases } from "../../backend/paymentService.js";
 
@@ -13,26 +14,33 @@ const usePurchasesStore = create((set, get) => ({
         { page: 0, size: 10 },
         (data) => {
           set({ purchases: data.content });
+          console.log("data.content" + data.content.captureId);
         },
         (errors) => {
           console.log(errors);
-        },
+        }
       );
     } catch (error) {
       console.error(error);
     }
   },
 
-  // removePurchase: (id) =>
-  //   set((state) => ({
-  //     purchases: state.purchases.filter((item) => item.productDto.id !== id),
-  //   })),
-
   addPurchase: (purchase) =>
-    set((state) => {
-      const newPurchases = [...state.purchases, purchase];
-      return { purchases: newPurchases };
-    }),
+    set((state) => ({
+      purchases: [...state.purchases, purchase],
+    })),
+
+
+    updateCaptureId: (purchaseId, captureId) => {
+      console.log("updateCaptureStore", purchaseId, captureId);
+      set((state) => ({
+        purchases: state.purchases.map((purchase) =>
+          purchase.id === purchaseId
+            ? { ...purchase, captureId: captureId }
+            : purchase
+        ),
+      }));
+    },
 }));
 
 export default usePurchasesStore;

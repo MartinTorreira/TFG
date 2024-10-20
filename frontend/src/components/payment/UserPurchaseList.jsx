@@ -1,39 +1,43 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { formatDate } from "../../utils/formatDate";
 import { useNavigate } from "react-router-dom";
 import { ShoppingBagIcon } from "../../icons/ShoppingBagIcon";
+import usePurchasesStore from "../store/usePurchasesStore";
+import { LoginContext } from "../context/LoginContext";
+import { DateIcon } from "../../icons/DateIcon";
 
-export const UserPurchaseList = ({ purchases }) => {
+export const UserPurchaseList = ({ onRefund }) => {
   const navigate = useNavigate();
+  const { user } = useContext(LoginContext);
+  const { purchases, loadPurchases } = usePurchasesStore();
 
   const handleNavigate = (id) => {
     navigate(`../purchase/order-confirmation/${id}/`);
   };
 
+  useEffect(() => {
+    loadPurchases(user.id);
+  }, [loadPurchases, user]);
+
   return (
-    <section className="4xl:w-8/12 sm:w-full mx-auto  rounded-lg antialiased p-8 bg-gray-50 ">
-      <div className="mx-auto px-4 2xl:px-0">
-        <div className="mx-auto max-w-5xl">
-          <div className="xl:flex xl:items-center flex-row items-start space-x-4">
-            <span>
-              <ShoppingBagIcon size={40} />
-            </span>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-              Mis compras
-            </h2>
-
-            <div className="mt-6 gap-4 flex items-center justify-end space-x-4 lg:mt-0">
-              {/* Filtros de orden y fecha */}
-            </div>
-          </div>
-
+    <div>
+      <div className="flex flex-row items-left space-x-4 mb-6">
+        <span>
+          <ShoppingBagIcon size={40} />
+        </span>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+          Mis compras
+        </h2>
+      </div>
+      <section className="w-full mx-auto rounded-lg antialiased p-2 bg-gray-50">
+        <div className="max-w-full px-4 sm:px-8">
           {purchases &&
-            purchases.map((purchase) => (
-              <div key={purchase.orderId} className="mt-6 flow-root sm:mt-8 ">
-                <div className="divide-y divide-gray-200 dark:divide-gray-700">
-                  <div className="grid grid-cols-1 2xl:grid-cols-5 gap-x-18 py-6 border-b">
+            purchases.map((purchase, index) => (
+              <div key={purchase.orderId} className="mt-6">
+                <div className={`${index !== purchase.length ? "border-b" : ""} `}>
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between text-center lg:text-left py-4 space-y-10 lg:space-y-0 lg:space-x-4">
                     {/* ID de compra */}
-                    <div className="flex flex-col justify-center 2xl:items-start items-center space-y-4 2xl:space-y-1">
+                    <div className="flex flex-col space-y-1 items-center lg:items-start">
                       <span className="text-xs font-semibold text-gray-500">
                         ID de compra
                       </span>
@@ -43,47 +47,20 @@ export const UserPurchaseList = ({ purchases }) => {
                     </div>
 
                     {/* Fecha */}
-                    <div className="flex flex-col justify-center 2xl:items-start items-center space-y-4 2xl:space-y-1 ml-4">
+                    <div className="flex flex-col items-center lg:items-start space-y-1">
                       <span className="text-xs font-semibold text-gray-500">
                         Fecha
                       </span>
-                      <div className="flex items-center gap-2">
-                        {/* Icono de calendario */}
-                        <svg
-                          className="h-4 w-4 text-gray-800"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"
-                          />
-                        </svg>
+                      <div className="flex gap-2 items-center">
+                        <DateIcon />
                         <p className="text-sm font-medium text-gray-800 dark:text-gray-400">
                           {formatDate(purchase.purchaseDate, "-")}
                         </p>
                       </div>
                     </div>
 
-                    {/* Estado */}
-                    <div className="flex flex-col justify-center 2xl:items-start items-center space-y-4 2xl:space-y-1">
-                      <span className="text-xs font-semibold text-gray-500">
-                        Estado
-                      </span>
-                      <span className="w-1/2 rounded-full border border-red-100 bg-red-100 text-red-900 text-sm text-center">
-                        En progreso
-                      </span>
-                    </div>
-
                     {/* Total */}
-                    <div className="flex flex-col justify-center 2xl:items-start items-center space-y-4 2xl:space-y-1">
+                    <div className="flex flex-col space-y-1">
                       <span className="text-xs font-semibold text-gray-500">
                         Precio total
                       </span>
@@ -92,14 +69,32 @@ export const UserPurchaseList = ({ purchases }) => {
                       </p>
                     </div>
 
-                    {/* Botón de ver detalles */}
-                    <div className="flex flex-col justify-center 2xl:items-start items-center space-y-4 2xl:space-y-1">
+                    {/* Estado */}
+                    <div className="flex flex-col items-center lg:items-start space-y-1">
+                      <span className="text-xs font-semibold text-gray-500">
+                        Estado
+                      </span>
+                      <span className="lg:w-full w-1/3 md:w-auto rounded-full border text-xs border-red-100 bg-red-100 text-red-900 text-center py-0.5 px-1">
+                        En progreso
+                      </span>
+                    </div>
+
+                    {/* Botones de acción */}
+                    <div className="flex flex-col items-center lg:items-start sm:space-y-2 md:space-y-0 mt-4 md:mt-0 sm:gap-y-2 md:gap-y-0">
                       <button
                         onClick={() => handleNavigate(purchase.id)}
                         type="button"
-                        className="text-accent-darker hover:underline text-sm font-bold rounded-lg px-2 hover:opacity-80 transition-all"
+                        className="text-accent-darker text-sm font-bold rounded-lg px-2 hover:opacity-80 transition-all"
                       >
                         Más detalles
+                      </button>
+                      <button
+                        onClick={() => {
+                          onRefund(purchase.captureId, purchase.amount);
+                        }}
+                        className="flex flex-row text-gray-900 text-sm font-bold rounded-full px-2 hover:opacity-80 transition-all space-x-2 p-1.5"
+                      >
+                        <span>Solicitar reembolso</span>
                       </button>
                     </div>
                   </div>
@@ -107,7 +102,7 @@ export const UserPurchaseList = ({ purchases }) => {
               </div>
             ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };

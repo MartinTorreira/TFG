@@ -71,7 +71,7 @@ public class PurchaseController {
                     dto.getQuantities(),
                     dto.getAmount(),
                     dto.getPaymentMethod(),
-                    order.id() // Pass the orderId from PayPal
+                    order.id()
             );
 
             // Crear la respuesta

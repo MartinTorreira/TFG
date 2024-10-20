@@ -68,6 +68,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw new IllegalArgumentException("orderId must be provided by PayPal");
         }
         purchase.setOrderId(orderId);
+        purchase.setCaptureId("");
 
         Purchase.PaymentMethod paymentMethodValue;
         try {

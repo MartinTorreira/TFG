@@ -5,6 +5,8 @@ import { getPlaceName } from "../../utils/MapUtils";
 import { getPurchaseById } from "../../backend/paymentService";
 import { Avatar } from "../Avatar.jsx";
 import { RatingComponent } from "../RatingComponent.jsx";
+import { CheckIcon } from "../../icons/CheckIcon.jsx";
+import { motion } from "framer-motion"; // Importa motion
 
 const OrderConfirmation = () => {
   const { id } = useParams();
@@ -21,7 +23,7 @@ const OrderConfirmation = () => {
       },
       (error) => {
         console.log(error);
-      },
+      }
     );
 
     if (products.length > 0) {
@@ -43,19 +45,28 @@ const OrderConfirmation = () => {
       },
       (error) => {
         console.log(error);
-      },
+      }
     );
   }, [id]);
 
   return (
-    <section className="w-5/12 mt-20 mx-auto shadow-md rounded-lg bg-gray-50 antialiased dark:bg-gray-900 md:py-8 sm:p-10">
+    <section className="w-5/12 mt-20 mx-auto shadow-md rounded-lg bg-green-100 antialiased dark:bg-gray-900 md:py-8 sm:p-10">
       <form action="#" className="mx-auto max-w-screen-xl">
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-4xl font-semibold text-gray-900 dark:text-white font-montserrat">
-            ¡Compra realizada!
-          </h2>
+          <div className="flex flex-row items-center justify-between">
+            <h2 className="text-4xl font-semibold text-gray-900 dark:text-white font-montserrat">
+              ¡Compra realizada!
+            </h2>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <CheckIcon size={50} />
+            </motion.div>
+          </div>
 
-          <div className="mt-6 space-y-4 border-b border-t border-gray-200 py-8 dark:border-gray-700 sm:mt-8">
+          <div className="mt-6 space-y-4 border-b border-t border-gray-500 py-8 dark:border-gray-700 sm:mt-8">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
               Vendedor
             </h4>
@@ -81,7 +92,7 @@ const OrderConfirmation = () => {
           </div>
 
           <div className="mt-8">
-            <div className="relative overflow-x-auto border-b border-gray-200 dark:border-gray-800">
+            <div className="relative overflow-x-auto dark:border-gray-800">
               <table className="w-full text-left font-medium text-gray-900 dark:text-white md:table-fixed">
                 <thead>
                   <h4 className="text-lg font-semibold text-gray-900 ">
@@ -96,7 +107,7 @@ const OrderConfirmation = () => {
                           <div className="flex items-center gap-4">
                             <span className="flex items-center aspect-square w-16 h-16 shrink-0">
                               <img
-                                className="w-full border border-gray-200 rounded-md"
+                                className="w-full border border-gray-800 rounded-md"
                                 src={product?.images[0]}
                                 alt={product.name}
                               />
@@ -118,7 +129,8 @@ const OrderConfirmation = () => {
                                   : 0}
                               </span>
                               <span className="text-right text-base font-bold text-gray-900 dark:text-white">
-                                {purchase?.amount?.toFixed(2).replace(".",",")}{" €"}
+                                {purchase?.amount?.toFixed(2).replace(".", ",")}
+                                {" €"}
                               </span>
                             </div>
                           </div>
@@ -129,13 +141,12 @@ const OrderConfirmation = () => {
                 </tbody>
               </table>
             </div>
-
             <div className="mt-8 -mb-2">
               <div className="gap-4 sm:flex sm:items-center">
                 <button
                   onClick={() => navigate("../home")}
                   type="button"
-                  className="w-1/3 mx-auto rounded-lg border border-gray-200 bg-accent-dark p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all"
+                  className="w-1/3 mx-auto rounded-lg bg-gray-900 p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all"
                 >
                   Volver
                 </button>

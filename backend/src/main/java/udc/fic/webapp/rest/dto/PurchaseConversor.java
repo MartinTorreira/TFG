@@ -19,6 +19,7 @@ public class PurchaseConversor {
         dto.setPaymentMethod(String.valueOf(purchase.getPaymentMethod()));
         dto.setOrderId(purchase.getOrderId());
         dto.setPurchaseItems(purchase.getItems().stream().map(PurchaseConversor::toDto).collect(Collectors.toList()));
+        dto.setCaptureId(purchase.getCaptureId());
         return dto;
     }
 
@@ -37,6 +38,7 @@ public class PurchaseConversor {
         purchase.setAmount(dto.getAmount());
         purchase.setPaymentMethod(Purchase.PaymentMethod.valueOf(dto.getPaymentMethod()));
         purchase.setOrderId(dto.getOrderId());
+        purchase.setCaptureId(dto.getCaptureId());
         return purchase;
     }
 

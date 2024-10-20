@@ -18,6 +18,7 @@ public class PurchaseDto {
     private String currency;
     private String paymentMethod;
     private String orderId;
+    private String captureId;
 
 
     public PurchaseDto() {
@@ -109,5 +110,13 @@ public class PurchaseDto {
 
     public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
+    }
+
+    public String getCaptureId() {
+        return captureId;
+    }
+
+    public void setCaptureId(String captureId) {
+        this.captureId = captureId;
     }
 }

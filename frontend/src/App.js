@@ -43,8 +43,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} className="z-50" />
-      <Toaster richColors position="bottom-center" />
-      {/* Ajustar aquí */}
+      <Toaster richColors position="top-center" />
       <div className="relative min-h-screen w-full bg-gray-200">
         <div
           className="absolute inset-0 h-full w-full"
@@ -58,23 +57,29 @@ export default function App() {
           <Navbar />
           <div className="relative z-10 mb-10">
             <Routes>
-              <Route path="/users/login" element={<Login />} />
-              <Route path="/home" element={<Home toggleSidebar={toggleSidebar} />} />
               <Route path="/" element={<Home toggleSidebar={toggleSidebar} />} />
+              <Route path="/home" element={<Home toggleSidebar={toggleSidebar} />} />
+
+              <Route path="/users/login" element={<Login />} />
               <Route path="/users/signUp" element={<Register />} />
               <Route path="/users/profile" element={<ProfileSettings />} />
               <Route path="/users/stats" element={<Stats />} />
               <Route path="/users/my-purchases" element={<UserPurchasesPage />} />
+
               <Route path="/product/add" element={<AddProduct />} />
               <Route path="/product/favorites" element={<FavoritePage />} />
               <Route path="/product/:id/details" element={<ProductDetails />} />
-              <Route path="/payment" element={<PaypalPayment />} />
               <Route path="/product/order-summary" element={<OrderSummary />} />
+
+              <Route path="/payment" element={<PaypalPayment />} />
               <Route path="/payment/error" element={<PaymentError />} />
               <Route path="/payment/success" element={<PaymentSuccess />} />
-              <Route path="/shoppingCart" element={<ShoppingCart />} />
-              <Route path="/purchase/order-confirmation/:id" element={<OrderConfirmation />} />
               <Route path="/payment/purchaseTicket/:id" element={<OrderSummary />} />
+              <Route path="/purchase/order-confirmation/:id" element={<OrderConfirmation />} />
+
+
+              <Route path="/shoppingCart" element={<ShoppingCart />} />
+
             </Routes>
           </div>
         </div>

@@ -15,9 +15,7 @@ import { UpdateProductModal } from "../modals/UpdateProductModal.jsx";
 import { DeleteIcon } from "../../icons/DeleteIcon.jsx";
 import { toast } from "sonner";
 import { Alert } from "./Alert.jsx";
-import { deleteItemFromCart } from "../../backend/shoppingCartService.js";
 import { getItemByProductId } from "../../backend/shoppingCartService.js";
-
 import {
   removeFromFavorites,
   addToFavorites,
@@ -27,15 +25,20 @@ import useCartStore from "../store/useCartStore.js";
 export const CardItem = ({ product }) => {
   const navigate = useNavigate();
   const { removeFavorite, addFavorite, isFavorite } = useFavoriteStore();
-  const { removeProduct, cart } = useProductStore();
-  const { addToCart, isAdded, cartProducts, removeFromCart } = useCartStore();
+  const { removeProduct, cart, } = useProductStore();
+  const { addToCart, isAdded, cartProducts, removeFromCart, productList, loadCart } =
+    useCartStore();
 
   const favorite = isFavorite(product.id);
   const { token, user } = useContext(LoginContext);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const isProductAdded = isAdded(product.id); 
+  const isProductAdded = isAdded(product.id);
+
+  useEffect(() => {
+    loadCart();
+  }, [isAdded])
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -60,9 +63,15 @@ export const CardItem = ({ product }) => {
     if (!token) {
       navigate("../users/login");
     } else {
+
+      
+      console.log("productList"+productList.length);
+
       if (!isProductAdded) {
+       
+
         addToCart(
-          productId,  
+          productId,
           1,
           () => setIsAnimating(false),
           (errors) => {
@@ -71,7 +80,11 @@ export const CardItem = ({ product }) => {
           }
         );
       } else {
-        getItemByProductId(productId, (itemId) => removeFromCart(itemId), (error) => console.log(error));
+        getItemByProductId(
+          productId,
+          (itemId) => removeFromCart(itemId),
+          (error) => console.log(error)
+        );
       }
     }
   };
@@ -189,7 +202,9 @@ export const CardItem = ({ product }) => {
                     className="border border-gray-300/80 p-2 rounded-lg"
                     onClick={(e) => handleFavoriteClick(e)}
                   >
-                    <span className={`hover:scale-125 transition-transform duration-300 ease-in-out `}>
+                    <span
+                      className={`hover:scale-125 transition-transform duration-300 ease-in-out `}
+                    >
                       {favorite && token !== null ? (
                         <FavoriteIconFilled size={20} />
                       ) : (

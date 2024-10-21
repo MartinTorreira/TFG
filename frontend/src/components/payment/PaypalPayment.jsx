@@ -28,7 +28,7 @@ const PayPalPayment = () => {
         await getItemByProductId(
           product.id,
           (itemId) => removeFromCart(itemId),
-          (error) => console.log("Error removing item from cart:", error),
+          (error) => console.log("Error removing item from cart:", error)
         );
       } catch (error) {
         console.log("Error in handleDeleteClick:", error);
@@ -66,7 +66,7 @@ const PayPalPayment = () => {
 
     const sellerId = products[0].userDto.id;
     const allSameSeller = products.every(
-      (product) => product.userDto.id === sellerId,
+      (product) => product.userDto.id === sellerId
     );
 
     if (!allSameSeller) {
@@ -105,6 +105,7 @@ const PayPalPayment = () => {
           amount: totalAmount,
           currency: "EUR",
           paymentMethod: "paypal",
+          purchaseStatus: "PENDING"
         }),
       });
 
@@ -118,7 +119,7 @@ const PayPalPayment = () => {
 
       if (order.approvalUrl) {
         const urlParams = new URLSearchParams(
-          new URL(order.approvalUrl).search,
+          new URL(order.approvalUrl).search
         );
         purchaseId = order.purchase.id;
         return urlParams.get("token");
@@ -141,19 +142,19 @@ const PayPalPayment = () => {
             "Content-Type": "application/json",
             userId: user.id,
           },
-        },
+        }
       );
-
+  
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText);
       }
-
+  
       const result = await response.json();
       const captureId = result.captureId;
-
-      updateCaptureId(purchaseId, captureId);
-
+  
+      updateCaptureId(purchaseId, captureId, user.id);
+  
       await removeFromCartList();
       handleExitPurchase();
     } catch (err) {
@@ -169,13 +170,7 @@ const PayPalPayment = () => {
         currency: "EUR",
       }}
     >
-      <div className="flex mt-20 justify-center min-h-screen ">
-        {products.map((product) =>
-          console.log(
-            "Quantity: " + product.quantity,
-            "Original Quantity: " + product.originalQuantity,
-          ),
-        )}
+      <div className="flex mt-20 justify-center min-h-screen">
         <div className="flex flex-col w-full items-center space-y-10 ">
           {error && <div>Error: {error.message}</div>}
           {products.length > 0 && (
@@ -183,7 +178,25 @@ const PayPalPayment = () => {
               <h1 className="text-2xl font-semibold mb-10 text-center">
                 Seleccionar método de pago
               </h1>
-              <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
+              <div className="w-screen flex justify-center">
+                <div className="w-full max-w-md">
+                  <PayPalButtons
+                    fundingSource="paypal"
+                    createOrder={createOrder}
+                    onApprove={onApprove}
+                  />
+                </div>
+              </div>
+
+              <div className="w-full flex justify-center mt-4">
+                <div className="w-full max-w-md">
+                  <PayPalButtons
+                    fundingSource="card"
+                    createOrder={createOrder}
+                    onApprove={onApprove}
+                  />
+                </div>
+              </div>
             </div>
           )}
         </div>

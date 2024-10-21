@@ -1,5 +1,7 @@
 package udc.fic.webapp.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import udc.fic.webapp.model.entities.PurchaseItem;
 
 import java.util.Date;
@@ -20,10 +22,14 @@ public class PurchaseDto {
     private String orderId;
     private String captureId;
     private Boolean isRefunded;
+    private String purchaseStatus;
 
-    public PurchaseDto() {
+    @JsonCreator
+    public PurchaseDto(@JsonProperty("purchaseStatus") String purchaseStatus) {
+        this.purchaseStatus = purchaseStatus;
     }
 
+    public PurchaseDto() {}
 
     public Long getId() {
         return id;
@@ -126,5 +132,13 @@ public class PurchaseDto {
 
     public void setIsRefunded(Boolean isRefunded) {
         this.isRefunded = isRefunded;
+    }
+
+    public String getPurchaseStatus() {
+        return purchaseStatus;
+    }
+
+    public void setPurchaseStatus(String purchaseStatus) {
+        this.purchaseStatus = purchaseStatus;
     }
 }

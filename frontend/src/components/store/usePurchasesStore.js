@@ -1,6 +1,5 @@
-// src/store/usePurchasesStore.js
 import { create } from "zustand";
-import { getUserPurchases } from "../../backend/paymentService.js";
+import { getUserPurchases, changePurchaseStatus } from "../../backend/paymentService.js";
 
 const usePurchasesStore = create((set, get) => ({
   purchases: [],
@@ -30,17 +29,40 @@ const usePurchasesStore = create((set, get) => ({
       purchases: [...state.purchases, purchase],
     })),
 
+  updateCaptureId: (purchaseId, captureId, userId) => {
+    set((state) => ({
+      purchases: state.purchases.map((purchase) =>
+        purchase.id === purchaseId
+          ? { ...purchase, captureId: captureId }
+          : purchase
+      ),
+    }));
+    get().loadPurchases(userId);
+  },
 
-    updateCaptureId: (purchaseId, captureId) => {
-      console.log("updateCaptureStore", purchaseId, captureId);
-      set((state) => ({
-        purchases: state.purchases.map((purchase) =>
-          purchase.id === purchaseId
-            ? { ...purchase, captureId: captureId }
-            : purchase
-        ),
-      }));
-    },
+  updatePurchaseStatus: async (purchaseId, purchaseStatus) => {
+    try {
+      await changePurchaseStatus(
+        purchaseId,
+        purchaseStatus,
+        (updatedPurchase) => {
+          set((state) => ({
+            purchases: state.purchases.map((purchase) =>
+              purchase.id === purchaseId
+                ? { ...purchase, purchaseStatus: updatedPurchase.purchaseStatus }
+                : purchase
+            ),
+          }));
+        },
+        (errors) => {
+          console.log(errors);
+        }
+      );
+    } catch (error) {
+      console.error("Error updating purchase status:", error);
+    }
+
+  },
 }));
 
 export default usePurchasesStore;

@@ -1,21 +1,15 @@
 export const CategoryIcon = ({ size }) => {
   return (
     <svg
+      className={`w-${size} h-${size} text-gray-200`}
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
+      width="24"
+      height="24"
+      fill="currentColor"
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      className="icon icon-tabler icons-tabler-outline icon-tabler-menu-2"
     >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M4 6l16 0" />
-      <path d="M4 12l16 0" />
-      <path d="M4 18l16 0" />
+      <path d="M10.83 5a3.001 3.001 0 0 0-5.66 0H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17ZM4 11h9.17a3.001 3.001 0 0 1 5.66 0H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2Zm1.17 6H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17a3.001 3.001 0 0 0-5.66 0Z" />
     </svg>
   );
 };

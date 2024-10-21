@@ -50,7 +50,7 @@ const OrderConfirmation = () => {
   }, [id]);
 
   return (
-    <section className="w-5/12 mt-20 mx-auto shadow-md rounded-lg bg-green-100/60 antialiased dark:bg-gray-900 md:py-8 sm:p-10">
+    <section className="w-5/12 mt-20 mx-auto shadow-md rounded-lg bg-green-200/40 antialiased dark:bg-gray-900 md:py-8 sm:p-10">
       <form action="#" className="mx-auto max-w-screen-xl">
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-row items-center justify-between">
@@ -60,26 +60,24 @@ const OrderConfirmation = () => {
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              transition={{ type: "spring", stiffness: 300, duration: 1000 }}
             >
               <CheckIcon size={50} />
             </motion.div>
           </div>
 
-          <div className="mt-6 space-y-4 border-b border-t border-gray-500 py-8 dark:border-gray-700 sm:mt-8">
-            <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Vendedor
-            </h4>
+          <div className="mt-6 space-y-4 border-b border-t border-gray-600 py-8 sm:mt-8">
+            <h4 className="text-lg font-semibold text-gray-900 ">Vendedor</h4>
 
             <dl>
-              <dd className="mt-1 text-base font-normal text-gray-500 dark:text-gray-400">
+              <dd className="mt-1 text-base font-normal text-gray-700">
                 <div className="flex flex-row">
                   <Avatar
                     size={"10"}
                     className=""
                     imagePath={products[0]?.userDto.avatar}
                   />
-                  <div className="flex flex-col gap-y-1">
+                  <div className="flex flex-col gap-y-1 text-gray-700">
                     <p className="ml-1">{products[0]?.userDto.userName}</p>
                     <RatingComponent
                       rate={products[0]?.userDto.rate}
@@ -99,7 +97,7 @@ const OrderConfirmation = () => {
                     Resumen de compra
                   </h4>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+                <tbody className="divide-y divide-gray-700">
                   {products?.map((product, index) => (
                     <tr key={product.id}>
                       <td className="whitespace-nowrap py-4 md:w-[384px]">
@@ -116,7 +114,7 @@ const OrderConfirmation = () => {
                               <span className="hover:underline flex-1">
                                 {product.name}
                               </span>
-                              <div className="flex flex-row space-x-2 mt-2 text-sm text-gray-500 items-center justify-end">
+                              <div className="flex flex-row space-x-2 mt-2 text-sm text-gray-700 items-center justify-end">
                                 <span>{placeName}</span>
                               </div>
                             </div>
@@ -141,14 +139,19 @@ const OrderConfirmation = () => {
                 </tbody>
               </table>
             </div>
-            <div className="mt-8 -mb-2">
-              <div className="gap-4 sm:flex sm:items-center">
+            <div className="mt-10 -mb-2">
+              <div className="sm:flex sm:items-end justify-end gap-x-2">
                 <button
                   onClick={() => navigate("../home")}
                   type="button"
-                  className="w-1/3 mx-auto rounded-lg bg-gray-900 p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all"
+                  className="w-1/5 rounded-full bg-accent-darker p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all"
                 >
                   Volver
+                </button>
+                <button 
+                onClick={() => navigate("../users/my-purchases")}
+                className="w-1/5 rounded-full bg-accent-darker p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all">
+                  Mis compras
                 </button>
               </div>
             </div>

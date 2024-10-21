@@ -15,6 +15,10 @@ public class Purchase {
         CREDIT_CARD, PAYPAL
     }
 
+    public enum PurchaseStatus {
+        PENDING, COMPLETED, REFUNDED
+    }
+
     private Long id;
     private Date purchaseDate;
     private Double amount;
@@ -25,6 +29,8 @@ public class Purchase {
     private String orderId;
     private String captureId;
     private Boolean isRefunded;
+    private PurchaseStatus purchaseStatus;
+
 
     public Purchase(){}
 
@@ -38,6 +44,20 @@ public class Purchase {
         this.orderId = orderId;
         this.captureId = captureId;
         this.isRefunded = isRefunded;
+        this.purchaseStatus = PurchaseStatus.PENDING;
+    }
+
+    public Purchase(Date purchaseDate, Double amount, User buyer, User seller, List<PurchaseItem> items, PaymentMethod paymentMethod, String orderId, String captureId, Boolean isRefunded, PurchaseStatus purchaseStatus) {
+        this.purchaseDate = purchaseDate;
+        this.amount = amount;
+        this.buyer = buyer;
+        this.seller = seller;
+        this.items = items;
+        this.paymentMethod = paymentMethod;
+        this.orderId = orderId;
+        this.captureId = captureId;
+        this.isRefunded = isRefunded;
+        this.purchaseStatus = purchaseStatus;
     }
 
     @Id
@@ -131,5 +151,14 @@ public class Purchase {
     }
     public void setIsRefunded(Boolean isRefunded) {
         this.isRefunded = isRefunded;
+    }
+
+    @Column(name = "purchaseStatus", nullable = false)
+    public PurchaseStatus getPurchaseStatus() {
+        return purchaseStatus;
+    }
+
+    public void setPurchaseStatus(PurchaseStatus status) {
+        this.purchaseStatus = status;
     }
 }

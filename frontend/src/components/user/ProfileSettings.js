@@ -82,7 +82,6 @@ const ProfileSettings = () => {
       avatar: avatarUrl,
     };
 
-    // Se guarda el usuario en el localStorage para mantener los valores de los placeholder de los inputs
     updateProfile(
       updatedUser,
       () => {
@@ -108,8 +107,6 @@ const ProfileSettings = () => {
     );
   };
 
-
-
   const handleChangeAvatar = async(files) => {
     const avatar = files[0];
     setAvatar(avatar);
@@ -120,7 +117,7 @@ const ProfileSettings = () => {
 		setUserAvatar(route);
 		localStorage.setItem("avatar", route);
 
-		changeAvatar(user.id, route, onSuccess, onErrors);
+		changeAvatar(user.id, route, () => {console.log("Avatar cambiado con éxito")}, onErrors);
   }
 
   useEffect(() => {
@@ -148,7 +145,7 @@ const ProfileSettings = () => {
     <div className="flex flex-col items-center p-10 space-y-10 mx-auto max-w-6xl">
       {/* Avatar y Datos públicos */}
       <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
-        <h2 className="font-semibold text-2xl text-accent-darker mb-10 text-center">
+        <h2 className="font-semibold text-2xl text-gray-800 mb-10 text-center">
           Datos públicos
         </h2>
 
@@ -249,7 +246,7 @@ const ProfileSettings = () => {
 
       {/* Cambiar contraseña */}
       <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
-        <h2 className="font-semibold text-2xl text-accent-darker mb-10 text-center">
+        <h2 className="font-semibold text-2xl text-gray-800 mb-16 text-center">
           Cambiar contraseña
         </h2>
 

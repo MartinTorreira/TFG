@@ -75,3 +75,17 @@ export const changeRefundStatus = async (
 };
 
 
+export const changePurchaseStatus = async (
+  purchaseId,
+  purchaseStatus,
+  onSuccess,
+  onErrors
+) => {
+  appFetch(
+    `/purchase/${Number(purchaseId)}/changePurchaseStatus`,
+    fetchConfig("PUT", {purchaseStatus}),
+    onSuccess,
+    onErrors,
+  );
+}
+

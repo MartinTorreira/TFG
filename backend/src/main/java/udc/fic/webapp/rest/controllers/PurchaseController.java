@@ -72,7 +72,8 @@ public class PurchaseController {
                     dto.getQuantities(),
                     dto.getAmount(),
                     dto.getPaymentMethod(),
-                    order.id()
+                    order.id(),
+                    dto.getPurchaseStatus()
             );
 
             // Crear la respuesta
@@ -191,6 +192,18 @@ public class PurchaseController {
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
 
         purchase.setIsRefunded(purchaseDto.getIsRefunded());
+
+        return ResponseEntity.ok(PurchaseConversor.toDto(purchaseDao.save(purchase)));
+    }
+
+
+    @PutMapping("/{purchaseId}/changePurchaseStatus")
+    public ResponseEntity<PurchaseDto> changePurchaseStatus(@PathVariable Long purchaseId, @RequestBody PurchaseDto purchaseDto) throws InstanceNotFoundException {
+
+        Purchase purchase = purchaseDao.findById(purchaseId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
+
+        purchase.setPurchaseStatus(Purchase.PurchaseStatus.valueOf(purchaseDto.getPurchaseStatus()));
 
         return ResponseEntity.ok(PurchaseConversor.toDto(purchaseDao.save(purchase)));
     }

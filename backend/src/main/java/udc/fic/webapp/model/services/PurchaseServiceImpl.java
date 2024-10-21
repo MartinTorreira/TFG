@@ -7,7 +7,6 @@ import com.paypal.core.PayPalHttpClient;
 import com.paypal.http.HttpResponse;
 import com.paypal.http.exceptions.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -49,9 +48,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 
     @Override
-    public Purchase createPurchase(Long buyerId, Long sellerId, List<Long> productIds, List<Integer> quantities, Double amount, String paymentMethod, String orderId) throws InstanceNotFoundException {
-        System.out.println("Received createPurchase request with orderId: " + orderId);
-
+    public Purchase createPurchase(Long buyerId, Long sellerId, List<Long> productIds, List<Integer> quantities, Double amount, String paymentMethod, String orderId, String purchaseStatus) throws InstanceNotFoundException {
         User buyer = userDao.findById(buyerId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", buyerId));
 
@@ -69,8 +66,13 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw new IllegalArgumentException("orderId must be provided by PayPal");
         }
         purchase.setOrderId(orderId);
-        purchase.setCaptureId("");
         purchase.setIsRefunded(false);
+
+        // Validate and set status
+        if (purchaseStatus == null || purchaseStatus.isEmpty()) {
+            throw new IllegalArgumentException("status must be provided");
+        }
+        purchase.setPurchaseStatus(Purchase.PurchaseStatus.valueOf(purchaseStatus));
 
         Purchase.PaymentMethod paymentMethodValue;
         try {
@@ -159,6 +161,8 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchaseDto.setPurchaseDate(purchase.getPurchaseDate());
         purchaseDto.setOrderId(purchase.getOrderId());
         purchaseDto.setPaymentMethod(purchase.getPaymentMethod().toString());
+        purchaseDto.setCaptureId(purchase.getCaptureId());
+        purchaseDto.setPurchaseStatus(purchase.getPurchaseStatus().toString());
 
         return purchaseDto;
     }
@@ -195,13 +199,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Purchase getPurchaseByCaptureId(String captureId) throws InstanceNotFoundException {
-        logger.info("Fetching purchase with captureId: {}", captureId);
         Optional<Purchase> purchaseOpt = purchaseDao.findByCaptureId(captureId);
         if (purchaseOpt.isEmpty()) {
-            logger.error("No purchase found with captureId: {}", captureId);
             throw new InstanceNotFoundException("Purchase not found for captureId: " ,captureId);
         }
-        logger.info("Purchase found: {}", purchaseOpt.get());
         return purchaseOpt.get();
     }
 

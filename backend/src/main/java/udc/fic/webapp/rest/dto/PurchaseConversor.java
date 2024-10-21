@@ -21,16 +21,7 @@ public class PurchaseConversor {
         dto.setPurchaseItems(purchase.getItems().stream().map(PurchaseConversor::toDto).collect(Collectors.toList()));
         dto.setCaptureId(purchase.getCaptureId());
         dto.setIsRefunded(purchase.getIsRefunded());
-        return dto;
-    }
-
-
-
-    public final static PurchaseItemDto toDto(PurchaseItem purchaseItem) {
-        PurchaseItemDto dto = new PurchaseItemDto();
-        dto.setId(purchaseItem.getId());
-        dto.setProductId(purchaseItem.getProduct().getId());
-        dto.setQuantity(purchaseItem.getQuantity());
+        dto.setPurchaseStatus(String.valueOf(purchase.getPurchaseStatus()));
         return dto;
     }
 
@@ -41,8 +32,20 @@ public class PurchaseConversor {
         purchase.setOrderId(dto.getOrderId());
         purchase.setCaptureId(dto.getCaptureId());
         purchase.setIsRefunded(dto.getIsRefunded());
+        purchase.setPurchaseStatus(Purchase.PurchaseStatus.valueOf(dto.getPurchaseStatus()));
         return purchase;
     }
+
+
+    public final static PurchaseItemDto toDto(PurchaseItem purchaseItem) {
+        PurchaseItemDto dto = new PurchaseItemDto();
+        dto.setId(purchaseItem.getId());
+        dto.setProductId(purchaseItem.getProduct().getId());
+        dto.setQuantity(purchaseItem.getQuantity());
+        return dto;
+    }
+
+
 
     public final static PurchaseItem toEntity(PurchaseItemDto dto) {
         PurchaseItem purchaseItem = new PurchaseItem();

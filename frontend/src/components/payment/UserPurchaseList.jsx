@@ -6,12 +6,16 @@ import usePurchasesStore from "../store/usePurchasesStore";
 import { LoginContext } from "../context/LoginContext";
 import { DateIcon } from "../../icons/DateIcon";
 import { Spinner } from "../../icons/Spinner";
+import { purchaseStatusMap } from "../../utils/Qualities.js";
+import { MoneyIcon } from "../../icons/MoneyIcon.jsx";
 
 export const UserPurchaseList = ({ onRefund }) => {
   const navigate = useNavigate();
   const { user } = useContext(LoginContext);
-  const { purchases, loadPurchases } = usePurchasesStore();
-  const [loadingRefunds, setLoadingRefunds] = useState({}); // Estado para manejar loaders por compra
+  const { purchases, loadPurchases, updatePurchaseStatus } =
+    usePurchasesStore();
+  const [loadingRefunds, setLoadingRefunds] = useState({});
+  const [statusMap, setStatusMap] = useState({});
 
   const handleNavigate = (id) => {
     navigate(`../purchase/order-confirmation/${id}/`);
@@ -22,11 +26,29 @@ export const UserPurchaseList = ({ onRefund }) => {
   }, [loadPurchases, user]);
 
   const handleRefund = async (captureId, amount, purchaseId) => {
-    setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: true })); // Mostrar spinner para esta compra
+    setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: true }));
     await onRefund(captureId, amount, purchaseId);
     loadPurchases(user.id);
-    setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: false })); // Ocultar spinner después del reembolso
+    setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: false }));
+    updatePurchaseStatus(purchaseId, "REFUNDED");
   };
+
+  useEffect(() => {
+    if (purchases?.length > 0) {
+      const newStatusMap = {};
+      purchases.forEach((purchase) => {
+        const status = purchaseStatusMap.find(
+          (item) => item.value === purchase.purchaseStatus
+        );
+        if (status) {
+          newStatusMap[purchase.id] = status;
+        } else {
+          newStatusMap[purchase.id] = { label: "Desconocido", color: "gray" };
+        }
+      });
+      setStatusMap(newStatusMap);
+    }
+  }, [purchases]);
 
   return (
     <div>
@@ -39,24 +61,29 @@ export const UserPurchaseList = ({ onRefund }) => {
         </h2>
       </div>
       <section className="w-full mx-auto rounded-lg antialiased p-2 bg-gray-50">
-        <div className="max-w-full px-4 sm:px-8">
+        <div className="max-w-full px-4 sm:px-8 sm:space-y-10 lg:space-y-2">
           {purchases &&
             purchases.map((purchase, index) => (
               <div key={purchase.orderId} className="">
                 <div
                   className={`${
-                    index + 1 !== purchases.length ? "border-b" : ""
+                    index + 1 !== purchases.length
+                      ? "border-b border-gray-400 "
+                      : ""
                   }`}
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between text-center lg:text-left py-4 space-y-4 lg:space-y-0 lg:space-x-4">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between text-center lg:text-left py-4 space-y-10 lg:space-y-0 lg:space-x-4">
                     {/* ID de compra */}
                     <div className="flex flex-col space-y-1 items-center lg:items-start lg:flex-1">
                       <span className="text-xs font-semibold text-gray-500">
                         ID de compra
                       </span>
-                      <span className="text-sm font-semibold text-gray-900 hover:underline dark:text-white">
+                      <button
+                        onClick={() => handleNavigate(purchase.id)}
+                        className="text-sm font-semibold text-gray-900 hover:underline dark:text-white"
+                      >
                         #{purchase.orderId}
-                      </span>
+                      </button>
                     </div>
 
                     {/* Fecha */}
@@ -87,44 +114,62 @@ export const UserPurchaseList = ({ onRefund }) => {
                       <span className="text-xs font-semibold text-gray-500">
                         Estado
                       </span>
-                      <span className="w-full md:w-auto rounded-full border text-xs border-red-100 bg-red-100 text-red-900 text-center py-0.5 px-1">
-                        En progreso
+                      <span
+                        className={`w-full md:w-auto rounded-full border text-xs border-${
+                          statusMap[purchase.id]?.color
+                        }-100 bg-${statusMap[purchase.id]?.color}-400 text-${
+                          statusMap[purchase.id]?.color
+                        }-900 text-center py-0.5 px-1`}
+                      >
+                        {statusMap[purchase.id]?.label}
                       </span>
                     </div>
 
-                    {/* Botones de acción */}
-                    <div className="flex flex-col space-y-2 lg:flex-1 items-center lg:items-start">
-                      <button
-                        onClick={() => handleNavigate(purchase.id)}
-                        type="button"
-                        className="text-gray-800 text-xs font-bold rounded-lg px-2 hover:opacity-80 transition-all underline"
-                      >
-                        Más detalles
-                      </button>
-                      {!purchase.isRefunded && (
-                        <div className="flex flex-row space-x-4">
-                          <button
-                            onClick={() =>
-                              handleRefund(
-                                purchase.captureId,
-                                purchase.amount,
-                                purchase.id
-                              )
-                            }
-                            className="text-accent-darker text-xs font-bold px-2 hover:opacity-80 transition-all"
-                            disabled={loadingRefunds[purchase.id]}
-                          >
-                            {loadingRefunds[purchase.id] ? (
-                              <div className="flex items-center space-x-2">
-                                <Spinner size={16} />{" "}
-                                <span>Procesando...</span>
-                              </div>
-                            ) : (
-                              "Solicitar reembolso"
-                            )}
-                          </button>
-                        </div>
-                      )}
+                    <div className="space-y-10">
+                      <div className="flex flex-col space-y-2 lg:flex-1 items-center lg:items-start">
+                        {!purchase.isRefunded && (
+                          <div className="flex flex-row space-x-4 w-full ">
+                            <button
+                              onClick={() =>
+                                handleRefund(
+                                  purchase.captureId,
+                                  purchase.amount,
+                                  purchase.id
+                                )
+                              }
+                              className="w-full text-accent-darker text-xs font-bold px-2 hover:opacity-80 transition-all border border-accent-darker p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40"
+                              disabled={purchase.purchaseStatus !== "PENDING"}
+                            >
+                              {loadingRefunds[purchase.id] ? (
+                                <div className="flex items-center space-x-2">
+                                  <Spinner size={16} />{" "}
+                                  <span>Procesando...</span>
+                                </div>
+                              ) : (
+                                <div className="flex flex-row items-center px-2 space-x-2">
+                                  <span>Solicitar reembolso</span>
+                                  <span className="flex">
+                                    <MoneyIcon
+                                      size={"5"}
+                                      color={"text-gray-800"}
+                                    />
+                                  </span>
+                                </div>
+                              )}
+                            </button>
+                          </div>
+                        )}
+                        <button
+                          onClick={() =>
+                            updatePurchaseStatus(purchase.id, "COMPLETED")
+                          }
+                          disabled={purchase.purchaseStatus !== "PENDING"}
+                          type="button"
+                          className="w-full text-gray-800 text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-gray-800 p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40"
+                        >
+                          Marcar como recibido
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

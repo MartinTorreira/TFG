@@ -6,6 +6,7 @@ import {
   updateProduct as updateProductService,
 } from "../../backend/productService";
 
+
 export const useProductStore = create((set, get) => ({
   price: "",
   category: "all",

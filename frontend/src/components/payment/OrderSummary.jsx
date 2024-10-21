@@ -12,7 +12,7 @@ const OrderSummary = () => {
   // Estado para la cantidad total y las cantidades seleccionadas por el usuario
   const [totalAmount, setTotalAmount] = useState(0);
   const [quantities, setQuantities] = useState(
-    productList.map((product) => product.quantity), // Inicializamos las cantidades con la cantidad disponible de cada producto
+    productList.map((product) => product.quantity) // Inicializamos las cantidades con la cantidad disponible de cada producto
   );
 
   // Calcular el importe total basado en las cantidades y precios de los productos
@@ -48,7 +48,7 @@ const OrderSummary = () => {
     }));
 
     const hasNegativeQuantity = productsWithQuantities.some(
-      (product) => product.quantity < 0,
+      (product) => product.quantity < 0
     );
 
     if (hasNegativeQuantity) {
@@ -109,14 +109,11 @@ const OrderSummary = () => {
                     </tr>
                   ))}
                   <tr className="">
-                    <td
-                      className="p-4 text-lg font-bold text-gray-900 dark:text-white"
-                      colSpan={2}
-                    >
-                      Total
-                    </td>
-                    <td className="p-4 text-right text-lg font-bold text-gray-900 dark:text-white">
-                      {totalAmount.toFixed(2)} €
+                   <td></td>
+                   <td></td>
+                    <td className="p-4 text-right text-lg font-bold text-gray-900 space-x-6">
+                      <span>Total</span> 
+                      <span>{totalAmount.toFixed(2).replace(".",",")} €</span>
                     </td>
                   </tr>
                 </tbody>
@@ -127,7 +124,7 @@ const OrderSummary = () => {
               <button
                 onClick={() => navigate("../home")}
                 type="button"
-                className="w-1/4 rounded-lg  border border-gray-400 bg-white py-2 text-base font-medium text-gray-900 hover:bg-opacity-80 hover:text-accent-dark hover:border-accent-dark transition-all"
+                className="w-1/5 rounded-full border border-gray-400 bg-white py-1.5 text-base font-medium text-gray-900 hover:bg-opacity-80 hover:text-accent-dark hover:border-accent-dark transition-all"
               >
                 Volver al menú
               </button>
@@ -135,7 +132,7 @@ const OrderSummary = () => {
               <button
                 onClick={handleProceedToPayment}
                 type="submit"
-                className="mt-4 flex w-1/4 items-center justify-center rounded-lg bg-accent-dark py-2 text-base font-medium text-white hover:bg-opacity-80 sm:mt-0 transition-all"
+                className="mt-4 flex w-1/5 items-center justify-center rounded-full bg-accent-dark p-1.5 text-base font-medium text-white hover:bg-opacity-80 sm:mt-0 transition-all"
               >
                 Continuar
               </button>

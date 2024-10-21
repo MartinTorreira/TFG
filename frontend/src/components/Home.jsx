@@ -46,7 +46,7 @@ const Home = ({ toggleSidebar }) => {
             initial={{ width: "3rem" }}
             animate={{ width: showText ? "6rem" : "3rem" }}
           >
-            <CategoryIcon size={28} />
+            <CategoryIcon size={6} />
             {showText && (
               <motion.span
                 className="ml-2 text-xs text-white"

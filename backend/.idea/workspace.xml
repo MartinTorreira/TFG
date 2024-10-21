@@ -14,6 +14,21 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseConversor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseConversor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/OrderConfirmation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/OrderConfirmation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/OrderSummary.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/OrderSummary.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useCartStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useCartStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/usePurchasesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/usePurchasesStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/user/ProfileSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/user/ProfileSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/icons/CategoryIcon.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/icons/CategoryIcon.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

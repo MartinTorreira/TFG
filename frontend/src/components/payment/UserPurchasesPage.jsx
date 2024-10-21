@@ -1,4 +1,3 @@
-// src/components/UserPurchasesPage.js
 import React, { useContext, useEffect } from "react";
 import usePurchasesStore from "../store/usePurchasesStore";
 import { UserPurchaseList } from "./UserPurchaseList";
@@ -22,7 +21,6 @@ const UserPurchasesPage = () => {
   }, [loadPurchases, user, token, navigate]);
 
   const handleRefund = async (captureId, amount, productId) => {
-    console.log("Refunding purchase with captureId:", captureId);
     try {
       const response = await fetch("http://localhost:8080/purchase/refund", {
         method: "POST",
@@ -75,7 +73,7 @@ const UserPurchasesPage = () => {
           <UserPurchaseList purchases={purchases} onRefund={handleRefund} />
         </div>
       ) : (
-        <div className="flex flex-col space-y-10 items-center justify-center w-full py-20">
+        <div className="flex flex-col space-y-10 items-center justify-center w-full py-20 mt-10">
           <h1 className="text-5xl font-semibold text-gray-400">
             No tienes compras registradas
           </h1>

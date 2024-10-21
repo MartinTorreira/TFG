@@ -63,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/changeImages").authenticated()
 				.antMatchers(HttpMethod.PUT, "/purchase/*/changeRefundStatus").authenticated()
+				.antMatchers(HttpMethod.PUT, "/purchase/*/changePurchaseStatus").authenticated()
 				.antMatchers(HttpMethod.PUT, "/shoppingCart/updateQuantity").authenticated()
 
 				.antMatchers(HttpMethod.DELETE, "/product/*/delete").authenticated()

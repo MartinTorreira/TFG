@@ -6,3 +6,10 @@ export const qualities = [
   { value: "WORN", label: "Desgastado", color: "plum" },
   { value: "NEEDS_REPAIR", label: "Para reparar", color: "red" },
 ];
+
+
+export const purchaseStatusMap = [
+  { value: "PENDING", label: "En progreso", color: "yellow" },
+  { value: "COMPLETED", label: "Completada", color: "green" },
+  { value: "REFUNDED", label: "Reembolsado", color: "red" },
+]

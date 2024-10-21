@@ -92,6 +92,7 @@ CREATE TABLE Purchase (
                       order_id VARCHAR(255) NOT NULL UNIQUE,
                       capture_id VARCHAR(255) UNIQUE,
                       is_refunded BOOLEAN NOT NULL DEFAULT FALSE,
+                      purchaseStatus VARCHAR(50) NOT NULL,
                       CONSTRAINT Purchase_PK PRIMARY KEY (id),
                       CONSTRAINT Buyer_FK FOREIGN KEY (buyer_id) REFERENCES User(id) ON DELETE CASCADE,
                       CONSTRAINT Seller_FK FOREIGN KEY (seller_id) REFERENCES User(id) ON DELETE CASCADE

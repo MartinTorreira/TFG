@@ -3,7 +3,7 @@ import { NotificationOff } from "../../icons/NotificationOff";
 import { NotificationOn } from "../../icons/NotificationOn";
 import { LoginContext } from "../context/LoginContext";
 import { NavbarDropdown } from "./NavbarDropdown";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { toast } from "sonner";
 
 const Navbar = ({ notification }) => {
@@ -19,40 +19,48 @@ const Navbar = ({ notification }) => {
     }
   };
 
-  const handleNavigate = (path) => {
-    navigate(path);
-  };
-
   return (
-    <nav className="backdrop-blur-3xl shadow-sm sticky top-0 z-50 bg-gray-100 ">
+    <nav className="backdrop-blur-3xl shadow-sm sticky top-0 z-50 bg-gray-100">
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Left */}
         <div className="flex items-center font-semibold">
           <button
-            onClick={() => handleNavigate("./home")}
+            onClick={() => navigate("./home")}
             className="ml-2 text-xl font-bold text-gray-900"
           >
             TFG
           </button>
           <div className="hidden md:flex space-x-2 ml-12">
-            <button
-              onClick={() => handleNavigate("./users/my-purchases")}
-              className="text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all uppercase"
+            <NavLink
+              to="/users/my-purchases"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-accent-dark text-sm font-semibold p-1 px-3 transition-all uppercase"
+                  : "text-black text-sm hover:text-accent-dark font-semibold p-1 px-3  transition-all uppercase"
+              }
             >
               Mis compras
-            </button>
-            <button
-              onClick={() => handleNavigate("./shoppingCart")}
-              className="text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all uppercase"
+            </NavLink>
+            <NavLink
+              to="/shoppingCart"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-accent-dark text-sm font-semibold p-1 px-3  transition-all uppercase"
+                  : "text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 transition-all uppercase"
+              }
             >
               Mi carro
-            </button>
-            <button
-              onClick={() => handleNavigate("./product/favorites")}
-              className="text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 hover:underline underline-offset-[21px] hover:decoration-2 transition-all uppercase"
+            </NavLink>
+            <NavLink
+              to="/product/favorites"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-accent-dark text-sm font-semibold p-1 px-3 decoration-2 transition-all uppercase"
+                  : "text-black text-sm hover:text-accent-dark font-semibold p-1 px-3 transition-all uppercase"
+              }
             >
               Favoritos
-            </button>
+            </NavLink>
           </div>
         </div>
 

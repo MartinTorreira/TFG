@@ -99,13 +99,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return source;
 	}
 
-	@Bean
+	//@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
 			throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 
-	@Bean
+	//@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

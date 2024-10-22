@@ -15,6 +15,31 @@ public class BackendApplication {
         SpringApplication.run(BackendApplication.class, args);
     }
 
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
+    @Bean
+    public MessageSource messageSource() {
+
+        ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
+
+        bean.setBasename("classpath:messages");
+        bean.setDefaultEncoding("UTF-8");
+
+        return bean;
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+
+        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+
+        bean.setValidationMessageSource(messageSource());
+
+        return bean;
+
+    }
 
 }

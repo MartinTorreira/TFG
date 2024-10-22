@@ -8,6 +8,7 @@ import { DateIcon } from "../../icons/DateIcon";
 import { Spinner } from "../../icons/Spinner";
 import { purchaseStatusMap } from "../../utils/Qualities.js";
 import { MoneyIcon } from "../../icons/MoneyIcon.jsx";
+import { Check } from "../../icons/Check";
 
 export const UserPurchaseList = ({ onRefund }) => {
   const navigate = useNavigate();
@@ -117,7 +118,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                       <span
                         className={`w-full md:w-auto rounded-full border text-xs border-${
                           statusMap[purchase.id]?.color
-                        }-100 bg-${statusMap[purchase.id]?.color}-400 text-${
+                        } bg-${statusMap[purchase.id]?.color}-900 text-${
                           statusMap[purchase.id]?.color
                         }-900 text-center py-0.5 px-1`}
                       >
@@ -128,7 +129,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                     <div className="space-y-10">
                       <div className="flex flex-col space-y-2 lg:flex-1 items-center lg:items-start">
                         {!purchase.isRefunded && (
-                          <div className="flex flex-row space-x-4 w-full ">
+                          <div className="flex flex-row space-x-4 w-full">
                             <button
                               onClick={() =>
                                 handleRefund(
@@ -137,21 +138,20 @@ export const UserPurchaseList = ({ onRefund }) => {
                                   purchase.id
                                 )
                               }
-                              className="w-full text-accent-darker text-xs font-bold px-2 hover:opacity-80 transition-all border border-accent-darker p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40"
+                              className="w-full text-gray-200 text-xs font-bold px-2 hover:opacity-80 transition-all bg-accent-darker border border-accent-darker p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500"
                               disabled={purchase.purchaseStatus !== "PENDING"}
                             >
                               {loadingRefunds[purchase.id] ? (
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-center justify-between">
                                   <Spinner size={16} />{" "}
                                   <span>Procesando...</span>
                                 </div>
                               ) : (
-                                <div className="flex flex-row items-center px-2 space-x-2">
+                                <div className="flex flex-row items-center space-x-2">
                                   <span>Solicitar reembolso</span>
-                                  <span className="flex">
+                                  <span>
                                     <MoneyIcon
-                                      size={"5"}
-                                      color={"text-gray-800"}
+                                      size={4}
                                     />
                                   </span>
                                 </div>
@@ -165,9 +165,20 @@ export const UserPurchaseList = ({ onRefund }) => {
                           }
                           disabled={purchase.purchaseStatus !== "PENDING"}
                           type="button"
-                          className="w-full text-gray-800 text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-gray-800 p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40"
+                          className="w-full text-accent-darker text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-accent-darker p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500"
                         >
-                          Marcar como recibido
+                          <div className="flex flex-row items-center space-x-1">
+                            <span>Marcar como recibido</span>
+                            <span
+                              className={`${
+                                purchase.purchaseStatus !== "PENDING"
+                                  ? "text-gray-400"
+                                  : "text-accent-darker"
+                              }`}
+                            >
+                              <Check size={4} />
+                            </span>
+                          </div>
                         </button>
                       </div>
                     </div>

@@ -5,7 +5,6 @@ import {
   addToFavorites,
   getProductById,
 } from "../../backend/productService.js";
-import { motion } from "framer-motion";
 import { Badge } from "@radix-ui/themes";
 import { qualities } from "../../utils/Qualities.js";
 import useFavoriteStore from "../store/useFavoriteStore.js";
@@ -24,6 +23,10 @@ import { BuyIcon } from "../../icons/BuyIcon.jsx";
 import { ChatIcon } from "../../icons/ChatIcon.jsx";
 import { MapPinIcon } from "../../icons/MapPinIcon.jsx";
 import { UserIcon } from "../../icons/UserIcon.jsx";
+import { CartIcon } from "../../icons/CartIcon.jsx";
+import { CartIconFilled } from "../../icons/CartIconFilled.jsx";
+import { getItemByProductId } from "../../backend/shoppingCartService.js";
+import useCartStore from "../store/useCartStore.js";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -38,7 +41,13 @@ const ProductDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
+  const { addToCart, removeFromCart, loadCart, isAdded } = useCartStore();
+  const isProductAdded = isAdded(product?.id);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    loadCart();
+  }, [isAdded])
 
   function getQualityData(quality) {
     const qualityItem = qualities.find((item) => item.value === quality);
@@ -78,6 +87,29 @@ const ProductDetails = () => {
     toast.success("Producto eliminado correctamente");
     setIsAlertOpen(false);
     navigate("../home");
+  };
+
+  const handleCartClick = (productId) => {
+    if (!token) {
+      navigate("../users/login");
+    } else {
+      if (!isProductAdded) {
+        addToCart(
+          productId,
+          1,
+          () => {},
+          (errors) => {
+            console.log(errors);
+          }
+        );
+      } else {
+        getItemByProductId(
+          productId,
+          (itemId) => removeFromCart(itemId),
+          (error) => console.log(error)
+        );
+      }
+    }
   };
 
   const handleFavoriteClick = (e) => {
@@ -180,7 +212,7 @@ const ProductDetails = () => {
               ) : null}
             </div>
           </div>
-  
+
           <div className="mt-6 sm:mt-8 lg:mt-0 text-center lg:text-left sm:flex sm:flex-col">
             <div className="flex sm:flex-col lg:flex-row items-center  sm:gap-x-6 lg:gap-x-4 sm:items-center">
               <h1 className="text-xl font-montserrat font-semibold text-gray-900 sm:text-2xl dark:text-white">
@@ -207,31 +239,25 @@ const ProductDetails = () => {
                     Comprar ahora
                   </span>
                 </button>
-                <a
-                  href="#"
-                  title=""
-                  className="text-white mt-4 sm:mt-0 bg-gray-800 hover:opacity-80 transition-all focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center"
-                  role="button"
+                <button
+                  onClick={() => handleCartClick(product.id)}
+                  title={
+                    isProductAdded ? "Quitar del carro" : "Añadir al carro"
+                  }
+                  className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 transition-all"
                 >
-                  <svg
-                    className="w-5 h-5 -ms-2 me-2"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
-                    />
-                  </svg>
-                  Añadir al carro
-                </a>
+                  {isProductAdded ? (
+                    <a className="flex flex-row space-x-2">
+                      <CartIconFilled size={20} />
+                      <span>Quitar del carro</span>
+                    </a>
+                  ) : (
+                    <a className="flex flex-row space-x-2">
+                      <CartIcon size={20} />
+                      <span>Añadir al carro</span>
+                    </a>
+                  )}
+                </button>
               </div>
             ) : (
               <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:flex-col lg:flex-row sm:mt-8">
@@ -242,7 +268,7 @@ const ProductDetails = () => {
                   <EditIcon size={20} color={"text-black -ml-2 mr-2"} />
                   Editar
                 </button>
-  
+
                 <button
                   onClick={() => handleDeleteClick(product.id)}
                   className="text-white mt-4 sm:mt-0 bg-red-800 hover:opacity-80 transition-all font-medium rounded-lg text-sm px-5 py-2.5 flex items-center justify-center"
@@ -260,7 +286,7 @@ const ProductDetails = () => {
               {product.description}
             </p>
           </div>
-  
+
           <div className="lg:col-span-2 w-full justify-center items-center mt-20">
             <label className="flex flex-row text-xl font-semibold space-x-3">
               <MapPinIcon size={20} color={"text-black -ml-2 mr-2"} />
@@ -270,7 +296,7 @@ const ProductDetails = () => {
               <ReadOnlyMap lat={product.latitude} lng={product.longitude} />
             </div>
           </div>
-  
+
           <div className="lg:col-span-2 w-full justify-center items-center mt-10">
             <label className="flex flex-row text-xl font-semibold space-x-2 mb-10 ">
               <UserIcon size={"30"} />
@@ -302,6 +328,6 @@ const ProductDetails = () => {
       />
     </section>
   );
-}  
+};
 
 export default ProductDetails;

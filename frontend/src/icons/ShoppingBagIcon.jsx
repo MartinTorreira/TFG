@@ -1,7 +1,7 @@
-export const ShoppingBagIcon = ({ size, color }) => {
+export const ShoppingBagIcon = ({ size, color = "text-gray-800" }) => {
   return (
     <svg
-      class="w-8 h-8 text-gray-800 dark:text-white"
+      class={`w-8 h-8 ${color}`}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="20"

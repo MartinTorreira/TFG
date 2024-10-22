@@ -9,7 +9,7 @@ export const qualities = [
 
 
 export const purchaseStatusMap = [
-  { value: "PENDING", label: "En progreso", color: "yellow" },
+  { value: "PENDING", label: "En progreso", color: "orange" },
   { value: "COMPLETED", label: "Completada", color: "green" },
   { value: "REFUNDED", label: "Reembolsado", color: "red" },
 ]

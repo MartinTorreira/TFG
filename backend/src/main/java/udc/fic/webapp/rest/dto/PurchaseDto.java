@@ -62,6 +62,22 @@ public class PurchaseDto {
         this.productIds = productIds;
     }
 
+    public List<PurchaseItemDto> getPurchaseItems() {
+        return purchaseItems;
+    }
+
+    public void setPurchaseItems(List<PurchaseItemDto> purchaseItems) {
+        this.purchaseItems = purchaseItems;
+    }
+
+    public Boolean getRefunded() {
+        return isRefunded;
+    }
+
+    public void setRefunded(Boolean refunded) {
+        isRefunded = refunded;
+    }
+
     public List<Integer> getQuantities() {
         return quantities;
     }
@@ -100,14 +116,6 @@ public class PurchaseDto {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
-    }
-
-    public List<PurchaseItemDto> getPurchaseItems() {
-        return purchaseItems;
-    }
-
-    public void setPurchaseItems(List<PurchaseItemDto> purchaseItems) {
-        this.purchaseItems = purchaseItems;
     }
 
     public Date getPurchaseDate() {

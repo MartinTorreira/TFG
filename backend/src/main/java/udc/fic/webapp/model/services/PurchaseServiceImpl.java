@@ -19,11 +19,13 @@ import udc.fic.webapp.rest.dto.PurchaseDto;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import udc.fic.webapp.rest.dto.PurchaseItemDto;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -44,62 +46,55 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private PayPalHttpClient payPalClient;
 
-    private static final Logger logger = LoggerFactory.getLogger(PurchaseServiceImpl.class);
-
-
+    // PurchaseServiceImpl.java
     @Override
-    public Purchase createPurchase(Long buyerId, Long sellerId, List<Long> productIds, List<Integer> quantities, Double amount, String paymentMethod, String orderId, String purchaseStatus) throws InstanceNotFoundException {
-        User buyer = userDao.findById(buyerId)
-                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", buyerId));
+    public Purchase createPurchase(PurchaseDto dto) throws InstanceNotFoundException {
+        User buyer = userDao.findById(dto.getBuyerId())
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", dto.getBuyerId()));
 
-        User seller = userDao.findById(sellerId)
-                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", sellerId));
+        User seller = userDao.findById(dto.getSellerId())
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", dto.getSellerId()));
 
         Purchase purchase = new Purchase();
         purchase.setBuyer(buyer);
         purchase.setSeller(seller);
-        purchase.setAmount(amount);
+        purchase.setAmount(dto.getAmount());
         purchase.setPurchaseDate(new Date());
 
         // Use the orderId provided by PayPal
-        if (orderId == null || orderId.isEmpty()) {
+        if (dto.getOrderId() == null || dto.getOrderId().isEmpty()) {
             throw new IllegalArgumentException("orderId must be provided by PayPal");
         }
-        purchase.setOrderId(orderId);
+        purchase.setOrderId(dto.getOrderId());
         purchase.setIsRefunded(false);
 
-        // Validate and set status
-        if (purchaseStatus == null || purchaseStatus.isEmpty()) {
+        if (dto.getPurchaseStatus() == null || dto.getPurchaseStatus().isEmpty()) {
             throw new IllegalArgumentException("status must be provided");
         }
-        purchase.setPurchaseStatus(Purchase.PurchaseStatus.valueOf(purchaseStatus));
+        purchase.setPurchaseStatus(Purchase.PurchaseStatus.valueOf(dto.getPurchaseStatus()));
 
         Purchase.PaymentMethod paymentMethodValue;
         try {
-            paymentMethodValue = Purchase.PaymentMethod.valueOf(paymentMethod.toUpperCase());
+            paymentMethodValue = Purchase.PaymentMethod.valueOf(dto.getPaymentMethod().toUpperCase());
             purchase.setPaymentMethod(paymentMethodValue);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid payment method: " + paymentMethod);
+            throw new IllegalArgumentException("Invalid payment method: " + dto.getPaymentMethod());
         }
 
         purchase = purchaseDao.save(purchase);
 
-        for (int i = 0; i < productIds.size(); i++) {
-            Long productId = productIds.get(i);
-            Integer quantity = quantities.get(i);
-
-            Product product = productDao.findById(productId)
-                    .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", productId));
+        for (PurchaseItemDto itemDto : dto.getPurchaseItems()) {
+            Product product = productDao.findById(itemDto.getProductId())
+                    .orElseThrow(() -> new InstanceNotFoundException("project.entities.product", itemDto.getProductId()));
 
             PurchaseItem purchaseItem = new PurchaseItem();
             purchaseItem.setPurchase(purchase);
             purchaseItem.setProduct(product);
-            purchaseItem.setQuantity(quantity);
+            purchaseItem.setQuantity(itemDto.getQuantity());
 
             purchaseItemDao.save(purchaseItem);
         }
 
-        System.out.println("Purchase created with orderId: " + purchase.getOrderId());
         return purchase;
     }
 
@@ -194,7 +189,6 @@ public class PurchaseServiceImpl implements PurchaseService {
                 .orElseThrow(() -> new InstanceNotFoundException("Purchase not found", purchaseId));
         purchase.setCaptureId(captureId);
         purchaseDao.save(purchase);
-        logger.info("Purchase completed with captureId: {}", captureId);
     }
 
     @Override
@@ -204,6 +198,16 @@ public class PurchaseServiceImpl implements PurchaseService {
             throw new InstanceNotFoundException("Purchase not found for captureId: " ,captureId);
         }
         return purchaseOpt.get();
+    }
+
+
+    public List<PurchaseItem> getPurchaseItems(List<Product> products) {
+        return products.stream().map(product -> {
+            PurchaseItem purchaseItem = new PurchaseItem();
+            purchaseItem.setProduct(product);
+            purchaseItem.setQuantity(1);
+            return purchaseItem;
+        }).toList();
     }
 
 

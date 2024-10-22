@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public interface PurchaseService {
 
-    Purchase createPurchase(Long buyerId, Long sellerId, List<Long> productIds, List<Integer> quantities, Double amount, String paymentMethod, String orderId, String purchaseStatus) throws InstanceNotFoundException;
+    Purchase createPurchase(PurchaseDto dto) throws InstanceNotFoundException;
 
     Order executePayment(String orderId) throws IOException;
 

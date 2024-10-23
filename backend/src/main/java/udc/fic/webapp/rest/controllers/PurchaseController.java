@@ -65,16 +65,8 @@ public class PurchaseController {
                     .orElse("");
 
             // Crear la compra en la base de datos
-            Purchase purchase = purchaseService.createPurchase(
-                    dto.getBuyerId(),
-                    dto.getSellerId(),
-                    dto.getProductIds(),
-                    dto.getQuantities(),
-                    dto.getAmount(),
-                    dto.getPaymentMethod(),
-                    order.id(),
-                    dto.getPurchaseStatus()
-            );
+            dto.setOrderId(order.id()); // Asegurarse de que el orderId de PayPal se use
+            Purchase purchase = purchaseService.createPurchase(dto);
 
             // Crear la respuesta
             Map<String, Object> response = new HashMap<>();

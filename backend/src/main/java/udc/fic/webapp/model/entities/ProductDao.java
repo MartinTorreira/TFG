@@ -26,4 +26,6 @@ public interface ProductDao extends PagingAndSortingRepository<Product, Long> {
     @Query("SELECT pi.product FROM PurchaseItem pi WHERE pi.purchase.id = :purchaseId")
     List<Product> findProductsByPurchaseId(@Param("purchaseId") Long purchaseId);
 
+    List<Product> findAllById(Iterable<Long> ids);
+
 }

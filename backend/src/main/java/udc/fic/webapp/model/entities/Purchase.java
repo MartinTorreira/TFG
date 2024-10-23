@@ -1,15 +1,17 @@
-// Purchase.java
 package udc.fic.webapp.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "Purchase")
 public class Purchase {
+
 
     public enum PaymentMethod {
         CREDIT_CARD, PAYPAL
@@ -24,12 +26,12 @@ public class Purchase {
     private Double amount;
     private User buyer;
     private User seller;
-    private List<PurchaseItem> items;
     private PaymentMethod paymentMethod;
     private String orderId;
     private String captureId;
     private Boolean isRefunded;
     private PurchaseStatus purchaseStatus;
+    private List<PurchaseItem> items = new ArrayList<>();
 
 
     public Purchase(){}
@@ -161,4 +163,5 @@ public class Purchase {
     public void setPurchaseStatus(PurchaseStatus status) {
         this.purchaseStatus = status;
     }
+
 }

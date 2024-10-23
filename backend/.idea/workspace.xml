@@ -5,19 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e84d27b1-8202-4e3c-a5e3-979b2dd190af.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e84d27b1-8202-4e3c-a5e3-979b2dd190af/storage_v2/_src_/schema/webapp.Tf7N0A.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/BackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/BackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/FavoriteServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/FavoriteServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/ProductDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/ProductDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/icons/MoneyIcon.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/icons/MoneyIcon.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/icons/ShoppingBagIcon.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/icons/ShoppingBagIcon.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/utils/getCityFromCoordinates" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/utils/Qualities.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/Qualities.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,67 +57,75 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HTTP Request.All in generated-requests.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in webapp.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BackendApplicationTests.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BackendApplicationTests.simpleTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.testAddFavorite.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testAddProduct.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testChangeProductImages.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ProductServiceTest.testUpdateProduct.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.Testo.a.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.a.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.simpleTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.test1.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testChangePassword.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testLoginFromNonExistentId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testSignUpAndLoginFromId.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature-03/Purchase&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP Request.All in generated-requests.executor": "Run",
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #2.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "JUnit.All in webapp.executor": "Run",
+    "JUnit.BackendApplicationTests.executor": "Run",
+    "JUnit.BackendApplicationTests.simpleTest.executor": "Run",
+    "JUnit.FavoriteServiceTest.executor": "Coverage",
+    "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
+    "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
+    "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
+    "JUnit.ProductServiceTest.executor": "Coverage",
+    "JUnit.ProductServiceTest.testAddProduct.executor": "Run",
+    "JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor": "Run",
+    "JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor": "Run",
+    "JUnit.ProductServiceTest.testChangeProductImages.executor": "Run",
+    "JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor": "Run",
+    "JUnit.ProductServiceTest.testUpdateProduct.executor": "Run",
+    "JUnit.PurchaseServiceTest.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testCompleteOrder.executor": "Run",
+    "JUnit.PurchaseServiceTest.testCompleteOrderWithCaptureId.executor": "Run",
+    "JUnit.PurchaseServiceTest.testCompletePurchase.executor": "Run",
+    "JUnit.PurchaseServiceTest.testCreateOrder.executor": "Run",
+    "JUnit.PurchaseServiceTest.testExecutePayment.executor": "Run",
+    "JUnit.PurchaseServiceTest.testGetPurchaseByCaptureId.executor": "Run",
+    "JUnit.PurchaseServiceTest.testGetPurchaseByOrderId.executor": "Debug",
+    "JUnit.Testo.a.executor": "Run",
+    "JUnit.UserServiceTest.a.executor": "Run",
+    "JUnit.UserServiceTest.executor": "Coverage",
+    "JUnit.UserServiceTest.simpleTest.executor": "Run",
+    "JUnit.UserServiceTest.test1.executor": "Run",
+    "JUnit.UserServiceTest.testChangePassword.executor": "Run",
+    "JUnit.UserServiceTest.testLoginFromNonExistentId.executor": "Run",
+    "JUnit.UserServiceTest.testSignUpAndLoginFromId.executor": "Run",
+    "JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.BackendApplication.executor": "Run",
+    "git-widget-placeholder": "feature-04/Notification",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "two.files.diff.last.used.file": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ],
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;PLAIN_TEXT&quot;
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
     ]
   }
-}</component>
-  <component name="RunManager" selected="JUnit.FavoriteServiceTest.testAddFavorite">
+}]]></component>
+  <component name="RunManager" selected="JUnit.FavoriteServiceTest">
     <configuration name="FavoriteServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
@@ -126,22 +137,6 @@
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
       <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FavoriteServiceTest.testAddFavorite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
-      <option name="METHOD_NAME" value="testAddFavorite" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -161,6 +156,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PurchaseServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PurchaseServiceTest.testExecutePayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
+      <option name="METHOD_NAME" value="testExecutePayment" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
@@ -172,22 +198,6 @@
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
       <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.UserServiceTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest.testSignUpDuplicatedUserName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.UserServiceTest" />
-      <option name="METHOD_NAME" value="testSignUpDuplicatedUserName" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -208,19 +218,19 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FavoriteServiceTest.testAddFavorite" />
-        <item itemvalue="JUnit.UserServiceTest" />
         <item itemvalue="JUnit.FavoriteServiceTest" />
         <item itemvalue="JUnit.ProductServiceTest" />
-        <item itemvalue="JUnit.UserServiceTest.testSignUpDuplicatedUserName" />
+        <item itemvalue="JUnit.UserServiceTest" />
+        <item itemvalue="JUnit.PurchaseServiceTest" />
+        <item itemvalue="JUnit.PurchaseServiceTest.testExecutePayment" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -307,6 +317,9 @@
       <workItem from="1729605661921" duration="3045000" />
       <workItem from="1729609353691" duration="6372000" />
       <workItem from="1729616446416" duration="260000" />
+      <workItem from="1729621716776" duration="10741000" />
+      <workItem from="1729632474062" duration="747000" />
+      <workItem from="1729704190398" duration="393000" />
     </task>
     <servers />
   </component>
@@ -331,22 +344,21 @@
           <properties class="java.lang.StackOverflowError" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.sql.SQLException" package="java.sql" />
-          <option name="timeStamp" value="11" />
-        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1728488876602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1729633180074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1728488920158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
-    <SUITE FILE_PATH="coverage/backend$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1728487230509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest.ic" NAME="PurchaseServiceTest Coverage Results" MODIFIED="1729633126382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$FavoriteServiceTest.ic" NAME="FavoriteServiceTest Coverage Results" MODIFIED="1728491225157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1729633157971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$FavoriteServiceTest.ic" NAME="FavoriteServiceTest Coverage Results" MODIFIED="1729633197373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
   </component>

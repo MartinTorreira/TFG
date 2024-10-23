@@ -12,8 +12,6 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
 
-
-
     public enum Quality {
         NEEDS_REPAIR, WORN, USED, GOOD, LIKE_NEW, NEW
     }
@@ -31,7 +29,6 @@ public class Product {
     private Category category;
     private List<PurchaseItem> purchaseItems;
 
-
     public Product() {}
 
     public Product(String name, String description, double price, int quantity, Double latitude, Double longitude, User user, Category category) {
@@ -44,7 +41,6 @@ public class Product {
         this.user = user;
         this.category = category;
     }
-
 
     public Product(String name, String description, double price, int quantity, Quality quality, Double latitude, Double longitude, List<Product_Images> images, User user, Category category) {
         this.name = name;

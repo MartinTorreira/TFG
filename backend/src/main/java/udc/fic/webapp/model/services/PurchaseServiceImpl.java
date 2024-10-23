@@ -46,6 +46,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Autowired
     private PayPalHttpClient payPalClient;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Override
     public Purchase createPurchase(PurchaseDto dto) throws InstanceNotFoundException {
         User buyer = userDao.findById(dto.getBuyerId())
@@ -92,6 +95,9 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItem.setQuantity(itemDto.getQuantity());
 
             purchaseItemDao.save(purchaseItem);
+
+            notifySeller(purchase, purchaseItem);
+
         }
 
         return purchase;
@@ -207,6 +213,15 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItem.setQuantity(1);
             return purchaseItem;
         }).toList();
+    }
+
+
+    // NOTIFICATIONS ==========================================================
+
+    @Override
+    public void notifySeller(Purchase purchase, PurchaseItem purchaseItem) throws InstanceNotFoundException {
+        String message = "You have a new purchase for product(s) in order " + purchase.getOrderId();
+        notificationService.createNotification(purchase.getSeller().getId(), purchaseItem.getProduct().getId(), message);
     }
 
 

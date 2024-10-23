@@ -164,7 +164,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                           }
                           disabled={purchase.purchaseStatus !== "PENDING"}
                           type="button"
-                          className="w-full text-accent-darker text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-gray-200 p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-accent-light/20"
+                          className="w-full text-gray-700 text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-gray-200 p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-accent-light/20"
                         >
                           <div className="flex flex-row items-center space-x-1 ">
                             <span>Marcar como recibido</span>
@@ -175,7 +175,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                                   : "text-accent-darker"
                               }`}
                             >
-                              <Check size={4} />
+                              <Check size={4} color={"text-gray-700"} />
                             </span>
                           </div>
                         </button>

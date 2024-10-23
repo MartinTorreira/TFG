@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.Purchase;
+import udc.fic.webapp.model.entities.PurchaseItem;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 
@@ -35,6 +36,8 @@ public interface PurchaseService {
     void completePurchase(Long purchaseId, String orderId) throws InstanceNotFoundException;
 
     Purchase getPurchaseByCaptureId(String captureId) throws InstanceNotFoundException;
+
+    void notifySeller(Purchase purchase, PurchaseItem purchaseItem) throws InstanceNotFoundException;
 
 
 }

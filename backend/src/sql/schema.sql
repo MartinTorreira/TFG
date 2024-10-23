@@ -1,4 +1,5 @@
 -- Drop tables if they exist
+DROP TABLE IF EXISTS Notification;
 DROP TABLE IF EXISTS PurchaseItem;
 DROP TABLE IF EXISTS Purchase;
 DROP TABLE IF EXISTS Favorite;
@@ -120,3 +121,17 @@ CREATE TABLE Favorite (
                       CONSTRAINT Product_Favorite_FK FOREIGN KEY (productId) REFERENCES Product(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;
 
+
+
+-- Notificaciones (notificación al vendedor cuando alguien compra su producto)
+CREATE TABLE Notification (
+                      id BIGINT AUTO_INCREMENT,
+                      user_id BIGINT NOT NULL,
+                      product_id BIGINT NOT NULL,
+                      message TEXT NOT NULL,
+                      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                      is_read BOOLEAN NOT NULL DEFAULT FALSE,
+                      CONSTRAINT Notification_PK PRIMARY KEY (id),
+                      CONSTRAINT User_Notification_FK FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
+                      CONSTRAINT Product_Notification_FK FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
+) ENGINE = InnoDB;

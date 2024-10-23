@@ -5,22 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e84d27b1-8202-4e3c-a5e3-979b2dd190af.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e84d27b1-8202-4e3c-a5e3-979b2dd190af/storage_v2/_src_/schema/webapp.Tf7N0A.meta" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Notification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/NotificationDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/NotificationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/NotificationConversor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/NotificationDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/utils/getCityFromCoordinates" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/utils/Qualities.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/Qualities.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +63,7 @@
     "JUnit.All in webapp.executor": "Run",
     "JUnit.BackendApplicationTests.executor": "Run",
     "JUnit.BackendApplicationTests.simpleTest.executor": "Run",
-    "JUnit.FavoriteServiceTest.executor": "Coverage",
+    "JUnit.FavoriteServiceTest.executor": "Debug",
     "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
     "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
     "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
@@ -78,7 +74,7 @@
     "JUnit.ProductServiceTest.testChangeProductImages.executor": "Run",
     "JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor": "Run",
     "JUnit.ProductServiceTest.testUpdateProduct.executor": "Run",
-    "JUnit.PurchaseServiceTest.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.executor": "Debug",
     "JUnit.PurchaseServiceTest.testCompleteOrder.executor": "Run",
     "JUnit.PurchaseServiceTest.testCompleteOrderWithCaptureId.executor": "Run",
     "JUnit.PurchaseServiceTest.testCompletePurchase.executor": "Run",
@@ -100,7 +96,7 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
+    "Spring Boot.BackendApplication.executor": "Debug",
     "git-widget-placeholder": "feature-04/Notification",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
@@ -125,7 +121,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.FavoriteServiceTest">
+  <component name="RunManager" selected="Spring Boot.BackendApplication">
     <configuration name="FavoriteServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
@@ -218,10 +214,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PurchaseServiceTest" />
         <item itemvalue="JUnit.FavoriteServiceTest" />
         <item itemvalue="JUnit.ProductServiceTest" />
         <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.PurchaseServiceTest" />
         <item itemvalue="JUnit.PurchaseServiceTest.testExecutePayment" />
       </list>
     </recent_temporary>
@@ -319,7 +315,7 @@
       <workItem from="1729616446416" duration="260000" />
       <workItem from="1729621716776" duration="10741000" />
       <workItem from="1729632474062" duration="747000" />
-      <workItem from="1729704190398" duration="393000" />
+      <workItem from="1729704190398" duration="6315000" />
     </task>
     <servers />
   </component>
@@ -344,6 +340,11 @@
           <properties class="java.lang.StackOverflowError" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

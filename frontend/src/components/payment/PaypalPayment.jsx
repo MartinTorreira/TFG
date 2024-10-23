@@ -100,12 +100,14 @@ const PayPalPayment = () => {
         body: JSON.stringify({
           buyerId: user.id,
           sellerId: sellerId,
-          productIds: products.map((product) => product.id),
-          quantities: products.map((product) => product.quantity),
+          purchaseItems: products.map((product) => ({
+            productId: product.id,
+            quantity: product.quantity,
+          })),
           amount: totalAmount,
           currency: "EUR",
-          paymentMethod: "paypal",
-          purchaseStatus: "PENDING"
+          paymentMethod: "PAYPAL",
+          purchaseStatus: "PENDING",
         }),
       });
 

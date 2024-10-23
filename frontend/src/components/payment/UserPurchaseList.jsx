@@ -129,7 +129,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                     <div className="space-y-10">
                       <div className="flex flex-col space-y-2 lg:flex-1 items-center lg:items-start">
                         {!purchase.isRefunded && (
-                          <div className="flex flex-row space-x-4 w-full">
+                          <div className="flex flex-row w-full">
                             <button
                               onClick={() =>
                                 handleRefund(
@@ -138,16 +138,16 @@ export const UserPurchaseList = ({ onRefund }) => {
                                   purchase.id
                                 )
                               }
-                              className="w-full text-gray-200 text-xs font-bold px-2 hover:opacity-80 transition-all bg-accent-darker border border-accent-darker p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500"
+                              className="w-full text-xs text-red-900/80 font-bold hover:opacity-80 transition-all border border-red-900/80 p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-red-100/20"
                               disabled={purchase.purchaseStatus !== "PENDING"}
                             >
                               {loadingRefunds[purchase.id] ? (
-                                <div className="flex items-center justify-between">
+                                <div className="flex items-center justify-center">
                                   <Spinner size={16} />{" "}
                                   <span>Procesando...</span>
                                 </div>
                               ) : (
-                                <div className="flex flex-row items-center space-x-2">
+                                <div className="flex flex-row items-center space-x-1 justify-center">
                                   <span>Solicitar reembolso</span>
                                   <span>
                                     <MoneyIcon
@@ -165,9 +165,9 @@ export const UserPurchaseList = ({ onRefund }) => {
                           }
                           disabled={purchase.purchaseStatus !== "PENDING"}
                           type="button"
-                          className="w-full text-accent-darker text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-accent-darker p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500"
+                          className="w-full text-accent-darker text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-accent-darker p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-accent-light/20"
                         >
-                          <div className="flex flex-row items-center space-x-1">
+                          <div className="flex flex-row items-center space-x-1 ">
                             <span>Marcar como recibido</span>
                             <span
                               className={`${

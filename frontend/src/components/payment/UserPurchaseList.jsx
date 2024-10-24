@@ -13,8 +13,7 @@ import { Check } from "../../icons/Check";
 export const UserPurchaseList = ({ onRefund }) => {
   const navigate = useNavigate();
   const { user } = useContext(LoginContext);
-  const { purchases, loadPurchases, updatePurchaseStatus } =
-    usePurchasesStore();
+  const { purchases, loadPurchases, updatePurchaseStatus } = usePurchasesStore();
   const [loadingRefunds, setLoadingRefunds] = useState({});
   const [statusMap, setStatusMap] = useState({});
 
@@ -74,10 +73,10 @@ export const UserPurchaseList = ({ onRefund }) => {
                   }`}
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between text-center lg:text-left py-4 space-y-10 lg:space-y-0 lg:space-x-4">
-                    {/* ID de compra */}
+                    {/* ID del pedido */}
                     <div className="flex flex-col space-y-1 items-center lg:items-start lg:flex-1">
                       <span className="text-xs font-semibold text-gray-500">
-                        ID de compra
+                        ID del pedido
                       </span>
                       <button
                         onClick={() => handleNavigate(purchase.id)}

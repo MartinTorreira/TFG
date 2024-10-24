@@ -46,7 +46,7 @@ export const getAllCategories = (onSuccess, onErrors) => {
   appFetch(`/product/allCategories`, fetchConfig("GET"), onSuccess, onErrors);
 };
 
-export const getProductById = (productId, onSuccess, onErrors) => {
+export const getProductById = async (productId, onSuccess, onErrors) => {
   appFetch(
     `/product/${productId}/details`,
     fetchConfig("GET"),

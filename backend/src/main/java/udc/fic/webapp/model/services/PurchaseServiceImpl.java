@@ -216,12 +216,25 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
 
+
+    @Override
+    public Page<Purchase> getSalesByUserId(Long userId, int page, int size) throws InstanceNotFoundException {
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", userId));
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+
+        // Cambia a findBySellerId para obtener las compras donde el usuario es el vendedor
+        return purchaseDao.findBySellerId(userId, pageRequest);
+    }
+
+
     // NOTIFICATIONS ==========================================================
 
     @Override
     public void notifySeller(Purchase purchase, PurchaseItem purchaseItem) throws InstanceNotFoundException {
         String message = "You have a new purchase for product(s) in order " + purchase.getOrderId();
-        notificationService.createNotification(purchase.getSeller().getId(), purchaseItem.getProduct().getId(), message);
+        notificationService.createNotification(purchase.getBuyer().getId(),purchaseItem.getProduct().getId(), message);
     }
 
 

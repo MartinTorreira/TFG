@@ -2,10 +2,11 @@ import React, { useContext, useEffect } from "react";
 import usePurchasesStore from "../store/usePurchasesStore";
 import { UserPurchaseList } from "./UserPurchaseList";
 import { LoginContext } from "../context/LoginContext";
-import { NotFound } from "../../icons/NotFound";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { changeRefundStatus } from "../../backend/paymentService";
+import { NotFound } from "../../icons/NotFound.jsx";
+
 
 const UserPurchasesPage = () => {
   const { user, token } = useContext(LoginContext);

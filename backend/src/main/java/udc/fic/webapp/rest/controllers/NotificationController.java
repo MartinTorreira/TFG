@@ -12,13 +12,13 @@ import udc.fic.webapp.rest.dto.NotificationDto;
 import udc.fic.webapp.rest.dto.NotificationConversor;
 
 @RestController
-@RequestMapping("/notifications")
+@RequestMapping("/user")
 public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;
 
-    @PostMapping("/create")
+    @PostMapping("/notifications/create")
     public ResponseEntity<NotificationDto> createNotification(@RequestBody NotificationDto notificationDto) throws InstanceNotFoundException {
         Notification notification = notificationService.createNotification(
                 notificationDto.getUserId(),
@@ -28,7 +28,7 @@ public class NotificationController {
         return ResponseEntity.ok(NotificationConversor.toDto(notification));
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/{userId}/getNotifications")
     public ResponseEntity<Page<NotificationDto>> getNotificationsByUserId(
             @PathVariable Long userId,
             @RequestParam(name = "page", defaultValue = "0") int page,

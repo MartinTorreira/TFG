@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NotificationOff } from "../../icons/NotificationOff";
 import { NotificationOn } from "../../icons/NotificationOn";
 import { LoginContext } from "../context/LoginContext";
 import { NavbarDropdown } from "./NavbarDropdown";
 import { useNavigate, NavLink } from "react-router-dom";
 import { toast } from "sonner";
+import  NotificationPopover  from "./NotificationPopover.jsx"
 
-const Navbar = ({ notification }) => {
+
+const Navbar = () => {
   const { user, token } = useContext(LoginContext);
   const navigate = useNavigate();
+  
 
   const handleNavigateAddProduct = () => {
     if (token !== null) {
@@ -18,6 +21,7 @@ const Navbar = ({ notification }) => {
       navigate("/users/login");
     }
   };
+
 
   return (
     <nav className="backdrop-blur-3xl shadow-sm sticky top-0 z-50 bg-gray-100">
@@ -40,6 +44,16 @@ const Navbar = ({ notification }) => {
               }
             >
               Mis compras
+            </NavLink>
+            <NavLink
+              to="/users/my-sales"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-accent-dark text-sm font-semibold p-1 px-3 transition-all uppercase"
+                  : "text-black text-sm hover:text-accent-dark font-semibold p-1 px-3  transition-all uppercase"
+              }
+            >
+              Mis ventas
             </NavLink>
             <NavLink
               to="/shoppingCart"
@@ -66,8 +80,8 @@ const Navbar = ({ notification }) => {
 
         {/* Right */}
         <div className="flex items-center gap-x-3 font-semibold">
-          <button className="mr-3">
-            {notification ? <NotificationOn /> : <NotificationOff />}
+          <button className="-mr-2">
+            <NotificationPopover />
           </button>
           <button
             className="bg-accent-dark border border-accent hover:opacity-70 text-white p-2 rounded-full px-3 transition-all"

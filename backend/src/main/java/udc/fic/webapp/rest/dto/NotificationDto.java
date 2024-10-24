@@ -23,7 +23,8 @@ public class NotificationDto {
             this.isRead = isRead;
         }
 
-    public Long getId() {
+
+        public Long getId() {
             return id;
         }
 

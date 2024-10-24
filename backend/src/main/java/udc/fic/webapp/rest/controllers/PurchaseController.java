@@ -201,6 +201,16 @@ public class PurchaseController {
     }
 
 
+    @GetMapping("/{userId}/getUserSales")
+    public ResponseEntity<Page<PurchaseDto>> getSalesByUserId(@PathVariable Long userId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "9") int size) throws InstanceNotFoundException {
+
+        Page<PurchaseDto> sales = purchaseService.getSalesByUserId(userId, page, size).map(PurchaseConversor::toDto);
+
+        return ResponseEntity.ok(sales);
+
+    }
 
 
 }

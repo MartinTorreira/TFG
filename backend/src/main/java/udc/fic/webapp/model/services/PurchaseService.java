@@ -37,6 +37,8 @@ public interface PurchaseService {
 
     Purchase getPurchaseByCaptureId(String captureId) throws InstanceNotFoundException;
 
+    Page<Purchase> getSalesByUserId(Long userId, int page, int size) throws InstanceNotFoundException;
+
     void notifySeller(Purchase purchase, PurchaseItem purchaseItem) throws InstanceNotFoundException;
 
 

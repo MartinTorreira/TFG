@@ -39,7 +39,8 @@ public interface PurchaseService {
 
     Page<Purchase> getSalesByUserId(Long userId, int page, int size) throws InstanceNotFoundException;
 
-    void notifySeller(Purchase purchase, PurchaseItem purchaseItem) throws InstanceNotFoundException;
+    void notifySeller(Purchase purchase) throws InstanceNotFoundException;
 
+    void deletePurchase(Long purchaseId) throws InstanceNotFoundException;
 
 }

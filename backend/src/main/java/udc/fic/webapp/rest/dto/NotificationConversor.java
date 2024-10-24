@@ -1,12 +1,9 @@
 package udc.fic.webapp.rest.dto;
 
 import udc.fic.webapp.model.entities.Notification;
-import udc.fic.webapp.model.entities.User;
-import udc.fic.webapp.model.entities.Product;
-
+import udc.fic.webapp.model.entities.Purchase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class NotificationConversor {
 
@@ -15,18 +12,16 @@ public class NotificationConversor {
     public static NotificationDto toDto(Notification notification) {
         return new NotificationDto(
                 notification.getId(),
-                notification.getUser().getId(),
-                notification.getProduct().getId(),
+                notification.getPurchase().getId(),
                 notification.getMessage(),
                 dateFormat.format(notification.getCreatedAt()),
                 notification.isRead()
         );
     }
 
-    public static Notification toEntity(NotificationDto notificationDto, User user, Product product) {
+    public static Notification toEntity(NotificationDto notificationDto, Purchase purchase) {
         Notification notification = new Notification();
-        notification.setUser(user);
-        notification.setProduct(product);
+        notification.setPurchase(purchase);
         notification.setMessage(notificationDto.getMessage());
         try {
             notification.setCreatedAt(dateFormat.parse(notificationDto.getCreatedAt()));

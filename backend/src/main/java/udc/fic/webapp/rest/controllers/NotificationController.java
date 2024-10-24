@@ -18,15 +18,6 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @PostMapping("/notifications/create")
-    public ResponseEntity<NotificationDto> createNotification(@RequestBody NotificationDto notificationDto) throws InstanceNotFoundException {
-        Notification notification = notificationService.createNotification(
-                notificationDto.getUserId(),
-                notificationDto.getProductId(),
-                notificationDto.getMessage()
-        );
-        return ResponseEntity.ok(NotificationConversor.toDto(notification));
-    }
 
     @GetMapping("/{userId}/getNotifications")
     public ResponseEntity<Page<NotificationDto>> getNotificationsByUserId(

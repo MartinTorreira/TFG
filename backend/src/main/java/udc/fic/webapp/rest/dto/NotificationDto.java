@@ -5,8 +5,7 @@ import java.util.Date;
 public class NotificationDto {
 
         private Long id;
-        private Long userId;
-        private Long productId;
+        private Long purchaseId;
         private String message;
         private String createdAt;
         private boolean isRead;
@@ -14,10 +13,9 @@ public class NotificationDto {
         public NotificationDto() {
         }
 
-        public NotificationDto(Long id, Long userId, Long productId, String message, String createdAt, boolean isRead) {
+        public NotificationDto(Long id, Long purchaseId, String message, String createdAt, boolean isRead) {
             this.id = id;
-            this.userId = userId;
-            this.productId = productId;
+            this.purchaseId = purchaseId;
             this.message = message;
             this.createdAt = createdAt;
             this.isRead = isRead;
@@ -28,12 +26,8 @@ public class NotificationDto {
             return id;
         }
 
-        public Long getUserId() {
-            return userId;
-        }
-
-        public Long getProductId() {
-            return productId;
+        public Long getPurchaseId() {
+            return purchaseId;
         }
 
         public String getMessage() {
@@ -46,5 +40,25 @@ public class NotificationDto {
 
         public boolean isRead() {
             return isRead;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public void setPurchaseId(Long purchaseId) {
+            this.purchaseId = purchaseId;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public void setRead(boolean read) {
+            isRead = read;
         }
 }

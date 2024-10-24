@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.Notification;
 import udc.fic.webapp.model.entities.NotificationDao;
 import udc.fic.webapp.model.entities.ProductDao;
+import udc.fic.webapp.model.entities.PurchaseDao;
 import udc.fic.webapp.model.entities.UserDao;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,15 +28,18 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     private ProductDao productDao;
 
+    @Autowired
+    private PurchaseDao purchaseDao;
+
     @Override
-    public Notification createNotification(Long userId, Long productId, String message) throws InstanceNotFoundException {
+    public void createNotification(Long purchaseId, String message) throws InstanceNotFoundException {
         Notification notification = new Notification();
-        notification.setUser(userDao.findById(userId).orElseThrow(() -> new InstanceNotFoundException("User not found", userId)));
-        notification.setProduct(productDao.findById(productId).orElseThrow(() -> new InstanceNotFoundException("Product not found", productId)));
+        notification.setPurchase(purchaseDao.findById(purchaseId).orElseThrow(() -> new InstanceNotFoundException("Purchase not found", purchaseId)));
         notification.setMessage(message);
         notification.setCreatedAt(new Date());
         notification.setRead(false);
-        return notificationDao.save(notification);
+
+        notificationDao.save(notification);
     }
 
     @Override
@@ -48,5 +53,19 @@ public class NotificationServiceImpl implements NotificationService {
                 .orElseThrow(() -> new InstanceNotFoundException("Notification not found", notificationId));
         notification.setRead(true);
         notificationDao.save(notification);
+    }
+
+
+    @Override
+    public List<Notification> getNotificationsByPurchaseId(Long purchaseId) {
+        return notificationDao.findByPurchaseId(purchaseId);
+    }
+
+
+    @Override
+    public void deleteNotification(Long notificationId) throws InstanceNotFoundException {
+        Notification notification = notificationDao.findById(notificationId)
+                .orElseThrow(() -> new InstanceNotFoundException("Notification not found", notificationId));
+        notificationDao.delete(notification);
     }
 }

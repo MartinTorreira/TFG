@@ -95,8 +95,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItem.setQuantity(itemDto.getQuantity());
 
             purchaseItemDao.save(purchaseItem);
-
-            notifySeller(purchase, purchaseItem);
+            notifySeller(purchase);
 
         }
 
@@ -229,13 +228,27 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
 
+    @Override
+    public void deletePurchase(Long purchaseId) throws InstanceNotFoundException {
+        Purchase purchase = purchaseDao.findById(purchaseId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
+
+        // Borrar todas las notificaciones asociadas
+        List<Notification> notifications = notificationService.getNotificationsByPurchaseId(purchaseId);
+        for (Notification notification : notifications) {
+            notificationService.deleteNotification(notification.getId());
+        }
+
+        purchaseDao.delete(purchase);
+    }
+
+
     // NOTIFICATIONS ==========================================================
 
     @Override
-    public void notifySeller(Purchase purchase, PurchaseItem purchaseItem) throws InstanceNotFoundException {
+    public void notifySeller(Purchase purchase) throws InstanceNotFoundException {
         String message = "You have a new purchase for product(s) in order " + purchase.getOrderId();
-        notificationService.createNotification(purchase.getBuyer().getId(),purchaseItem.getProduct().getId(), message);
+        notificationService.createNotification(purchase.getId(), message);
     }
-
 
 }

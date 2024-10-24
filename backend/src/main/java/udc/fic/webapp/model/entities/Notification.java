@@ -11,12 +11,8 @@ public class Notification {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @JoinColumn(name = "purchase_id", nullable = false)
+    private Purchase purchase;
 
     @Column(nullable = false)
     private String message;
@@ -32,9 +28,8 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(User user, Product product, String message, Date createdAt, boolean isRead) {
-        this.user = user;
-        this.product = product;
+    public Notification(Purchase purchase, String message, Date createdAt, boolean isRead) {
+        this.purchase = purchase;
         this.message = message;
         this.createdAt = createdAt;
         this.isRead = isRead;
@@ -46,22 +41,6 @@ public class Notification {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public String getMessage() {
@@ -86,5 +65,13 @@ public class Notification {
 
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
     }
 }

@@ -73,10 +73,10 @@ export const UserPurchaseList = ({ onRefund }) => {
                   }`}
                 >
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between text-center lg:text-left py-4 space-y-10 lg:space-y-0 lg:space-x-4">
-                    {/* ID del pedido */}
+                    {/* ID de compra */}
                     <div className="flex flex-col space-y-1 items-center lg:items-start lg:flex-1">
                       <span className="text-xs font-semibold text-gray-500">
-                        ID del pedido
+                        ID de compra
                       </span>
                       <button
                         onClick={() => handleNavigate(purchase.id)}

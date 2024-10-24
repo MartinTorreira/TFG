@@ -24,7 +24,7 @@ const UserSalesPage = () => {
   return (
     <>
       {sales.length > 0 ? (
-        <div className="mt-10 lg:w-2/3 mx-auto items-center px-20">
+        <div className="mt-10 2xl:w-2/3 sm:w-full mx-auto items-center">
           <UserSalesList sales={sales} />
         </div>
       ) : (

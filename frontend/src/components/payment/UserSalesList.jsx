@@ -10,7 +10,7 @@ import { Avatar } from "../Avatar.jsx";
 export const UserSalesList = ({ sales }) => {
   const navigate = useNavigate();
   const [statusMap, setStatusMap] = useState({});
-  const [userDataMap, setUserDataMap] = useState({}); // Mapeo de usuarios por ID
+  const [userDataMap, setUserDataMap] = useState({});
 
   const handleNavigate = (id) => {
     // navigate(`../purchase/order-confirmation/${id}/`);
@@ -57,17 +57,17 @@ export const UserSalesList = ({ sales }) => {
 
   return (
     <div>
-      <div className="flex flex-row items-center space-x-4 mb-10 mt-16">
-        <span>
-          <MoneyIcon size={40} />
-        </span>
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
+      <div className="flex flex-row items-center space-x-2 mb-10 mt-16 w-fit bg-gray-50 rounded-xl py-1 px-2">
+        <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl mb-0">
           Mis ventas
         </h2>
+        <span>
+          <MoneyIcon size={30} />
+        </span>
       </div>
 
       <section className="w-full mx-auto rounded-lg antialiased p-4 bg-gray-50">
-        <div className="max-w-full px-4 sm:px-8 space-y-4">
+        <div className=" space-y-4">
           {sales &&
             sales.map((sale, index) => (
               <div
@@ -136,7 +136,7 @@ export const UserSalesList = ({ sales }) => {
                       Comprador
                     </span>
                     <p className="text-sm font-medium ">
-                     {userDataMap[sale.buyerId]?.userName}
+                      {userDataMap[sale.buyerId]?.userName}
                     </p>
                   </div>
                 </div>

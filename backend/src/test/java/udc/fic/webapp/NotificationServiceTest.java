@@ -4,27 +4,31 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.DuplicateEmailException;
 import udc.fic.webapp.model.exceptions.DuplicateInstanceException;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
-import udc.fic.webapp.model.services.ProductService;
+import udc.fic.webapp.model.services.NotificationService;
 import udc.fic.webapp.model.services.PurchaseService;
 import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 import udc.fic.webapp.rest.dto.PurchaseItemConversor;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@Transactional
 @ActiveProfiles("test")
-public class PurchaseServiceTest {
+@Transactional
+public class NotificationServiceTest {
 
     @Autowired
     private UserService userService;
@@ -41,8 +45,13 @@ public class PurchaseServiceTest {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private NotificationDao notificationDao;
+
     private final String ORDER_ID = "38K03169BH194974M";
-    private final String CAPTURE_ID = "3GD54926EH467243K";
 
 
     private static Category parentCategory;
@@ -54,6 +63,7 @@ public class PurchaseServiceTest {
     private static Product product;
     private static User buyer;
     private static User seller;
+
 
     @BeforeEach
     public void setUp() throws DuplicateEmailException, DuplicateInstanceException {
@@ -91,79 +101,80 @@ public class PurchaseServiceTest {
     }
 
     @Test
-    public void testCreateOrder() throws InstanceNotFoundException {
+    public void testCreateNotification() throws InstanceNotFoundException {
         PurchaseDto purchaseDto = createPurchaseDto();
         Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        assertEquals(ORDER_ID, purchase.getOrderId());
+        Notification notification = notificationService.createNotification(purchase.getId(), "message");
+
+        assertEquals(purchase.getId(), notification.getPurchase().getId());
+        assertEquals("message", notification.getMessage());
+        assertEquals(false, notification.isRead());
     }
 
     @Test
-    public void testCompletePurchase() throws InstanceNotFoundException {
+    public void testMarkNotificationAsRead() throws InstanceNotFoundException {
         PurchaseDto purchaseDto = createPurchaseDto();
         Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        purchaseService.completePurchase(purchase.getId());
-        assertEquals(Purchase.PurchaseStatus.PENDING, purchase.getPurchaseStatus());
+        Notification notification = notificationService.createNotification(purchase.getId(), "message");
+
+        notificationService.markAsRead(notification.getId());
+        assertEquals(true, notification.isRead());
     }
 
     @Test
-    public void testGetPurchaseByProductId() throws InstanceNotFoundException {
+    public void testDeleteNotification() throws InstanceNotFoundException {
         PurchaseDto purchaseDto = createPurchaseDto();
         Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        PurchaseDto purchaseDto1 = purchaseService.getPurchaseByProductId(product.getId());
-        assertEquals(purchase.getId(), purchaseDto1.getId());
+        Notification notification = notificationService.createNotification(purchase.getId(), "message");
+
+        notificationService.deleteNotification(notification.getId());
+        assertEquals(0, notificationDao.count() - 1);
     }
 
     @Test
-    public void testGetPurchaseByCaptureId() throws InstanceNotFoundException {
+    public void testGetNotificationsByUserId() throws InstanceNotFoundException {
         PurchaseDto purchaseDto = createPurchaseDto();
         Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        purchase.setCaptureId(CAPTURE_ID);
-        purchaseDao.save(purchase);
-        Purchase purchase1 = purchaseService.getPurchaseByCaptureId(CAPTURE_ID);
-        assertEquals(purchase.getId(), purchase1.getId());
-    }
+        Notification notification = notificationService.createNotification(purchase.getId(), "El usuario b ha realizado una compra de x1 unidad del producto Product1 por un total de 1,00 €");
 
-    @Test
-    public void testGetPurchaseById() throws InstanceNotFoundException {
-        PurchaseDto purchaseDto = createPurchaseDto();
-        Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        PurchaseDto purchaseDto1 = purchaseService.getPurchaseById(purchase.getId());
-        assertEquals(purchase.getId(), purchaseDto1.getId());
-    }
-
-
-    @Test
-    public void testGetPurchaseIdFromOrderId() throws InstanceNotFoundException {
-        PurchaseDto purchaseDto = createPurchaseDto();
-        Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        Long purchaseId = purchaseService.getPurchaseIdFromOrderId(ORDER_ID);
-        assertEquals(purchase.getId(), purchaseId);
-    }
-
-    @Test
-    public void testGetProductByOrderId() throws InstanceNotFoundException {
-        PurchaseDto purchaseDto = createPurchaseDto();
-        Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        Product product1 = purchaseService.getProductByOrderId(ORDER_ID);
-        assertEquals(product.getId(), product1.getId());
+        assertNotNull(notificationDao.findById(notification.getId()));
+        assertEquals(1, notificationService.getNotificationsByUserId(purchase.getBuyer().getId(), PageRequest.of(0, 10)).getTotalElements() + 1);
     }
 
 
     @Test
-    public void testGetPurchasesByUserId() throws InstanceNotFoundException {
+    public void testGetNotificationsByPurchaseId() throws InstanceNotFoundException {
         PurchaseDto purchaseDto = createPurchaseDto();
         Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        assertEquals(1, purchaseService.getPurchasesByUserId(buyer.getId(), 0, 10).getTotalElements());
-    }
+        Notification notification = notificationService.createNotification(purchase.getId(), "message");
 
+        // Check if the number of purchaseItems is 1
+        assertEquals(1, notificationService.getNotificationsByPurchaseId(purchase.getId()).size() - 1);
+
+    }
 
     @Test
-    public void testCompletePurchaseWithOrderId() throws InstanceNotFoundException {
+    public void testGetNotificationsByPurchaseIdEmpty() throws InstanceNotFoundException {
         PurchaseDto purchaseDto = createPurchaseDto();
         Purchase purchase = purchaseService.createPurchase(purchaseDto);
-        purchaseService.completePurchase(purchase.getId(), ORDER_ID);
-        assertEquals(Purchase.PurchaseStatus.PENDING, purchase.getPurchaseStatus());
+
+        assertEquals(0, notificationService.getNotificationsByPurchaseId(purchase.getId()).size() - 1);
     }
+
+    @Test
+    public void testGetNotificationsByPurchaseIdMultiple() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        Notification notification = notificationService.createNotification(purchase.getId(), "message");
+        Notification notification1 = notificationService.createNotification(purchase.getId(), "message");
+
+        assertEquals(2, notificationService.getNotificationsByPurchaseId(purchase.getId()).size() - 1);
+    }
+
+
+
 
 
 }
+
+

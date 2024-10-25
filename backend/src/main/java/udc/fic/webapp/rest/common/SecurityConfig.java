@@ -70,6 +70,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.DELETE, "/product/*/removeFavorite").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/shoppingCart/*/removeFavorite").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/shoppingCart/*/removeItem").authenticated()
+<<<<<<< Updated upstream
+=======
+				.antMatchers(HttpMethod.DELETE, "/purchase/*/removePurchase").authenticated()
+				.antMatchers(HttpMethod.DELETE, "/notifications/*/delete").authenticated()
+
+>>>>>>> Stashed changes
 
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 

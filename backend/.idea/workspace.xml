@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/NotificationServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" afterDir="false" />
@@ -15,6 +16,15 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/NotificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/backend/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/userService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/NotificationPopover.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/NotificationPopover.jsx" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +75,13 @@
     "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
     "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
     "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
+    "JUnit.NotificationServiceTest.executor": "Run",
+    "JUnit.NotificationServiceTest.testCreateNotification.executor": "Run",
+    "JUnit.NotificationServiceTest.testDeleteNotification.executor": "Run",
+    "JUnit.NotificationServiceTest.testGetNotificationsByPurchaseId.executor": "Run",
+    "JUnit.NotificationServiceTest.testGetNotificationsByPurchaseIdEmpty.executor": "Run",
+    "JUnit.NotificationServiceTest.testGetNotificationsByUserId.executor": "Run",
+    "JUnit.NotificationServiceTest.testMarkNotificationAsRead.executor": "Run",
     "JUnit.ProductServiceTest.executor": "Coverage",
     "JUnit.ProductServiceTest.testAddProduct.executor": "Run",
     "JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor": "Run",
@@ -94,8 +111,13 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+<<<<<<< Updated upstream
     "Spring Boot.BackendApplication.executor": "Run",
     "git-widget-placeholder": "test",
+=======
+    "Spring Boot.BackendApplication.executor": "Debug",
+    "git-widget-placeholder": "main",
+>>>>>>> Stashed changes
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
     "node.js.detected.package.eslint": "true",
@@ -119,8 +141,21 @@
     ]
   }
 }]]></component>
+<<<<<<< Updated upstream
   <component name="RunManager" selected="JUnit.FavoriteServiceTest">
     <configuration name="FavoriteServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+=======
+  <component name="RunManager" selected="JUnit.All in webapp">
+    <configuration name="All in webapp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+>>>>>>> Stashed changes
+      <module name="webapp" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -129,13 +164,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProductServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="NotificationServiceTest.testDeleteNotification" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -144,44 +179,18 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ProductServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PurchaseServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PurchaseServiceTest.testExecutePayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
-      <option name="METHOD_NAME" value="testExecutePayment" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
+      <option name="METHOD_NAME" value="testDeleteNotification" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+<<<<<<< Updated upstream
+    <configuration name="PurchaseServiceTest.testExecutePayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="NotificationServiceTest.testGetNotificationsByPurchaseIdEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+>>>>>>> Stashed changes
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -190,8 +199,30 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.UserServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+<<<<<<< Updated upstream
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
+      <option name="METHOD_NAME" value="testExecutePayment" />
+=======
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
+      <option name="METHOD_NAME" value="testGetNotificationsByPurchaseIdEmpty" />
+>>>>>>> Stashed changes
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationServiceTest.testGetNotificationsByUserId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
+      <option name="METHOD_NAME" value="testGetNotificationsByUserId" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -212,11 +243,19 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< Updated upstream
         <item itemvalue="JUnit.FavoriteServiceTest" />
         <item itemvalue="JUnit.ProductServiceTest" />
         <item itemvalue="JUnit.UserServiceTest" />
         <item itemvalue="JUnit.PurchaseServiceTest" />
         <item itemvalue="JUnit.PurchaseServiceTest.testExecutePayment" />
+=======
+        <item itemvalue="JUnit.All in webapp" />
+        <item itemvalue="JUnit.NotificationServiceTest" />
+        <item itemvalue="JUnit.NotificationServiceTest.testGetNotificationsByUserId" />
+        <item itemvalue="JUnit.NotificationServiceTest.testDeleteNotification" />
+        <item itemvalue="JUnit.NotificationServiceTest.testGetNotificationsByPurchaseIdEmpty" />
+>>>>>>> Stashed changes
       </list>
     </recent_temporary>
   </component>
@@ -313,6 +352,19 @@
       <workItem from="1729616446416" duration="260000" />
       <workItem from="1729621716776" duration="10741000" />
       <workItem from="1729632474062" duration="747000" />
+<<<<<<< Updated upstream
+=======
+      <workItem from="1729704190398" duration="6315000" />
+      <workItem from="1729715947659" duration="8771000" />
+      <workItem from="1729763386397" duration="10984000" />
+      <workItem from="1729788186772" duration="5241000" />
+      <workItem from="1729795702181" duration="5990000" />
+      <workItem from="1729849022758" duration="5104000" />
+      <workItem from="1729856581443" duration="91000" />
+      <workItem from="1729856682235" duration="41000" />
+      <workItem from="1729856738740" duration="7982000" />
+      <workItem from="1729867332041" duration="4271000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
@@ -345,6 +397,9 @@
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1728488920158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$NotificationServiceTest.ic" NAME="NotificationServiceTest Coverage Results" MODIFIED="1729870232165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest.ic" NAME="PurchaseServiceTest Coverage Results" MODIFIED="1729633126382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>

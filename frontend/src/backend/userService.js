@@ -119,3 +119,36 @@ export const getUserById = async (userId, onSuccess, onErrors) => {
     onErrors,
   );
 };
+<<<<<<< Updated upstream
+=======
+
+
+export const getNotifications = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/notifications/${userId}/getNotifications`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors,
+  );
+}
+
+
+export const markAsRead = async (notificationId, onSuccess, onErrors) => {
+  appFetch(
+    `/notifications/${notificationId}/markAsRead`,
+    fetchConfig("PUT"),
+    onSuccess,
+    onErrors,
+  );
+}
+
+
+export const deleteNotification = async (notificationId, onSuccess, onErrors) => {
+  appFetch(
+    `/notifications/${notificationId}/delete`,
+    fetchConfig("DELETE"),
+    onSuccess,
+    onErrors,
+  );
+}
+>>>>>>> Stashed changes

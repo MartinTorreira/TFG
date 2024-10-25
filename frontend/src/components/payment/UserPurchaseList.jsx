@@ -13,8 +13,7 @@ import { Check } from "../../icons/Check";
 export const UserPurchaseList = ({ onRefund }) => {
   const navigate = useNavigate();
   const { user } = useContext(LoginContext);
-  const { purchases, loadPurchases, updatePurchaseStatus } =
-    usePurchasesStore();
+  const { purchases, loadPurchases, updatePurchaseStatus } = usePurchasesStore();
   const [loadingRefunds, setLoadingRefunds] = useState({});
   const [statusMap, setStatusMap] = useState({});
 
@@ -39,7 +38,7 @@ export const UserPurchaseList = ({ onRefund }) => {
       const newStatusMap = {};
       purchases.forEach((purchase) => {
         const status = purchaseStatusMap.find(
-          (item) => item.value === purchase.purchaseStatus
+          (item) => item.value === purchase.purchaseStatus,
         );
         if (status) {
           newStatusMap[purchase.id] = status;
@@ -116,7 +115,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                         Estado
                       </span>
                       <span
-                        className={`w-full flex flex-row space-x-1 md:w-auto rounded-full border text-xs border-${
+                        className={`flex flex-row w-full space-x-1 md:w-auto rounded-full border text-xs border-${
                           statusMap[purchase.id]?.color
                         } bg-${statusMap[purchase.id]?.color}-900 text-${
                           statusMap[purchase.id]?.color
@@ -136,14 +135,14 @@ export const UserPurchaseList = ({ onRefund }) => {
                                 handleRefund(
                                   purchase.captureId,
                                   purchase.amount,
-                                  purchase.id
+                                  purchase.id,
                                 )
                               }
                               className="w-full text-xs text-red-900/80 font-bold hover:opacity-80 transition-all border border-red-50 p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-red-100/20"
                               disabled={purchase.purchaseStatus !== "PENDING"}
                             >
                               {loadingRefunds[purchase.id] ? (
-                                <div className="flex items-center justify-center space-x-2">
+                                <div className="flex items-center justify-center space-x-1">
                                   <Spinner size={16} />{" "}
                                   <span>Procesando...</span>
                                 </div>
@@ -151,9 +150,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                                 <div className="flex flex-row items-center space-x-1 justify-center">
                                   <span>Solicitar reembolso</span>
                                   <span>
-                                    <MoneyIcon
-                                      size={4}
-                                    />
+                                    <MoneyIcon size={4} />
                                   </span>
                                 </div>
                               )}
@@ -166,7 +163,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                           }
                           disabled={purchase.purchaseStatus !== "PENDING"}
                           type="button"
-                          className="w-full text-gray-800 text-xs font-bold rounded-md px-2 transition-all sm:mb-10 lg:mb-0 border border-gray-200 p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-gray-300"
+                          className="w-full text-gray-700 text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-gray-200 p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-accent-light/20"
                         >
                           <div className="flex flex-row items-center space-x-1 ">
                             <span>Marcar como recibido</span>
@@ -177,7 +174,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                                   : "text-gray-800"
                               }`}
                             >
-                              <Check size={4} />
+                              <Check size={4} color={"text-gray-700"} />
                             </span>
                           </div>
                         </button>

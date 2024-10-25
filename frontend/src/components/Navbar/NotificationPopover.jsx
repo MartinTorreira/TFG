@@ -12,31 +12,35 @@ import { NotificationOff } from "../../icons/NotificationOff.jsx";
 import { useNavigate } from "react-router-dom";
 import { markAsRead } from "../../backend/userService.js";
 import { purchaseStatusMap } from "../../utils/Qualities.js";
-import { InfoIcon } from "../../icons/InfoIcon.jsx";
-import { deleteNotification } from "../../backend/userService.js";
+import { InfoIcon } from  "../../icons/InfoIcon.jsx";
 
 const NotificationPopover = () => {
   const {
-    notifications = { content: [] },
+    notifications,
     fetchNotifications,
     setNotifications,
     clearNotifications,
   } = useNotificationsStore();
-
   const { user } = useContext(LoginContext);
   const navigate = useNavigate();
   const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false);
 
   const handleNotificationClick = async (path) => {
     await Promise.all(
-      notifications.content.map(async (notification) => {
-        await markAsRead(notification.id);
-        await deleteNotification(notification.id);
-      })
+      notifications.content.map((notification) => markAsRead(notification.id))
     );
-  
+
+    const updatedNotifications = {
+      ...notifications,
+      content: notifications.content.map((notification) => ({
+        ...notification,
+        read: true,
+      })),
+    };
+
+    setNotifications(updatedNotifications);
     clearNotifications();
-  
+
     navigate(path);
   };
 
@@ -68,7 +72,10 @@ const NotificationPopover = () => {
 
     return message
       .replace(orderIdRegex, "<strong>$1</strong>")
-      .replace(userRegex, 'usuario <span class="font-medium">$1</span>');
+      .replace(
+        userRegex,
+        'usuario <span class="font-medium">$1</span>'
+      );
   };
 
   const getIconForStatus = (status) => {
@@ -79,16 +86,16 @@ const NotificationPopover = () => {
   const getStatusFromMessage = (message) => {
     if (!message) return null;
 
-    const statusMatch = purchaseStatusMap.find(({ value }) =>
+    const statusMatch = purchaseStatusMap.find(({ value }) => 
       message.includes(value)
     );
 
     const purchaseMessageRegex = /El usuario .+ ha realizado una compra/g;
     if (purchaseMessageRegex.test(message)) {
-      return null;
+      return null; 
     }
 
-    return statusMatch ? statusMatch.value : null;
+    return statusMatch ? statusMatch.value : null; 
   };
 
   const getColorForStatus = (status) => {
@@ -97,9 +104,9 @@ const NotificationPopover = () => {
       return `${statusObj.background}`;
     }
     //return "#F5F5F5";
-    return "transparent";
+    return "transparent" 
   };
-
+  
   const content = (
     <PopoverContent className="w-[450px]">
       {(titleProps) => (
@@ -109,17 +116,17 @@ const NotificationPopover = () => {
           </p>
           {notifications && notifications.content.length > 0 ? (
             notifications.content.map((notification, index) => {
-              const message = notification.message;
-              const status = getStatusFromMessage(message);
+              const message = notification.message; 
+              const status = getStatusFromMessage(message); 
               const icon = getIconForStatus(status);
               const bgColor = getColorForStatus(status);
-
+  
               return (
                 <button
                   key={`${index}-${notification.id}`}
                   onClick={() => handleNotificationClick("../users/my-sales")}
                   className={`w-full text-left mt-2 p-2 py-4 border rounded-lg hover:bg-gray-50 transition-all cursor-pointer flex items-center`}
-                  style={{ backgroundColor: bgColor }}
+                  style={{ backgroundColor: bgColor }} 
                 >
                   <div className="mr-4">{icon}</div>
                   <div>

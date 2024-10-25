@@ -5,15 +5,152 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/NotificationServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/BackendApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Category.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/CategoryDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Favorite.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/FavoriteDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Product$Quality.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Product.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/ProductDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Product_Images$ProductImageId.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Product_Images.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Purchase$PaymentMethod.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Purchase$PurchaseStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/Purchase.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/PurchaseItemDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/ShoppingCart.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/ShoppingCartDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/ShoppingCartItemDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/User$RoleType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/entities/UserDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/DuplicateEmailException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/DuplicateInstanceException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/IncorrectLoginException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/IncorrectPasswordException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/InstanceException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/InstanceNotFoundException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/NonExistentSessionException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/PermissionException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/exceptions/SessionAlreadyStartedException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/FavoriteService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/FavoriteServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/PaypalService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/PermissionChecker.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/PermissionCheckerImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/ProductService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/ProductServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/PurchaseService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/ShoppingCartService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/ShoppingCartServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/UserService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/model/services/UserServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/CommonControllerAdvice.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/ErrorsDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/FieldErrorDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/JwtFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/JwtGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/JwtGeneratorImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/JwtInfo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/PayPalConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/controllers/ProductController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/controllers/ShoppingCartController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/controllers/UserController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/AuthenticatedUserDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/CategoryConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/CategoryDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ChangePasswordParamsDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/FavoriteConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/FavoriteDto$AllValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/FavoriteDto$UpdateValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/FavoriteDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/LoginParamsDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/PaypalDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ProductConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ProductDto$AllValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ProductDto$UpdateValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ProductDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/PurchaseConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/PurchaseItemConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/PurchaseItemDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/RefundRequestDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartDto$AllValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartDto$UpdateValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/ShoppingCartItemDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/UserConversor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/UserDto$AllValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/UserDto$UpdateValidations.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/java/udc/fic/webapp/rest/dto/UserDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/sql/data.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/sql/schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/test/java/udc/fic/webapp/FavoriteServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/test/java/udc/fic/webapp/ProductServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/test/java/udc/fic/webapp/PurchaseServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/test/java/udc/fic/webapp/UserServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bin/src/test/resources/application-test.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Notification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/NotificationDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/NotificationConversor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/NotificationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/SearchBar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesList.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/store/useNotificationStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/components/store/useSalesStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/hooks/useStomp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/icons/CloseSimpleIcon.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/icons/InfoIcon.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/NotificationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sql/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/sql/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/backend/paymentService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/paymentService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/backend/productService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/productService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/backend/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/userService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Avatar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Avatar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/Navbar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/NotificationPopover.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/NotificationPopover.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/SearchBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/SearchBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/OrderConfirmation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/OrderConfirmation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/ShoppingCart/ShoppingCartPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/FavoriteRow.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/FavoriteRow.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/usePurchasesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/usePurchasesStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/utils/getCityFromCoordinates" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/icons/ClockIcon.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/icons/ClockIcon.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/utils/Qualities.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/Qualities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,91 +187,76 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.All in generated-requests.executor": "Run",
-    "HTTP Request.generated-requests | #1.executor": "Run",
-    "HTTP Request.generated-requests | #2.executor": "Run",
-    "HTTP Request.generated-requests | #3.executor": "Run",
-    "HTTP Request.generated-requests | #4.executor": "Run",
-    "JUnit.All in webapp.executor": "Run",
-    "JUnit.BackendApplicationTests.executor": "Run",
-    "JUnit.BackendApplicationTests.simpleTest.executor": "Run",
-    "JUnit.FavoriteServiceTest.executor": "Debug",
-    "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
-    "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
-    "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
-    "JUnit.NotificationServiceTest.executor": "Run",
-    "JUnit.NotificationServiceTest.testCreateNotification.executor": "Run",
-    "JUnit.NotificationServiceTest.testDeleteNotification.executor": "Run",
-    "JUnit.NotificationServiceTest.testGetNotificationsByPurchaseId.executor": "Run",
-    "JUnit.NotificationServiceTest.testGetNotificationsByPurchaseIdEmpty.executor": "Run",
-    "JUnit.NotificationServiceTest.testGetNotificationsByUserId.executor": "Run",
-    "JUnit.NotificationServiceTest.testMarkNotificationAsRead.executor": "Run",
-    "JUnit.ProductServiceTest.executor": "Coverage",
-    "JUnit.ProductServiceTest.testAddProduct.executor": "Run",
-    "JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor": "Run",
-    "JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor": "Run",
-    "JUnit.ProductServiceTest.testChangeProductImages.executor": "Run",
-    "JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor": "Run",
-    "JUnit.ProductServiceTest.testUpdateProduct.executor": "Run",
-    "JUnit.PurchaseServiceTest.executor": "Debug",
-    "JUnit.PurchaseServiceTest.testCompleteOrder.executor": "Run",
-    "JUnit.PurchaseServiceTest.testCompleteOrderWithCaptureId.executor": "Run",
-    "JUnit.PurchaseServiceTest.testCompletePurchase.executor": "Run",
-    "JUnit.PurchaseServiceTest.testCreateOrder.executor": "Debug",
-    "JUnit.PurchaseServiceTest.testExecutePayment.executor": "Run",
-    "JUnit.PurchaseServiceTest.testGetPurchaseByCaptureId.executor": "Run",
-    "JUnit.PurchaseServiceTest.testGetPurchaseByOrderId.executor": "Debug",
-    "JUnit.Testo.a.executor": "Run",
-    "JUnit.UserServiceTest.a.executor": "Run",
-    "JUnit.UserServiceTest.executor": "Coverage",
-    "JUnit.UserServiceTest.simpleTest.executor": "Run",
-    "JUnit.UserServiceTest.test1.executor": "Run",
-    "JUnit.UserServiceTest.testChangePassword.executor": "Run",
-    "JUnit.UserServiceTest.testLoginFromNonExistentId.executor": "Run",
-    "JUnit.UserServiceTest.testSignUpAndLoginFromId.executor": "Run",
-    "JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.BackendApplication.executor": "Debug",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "two.files.diff.last.used.file": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.All in generated-requests.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in webapp.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BackendApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BackendApplicationTests.simpleTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FavoriteServiceTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.FavoriteServiceTest.testAddFavorite.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.ProductServiceTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.ProductServiceTest.testAddProduct.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testChangeProductImages.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProductServiceTest.testUpdateProduct.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PurchaseServiceTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.PurchaseServiceTest.testCompleteOrder.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PurchaseServiceTest.testCompleteOrderWithCaptureId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PurchaseServiceTest.testCompletePurchase.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PurchaseServiceTest.testCreateOrder.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.PurchaseServiceTest.testExecutePayment.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PurchaseServiceTest.testGetPurchaseByCaptureId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PurchaseServiceTest.testGetPurchaseByOrderId.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.Testo.a.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.a.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Coverage&quot;,
+    &quot;JUnit.UserServiceTest.simpleTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.test1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testChangePassword.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testLoginFromNonExistentId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testSignUpAndLoginFromId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging test&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "PLAIN_TEXT"
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
-  <component name="RunManager" selected="JUnit.All in webapp">
-    <configuration name="All in webapp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NotificationServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+}</component>
+  <component name="RunManager" selected="JUnit.PurchaseServiceTest.testCreateOrder">
+    <configuration name="FavoriteServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -143,13 +265,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.FavoriteServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NotificationServiceTest.testDeleteNotification" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -158,14 +280,44 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
-      <option name="METHOD_NAME" value="testDeleteNotification" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ProductServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PurchaseServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PurchaseServiceTest.testCreateOrder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="webapp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="udc.fic.webapp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
+      <option name="METHOD_NAME" value="testCreateOrder" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NotificationServiceTest.testGetNotificationsByPurchaseIdEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -174,25 +326,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
-      <option name="METHOD_NAME" value="testGetNotificationsByPurchaseIdEmpty" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NotificationServiceTest.testGetNotificationsByUserId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="webapp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="udc.fic.webapp.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.NotificationServiceTest" />
-      <option name="METHOD_NAME" value="testGetNotificationsByUserId" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.UserServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -213,11 +348,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in webapp" />
-        <item itemvalue="JUnit.NotificationServiceTest" />
-        <item itemvalue="JUnit.NotificationServiceTest.testGetNotificationsByUserId" />
-        <item itemvalue="JUnit.NotificationServiceTest.testDeleteNotification" />
-        <item itemvalue="JUnit.NotificationServiceTest.testGetNotificationsByPurchaseIdEmpty" />
+        <item itemvalue="JUnit.PurchaseServiceTest.testCreateOrder" />
+        <item itemvalue="JUnit.PurchaseServiceTest" />
+        <item itemvalue="JUnit.FavoriteServiceTest" />
+        <item itemvalue="JUnit.ProductServiceTest" />
+        <item itemvalue="JUnit.UserServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -323,7 +458,7 @@
       <workItem from="1729856581443" duration="91000" />
       <workItem from="1729856682235" duration="41000" />
       <workItem from="1729856738740" duration="7982000" />
-      <workItem from="1729867332041" duration="4271000" />
+      <workItem from="1729872575083" duration="28000" />
     </task>
     <servers />
   </component>
@@ -359,10 +494,10 @@
     <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1729633180074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1728488920158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
-    <SUITE FILE_PATH="coverage/backend$NotificationServiceTest.ic" NAME="NotificationServiceTest Coverage Results" MODIFIED="1729870232165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$NotificationServiceTest.ic" NAME="NotificationServiceTest Coverage Results" MODIFIED="1729871619106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1729871648624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest.ic" NAME="PurchaseServiceTest Coverage Results" MODIFIED="1729633126382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>

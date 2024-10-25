@@ -139,13 +139,3 @@ export const markAsRead = async (notificationId, onSuccess, onErrors) => {
     onErrors,
   );
 }
-
-
-export const deleteNotification = async (notificationId, onSuccess, onErrors) => {
-  appFetch(
-    `/notifications/${notificationId}/delete`,
-    fetchConfig("DELETE"),
-    onSuccess,
-    onErrors,
-  );
-}

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.Purchase;
+import udc.fic.webapp.model.entities.PurchaseItem;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 
@@ -19,6 +20,8 @@ public interface PurchaseService {
     Purchase createPurchase(PurchaseDto dto) throws InstanceNotFoundException;
 
     Order executePayment(String orderId) throws IOException;
+
+    PurchaseDto changePurchaseStatus(Long purchaseId, PurchaseDto purchaseDto) throws InstanceNotFoundException;
 
     Long getPurchaseIdFromOrderId(String orderId) throws InstanceNotFoundException;
 
@@ -36,5 +39,10 @@ public interface PurchaseService {
 
     Purchase getPurchaseByCaptureId(String captureId) throws InstanceNotFoundException;
 
+    Page<Purchase> getSalesByUserId(Long userId, int page, int size) throws InstanceNotFoundException;
+
+    void notifySeller(Purchase purchase) throws InstanceNotFoundException;
+
+    void deletePurchase(Long purchaseId) throws InstanceNotFoundException;
 
 }

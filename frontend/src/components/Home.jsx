@@ -12,7 +12,7 @@ const Home = ({ toggleSidebar }) => {
   const { fetchProducts, filteredProducts } = useProductStore();
   const { loadFavorites } = useFavoriteStore();
   const { setToken, setUser } = useContext(LoginContext);
-  const [showText, setShowText] = useState(false); 
+  const [showText, setShowText] = useState(false);
 
   useEffect(() => {
     const bearer = localStorage.getItem(config.SERVICE_TOKEN_NAME);
@@ -34,10 +34,10 @@ const Home = ({ toggleSidebar }) => {
   }, [loadFavorites, fetchProducts]);
 
   return (
-    <>
-      <div className="mt-20 w-1/4 mx-auto h-full py-4 flex justify-between items-center gap-x-2">
+    <div>
+      <div className="flex mt-20 w-1/3 mx-auto">
         <SearchBar />
-        <div className="relative">
+        <div className="relative ml-2">
           <motion.button
             onClick={toggleSidebar}
             onMouseEnter={() => setShowText(true)}
@@ -52,7 +52,7 @@ const Home = ({ toggleSidebar }) => {
                 className="ml-2 text-xs text-white"
                 initial={{ opacity: 0, translateX: 10 }}
                 animate={{ opacity: 1, translateX: 0 }}
-                exit={{ opacity: 0, translateX: 10 }} 
+                exit={{ opacity: 0, translateX: 10 }}
                 transition={{ duration: 0.2 }}
               >
                 <p className="text-base">Filtros</p>
@@ -61,8 +61,8 @@ const Home = ({ toggleSidebar }) => {
           </motion.button>
         </div>
       </div>
-      <CardGrid productList={filteredProducts} />
-    </>
+        <CardGrid productList={filteredProducts} />
+    </div>
   );
 };
 

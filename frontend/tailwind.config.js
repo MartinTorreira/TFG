@@ -10,9 +10,29 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      animation: {
+        typewriter: "typewriter 2s steps(11) forwards",
+      },
+      keyframes: {
+        typewriter: {
+          to: {
+            left: "100%"
+          }
+        }
+      },
       fontFamily: {
-        // Establece Lato como la fuente por defecto
-        sans: ["Montserrat","Open Sans","Switzer","Lato", "Inter", "Onest", "Roboto", "sans-serif"],
+        sans: [
+          "IBM Plex Sans",
+          "Poppins",
+          "Montserrat",
+          "Open Sans",
+          "Switzer",
+          "Lato",
+          "Inter",
+          "Onest",
+          "Roboto",
+          "sans-serif",
+        ],
         lato: ["Lato"],
       },
       colors: {

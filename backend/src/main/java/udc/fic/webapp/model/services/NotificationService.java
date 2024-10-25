@@ -21,4 +21,5 @@ public interface NotificationService {
 
     List<Notification> getNotificationsByPurchaseId(Long purchaseId);
 
+
 }

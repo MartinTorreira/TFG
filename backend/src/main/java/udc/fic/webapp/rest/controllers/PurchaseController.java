@@ -191,16 +191,21 @@ public class PurchaseController {
 
     @PutMapping("/{purchaseId}/changePurchaseStatus")
     public ResponseEntity<PurchaseDto> changePurchaseStatus(@PathVariable Long purchaseId, @RequestBody PurchaseDto purchaseDto) throws InstanceNotFoundException {
-
-        Purchase purchase = purchaseDao.findById(purchaseId)
-                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
-
-        purchase.setPurchaseStatus(Purchase.PurchaseStatus.valueOf(purchaseDto.getPurchaseStatus()));
-
-        return ResponseEntity.ok(PurchaseConversor.toDto(purchaseDao.save(purchase)));
+        PurchaseDto updatedPurchase = purchaseService.changePurchaseStatus(purchaseId, purchaseDto);
+        return ResponseEntity.ok(updatedPurchase);
     }
 
 
+    @GetMapping("/{userId}/getUserSales")
+    public ResponseEntity<Page<PurchaseDto>> getSalesByUserId(@PathVariable Long userId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "9") int size) throws InstanceNotFoundException {
+
+        Page<PurchaseDto> sales = purchaseService.getSalesByUserId(userId, page, size).map(PurchaseConversor::toDto);
+
+        return ResponseEntity.ok(sales);
+
+    }
 
 
 }

@@ -122,12 +122,12 @@ const ShoppingCartItem = ({
                 {favorite && token !== null ? (
                   <>
                     <FavoriteIconFilled size={20} />
-                    <span className="">Quitar de favoritos</span>
+                    <span className="font-normal">Quitar de favoritos</span>
                   </>
                 ) : (
                   <>
                     <FavoriteIcon size={20} />
-                    <span className="">Añadir a favoritos</span>
+                    <span className="font-normal">Añadir a favoritos</span>
                   </>
                 )}
               </span>

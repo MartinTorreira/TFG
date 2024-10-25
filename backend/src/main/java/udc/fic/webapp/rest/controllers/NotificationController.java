@@ -41,12 +41,4 @@ public class NotificationController {
        notificationDao.save(notification);
        return ResponseEntity.ok(NotificationConversor.toDto(notification));
     }
-
-    @DeleteMapping("/{notificationId}/delete")
-    public ResponseEntity<?> deleteNotification(@PathVariable Long notificationId) throws InstanceNotFoundException {
-
-        notificationService.deleteNotification(notificationId);
-
-        return ResponseEntity.noContent().build();
-    }
 }

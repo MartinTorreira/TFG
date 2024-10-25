@@ -24,6 +24,7 @@ public interface PurchaseDao extends PagingAndSortingRepository<Purchase, Long> 
     @Query("SELECT p FROM Purchase p WHERE p.captureId = :captureId")
     Optional<Purchase> findByCaptureId(String captureId);
 
-
+    @Query("SELECT p FROM Purchase p WHERE p.seller.id = :sellerId")
+    Page<Purchase> findBySellerId(@Param("sellerId") Long sellerId, Pageable pageable);
 
 }

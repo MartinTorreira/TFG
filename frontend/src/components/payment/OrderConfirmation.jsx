@@ -144,13 +144,13 @@ const OrderConfirmation = () => {
                 <button
                   onClick={() => navigate("../home")}
                   type="button"
-                  className="w-1/5 rounded-full bg-accent-darker p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all"
+                  className="w-1/5 rounded-full bg-gray-900 p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all"
                 >
                   Volver
                 </button>
                 <button 
                 onClick={() => navigate("../users/my-purchases")}
-                className="w-1/5 rounded-full bg-accent-darker p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all">
+                className="w-1/5 rounded-full bg-gray-900 p-1.5 text-white font-semibold text-base hover:bg-opacity-80 transition-all">
                   Mis compras
                 </button>
               </div>

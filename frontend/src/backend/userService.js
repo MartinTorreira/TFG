@@ -119,8 +119,6 @@ export const getUserById = async (userId, onSuccess, onErrors) => {
     onErrors,
   );
 };
-<<<<<<< Updated upstream
-=======
 
 
 export const getNotifications = async (userId, onSuccess, onErrors) => {
@@ -151,4 +149,3 @@ export const deleteNotification = async (notificationId, onSuccess, onErrors) =>
     onErrors,
   );
 }
->>>>>>> Stashed changes

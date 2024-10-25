@@ -45,7 +45,7 @@ const UserPurchasesPage = () => {
       updateRefundStatus(productId);
     } catch (error) {
       console.error("Error solicitando reembolso:", error);
-      toast.error("Hubo un problema procesando el reembolso");
+    //  toast.error("Hubo un problema procesando el reembolso");
     }
   };
 

@@ -32,14 +32,14 @@ public class NotificationServiceImpl implements NotificationService {
     private PurchaseDao purchaseDao;
 
     @Override
-    public void createNotification(Long purchaseId, String message) throws InstanceNotFoundException {
+    public Notification createNotification(Long purchaseId, String message) throws InstanceNotFoundException {
         Notification notification = new Notification();
         notification.setPurchase(purchaseDao.findById(purchaseId).orElseThrow(() -> new InstanceNotFoundException("Purchase not found", purchaseId)));
         notification.setMessage(message);
         notification.setCreatedAt(new Date());
         notification.setRead(false);
 
-        notificationDao.save(notification);
+        return notificationDao.save(notification);
     }
 
     @Override

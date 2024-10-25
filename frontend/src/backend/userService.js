@@ -123,8 +123,18 @@ export const getUserById = async (userId, onSuccess, onErrors) => {
 
 export const getNotifications = async (userId, onSuccess, onErrors) => {
   appFetch(
-    `/user/${userId}/getNotifications`,
+    `/notifications/${userId}/getNotifications`,
     fetchConfig("GET"),
+    onSuccess,
+    onErrors,
+  );
+}
+
+
+export const markAsRead = async (notificationId, onSuccess, onErrors) => {
+  appFetch(
+    `/notifications/${notificationId}/markAsRead`,
+    fetchConfig("PUT"),
     onSuccess,
     onErrors,
   );

@@ -6,17 +6,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import udc.fic.webapp.model.entities.Notification;
+import udc.fic.webapp.model.entities.NotificationDao;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.model.services.NotificationService;
 import udc.fic.webapp.rest.dto.NotificationDto;
 import udc.fic.webapp.rest.dto.NotificationConversor;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/notifications")
 public class NotificationController {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private NotificationDao notificationDao;
 
 
     @GetMapping("/{userId}/getNotifications")
@@ -29,12 +33,12 @@ public class NotificationController {
     }
 
     @PutMapping("/{notificationId}/markAsRead")
-    public ResponseEntity<Void> markAsRead(@PathVariable Long notificationId) {
-        try {
-            notificationService.markAsRead(notificationId);
-            return ResponseEntity.ok().build();
-        } catch (InstanceNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<NotificationDto> markAsRead(@PathVariable Long notificationId) throws InstanceNotFoundException {
+       Notification notification = notificationDao.findById(notificationId)
+               .orElseThrow(() -> new InstanceNotFoundException("Notification not found", notificationId));
+
+       notification.setRead(true);
+       notificationDao.save(notification);
+       return ResponseEntity.ok(NotificationConversor.toDto(notification));
     }
 }

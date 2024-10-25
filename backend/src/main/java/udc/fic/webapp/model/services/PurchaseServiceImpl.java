@@ -148,7 +148,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public PurchaseDto getPurchaseByProductId(Long productId) throws InstanceNotFoundException {
-        PurchaseItem purchaseItem = purchaseItemDao.findByProductId(productId)
+                // Recursive function to notify the seller with all purchase items
+PurchaseItem purchaseItem = purchaseItemDao.findByProductId(productId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", productId));
 
         Purchase purchase = purchaseItem.getPurchase();
@@ -164,6 +165,20 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchaseDto.setPurchaseStatus(purchase.getPurchaseStatus().toString());
 
         return purchaseDto;
+    }
+
+    @Override
+    public PurchaseDto changePurchaseStatus(Long purchaseId, PurchaseDto purchaseDto) throws InstanceNotFoundException {
+        Purchase purchase = purchaseDao.findById(purchaseId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
+
+        purchase.setPurchaseStatus(Purchase.PurchaseStatus.valueOf(purchaseDto.getPurchaseStatus()));
+        purchaseDao.save(purchase);
+
+        String message = "El estado de tu compra con ID de pedido #" + purchase.getOrderId() + " ha sido actualizado a " + purchase.getPurchaseStatus();
+        notificationService.createNotification(purchase.getId(), message);
+
+        return PurchaseConversor.toDto(purchase);
     }
 
     @Override
@@ -247,7 +262,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public void notifySeller(Purchase purchase) throws InstanceNotFoundException {
-        String message = "You have a new purchase for product(s) in order " + purchase.getOrderId();
+        User user = userDao.findById(purchase.getBuyer().getId())
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", purchase.getBuyer().getId()));
+
+        Optional<PurchaseItem> purchaseItemOpt = purchaseItemDao.findByPurchaseId(purchase.getId());
+        PurchaseItem purchaseItem = purchaseItemOpt.orElseThrow(() -> new InstanceNotFoundException("project.entities.purchaseItem", purchase.getId()));
+
+        Product product = purchaseItem.getProduct();
+        int quantity = purchaseItem.getQuantity();
+
+        String formattedAmount = String.format("%.2f €", purchase.getAmount());
+
+        String message = "El usuario " + user.getUserName()
+                + " ha realizado una compra de x" + quantity + " " + (quantity == 1 ? "unidad del producto " : "unidades del producto ")
+                + product.getName() + " por un total de " + formattedAmount;
+
         notificationService.createNotification(purchase.getId(), message);
     }
 

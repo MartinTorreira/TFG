@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface NotificationService {
 
-    void createNotification(Long purchaseId, String message) throws InstanceNotFoundException;
+    Notification createNotification(Long purchaseId, String message) throws InstanceNotFoundException;
 
     Page<Notification> getNotificationsByUserId(Long userId, Pageable pageable);
 
@@ -20,5 +20,6 @@ public interface NotificationService {
     void deleteNotification(Long notificationId) throws InstanceNotFoundException;
 
     List<Notification> getNotificationsByPurchaseId(Long purchaseId);
+
 
 }

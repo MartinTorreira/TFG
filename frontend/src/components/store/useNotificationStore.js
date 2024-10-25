@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { getNotifications } from '../../backend/userService.js';
 
 const useNotificationStore = create((set) => ({
-  notifications: [],
+  notifications: { content: [] }, 
   isLoading: false,
   error: null,
 
@@ -20,7 +20,10 @@ const useNotificationStore = create((set) => ({
     );
   },
 
-  clearNotifications: () => set({ notifications: [] }),
+  setNotifications: (newNotifications) => set({ notifications: newNotifications }),
+
+  clearNotifications: () => set({ notifications: { content: [] } }), 
 }));
+
 
 export default useNotificationStore;

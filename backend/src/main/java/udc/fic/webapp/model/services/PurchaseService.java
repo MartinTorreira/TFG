@@ -21,6 +21,8 @@ public interface PurchaseService {
 
     Order executePayment(String orderId) throws IOException;
 
+    PurchaseDto changePurchaseStatus(Long purchaseId, PurchaseDto purchaseDto) throws InstanceNotFoundException;
+
     Long getPurchaseIdFromOrderId(String orderId) throws InstanceNotFoundException;
 
     void completePurchase(Long purchaseId) throws InstanceNotFoundException;

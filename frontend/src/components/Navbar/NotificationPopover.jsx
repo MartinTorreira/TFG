@@ -9,16 +9,38 @@ import useNotificationsStore from "../store/useNotificationStore.js";
 import { LoginContext } from "../context/LoginContext";
 import { NotificationOn } from "../../icons/NotificationOn.jsx";
 import { NotificationOff } from "../../icons/NotificationOff.jsx";
-import { getPurchaseById } from "../../backend/paymentService.js";
 import { useNavigate } from "react-router-dom";
+import { markAsRead } from "../../backend/userService.js";
+import { purchaseStatusMap } from "../../utils/Qualities.js";
+import { InfoIcon } from  "../../icons/InfoIcon.jsx";
 
 const NotificationPopover = () => {
-  const { notifications, fetchNotifications } = useNotificationsStore();
+  const {
+    notifications,
+    fetchNotifications,
+    setNotifications,
+    clearNotifications,
+  } = useNotificationsStore();
   const { user } = useContext(LoginContext);
-  const [purchases, setPurchases] = useState([]);
   const navigate = useNavigate();
+  const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false);
 
-  const handleNavigate = (path) => {
+  const handleNotificationClick = async (path) => {
+    await Promise.all(
+      notifications.content.map((notification) => markAsRead(notification.id))
+    );
+
+    const updatedNotifications = {
+      ...notifications,
+      content: notifications.content.map((notification) => ({
+        ...notification,
+        read: true,
+      })),
+    };
+
+    setNotifications(updatedNotifications);
+    clearNotifications();
+
     navigate(path);
   };
 
@@ -29,56 +51,97 @@ const NotificationPopover = () => {
   }, [user, fetchNotifications]);
 
   useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const purchasePromises = notifications.content.map(
-          async (notification) => {
-            return new Promise((resolve, reject) => {
-              getPurchaseById(
-                notification.purchaseId,
-                (data) => resolve(data),
-                (error) => reject("Error fetching product details:", error)
-              );
-            });
-          }
-        );
-
-        const purchaseDetails = await Promise.all(purchasePromises);
-        setPurchases(purchaseDetails);
-      } catch (error) {
-        console.error("Error fetching notification details:", error);
-      }
-    };
-
-    if (notifications.content) {
-      fetchDetails();
-    }
+    const unseen =
+      notifications &&
+      notifications.content &&
+      notifications.content.some((notification) => !notification.read);
+    setHasUnseenNotifications(unseen);
   }, [notifications]);
 
-  const hasNotifications =
-    notifications && notifications.content && notifications.content.length > 0;
+  const formatMessage = (message) => {
+    const orderIdRegex = /(#\d+)/g;
+    const userRegex = /usuario (.+?)(?= (ha realizado|ha sido))/;
 
+    purchaseStatusMap.forEach(({ value, label }) => {
+      const statusRegex = new RegExp(value, "g");
+      message = message.replace(
+        statusRegex,
+        `<strong class="font-medium">${label}</strong>`
+      );
+    });
+
+    return message
+      .replace(orderIdRegex, "<strong>$1</strong>")
+      .replace(
+        userRegex,
+        'usuario <span class="font-medium">$1</span>'
+      );
+  };
+
+  const getIconForStatus = (status) => {
+    const statusObj = purchaseStatusMap.find((item) => item.value === status);
+    return statusObj ? statusObj.icon : <InfoIcon size={6} />;
+  };
+
+  const getStatusFromMessage = (message) => {
+    if (!message) return null;
+
+    const statusMatch = purchaseStatusMap.find(({ value }) => 
+      message.includes(value)
+    );
+
+    const purchaseMessageRegex = /El usuario .+ ha realizado una compra/g;
+    if (purchaseMessageRegex.test(message)) {
+      return null; 
+    }
+
+    return statusMatch ? statusMatch.value : null; 
+  };
+
+  const getColorForStatus = (status) => {
+    const statusObj = purchaseStatusMap.find((item) => item.value === status);
+    if (statusObj) {
+      return `${statusObj.background}`;
+    }
+    //return "#F5F5F5";
+    return "transparent" 
+  };
+  
   const content = (
-    <PopoverContent className="w-[500px]">
+    <PopoverContent className="w-[450px]">
       {(titleProps) => (
         <div className="px-1 py-2 w-full">
-          <p className="text-lg font-bold " {...titleProps}>
+          <p className="text-lg font-bold mb-4" {...titleProps}>
             Notificaciones
           </p>
-          {purchases &&
-            purchases.map((purchase, index) => {
+          {notifications && notifications.content.length > 0 ? (
+            notifications.content.map((notification, index) => {
+              const message = notification.message; 
+              const status = getStatusFromMessage(message); 
+              const icon = getIconForStatus(status);
+              const bgColor = getColorForStatus(status);
+  
               return (
                 <button
-                  key={index}
-                  onClick={() => handleNavigate("../users/my-sales")}
-                  className="p-2 py-4 border rounded-lg hover:bg-gray-200 transition-all cursor-pointer"
+                  key={`${index}-${notification.id}`}
+                  onClick={() => handleNotificationClick("../users/my-sales")}
+                  className={`w-full text-left mt-2 p-2 py-4 border rounded-lg hover:bg-gray-50 transition-all cursor-pointer flex items-center`}
+                  style={{ backgroundColor: bgColor }} 
                 >
-                  El usuario <strong>{purchase.purchaseStatus} </strong>
-                  ha comprado una unidad de tu artículo{" "}
-                  <strong>{purchase?.name}</strong>
+                  <div className="mr-4">{icon}</div>
+                  <div>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: formatMessage(notification.message),
+                      }}
+                    />
+                  </div>
                 </button>
               );
-            })}
+            })
+          ) : (
+            <p>No tienes notificaciones.</p>
+          )}
         </div>
       )}
     </PopoverContent>
@@ -86,10 +149,10 @@ const NotificationPopover = () => {
 
   return (
     <div className="flex flex-wrap">
-      <Popover showArrow offset={10} placement="bottom" backdrop={"opaque"}>
+      <Popover showArrow offset={10} placement="bottom-end" backdrop={"opaque"}>
         <PopoverTrigger>
-          <Button color="" variant="" className="capitalize">
-            {hasNotifications ? <NotificationOn /> : <NotificationOff />}
+          <Button color="mint" variant="" className="capitalize">
+            {hasUnseenNotifications ? <NotificationOn /> : <NotificationOff />}
           </Button>
         </PopoverTrigger>
         {content}

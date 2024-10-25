@@ -57,7 +57,7 @@ export const UserSalesList = ({ sales }) => {
 
   return (
     <div>
-      <div className="flex flex-row items-center space-x-2 mb-10 mt-16 w-fit bg-gray-50 rounded-xl py-1 px-2">
+      <div className="flex flex-row items-center space-x-2 mb-10 mt-16 w-fit">
         <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl mb-0">
           Mis ventas
         </h2>

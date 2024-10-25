@@ -1,4 +1,4 @@
-export const Avatar = ({ userName, imagePath, size }) => {
+export const Avatar = ({ userName, imagePath, size, textColor = "text-gray-200"}) => {
   return (
     <div class="flex items-center gap-4">
       <img
@@ -6,7 +6,7 @@ export const Avatar = ({ userName, imagePath, size }) => {
         src={imagePath}
         alt="Avatar"
       />
-      <div class="font-semibold text-gray-200">
+      <div class={`font-semibold ${textColor}`}>
         <div>{userName}</div>
       </div>
     </div>

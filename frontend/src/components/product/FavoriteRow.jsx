@@ -29,9 +29,9 @@ export const FavoriteRow = ({ item }) => {
   return (
     <div className="bg-white shadow rounded-lg  mb-4 hover:bg-gray-50 transition-all p-2">
       <div className="grid grid-cols-6 gap-4 items-center">
-        <div className="w-full  h-full flex items-center col-span-1 text-center">
+        <div className="w-full h-full flex items-center col-span-1 text-center">
           <img
-            className="w-20 ml-1"
+            className="w-20 ml-1 rounded-sm"
             src={productDto.images[0] || "https://via.placeholder.com/64"}
             alt={productDto.name}
           />

@@ -7,14 +7,17 @@
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/Purchase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/NotificationServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/NotificationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/backend/userService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/userService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Navbar/NotificationPopover.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Navbar/NotificationPopover.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useNotificationStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useNotificationStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +64,7 @@
     "JUnit.All in webapp.executor": "Run",
     "JUnit.BackendApplicationTests.executor": "Run",
     "JUnit.BackendApplicationTests.simpleTest.executor": "Run",
-    "JUnit.FavoriteServiceTest.executor": "Coverage",
+    "JUnit.FavoriteServiceTest.executor": "Debug",
     "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
     "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
     "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
@@ -72,11 +75,11 @@
     "JUnit.ProductServiceTest.testChangeProductImages.executor": "Run",
     "JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor": "Run",
     "JUnit.ProductServiceTest.testUpdateProduct.executor": "Run",
-    "JUnit.PurchaseServiceTest.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.executor": "Debug",
     "JUnit.PurchaseServiceTest.testCompleteOrder.executor": "Run",
     "JUnit.PurchaseServiceTest.testCompleteOrderWithCaptureId.executor": "Run",
     "JUnit.PurchaseServiceTest.testCompletePurchase.executor": "Run",
-    "JUnit.PurchaseServiceTest.testCreateOrder.executor": "Run",
+    "JUnit.PurchaseServiceTest.testCreateOrder.executor": "Debug",
     "JUnit.PurchaseServiceTest.testExecutePayment.executor": "Run",
     "JUnit.PurchaseServiceTest.testGetPurchaseByCaptureId.executor": "Run",
     "JUnit.PurchaseServiceTest.testGetPurchaseByOrderId.executor": "Debug",
@@ -94,8 +97,8 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "test",
+    "Spring Boot.BackendApplication.executor": "Debug",
+    "git-widget-placeholder": "feature-04/Notification",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
     "node.js.detected.package.eslint": "true",
@@ -106,7 +109,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "two.files.diff.last.used.file": "/home/user/Documentos/github/TFG/backend/src/main/resources/application.yml",
     "vue.rearranger.settings.migration": "true"
   },
@@ -119,7 +122,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.FavoriteServiceTest">
+  <component name="RunManager" selected="JUnit.PurchaseServiceTest.testCreateOrder">
     <configuration name="FavoriteServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
@@ -165,7 +168,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PurchaseServiceTest.testExecutePayment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PurchaseServiceTest.testCreateOrder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -175,7 +178,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
       <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.PurchaseServiceTest" />
-      <option name="METHOD_NAME" value="testExecutePayment" />
+      <option name="METHOD_NAME" value="testCreateOrder" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -212,19 +215,19 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PurchaseServiceTest.testCreateOrder" />
+        <item itemvalue="JUnit.PurchaseServiceTest" />
         <item itemvalue="JUnit.FavoriteServiceTest" />
         <item itemvalue="JUnit.ProductServiceTest" />
         <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.PurchaseServiceTest" />
-        <item itemvalue="JUnit.PurchaseServiceTest.testExecutePayment" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -313,6 +316,15 @@
       <workItem from="1729616446416" duration="260000" />
       <workItem from="1729621716776" duration="10741000" />
       <workItem from="1729632474062" duration="747000" />
+      <workItem from="1729704190398" duration="6315000" />
+      <workItem from="1729715947659" duration="8771000" />
+      <workItem from="1729763386397" duration="10984000" />
+      <workItem from="1729788186772" duration="5241000" />
+      <workItem from="1729795702181" duration="5990000" />
+      <workItem from="1729849022758" duration="5104000" />
+      <workItem from="1729856581443" duration="91000" />
+      <workItem from="1729856682235" duration="41000" />
+      <workItem from="1729856738740" duration="7982000" />
     </task>
     <servers />
   </component>
@@ -339,6 +351,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1729633180074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

@@ -20,6 +20,7 @@ import UserPurchasesPage from "./components/payment/UserPurchasesPage.jsx";
 import OrderSummary from "./components/payment/OrderSummary.jsx";
 import { useLoadScript } from "@react-google-maps/api";
 import ShoppingCart from "./components/payment/ShoppingCart/ShoppingCartPage.jsx";
+import UserSalesPage from "./components/payment/UserSalesPage.jsx";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -65,6 +66,7 @@ export default function App() {
               <Route path="/users/profile" element={<ProfileSettings />} />
               <Route path="/users/stats" element={<Stats />} />
               <Route path="/users/my-purchases" element={<UserPurchasesPage />} />
+              <Route path="/users/my-sales/" element={<UserSalesPage />} />
 
               <Route path="/product/add" element={<AddProduct />} />
               <Route path="/product/favorites" element={<FavoritePage />} />
@@ -76,6 +78,7 @@ export default function App() {
               <Route path="/payment/success" element={<PaymentSuccess />} />
               <Route path="/payment/purchaseTicket/:id" element={<OrderSummary />} />
               <Route path="/purchase/order-confirmation/:id" element={<OrderConfirmation />} />
+
 
 
               <Route path="/shoppingCart" element={<ShoppingCart />} />

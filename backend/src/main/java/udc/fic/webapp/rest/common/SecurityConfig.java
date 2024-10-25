@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/user/getUsers").permitAll()
 				.antMatchers(HttpMethod.GET, "/user/*/getUser").permitAll()
+				.antMatchers(HttpMethod.GET, "/user/*/getNotifications").authenticated()
 				.antMatchers(HttpMethod.GET, "/product/allCategories").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/").permitAll()
 				.antMatchers(HttpMethod.GET, "/product/*/details").permitAll()
@@ -41,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/purchase/*/getUserPurchases").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/*/getProducts").permitAll()
 				.antMatchers(HttpMethod.GET, "/purchase/*/getPurchase").permitAll()
+				.antMatchers(HttpMethod.GET, "/purchase/*/getUserSales").permitAll()
 				.antMatchers(HttpMethod.GET, "/shoppingCart/*/getItems").authenticated()
 				.antMatchers(HttpMethod.GET, "/shoppingCart/getProducts").authenticated()
 				.antMatchers(HttpMethod.GET, "/shoppingCart/*/getItemId").authenticated()
@@ -65,11 +67,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, "/purchase/*/changeRefundStatus").authenticated()
 				.antMatchers(HttpMethod.PUT, "/purchase/*/changePurchaseStatus").authenticated()
 				.antMatchers(HttpMethod.PUT, "/shoppingCart/updateQuantity").authenticated()
+				.antMatchers(HttpMethod.PUT, "/notifications/{notificationId}/markAsRead").authenticated()
 
 				.antMatchers(HttpMethod.DELETE, "/product/*/delete").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/product/*/removeFavorite").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/shoppingCart/*/removeFavorite").authenticated()
 				.antMatchers(HttpMethod.DELETE, "/shoppingCart/*/removeItem").authenticated()
+				.antMatchers(HttpMethod.DELETE, "/purchase/*/removePurchase").authenticated()
 
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 

@@ -143,8 +143,7 @@ const ShoppingCartPage = () => {
                       o{" "}
                     </span>
                     <button
-                      href="#"
-                      title=""
+                      onClick={() => navigate("/")}
                       className="inline-flex items-center gap-2 text-sm font-medium text-accent-darker underline hover:no-underline dark:text-primary-500"
                     >
                       Continua comprando

@@ -7,8 +7,10 @@ import { useProductStore } from "./store/useProductStore";
 import useFavoriteStore from "./store/useFavoriteStore";
 import SearchBar from "./SearchBar.jsx";
 import { CategoryIcon } from "../icons/CategoryIcon.jsx";
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 const Home = ({ toggleSidebar }) => {
+  const navigate = useNavigate(); // Hook para navegar
   const { fetchProducts, filteredProducts } = useProductStore();
   const { loadFavorites } = useFavoriteStore();
   const { setToken, setUser } = useContext(LoginContext);
@@ -59,9 +61,15 @@ const Home = ({ toggleSidebar }) => {
               </motion.span>
             )}
           </motion.button>
+         
         </div>
       </div>
-        <CardGrid productList={filteredProducts} />
+      <button 
+            onClick={() => navigate('/chat')} // Navegar a la página de chat
+            className="rounded-full bg-accent-dark text-white p-3">
+            Mensajes
+          </button>
+      <CardGrid productList={filteredProducts} />
     </div>
   );
 };

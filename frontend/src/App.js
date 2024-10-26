@@ -59,14 +59,23 @@ export default function App() {
           <Navbar />
           <div className="relative z-10 mb-10">
             <Routes>
-              <Route path="/" element={<Home toggleSidebar={toggleSidebar} />} />
-              <Route path="/home" element={<Home toggleSidebar={toggleSidebar} />} />
+              <Route
+                path="/"
+                element={<Home toggleSidebar={toggleSidebar} />}
+              />
+              <Route
+                path="/home"
+                element={<Home toggleSidebar={toggleSidebar} />}
+              />
 
               <Route path="/users/login" element={<Login />} />
               <Route path="/users/signUp" element={<Register />} />
               <Route path="/users/profile" element={<ProfileSettings />} />
               <Route path="/users/stats" element={<Stats />} />
-              <Route path="/users/my-purchases" element={<UserPurchasesPage />} />
+              <Route
+                path="/users/my-purchases"
+                element={<UserPurchasesPage />}
+              />
               <Route path="/users/my-sales/" element={<UserSalesPage />} />
 
               <Route path="/product/add" element={<AddProduct />} />
@@ -77,14 +86,19 @@ export default function App() {
               <Route path="/payment" element={<PaypalPayment />} />
               <Route path="/payment/error" element={<PaymentError />} />
               <Route path="/payment/success" element={<PaymentSuccess />} />
-              <Route path="/payment/purchaseTicket/:id" element={<OrderSummary />} />
-              <Route path="/purchase/order-confirmation/:id" element={<OrderConfirmation />} />
+              <Route
+                path="/payment/purchaseTicket/:id"
+                element={<OrderSummary />}
+              />
+              <Route
+                path="/purchase/order-confirmation/:id"
+                element={<OrderConfirmation />}
+              />
 
               <Route path="/shoppingCart" element={<ShoppingCart />} />
 
-              <Route path="/users/chat/" element={<ChatPage />} />
-
-
+              <Route path="/users/chat/:id" element={<ChatPage />} />
+              {/* <Route path="/users/chatlist" component={<ChatList/>} /> */}
             </Routes>
           </div>
         </div>

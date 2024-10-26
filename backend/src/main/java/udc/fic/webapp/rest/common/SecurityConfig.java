@@ -22,7 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtGenerator jwtGenerator;
 
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
@@ -47,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/shoppingCart/getProducts").authenticated()
 				.antMatchers(HttpMethod.GET, "/shoppingCart/*/getItemId").authenticated()
 				.antMatchers(HttpMethod.GET, "/shoppingCart/*/getProduct").authenticated()
+				.antMatchers(HttpMethod.GET, "/chat/messages").authenticated()
 
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
@@ -80,11 +80,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/chat/**").permitAll()
 				.antMatchers("/ws/**").permitAll()
 				.antMatchers("/app/**").permitAll()
-
 				.anyRequest().authenticated();
 	}
-
-
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
@@ -99,12 +96,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedOrigin("https://www.paypal.com");
 		config.addAllowedOrigin("https://api.sandbox.paypal.com");
 		config.addAllowedOrigin("https://sandbox.paypal.com/sdk/js?client-id=AfAuDL8Y-RaJ90kX1mAJfQy2mGGefCc1ovLwoVE74NKZCEmie7xnfiwP6om2MnAwAm0YhB6_zTfJSfWa");
-		source.registerCorsConfiguration("/ws/**", config);
-		source.registerCorsConfiguration("/chat/**", config);
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 
-
+		source.registerCorsConfiguration("/ws/**", config);
+		source.registerCorsConfiguration("/chat/**", config);
 		source.registerCorsConfiguration("/**", config);
 		return source;
 	}
@@ -119,6 +115,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
-
 }

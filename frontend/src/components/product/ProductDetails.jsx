@@ -49,6 +49,12 @@ const ProductDetails = () => {
     loadCart();
   }, [isAdded])
 
+
+  const handleNavigateChat = (userId) => {
+    navigate(`/users/chat/${userId}`);
+  }
+
+
   function getQualityData(quality) {
     const qualityItem = qualities.find((item) => item.value === quality);
 
@@ -200,7 +206,7 @@ const ProductDetails = () => {
                     </span>
                   </button>
                   <button
-                    onClick={() => {}}
+                    onClick={() => {handleNavigateChat(product.userDto.id)}}
                     className="flex w-full sm:w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 transition-all"
                   >
                     <span className="flex flex-row items-center space-x-2">

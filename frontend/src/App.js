@@ -21,6 +21,7 @@ import OrderSummary from "./components/payment/OrderSummary.jsx";
 import { useLoadScript } from "@react-google-maps/api";
 import ShoppingCart from "./components/payment/ShoppingCart/ShoppingCartPage.jsx";
 import UserSalesPage from "./components/payment/UserSalesPage.jsx";
+import ChatPage from "./components/chat/ChatPage.jsx";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -79,9 +80,10 @@ export default function App() {
               <Route path="/payment/purchaseTicket/:id" element={<OrderSummary />} />
               <Route path="/purchase/order-confirmation/:id" element={<OrderConfirmation />} />
 
-
-
               <Route path="/shoppingCart" element={<ShoppingCart />} />
+
+              <Route path="/users/chat/" element={<ChatPage />} />
+
 
             </Routes>
           </div>

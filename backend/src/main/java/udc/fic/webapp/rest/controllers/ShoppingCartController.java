@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
-import udc.fic.webapp.rest.dto.ProductConversor;
 import udc.fic.webapp.rest.dto.ProductDto;
 import udc.fic.webapp.rest.dto.ShoppingCartItemConversor;
 import udc.fic.webapp.rest.dto.ShoppingCartItemDto;

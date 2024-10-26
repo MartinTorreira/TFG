@@ -77,6 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+				.antMatchers("/chat/**").permitAll()
+				.antMatchers("/ws/**").permitAll()
+				.antMatchers("/app/**").permitAll()
+
 				.anyRequest().authenticated();
 	}
 
@@ -95,6 +99,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedOrigin("https://www.paypal.com");
 		config.addAllowedOrigin("https://api.sandbox.paypal.com");
 		config.addAllowedOrigin("https://sandbox.paypal.com/sdk/js?client-id=AfAuDL8Y-RaJ90kX1mAJfQy2mGGefCc1ovLwoVE74NKZCEmie7xnfiwP6om2MnAwAm0YhB6_zTfJSfWa");
+		source.registerCorsConfiguration("/ws/**", config);
+		source.registerCorsConfiguration("/chat/**", config);
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 

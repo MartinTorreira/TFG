@@ -1,4 +1,4 @@
--- Drop tables if they exist
+DROP TABLE IF EXISTS ChatMessage;
 DROP TABLE IF EXISTS Notification;
 DROP TABLE IF EXISTS PurchaseItem;
 DROP TABLE IF EXISTS Purchase;
@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS ShoppingCart;
 DROP TABLE IF EXISTS Product;
 DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS User;
-
 
 
 -- Categorías de los productos
@@ -145,4 +144,18 @@ CREATE TABLE Notification (
                           is_read BOOLEAN NOT NULL DEFAULT FALSE,
                           CONSTRAINT Notification_PK PRIMARY KEY (id),
                           CONSTRAINT Purchase_Notification_FK FOREIGN KEY (purchase_id) REFERENCES Purchase(id) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+
+
+-- Chat
+CREATE TABLE ChatMessage (
+                         id BIGINT AUTO_INCREMENT,
+                         content TEXT NOT NULL,
+                         timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                         sender_id BIGINT NOT NULL,
+                         receiver_id BIGINT NOT NULL,
+                         CONSTRAINT ChatMessage_PK PRIMARY KEY (id),
+                         CONSTRAINT Sender_ChatMessage_FK FOREIGN KEY (sender_id) REFERENCES User(id) ON DELETE CASCADE,
+                         CONSTRAINT Receiver_ChatMessage_FK FOREIGN KEY (receiver_id) REFERENCES User(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;

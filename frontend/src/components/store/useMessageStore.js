@@ -6,7 +6,19 @@ const useMessageStore = create(
   persist(
     (set) => ({
       messages: [],
-      addMessage: (message) => set((state) => ({ messages: [...state.messages, message] })),
+      conversations: {}, // Almacena conversaciones por usuario
+      addMessage: (message) => set((state) => {
+        const { receiverId } = message;
+        const newMessages = [...state.messages, message];
+
+        // Agregar el mensaje a la conversación correspondiente
+        const updatedConversations = {
+          ...state.conversations,
+          [receiverId]: [...(state.conversations[receiverId] || []), message]
+        };
+
+        return { messages: newMessages, conversations: updatedConversations };
+      }),
       setMessages: (messages) => set({ messages }),
     }),
     {
@@ -14,5 +26,6 @@ const useMessageStore = create(
     }
   )
 );
+
 
 export default useMessageStore;

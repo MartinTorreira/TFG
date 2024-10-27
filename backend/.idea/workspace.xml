@@ -6,13 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ChatMessageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/ChatMessageDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ChatService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ChatServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/ChatServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ChatMessageConversor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ChatMessageConversor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ChatMessageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/ChatMessageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/chat/ChatList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/chat/ChatList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/chat/ChatPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/chat/ChatPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useChatStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useChatStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useMessageStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useMessageStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,7 +319,7 @@
       <workItem from="1729856738740" duration="7982000" />
       <workItem from="1729872575083" duration="28000" />
       <workItem from="1729872664801" duration="1072000" />
-      <workItem from="1729947396075" duration="10997000" />
+      <workItem from="1729947396075" duration="14107000" />
     </task>
     <servers />
   </component>

@@ -5,6 +5,7 @@ import "./styles.css";
 import { LoginContext } from "../context/LoginContext";
 import { useParams } from "react-router-dom";
 import useMessageStore from "../store/useMessageStore";
+import { getUserById } from "../../backend/userService";
 
 const ChatPage = () => {
   const [message, setMessage] = useState("");
@@ -12,7 +13,20 @@ const ChatPage = () => {
   const messagesEndRef = useRef(null);
   const { user } = useContext(LoginContext);
   const { id } = useParams();
-  const { messages, addMessage, setMessages } = useMessageStore();
+  const { messages, addMessage, setMessages, conversations } = useMessageStore();
+  const [receiverDetails, setReceiverDetails] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      getUserById(
+        id,
+        (data) => {
+          setReceiverDetails(data);
+        },
+        (error) => console.error("Error fetching user:", error)
+      );
+    }
+  }, [id]);
 
   useEffect(() => {
     const socket = new SockJS("http://localhost:8080/chat");
@@ -39,10 +53,9 @@ const ChatPage = () => {
         console.log("Disconnected from WebSocket");
       });
     };
-  }, []); // <-- Asegúrate de que este hook solo se ejecute una vez al montar el componente
+  }, []);
 
   useEffect(() => {
-    // Scroll to the bottom of the messages list when a new message is added
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -60,9 +73,35 @@ const ChatPage = () => {
     }
   };
 
+  const handleNavigateChat = (receiverId) => {
+    // Verificar si la conversación ya existe, si no, crearla
+    if (!conversations[receiverId]) {
+      // Crear una nueva conversación si no existe
+      setMessages([]); // O puedes inicializar un mensaje de inicio
+    }
+
+    // Actualizar el ID del receptor para mostrar la conversación correspondiente
+    // Puedes usar useParams o una variable de estado
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-10">
-      <div className="flex flex-col flex-grow w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
+    <div className="flex">
+      {/* Listado de conversaciones */}
+      <div className="w-1/3 p-4">
+        <h2 className="text-lg font-semibold mb-4">Conversaciones</h2>
+        {Object.keys(conversations).map((receiverId) => (
+          <div
+            key={receiverId}
+            className="cursor-pointer hover:bg-gray-200 p-2 rounded"
+            onClick={() => handleNavigateChat(receiverId)}
+          >
+            <p className="font-medium">{receiverId}</p> {/* Cambiar por el nombre o avatar */}
+          </div>
+        ))}
+      </div>
+
+      {/* Conversación actual */}
+      <div className="flex flex-col items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
         <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
           {messages.map((msg, index) => (
             <div
@@ -72,7 +111,11 @@ const ChatPage = () => {
               }`}
             >
               {msg.senderId !== user.id && (
-                <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                <img
+                  className="flex-shrink-0 h-10 w-10 rounded-full"
+                  src={receiverDetails?.avatar}
+                  alt="Receiver Avatar"
+                />
               )}
               <div>
                 <div
@@ -84,9 +127,7 @@ const ChatPage = () => {
                 >
                   <p className="text-sm">{msg.content}</p>
                 </div>
-                <span className="text-xs text-gray-500 leading-none">
-                  2 min ago
-                </span>
+                <span className="text-xs text-gray-500 leading-none">2 min ago</span>
               </div>
               {msg.senderId === user.id && (
                 <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>

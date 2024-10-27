@@ -22,6 +22,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import ShoppingCart from "./components/payment/ShoppingCart/ShoppingCartPage.jsx";
 import UserSalesPage from "./components/payment/UserSalesPage.jsx";
 import ChatPage from "./components/chat/ChatPage.jsx";
+import ChatList from "./components/chat/ChatList.jsx";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -98,7 +99,7 @@ export default function App() {
               <Route path="/shoppingCart" element={<ShoppingCart />} />
 
               <Route path="/users/chat/:id" element={<ChatPage />} />
-              {/* <Route path="/users/chatlist" component={<ChatList/>} /> */}
+              <Route path="/users/chats" element={<ChatList/>} />
             </Routes>
           </div>
         </div>

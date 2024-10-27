@@ -16,6 +16,10 @@ const Home = ({ toggleSidebar }) => {
   const { setToken, setUser } = useContext(LoginContext);
   const [showText, setShowText] = useState(false);
 
+  const handleNavigate = (path) => {
+    navigate(path);
+  }
+
   useEffect(() => {
     const bearer = localStorage.getItem(config.SERVICE_TOKEN_NAME);
     const user = localStorage.getItem("user");
@@ -65,7 +69,7 @@ const Home = ({ toggleSidebar }) => {
         </div>
       </div>
       <button 
-            onClick={() => navigate('/chat')} // Navegar a la página de chat
+            onClick={() => handleNavigate('../users/chats')} // Navegar a la página de chat
             className="rounded-full bg-accent-dark text-white p-3">
             Mensajes
           </button>

@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/purchase/refund").authenticated()
 				.antMatchers(HttpMethod.POST, "/payment/create").authenticated()
 				.antMatchers(HttpMethod.POST, "/shoppingCart/addProduct").authenticated()
+				.antMatchers(HttpMethod.POST, "/sendMessage").authenticated()
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()
@@ -76,7 +77,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.DELETE, "/purchase/*/removePurchase").authenticated()
 
 				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
 				.antMatchers("/chat/**").permitAll()
 				.antMatchers("/ws/**").permitAll()
 				.antMatchers("/app/**").permitAll()
@@ -86,8 +86,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
 		config.setAllowCredentials(true);
 		config.addAllowedOrigin("http://localhost:3000");
 		config.addAllowedOrigin("http://192.168.1.36:3000");
@@ -99,8 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		config.addAllowedHeader("*");
 		config.addAllowedMethod("*");
 
-		source.registerCorsConfiguration("/ws/**", config);
-		source.registerCorsConfiguration("/chat/**", config);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", config);
 		return source;
 	}

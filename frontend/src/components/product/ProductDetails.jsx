@@ -27,6 +27,8 @@ import { CartIcon } from "../../icons/CartIcon.jsx";
 import { CartIconFilled } from "../../icons/CartIconFilled.jsx";
 import { getItemByProductId } from "../../backend/shoppingCartService.js";
 import useCartStore from "../store/useCartStore.js";
+import useChatStore from "../store/useChatStore.js";
+import { getUserById } from "../../backend/userService.js";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -45,14 +47,26 @@ const ProductDetails = () => {
   const isProductAdded = isAdded(product?.id);
   const navigate = useNavigate();
 
+  const { addConversation } = useChatStore();
+
   useEffect(() => {
     loadCart();
   }, [isAdded])
 
 
-  const handleNavigateChat = (userId) => {
-    navigate(`/users/chat/${userId}`);
-  }
+  const handleChatClick = () => {
+    if (!product.userDto) {
+      console.error("User DTO is undefined. Cannot initiate chat.");
+      return;
+    }
+
+    const receiverId = product.userDto.id; // Solo se usa el ID del receptor
+    addConversation(receiverId, product.userDto);
+
+    // Navegar a la página de chat con el receiverId
+    navigate(`/users/chat/${receiverId}`);
+  };
+
 
 
   function getQualityData(quality) {
@@ -206,7 +220,7 @@ const ProductDetails = () => {
                     </span>
                   </button>
                   <button
-                    onClick={() => {handleNavigateChat(product.userDto.id)}}
+                    onClick={handleChatClick}
                     className="flex w-full sm:w-1/4 items-center justify-center py-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-gray-800 hover:border-gray-300 transition-all"
                   >
                     <span className="flex flex-row items-center space-x-2">

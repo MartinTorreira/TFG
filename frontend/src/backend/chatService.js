@@ -4,10 +4,8 @@ export const sendMessage = async (messageDto, onSuccess, onError) => {
     appFetch(
         "/sendMessage", 
         fetchConfig("MESSAGE", messageDto), 
-        (response) => {
-            onSuccess(response); 
-        },
-        onError 
+        onSuccess,
+        onError
     );
 };
 
@@ -15,10 +13,8 @@ export const getMessagesBetweenUsers = async (userId1, userId2, onSuccess, onErr
     appFetch(
         `/chat/messages?userId1=${userId1}&userId2=${userId2}`,
         fetchConfig("GET"), 
-        (messages) => {
-            onSuccess(messages); 
-        },
-        onError 
+        onSuccess,
+        onError
     );
 };
 
@@ -27,9 +23,7 @@ export const getChatsForUser = async (userId, onSuccess, onError) => {
     appFetch(
         `/chat/user?userId=${userId}`, 
         fetchConfig("GET"),
-        (chats) => {
-            onSuccess(chats); 
-        },
-        onError 
+        onSuccess,
+        onError
     );
 };

@@ -67,12 +67,7 @@ const Home = ({ toggleSidebar }) => {
           </motion.button>
         </div>
       </div>
-      <button
-        onClick={() => handleNavigate("../users/chat")}
-        className="rounded-full bg-accent-dark text-white p-3"
-      >
-        Mensajes
-      </button>
+
       <CardGrid productList={filteredProducts} />
     </div>
   );

@@ -4,8 +4,12 @@ import SockJS from "sockjs-client";
 import { LoginContext } from "../context/LoginContext";
 import useChatStore from "../store/useChatStore";
 import { getUserById } from "../../backend/userService";
+import { IoMdSend } from "react-icons/io";
+import { getTimeDifference } from "../../utils/formatDate";
+import dayjs from "dayjs";
+import "dayjs/locale/es";
 
-const ChatPage = () => {
+const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [message, setMessage] = useState("");
   const [stompClient, setStompClient] = useState(null);
   const messagesEndRef = useRef(null);
@@ -17,8 +21,10 @@ const ChatPage = () => {
     loadInitialMessages,
     sendMessage,
   } = useChatStore();
-  const [selectedConversationId, setSelectedConversationId] = useState(null);
   const [receiverDetails, setReceiverDetails] = useState(null);
+  const [senderDetails, setSenderDetails] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [timeNow, setTimeNow] = useState(dayjs());
 
   useEffect(() => {
     if (user?.id) {
@@ -63,12 +69,23 @@ const ChatPage = () => {
       getUserById(otherUserId, setReceiverDetails, (error) =>
         console.error("Error fetching user:", error),
       );
+      getUserById(user.id, setSenderDetails, (error) =>
+        console.error("Error fetching user:", error),
+      );
     }
   }, [selectedConversationId, user.id, loadMessages]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversations]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeNow(dayjs());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleSendMessage = () => {
     if (
@@ -89,6 +106,8 @@ const ChatPage = () => {
       stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
       sendMessage(chatMessage);
       setMessage("");
+      setIsAnimating(true);
+      setTimeout(() => setIsAnimating(false), 300);
     }
   };
 
@@ -97,20 +116,21 @@ const ChatPage = () => {
   };
 
   return (
-    <div className="flex h-[600px] mx-auto mt-20">
+    <div className={`flex h-[600px] ${isAnimating ? "slide-up" : ""}`}>
+      {" "}
+      {/* Aplica la clase CSS */}
       <div className="w-1/4 p-4 bg-gray-100 h-full overflow-y-auto">
-        <h2 className="text-lg font-semibold mb-4">Conversaciones</h2>
+        <h2 className="text-lg font-semibold mb-4">Chats</h2>
         {Object.keys(conversations).map((conversationId) => (
           <div
             key={conversationId}
-            className="cursor-pointer hover:bg-gray-200 p-2 rounded"
+            className="cursor-pointer hover:bg-gray-200 p-2 mt-2 rounded"
             onClick={() => handleConversationClick(conversationId)}
           >
             <p className="font-medium">{conversationId}</p>
           </div>
         ))}
       </div>
-
       <div className="flex flex-col items-center justify-center w-3/4 bg-white shadow-xl rounded-lg overflow-hidden h-full">
         <div className="flex flex-col flex-grow w-full p-4 overflow-auto">
           {selectedConversationId && conversations[selectedConversationId] ? (
@@ -133,11 +153,15 @@ const ChatPage = () => {
                     <p className="text-sm">{msg.content}</p>
                   </div>
                   <span className="text-xs text-gray-500 leading-none">
-                    2 min ago
+                    {getTimeDifference(msg.timestamp)}
                   </span>
                 </div>
                 {msg.senderId === user.id && (
-                  <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
+                  <img
+                    className="flex-shrink-0 h-10 w-10 rounded-full"
+                    src={senderDetails?.avatar}
+                    alt="Receiver Avatar"
+                  />
                 )}
               </div>
             ))
@@ -150,15 +174,15 @@ const ChatPage = () => {
           <input
             className="flex items-center h-10 w-full rounded px-3 text-sm"
             type="text"
-            placeholder="Type your message…"
+            placeholder="Escribe un mensaje…"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <button
-            className="bg-blue-600 text-white p-2 rounded"
+            className="bg-accent-darker text-white p-1 px-3 rounded"
             onClick={handleSendMessage}
           >
-            Send
+            <IoMdSend />
           </button>
         </div>
       </div>

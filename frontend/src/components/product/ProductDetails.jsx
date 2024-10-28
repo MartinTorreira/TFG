@@ -28,9 +28,8 @@ import { CartIconFilled } from "../../icons/CartIconFilled.jsx";
 import { getItemByProductId } from "../../backend/shoppingCartService.js";
 import useCartStore from "../store/useCartStore.js";
 import useChatStore from "../store/useChatStore.js";
-import { getUserById } from "../../backend/userService.js";
 
-const ProductDetails = () => {
+const ProductDetails = ({ setChatVisible, setSelectedConversationId }) => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const { addFavorite, removeFavorite, isFavorite } = useFavoriteStore();
@@ -59,8 +58,10 @@ const ProductDetails = () => {
       return;
     }
     const receiverId = product.userDto.id;
-    addConversation(receiverId);
-    navigate(`/users/chat`);
+    const conversationId = [user.id, receiverId].sort().join("-");
+    addConversation(conversationId);
+    setChatVisible(true);
+    setSelectedConversationId(conversationId);
   };
 
   function getQualityData(quality) {

@@ -1,51 +1,66 @@
-import { create } from 'zustand';
-import { getMessagesBetweenUsers, sendMessage, getChatsForUser } from '../../backend/chatService';
+import { create } from "zustand";
+import {
+  getMessagesBetweenUsers,
+  sendMessage,
+  getChatsForUser,
+} from "../../backend/chatService";
 
 const useChatStore = create((set) => ({
   conversations: {},
 
-  addMessageToConversation: (conversationId, message) => set((state) => {
-    const conversation = state.conversations[conversationId] || { messages: [] };
-    if (!conversation.messages.some(msg => msg.timestamp === message.timestamp && msg.content === message.content)) {
-      const updatedConversations = {
-        ...state.conversations,
-        [conversationId]: {
-          ...conversation,
-          messages: [...conversation.messages, message]
-        }
+  addMessageToConversation: (conversationId, message) =>
+    set((state) => {
+      const conversation = state.conversations[conversationId] || {
+        messages: [],
       };
-      return { conversations: updatedConversations };
-    }
-    return state;
-  }),
+      if (
+        !conversation.messages.some(
+          (msg) =>
+            msg.timestamp === message.timestamp &&
+            msg.content === message.content,
+        )
+      ) {
+        const updatedConversations = {
+          ...state.conversations,
+          [conversationId]: {
+            ...conversation,
+            messages: [...conversation.messages, message],
+          },
+        };
+        return { conversations: updatedConversations };
+      }
+      return state;
+    }),
 
-  addConversation: (conversationId) => set((state) => {
-    if (!state.conversations[conversationId]) {
-      const updatedConversations = {
-        ...state.conversations,
-        [conversationId]: { messages: [] }
-      };
-      return { conversations: updatedConversations };
-    }
-    return state;
-  }),
+  addConversation: (conversationId) =>
+    set((state) => {
+      if (!state.conversations[conversationId]) {
+        const updatedConversations = {
+          ...state.conversations,
+          [conversationId]: { messages: [] },
+        };
+        return { conversations: updatedConversations };
+      }
+      return state;
+    }),
 
   loadMessages: async (userId1, userId2) => {
     try {
       const messages = await new Promise((resolve, reject) => {
         getMessagesBetweenUsers(userId1, userId2, resolve, reject);
       });
+      const conversationId = [userId1, userId2].sort().join("-");
       set((state) => ({
         conversations: {
           ...state.conversations,
-          [userId2]: {
-            ...state.conversations[userId2],
-            messages
-          }
-        }
+          [conversationId]: {
+            ...state.conversations[conversationId],
+            messages,
+          },
+        },
       }));
     } catch (error) {
-      console.error('Error loading messages:', error);
+      console.error("Error loading messages:", error);
     }
   },
 
@@ -56,19 +71,20 @@ const useChatStore = create((set) => ({
       });
       if (Array.isArray(initialMessages)) {
         const updatedConversations = initialMessages.reduce((acc, msg) => {
-          const { receiverId } = msg;
-          if (!acc[receiverId]) {
-            acc[receiverId] = { messages: [] };
+          const { senderId, receiverId } = msg;
+          const conversationId = [senderId, receiverId].sort().join("-");
+          if (!acc[conversationId]) {
+            acc[conversationId] = { messages: [] };
           }
-          acc[receiverId].messages.push(msg);
+          acc[conversationId].messages.push(msg);
           return acc;
         }, {});
         set({ conversations: updatedConversations });
       } else {
-        console.error('Initial messages are not an array:', initialMessages);
+        console.error("Initial messages are not an array:", initialMessages);
       }
     } catch (error) {
-      console.error('Error loading initial messages:', error);
+      console.error("Error loading initial messages:", error);
     }
   },
 
@@ -84,27 +100,32 @@ const useChatStore = create((set) => ({
           body: JSON.stringify(messageDto),
           credentials: "include",
         })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              resolve();
-            })
-            .catch(reject);
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            resolve();
+          })
+          .catch(reject);
       });
+      const conversationId = [messageDto.senderId, messageDto.receiverId]
+        .sort()
+        .join("-");
       set((state) => {
-        const conversation = state.conversations[messageDto.receiverId] || { messages: [] };
+        const conversation = state.conversations[conversationId] || {
+          messages: [],
+        };
         const updatedConversations = {
           ...state.conversations,
-          [messageDto.receiverId]: {
+          [conversationId]: {
             ...conversation,
-            messages: [...conversation.messages, messageDto]
-          }
+            messages: [...conversation.messages, messageDto],
+          },
         };
         return { conversations: updatedConversations };
       });
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
     }
   },
 }));

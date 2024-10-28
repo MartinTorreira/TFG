@@ -51,23 +51,17 @@ const ProductDetails = () => {
 
   useEffect(() => {
     loadCart();
-  }, [isAdded])
-
+  }, [isAdded]);
 
   const handleChatClick = () => {
     if (!product.userDto) {
       console.error("User DTO is undefined. Cannot initiate chat.");
       return;
     }
-
-    const receiverId = product.userDto.id; // Solo se usa el ID del receptor
-    addConversation(receiverId, product.userDto);
-
-    // Navegar a la página de chat con el receiverId
-    navigate(`/users/chat/${receiverId}`);
+    const receiverId = product.userDto.id;
+    addConversation(receiverId);
+    navigate(`/users/chat`);
   };
-
-
 
   function getQualityData(quality) {
     const qualityItem = qualities.find((item) => item.value === quality);
@@ -101,7 +95,7 @@ const ProductDetails = () => {
       },
       (errors) => {
         console.log(errors);
-      }
+      },
     );
 
     toast.success("Producto eliminado correctamente");
@@ -120,13 +114,13 @@ const ProductDetails = () => {
           () => {},
           (errors) => {
             console.log(errors);
-          }
+          },
         );
       } else {
         getItemByProductId(
           productId,
           (itemId) => removeFromCart(itemId),
-          (error) => console.log(error)
+          (error) => console.log(error),
         );
       }
     }
@@ -146,7 +140,7 @@ const ProductDetails = () => {
           },
           (errors) => {
             console.log(errors);
-          }
+          },
         );
       } else {
         removeFromFavorites(
@@ -156,7 +150,7 @@ const ProductDetails = () => {
           },
           (errors) => {
             console.log(errors);
-          }
+          },
         );
       }
     }

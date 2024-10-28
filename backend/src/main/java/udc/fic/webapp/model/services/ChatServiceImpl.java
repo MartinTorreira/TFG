@@ -1,4 +1,3 @@
-// src/main/java/udc/fic/webapp/model/services/ChatServiceImpl.java
 package udc.fic.webapp.model.services;
 
 import javax.transaction.Transactional;
@@ -14,10 +13,7 @@ import udc.fic.webapp.rest.dto.ChatMessageDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -74,7 +70,6 @@ public class ChatServiceImpl implements ChatService {
         List<ChatMessageDto> chatDtos = new ArrayList<>();
 
         for (ChatMessage message : messages) {
-            // Crear el DTO del mensaje
             ChatMessageDto chatDto = new ChatMessageDto(
                     message.getSender().getId(),
                     message.getReceiver().getId(),
@@ -87,12 +82,8 @@ public class ChatServiceImpl implements ChatService {
         return chatDtos;
     }
 
-
     @Override
     public List<ChatMessage> getMessagesByUser(Long userId) throws InstanceNotFoundException {
         return chatMessageDao.findMessagesByUserId(userId);
     }
-
-
-
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ChatMessageDao extends PagingAndSortingRepository<ChatMessage, Long> {
 
+
     @Query("SELECT cm FROM ChatMessage cm WHERE (cm.sender.id = :userId1 AND cm.receiver.id = :userId2) OR (cm.sender.id = :userId2 AND cm.receiver.id = :userId1) ORDER BY cm.timestamp ASC")
     List<ChatMessage> findMessagesBetweenUsers(@Param("userId1") Long userId1, @Param("userId2") Long userId2);
 
@@ -16,5 +17,4 @@ public interface ChatMessageDao extends PagingAndSortingRepository<ChatMessage, 
 
     @Query("SELECT cm FROM ChatMessage cm WHERE (cm.sender.id = :userId) OR (cm.receiver.id = :userId) ORDER BY cm.timestamp ASC")
     List<ChatMessage> findMessagesByUserId(@Param("userId") Long userId);
-
 }

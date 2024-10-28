@@ -98,8 +98,7 @@ export default function App() {
 
               <Route path="/shoppingCart" element={<ShoppingCart />} />
 
-              <Route path="/users/chat/:id" element={<ChatPage />} />
-              <Route path="/users/chats" element={<ChatList/>} />
+              <Route path="/users/chat" element={<ChatPage />} />
             </Routes>
           </div>
         </div>

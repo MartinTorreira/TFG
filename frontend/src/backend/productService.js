@@ -55,9 +55,14 @@ export const getProductById = async (productId, onSuccess, onErrors) => {
   );
 };
 
-export const getProductsByUserId = (userId, onSuccess, onErrors) => {
+export const getProductsByUserId = async (
+  userId,
+  state,
+  onSuccess,
+  onErrors,
+) => {
   appFetch(
-    `/product/${userId}/productList`,
+    `/product/${userId}/productList?page=${state.page}&size=${state.size}`,
     fetchConfig("GET"),
     onSuccess,
     onErrors,

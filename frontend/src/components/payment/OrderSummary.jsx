@@ -1,33 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { QuantitySelector } from "../form/QuantitySelector";
+import useOfferStore from "../store/useOfferStore";
 
 const OrderSummary = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const offerId = new URLSearchParams(location.search).get('offerId');
+  const offer = useOfferStore((state) => state.offer);
 
-  // Obtener la lista de productos del estado de la navegación
-  const productList = location.state?.productList || [];
+  // Initialize offerDetails and productList
+  const offerDetails = location.state?.offerDetails || (offerId ? offer : {});
+  const productList = offerDetails?.products || [];
 
-  // Estado para la cantidad total y las cantidades seleccionadas por el usuario
-  const [totalAmount, setTotalAmount] = useState(0);
+  // Initialize state hooks
+  const [totalAmount, setTotalAmount] = useState(offerDetails?.totalPrice || 0);
   const [quantities, setQuantities] = useState(
-    productList.map((product) => product.quantity) // Inicializamos las cantidades con la cantidad disponible de cada producto
+    productList.map((product) => product.quantity),
   );
 
-  // Calcular el importe total basado en las cantidades y precios de los productos
+  // Function to calculate total amount
   const getAmount = () => {
     let total = 0;
     productList.forEach((item, index) => {
-      total += item.price * quantities[index]; // Multiplicar precio por cantidad seleccionada
+      total += item.price * quantities[index];
     });
     setTotalAmount(total);
   };
 
+  // useEffect to recalculate total amount when quantities change
   useEffect(() => {
     getAmount();
   }, [quantities]);
 
+  // Handle quantity change
   const handleQuantityChange = (index, newQuantity) => {
     const product = productList[index];
     if (newQuantity > product.quantity) {
@@ -39,16 +45,16 @@ const OrderSummary = () => {
     setQuantities(newQuantities);
   };
 
-  // Manejar el evento para proceder al pago
+  // Handle proceed to payment
   const handleProceedToPayment = () => {
     const productsWithQuantities = productList.map((product, index) => ({
       ...product,
-      originalQuantity: product.quantity, // Guardamos la cantidad original para restarla después
-      quantity: quantities[index], // Actualizamos con la cantidad seleccionada
+      originalQuantity: product.quantity,
+      quantity: quantities[index],
     }));
 
     const hasNegativeQuantity = productsWithQuantities.some(
-      (product) => product.quantity < 0
+      (product) => product.quantity < 0,
     );
 
     if (hasNegativeQuantity) {
@@ -56,12 +62,12 @@ const OrderSummary = () => {
       return;
     }
 
-    // Navegar a la página de pago con los productos seleccionados
     navigate("/payment", {
       state: { products: productsWithQuantities },
     });
   };
 
+  // Render component
   return (
     <section className="mt-10 rounded-lg shadow-md w-1/2 mx-auto bg-gray-50 antialiased dark:bg-gray-900 md:py-8 sm:p-3">
       <form action="#" className="mx-auto max-w-screen-xl">
@@ -78,11 +84,10 @@ const OrderSummary = () => {
                     <tr key={index}>
                       <td className="p-4 w-1/6 px-6 items-center justify-center text-base font-normal text-gray-900 dark:text-white">
                         <QuantitySelector
-                          maxQuantity={product.quantity} // Cantidad disponible del producto
-                          initialQuantity={quantities[index]} // Cantidad inicial seleccionada
-                          onQuantityChange={
-                            (newQuantity) =>
-                              handleQuantityChange(index, newQuantity) // Actualización de la cantidad cuando el usuario cambia el valor
+                          maxQuantity={product.quantity}
+                          initialQuantity={quantities[index]}
+                          onQuantityChange={(newQuantity) =>
+                            handleQuantityChange(index, newQuantity)
                           }
                         />
                       </td>
@@ -94,7 +99,7 @@ const OrderSummary = () => {
                           >
                             <img
                               className="h-auto w-full max-h-full rounded-md"
-                              src={product.images[0]} // Primera imagen del producto
+                              src={product.images[0]}
                               alt={product.name}
                             />
                           </a>
@@ -109,11 +114,11 @@ const OrderSummary = () => {
                     </tr>
                   ))}
                   <tr className="">
-                   <td></td>
-                   <td></td>
+                    <td></td>
+                    <td></td>
                     <td className="p-4 text-right text-lg font-bold text-gray-900 space-x-6">
-                      <span>Total</span> 
-                      <span>{totalAmount.toFixed(2).replace(".",",")} €</span>
+                      <span>Total</span>
+                      <span>{totalAmount.toFixed(2).replace(".", ",")} €</span>
                     </td>
                   </tr>
                 </tbody>

@@ -32,7 +32,7 @@ const ShoppingCartItem = ({
       await getItemByProductId(
         productId,
         (itemId) => removeFromCart(itemId),
-        (error) => console.log("Error removing item from cart:", error)
+        (error) => console.log("Error removing item from cart:", error),
       );
     } catch (error) {
       console.log("Error in handleDeleteClick:", error);
@@ -54,7 +54,7 @@ const ShoppingCartItem = ({
           },
           (errors) => {
             console.log("Error adding to favorites:", errors);
-          }
+          },
         );
       } else {
         removeFromFavorites(
@@ -64,7 +64,7 @@ const ShoppingCartItem = ({
           },
           (errors) => {
             console.log("Error removing from favorites:", errors);
-          }
+          },
         );
       }
     }
@@ -77,7 +77,7 @@ const ShoppingCartItem = ({
         updateQuantity(Number(itemId), newQuantity);
         onQuantityChange(index, newQuantity);
       },
-      (error) => console.log("Error updating quantity:", error)
+      (error) => console.log("Error updating quantity:", error),
     );
   };
 

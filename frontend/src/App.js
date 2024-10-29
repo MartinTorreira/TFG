@@ -28,7 +28,7 @@ export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isChatVisible, setChatVisible] = useState(false);
   const [selectedConversationId, setSelectedConversationId] = useState(
-    localStorage.getItem("selectedConversationId") || null,
+    localStorage.getItem("selectedConversationId") || null
   );
   const [isHover, setIsHover] = useState(false);
 
@@ -127,7 +127,7 @@ export default function App() {
           </div>
           {isChatVisible && (
             <motion.div
-              className="fixed z-50 right-20 bottom-20 w-1/4 h-fit bg-white shadow-lg overflow-y-auto rounded-md"
+              className="fixed z-50 right-20 bottom-12 w-2/5 h-fit bg-white shadow-lg overflow-y-auto rounded-md"
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 100, opacity: 0 }}
@@ -140,12 +140,12 @@ export default function App() {
             </motion.div>
           )}
 
-          <div className="fixed z-50 right-20 bottom-4">
+          <div className="fixed z-50 right-20 bottom-0">
             <motion.button
               onClick={toggleChat}
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
-              className="flex flex-row text-start font-medium items-center space-x-4 p-2 px-20 bg-gray-100 border text-accent-darker rounded shadow-md hover:bg-gray-50"
+              className="flex items-center  rounded-t-xl font-medium space-x-2 p-2 pl-4 pr-10 bg-gray-100 text-accent-darker shadow-md hover:bg-gray-50 justify-start"
             >
               <motion.span
                 animate={{ rotate: isHover ? 180 : 0 }}

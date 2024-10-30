@@ -54,7 +54,7 @@ public class ChatServiceImpl implements ChatService {
         chatMessage.setSender(sender);
         chatMessage.setReceiver(receiver);
         chatMessage.setContent(chatMessageDto.getContent());
-        chatMessage.setType(ChatMessage.MessageType.valueOf(chatMessageDto.getType().name()));
+        chatMessage.setType(ChatMessage.MessageType.valueOf(chatMessageDto.getType()));
 
         if (chatMessageDto.getTimestamp() != null) {
             chatMessage.setTimestamp(LocalDateTime.parse(chatMessageDto.getTimestamp(), formatter));
@@ -64,6 +64,10 @@ public class ChatServiceImpl implements ChatService {
 
         if (chatMessage.getType() == ChatMessage.MessageType.OFFER) {
             OfferDto offerDto = chatMessageDto.getOffer();
+            if (offerDto == null) {
+                throw new IllegalArgumentException("Offer must not be null for OFFER message type");
+            }
+
             Offer offer = new Offer();
             offer.setBuyer(sender);
             offer.setSeller(receiver);
@@ -80,6 +84,8 @@ public class ChatServiceImpl implements ChatService {
             }
             offer.setItems(items);
             offerDao.save(offer);
+
+            chatMessage.setOffer(offer);
         }
 
         return chatMessageDao.save(chatMessage);
@@ -100,13 +106,13 @@ public class ChatServiceImpl implements ChatService {
         List<ChatMessageDto> chatDtos = new ArrayList<>();
 
         for (ChatMessage message : messages) {
-            ChatMessageDto.MessageType dtoType = ChatMessageDto.MessageType.valueOf(message.getType().name());
             ChatMessageDto chatDto = new ChatMessageDto(
+                    message.getId(),
                     message.getSender().getId(),
                     message.getReceiver().getId(),
                     message.getContent(),
                     message.getTimestamp().toString(),
-                    dtoType,
+                    message.getType().name(),
                     OfferConversor.toDto(message.getOffer())
             );
 

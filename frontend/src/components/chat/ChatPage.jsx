@@ -9,9 +9,8 @@ import { getTimeDifference } from "../../utils/formatDate";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
 import OfferStepper from "../form/OfferStepper";
-import OfferDetailsModal from "../modals/OfferDetailsModal.jsx"; 
-import { createOffer } from "../../backend/offerService";
-import { Modal } from "@mui/material";
+import { Modal, Box } from "@mui/material";
+import { createOffer, getOfferById } from "../../backend/offerService";
 
 const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [message, setMessage] = useState("");
@@ -29,8 +28,8 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [timeNow, setTimeNow] = useState(dayjs());
   const [showOfferStepper, setShowOfferStepper] = useState(false);
-  const [selectedOffer, setSelectedOffer] = useState(null);
   const [showOfferDetails, setShowOfferDetails] = useState(false);
+  const [offerDetails, setOfferDetails] = useState(null);
 
   useEffect(() => {
     if (user?.id) {
@@ -156,15 +155,6 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
     }
   };
 
-  const handleConversationClick = (conversationId) => {
-    setSelectedConversationId(conversationId);
-  };
-
-  const handleOfferClick = (offer) => {
-    setSelectedOffer(offer);
-    setShowOfferDetails(true);
-  };
-
   const handleOfferFinalize = (offerDetails) => {
     console.log("Offer finalized:", offerDetails.offerDetails);
     if (stompClient && stompClient.connected && selectedConversationId) {
@@ -175,10 +165,12 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
       const offerDto = {
         buyerId: receiverId,
         amount: offerDetails.offerDetails.desiredPrice,
-        items: offerDetails.offerDetails.products ? offerDetails.offerDetails.products.map((product) => ({
-          productId: product.id,
-          quantity: product.quantity,
-        })) : [],
+        items: offerDetails.offerDetails.products
+          ? offerDetails.offerDetails.products.map((product) => ({
+              productId: product.id,
+              quantity: product.quantity,
+            }))
+          : [],
       };
 
       console.log("Offer DTO:", offerDto);
@@ -193,7 +185,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
             content: offerDetails.message,
             timestamp: new Date().toISOString(),
             type: "OFFER",
-            offer: createdOffer,
+            offer: createdOffer, // Incluye la oferta completa
             token: token,
           };
 
@@ -209,6 +201,20 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
     }
   };
 
+  const handleOfferClick = async (msg) => {
+    console.log("Offer ID:", msg.offer.id);
+    await getOfferById(
+      msg.offer.id, 
+      (data) => setOfferDetails(data), 
+      (error) => console.error("Error fetching offer:", error));
+    
+    setShowOfferDetails(true);
+  };
+  
+  const handleConversationClick = (conversationId) => {
+    setSelectedConversationId(conversationId);
+  };
+  
   return (
     <div className={`flex h-[650px] ${isAnimating ? "slide-up" : ""}`}>
       <div className="w-2/5 p-4 bg-gray-100 h-full overflow-y-auto">
@@ -220,7 +226,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
           const lastMessage =
             conversations[conversationId].messages.slice(-1)[0];
           const userDetail = userDetails[otherUserId];
-
+  
           return (
             <div
               key={conversationId}
@@ -280,7 +286,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
                   {msg.type === "OFFER" ? (
                     <button
                       className="p-3 bg-blue-500 text-white rounded"
-                      onClick={() => handleOfferClick(msg.offer)}
+                      onClick={() => handleOfferClick(msg)}
                     >
                       View Offer
                     </button>
@@ -335,21 +341,38 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
             </button>
           </div>
         </div>
-        <Modal open={showOfferStepper} onClose={() => setShowOfferStepper(false)}>
+        <Modal
+          open={showOfferStepper}
+          onClose={() => setShowOfferStepper(false)}
+        >
           <div className="flex items-center justify-center h-full">
             <div className="bg-white p-4 rounded shadow-lg w-3/4 max-w-lg">
               <OfferStepper onOfferFinalize={handleOfferFinalize} />
             </div>
           </div>
         </Modal>
-        <OfferDetailsModal
-          offerId={selectedOffer?.id}
-          show={showOfferDetails}
-          handleClose={() => setShowOfferDetails(false)}
-        />
+        <Modal
+          open={showOfferDetails}
+          onClose={() => setShowOfferDetails(false)}
+        >
+          <Box
+            sx={{
+              width: 600,
+              p: 4,
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              mx: "auto",
+              my: "10vh",
+            }}
+          >
+            {/* Aquí puedes agregar el contenido que desees para el modal */}
+            <p>Detalles de la oferta</p>
+            <p>{offerDetails.amount}</p>
+          </Box>
+        </Modal>
       </div>
     </div>
   );
-};
-
-export default ChatPage;
+  };
+  
+  export default ChatPage;

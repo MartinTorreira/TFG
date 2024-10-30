@@ -126,18 +126,14 @@ export default function App() {
             </Routes>
           </div>
           {isChatVisible && (
-            <motion.div
+            <div
               className="fixed z-50 right-20 bottom-12 w-2/5 h-fit bg-white shadow-lg overflow-y-auto rounded-md"
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 100, opacity: 0 }}
-              transition={{ duration: 0.3 }}
             >
               <ChatPage
                 setSelectedConversationId={setSelectedConversationId}
                 selectedConversationId={selectedConversationId}
               />
-            </motion.div>
+            </div>
           )}
 
           <div className="fixed z-50 right-20 bottom-0">

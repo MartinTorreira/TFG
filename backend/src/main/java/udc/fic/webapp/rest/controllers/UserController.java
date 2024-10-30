@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import udc.fic.webapp.model.entities.Product;
 import udc.fic.webapp.model.entities.ShoppingCart;
 import udc.fic.webapp.model.entities.User;
 import udc.fic.webapp.model.exceptions.*;

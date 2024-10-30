@@ -13,19 +13,21 @@ public class ChatMessageConversor {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
     public static ChatMessageDto toChatMessageDto(ChatMessage chatMessage) {
-        ChatMessageDto dto = new ChatMessageDto();
-        dto.setId(chatMessage.getId());
-        dto.setContent(chatMessage.getContent());
-        dto.setTimestamp(chatMessage.getTimestamp().toString());
-        dto.setType(ChatMessageDto.MessageType.valueOf(chatMessage.getType().name()));
-        dto.setSenderId(chatMessage.getSender().getId());
-        dto.setReceiverId(chatMessage.getReceiver().getId());
-
-        if (chatMessage.getOffer() != null) {
-            dto.setOffer(OfferConversor.toDto(chatMessage.getOffer()));
+        if (chatMessage == null) {
+            return null;
         }
 
-        return dto;
+        OfferDto offerDto = chatMessage.getOffer() != null ? OfferConversor.toDto(chatMessage.getOffer()) : null;
+
+        return new ChatMessageDto(
+            chatMessage.getId(),
+            chatMessage.getSender().getId(),
+            chatMessage.getReceiver().getId(),
+            chatMessage.getContent(),
+            chatMessage.getTimestamp().format(formatter),
+            chatMessage.getType().name(),
+            offerDto
+        );
     }
 
     public static ChatMessage toChatMessage(ChatMessageDto chatMessageDto, User sender, User recipient, User buyer, User seller, List<Product> products) {
@@ -34,7 +36,7 @@ public class ChatMessageConversor {
         chatMessage.setSender(sender);
         chatMessage.setReceiver(recipient);
         chatMessage.setTimestamp(LocalDateTime.parse(chatMessageDto.getTimestamp(), formatter));
-        chatMessage.setType(ChatMessage.MessageType.valueOf(chatMessageDto.getType().name()));
+        chatMessage.setType(ChatMessage.MessageType.valueOf(chatMessageDto.getType()));
         chatMessage.setOffer(OfferConversor.toEntity(chatMessageDto.getOffer(), buyer, seller, products));
         return chatMessage;
     }

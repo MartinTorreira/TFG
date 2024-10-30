@@ -34,7 +34,7 @@ public class ChatMessage {
     private MessageType type;
 
     @ManyToOne
-    @JoinColumn(name = "offer_id")
+    @JoinColumn(name = "offer_id", nullable = true)
     private Offer offer;
 
 

@@ -64,8 +64,8 @@ public class OfferController {
     }
 
     @GetMapping("/{offerId}/get")
-    public ResponseEntity<OfferDto> getOfferById(@PathVariable Long id) throws InstanceNotFoundException {
-        Offer offer = offerService.getOffer(id);
+    public ResponseEntity<OfferDto> getOfferById(@PathVariable Long offerId) throws InstanceNotFoundException {
+        Offer offer = offerService.getOffer(offerId);
         OfferDto responseDto = OfferConversor.toDto(offer);
         return ResponseEntity.ok(responseDto);
     }

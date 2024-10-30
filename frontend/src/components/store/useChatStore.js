@@ -89,12 +89,13 @@ const useChatStore = create((set) => ({
 
   sendMessage: async (messageDto) => {
     try {
+      console.log("Sending message with token:", messageDto.token); // Log the token
       await new Promise((resolve, reject) => {
-        fetch("http://localhost:8080/sendMessage", {
+        fetch("http://localhost:8080/offer/create", { // Ensure the correct endpoint
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${messageDto.token}`, // Include the authentication token
           },
           body: JSON.stringify(messageDto),
           credentials: "include",

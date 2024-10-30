@@ -9,13 +9,15 @@ import { getTimeDifference } from "../../utils/formatDate";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
 import OfferStepper from "../form/OfferStepper";
+import OfferDetailsModal from "../modals/OfferDetailsModal.jsx"; 
+import { createOffer } from "../../backend/offerService";
 import { Modal } from "@mui/material";
 
 const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [message, setMessage] = useState("");
   const [stompClient, setStompClient] = useState(null);
   const messagesEndRef = useRef(null);
-  const { user } = useContext(LoginContext);
+  const { user, token } = useContext(LoginContext);
   const {
     conversations,
     addMessageToConversation,
@@ -28,6 +30,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [timeNow, setTimeNow] = useState(dayjs());
   const [showOfferStepper, setShowOfferStepper] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState(null);
+  const [showOfferDetails, setShowOfferDetails] = useState(false);
 
   useEffect(() => {
     if (user?.id) {
@@ -118,6 +121,15 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
     return () => clearInterval(interval);
   }, []);
 
+  const sendChatMessage = (chatMessage) => {
+    const headers = {
+      Authorization: `Bearer ${user.token}`, // Include the authentication token
+      "Content-Type": "application/json",
+    };
+    stompClient.send("/app/sendMessage", headers, JSON.stringify(chatMessage));
+    sendMessage(chatMessage);
+  };
+
   const handleSendMessage = () => {
     if (
       stompClient &&
@@ -137,8 +149,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
         type: "TEXT",
       };
 
-      stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
-      sendMessage(chatMessage);
+      sendChatMessage(chatMessage);
       setMessage("");
       setIsAnimating(true);
       setTimeout(() => setIsAnimating(false), 300);
@@ -151,35 +162,50 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
 
   const handleOfferClick = (offer) => {
     setSelectedOffer(offer);
-    setShowOfferStepper(true);
+    setShowOfferDetails(true);
   };
 
   const handleOfferFinalize = (offerDetails) => {
+    console.log("Offer finalized:", offerDetails.offerDetails);
     if (stompClient && stompClient.connected && selectedConversationId) {
       const receiverId = selectedConversationId
         .split("-")
         .find((id) => id !== user.id.toString());
 
-      const chatMessage = {
-        senderId: user.id,
-        receiverId: receiverId,
-        content: offerDetails.message,
-        timestamp: new Date().toISOString(),
-        type: "OFFER",
-        offer: {
-          amount: offerDetails.desiredPrice,
-          buyerId: user.id,
-          sellerId: receiverId,
-          items: (offerDetails.products || []).map((product) => ({
-            productId: product.id,
-            quantity: product.quantity,
-          })),
-        },
+      const offerDto = {
+        buyerId: receiverId,
+        amount: offerDetails.offerDetails.desiredPrice,
+        items: offerDetails.offerDetails.products ? offerDetails.offerDetails.products.map((product) => ({
+          productId: product.id,
+          quantity: product.quantity,
+        })) : [],
       };
 
-      stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
-      sendMessage(chatMessage);
-      setShowOfferStepper(false);
+      console.log("Offer DTO:", offerDto);
+
+      createOffer(
+        user.id,
+        offerDto,
+        (createdOffer) => {
+          const chatMessage = {
+            senderId: user.id,
+            receiverId: receiverId,
+            content: offerDetails.message,
+            timestamp: new Date().toISOString(),
+            type: "OFFER",
+            offer: createdOffer,
+            token: token,
+          };
+
+          console.log("token:" + token);
+          sendChatMessage(chatMessage);
+          setShowOfferStepper(false);
+          console.log("Se creo" + createdOffer);
+        },
+        (errors) => {
+          console.error("Error creating offer:", errors);
+        }
+      );
     }
   };
 
@@ -310,10 +336,17 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
           </div>
         </div>
         <Modal open={showOfferStepper} onClose={() => setShowOfferStepper(false)}>
-          <div className="p-4">
-            <OfferStepper onOfferFinalize={handleOfferFinalize} />
+          <div className="flex items-center justify-center h-full">
+            <div className="bg-white p-4 rounded shadow-lg w-3/4 max-w-lg">
+              <OfferStepper onOfferFinalize={handleOfferFinalize} />
+            </div>
           </div>
         </Modal>
+        <OfferDetailsModal
+          offerId={selectedOffer?.id}
+          show={showOfferDetails}
+          handleClose={() => setShowOfferDetails(false)}
+        />
       </div>
     </div>
   );

@@ -46,7 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/shoppingCart/getProducts").authenticated()
 				.antMatchers(HttpMethod.GET, "/shoppingCart/*/getItemId").authenticated()
 				.antMatchers(HttpMethod.GET, "/shoppingCart/*/getProduct").authenticated()
-				.antMatchers(HttpMethod.GET, "/chat/messages").authenticated()
+				.antMatchers(HttpMethod.GET, "/chat/messages").permitAll()
+				.antMatchers(HttpMethod.GET, "/chat/user").permitAll()
+				.antMatchers(HttpMethod.GET, "/offer/*/get").authenticated()
+				.antMatchers(HttpMethod.GET, "/offer/buyer/*").authenticated()
+				.antMatchers(HttpMethod.GET, "/offer/seller/*").authenticated()
+
 
 				.antMatchers(HttpMethod.POST, "/user/signUp").permitAll()
 				.antMatchers(HttpMethod.POST, "/user/login").permitAll()
@@ -61,6 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/payment/create").authenticated()
 				.antMatchers(HttpMethod.POST, "/shoppingCart/addProduct").authenticated()
 				.antMatchers(HttpMethod.POST, "/sendMessage").authenticated()
+				.antMatchers(HttpMethod.POST, "/offer/create").authenticated()
+
 
 				.antMatchers(HttpMethod.PUT, "/user/*/updateProfile").authenticated()
 				.antMatchers(HttpMethod.PUT, "/product/*/update").authenticated()

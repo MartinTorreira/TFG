@@ -7,22 +7,44 @@ public class ChatMessageDto {
     private Long senderId;
     private Long receiverId;
     private String timestamp;
+    private MessageType type;
+    private OfferDto offer;
+
+    public enum MessageType {
+        TEXT,
+        OFFER
+    }
 
     public ChatMessageDto() {
     }
 
-    public ChatMessageDto(Long id,Long senderId, Long receiverId, String content, String timestamp) {
+    public ChatMessageDto(Long id, Long senderId, Long receiverId, String content, String timestamp, MessageType type, OfferDto offer) {
+        this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
         this.timestamp = timestamp;
+        this.type = type;
+        this.offer = offer;
     }
 
-    public ChatMessageDto(Long senderId, Long receiverId, String content, String timestamp) {
+    public ChatMessageDto(Long senderId, Long receiverId, String content, String timestamp, MessageType type, OfferDto offer) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
         this.timestamp = timestamp;
+        this.type = type;
+        this.offer = offer;
+    }
+
+    // Getters and setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getContent() {
@@ -55,5 +77,21 @@ public class ChatMessageDto {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public MessageType getType() {
+        return type;
+    }
+
+    public void setType(MessageType type) {
+        this.type = type;
+    }
+
+    public OfferDto getOffer() {
+        return offer;
+    }
+
+    public void setOffer(OfferDto offer) {
+        this.offer = offer;
     }
 }

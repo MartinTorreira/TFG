@@ -1,4 +1,6 @@
 DROP TABLE IF EXISTS ChatMessage;
+DROP TABLE IF EXISTS OfferItem;
+DROP TABLE IF EXISTS Offer;
 DROP TABLE IF EXISTS Notification;
 DROP TABLE IF EXISTS PurchaseItem;
 DROP TABLE IF EXISTS Purchase;
@@ -147,15 +149,40 @@ CREATE TABLE Notification (
 ) ENGINE = InnoDB;
 
 
+-- Ofertas
+CREATE TABLE Offer (
+                        id BIGINT AUTO_INCREMENT,
+                        buyer_id BIGINT NOT NULL,
+                        seller_id BIGINT NOT NULL,
+                        amount DOUBLE NOT NULL,
+                        CONSTRAINT Offer_PK PRIMARY KEY (id),
+                        CONSTRAINT Buyer_Offer_FK FOREIGN KEY (buyer_id) REFERENCES User(id) ON DELETE CASCADE,
+                        CONSTRAINT Seller_Offer_FK FOREIGN KEY (seller_id) REFERENCES User(id) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
+-- Items de la oferta
+CREATE TABLE OfferItem (
+                        id BIGINT AUTO_INCREMENT,
+                        offer_id BIGINT NOT NULL,
+                        product_id BIGINT NOT NULL,
+                        quantity INT NOT NULL,
+                        CONSTRAINT OfferItem_PK PRIMARY KEY (id),
+                        CONSTRAINT Offer_OfferItem_FK FOREIGN KEY (offer_id) REFERENCES Offer(id) ON DELETE CASCADE,
+                        CONSTRAINT Product_OfferItem_FK FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
+) ENGINE = InnoDB;
+
 
 -- Chat
 CREATE TABLE ChatMessage (
-                         id BIGINT AUTO_INCREMENT,
-                         content TEXT NOT NULL,
-                         timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                         sender_id BIGINT NOT NULL,
-                         receiver_id BIGINT NOT NULL,
-                         CONSTRAINT ChatMessage_PK PRIMARY KEY (id),
-                         CONSTRAINT Sender_ChatMessage_FK FOREIGN KEY (sender_id) REFERENCES User(id) ON DELETE CASCADE,
-                         CONSTRAINT Receiver_ChatMessage_FK FOREIGN KEY (receiver_id) REFERENCES User(id) ON DELETE CASCADE
+                        id BIGINT AUTO_INCREMENT,
+                        content TEXT NOT NULL,
+                        timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        sender_id BIGINT NOT NULL,
+                        receiver_id BIGINT NOT NULL,
+                        type VARCHAR(10) NOT NULL,
+                        offer_id BIGINT,
+                        CONSTRAINT ChatMessage_PK PRIMARY KEY (id),
+                        CONSTRAINT Sender_ChatMessage_FK FOREIGN KEY (sender_id) REFERENCES User(id) ON DELETE CASCADE,
+                        CONSTRAINT Receiver_ChatMessage_FK FOREIGN KEY (receiver_id) REFERENCES User(id) ON DELETE CASCADE,
+                        CONSTRAINT Offer_ChatMessage_FK FOREIGN KEY (offer_id) REFERENCES Offer(id) ON DELETE CASCADE
 ) ENGINE = InnoDB;

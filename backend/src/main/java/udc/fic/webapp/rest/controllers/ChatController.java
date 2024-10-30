@@ -1,6 +1,7 @@
 package udc.fic.webapp.rest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -34,17 +35,32 @@ public class ChatController {
     }
 
     @GetMapping("/chat/messages")
-    public ResponseEntity<List<ChatMessageDto>> getMessages(@RequestParam Long userId1, @RequestParam Long userId2) throws InstanceNotFoundException {
-        List<ChatMessage> messages = chatService.getMessagesBetweenUsers(userId1, userId2);
-        List<ChatMessageDto> messageDtos = messages.stream()
-                .map(ChatMessageConversor::toChatMessageDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(messageDtos);
+    public ResponseEntity<List<ChatMessageDto>> getMessages(@RequestParam Long userId1, @RequestParam Long userId2) {
+        try {
+            List<ChatMessage> messages = chatService.getMessagesBetweenUsers(userId1, userId2);
+            List<ChatMessageDto> messageDtos = messages.stream()
+                    .map(ChatMessageConversor::toChatMessageDto)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(messageDtos);
+        } catch (InstanceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/chat/user")
-    public ResponseEntity<List<ChatMessageDto>> getChatsForUser(@RequestParam Long userId) throws InstanceNotFoundException {
-        List<ChatMessageDto> chatDtos = chatService.getChatsForUser(userId);
-        return ResponseEntity.ok(chatDtos);
+    public ResponseEntity<List<ChatMessageDto>> getChatsForUser(@RequestParam Long userId) {
+        try {
+            List<ChatMessageDto> chatDtos = chatService.getChatsForUser(userId);
+            return ResponseEntity.ok(chatDtos);
+        } catch (InstanceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
+
+
+
 }

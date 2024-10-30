@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 @Entity
 public class ChatMessage {
 
+    public enum MessageType {
+        TEXT,
+        OFFER
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +29,15 @@ public class ChatMessage {
     @JoinColumn(name = "receiver_id", nullable = false)
     private User receiver;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MessageType type;
+
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
+    private Offer offer;
+
+
     public ChatMessage() {
     }
 
@@ -32,6 +46,14 @@ public class ChatMessage {
         this.timestamp = timestamp;
         this.sender = sender;
         this.receiver = receiver;
+    }
+
+    public ChatMessage(String content, LocalDateTime timestamp, User sender, User receiver, MessageType type) {
+        this.content = content;
+        this.timestamp = timestamp;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.type = type;
     }
 
     public Long getId() {
@@ -72,5 +94,21 @@ public class ChatMessage {
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
+    }
+
+    public MessageType getType() {
+        return type;
+    }
+
+    public void setType(MessageType type) {
+        this.type = type;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
     }
 }

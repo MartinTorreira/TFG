@@ -8,11 +8,8 @@ import { IoMdSend } from "react-icons/io";
 import { getTimeDifference } from "../../utils/formatDate";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
-import OfferStepper from "../form/OfferStepper.jsx";
-import { Modal, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import useOfferStore from "../store/useOfferStore";
-import { v4 as uuidv4 } from "uuid";
+import OfferStepper from "../form/OfferStepper";
+import { Modal } from "@mui/material";
 
 const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [message, setMessage] = useState("");
@@ -29,10 +26,8 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [userDetails, setUserDetails] = useState({});
   const [isAnimating, setIsAnimating] = useState(false);
   const [timeNow, setTimeNow] = useState(dayjs());
-  const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
-  const [offerDetails, setOfferDetails] = useState(null);
-  const navigate = useNavigate();
-  const setOffer = useOfferStore((state) => state.setOffer); // Obtener la función para guardar la oferta en Zustand
+  const [showOfferStepper, setShowOfferStepper] = useState(false);
+  const [selectedOffer, setSelectedOffer] = useState(null);
 
   useEffect(() => {
     if (user?.id) {
@@ -130,13 +125,16 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
       message.trim() &&
       selectedConversationId
     ) {
+      const receiverId = selectedConversationId
+        .split("-")
+        .find((id) => id !== user.id.toString());
+
       const chatMessage = {
         senderId: user.id,
-        receiverId: selectedConversationId
-          .split("-")
-          .find((id) => id !== user.id.toString()),
+        receiverId: receiverId,
         content: message,
         timestamp: new Date().toISOString(),
+        type: "TEXT",
       };
 
       stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
@@ -151,64 +149,39 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
     setSelectedConversationId(conversationId);
   };
 
-  const openOfferModal = () => setIsOfferModalOpen(true);
-  const closeOfferModal = () => setIsOfferModalOpen(false);
+  const handleOfferClick = (offer) => {
+    setSelectedOffer(offer);
+    setShowOfferStepper(true);
+  };
 
   const handleOfferFinalize = (offerDetails) => {
     if (stompClient && stompClient.connected && selectedConversationId) {
-      const offerId = uuidv4(); // Generate a unique ID for the offer
-      offerDetails.id = offerId; // Assign the ID to the offer details
-      setOffer(offerDetails); // Save the offer in Zustand
+      const receiverId = selectedConversationId
+        .split("-")
+        .find((id) => id !== user.id.toString());
 
       const chatMessage = {
         senderId: user.id,
-        receiverId: selectedConversationId
-          .split("-")
-          .find((id) => id !== user.id.toString()),
-        content: `Haz clic <a href="#" onClick="handleOfferClick(event, '${offerId}')">aquí</a> para ver la oferta`,
+        receiverId: receiverId,
+        content: offerDetails.message,
         timestamp: new Date().toISOString(),
         type: "OFFER",
-        offerId, // Agregar el ID de la oferta al mensaje
+        offer: {
+          amount: offerDetails.desiredPrice,
+          buyerId: user.id,
+          sellerId: receiverId,
+          items: (offerDetails.products || []).map((product) => ({
+            productId: product.id,
+            quantity: product.quantity,
+          })),
+        },
       };
 
       stompClient.send("/app/sendMessage", {}, JSON.stringify(chatMessage));
       sendMessage(chatMessage);
-      setIsOfferModalOpen(false);
+      setShowOfferStepper(false);
     }
   };
-
-  const handleOfferClick = (event, offerId) => {
-    event.preventDefault();
-    // Obtener los detalles de la oferta utilizando el ID
-    const offer = useOfferStore.getState().offer;
-
-    if (offer && offer.id === offerId) {
-      proceedToOrderSummary(offer);
-    } else {
-      // Aquí podrías implementar una lógica para buscar la oferta en tu estado
-      // o realizar una llamada a la API para obtener los detalles de la oferta
-      console.error("Offer not found or does not match the offerId");
-    }
-  };
-
-  const proceedToOrderSummary = (offerDetails) => {
-    console.log("llego aqui");
-    if (offerDetails) {
-      navigate("/product/order-summary", { state: { offerDetails } });
-    } else {
-      console.error("Offer details are null");
-    }
-  };
-
-  // const handleOfferClick = (event, offerId) => {
-  //   event.preventDefault();
-  //   const offer = useOfferStore.getState().offer;
-  //   if (offer && offer.id === offerId) {
-  //     proceedToOrderSummary(offer);
-  //   } else {
-  //     console.error("Offer not found or does not match the offerId");
-  //   }
-  // };
 
   return (
     <div className={`flex h-[650px] ${isAnimating ? "slide-up" : ""}`}>
@@ -277,12 +250,15 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
                   msg.senderId === user.id ? "ml-auto justify-end" : ""
                 }`}
               >
-                <div
-                  className={`flex w-full mt-2 space-x-3 max-w-xs ${
-                    msg.senderId === user.id ? "ml-auto justify-end" : ""
-                  }`}
-                >
-                  <div>
+                <div>
+                  {msg.type === "OFFER" ? (
+                    <button
+                      className="p-3 bg-blue-500 text-white rounded"
+                      onClick={() => handleOfferClick(msg.offer)}
+                    >
+                      View Offer
+                    </button>
+                  ) : (
                     <div
                       className={`p-3 ${
                         msg.senderId === user.id
@@ -290,103 +266,20 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
                           : "bg-gray-200 rounded-r-lg rounded-bl-xl"
                       }`}
                     >
-                      {msg.type === "OFFER" ? (
-                        <a
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleOfferClick(e, msg.offerId); // Usa el offerId directamente
-                          }}
-                          className="cursor-pointer text-blue-500 underline"
-                        >
-                          Haz clic aquí para ver la oferta
-                        </a>
-                      ) : (
-                        <p
-                          className="text-sm"
-                          dangerouslySetInnerHTML={{ __html: msg.content }}
-                        />
-                      )}
+                      <p className="text-sm">{msg.content}</p>
                     </div>
-                    <span className="text-xs text-gray-500 leading-none">
-                      {getTimeDifference(msg.timestamp)}
-                    </span>
-                  </div>
+                  )}
+                  <span className="text-xs text-gray-500 leading-none">
+                    {getTimeDifference(msg.timestamp)}
+                  </span>
                 </div>
               </div>
             ))
           ) : (
             <p>No messages available</p>
           )}
-
           <div ref={messagesEndRef} />
-          <button
-            onClick={openOfferModal}
-            className="w-fit items-end bg-gray-100 rounded-full shadow text-sm text-accent-dark hover:bg-gray-50 hover:text-acccent border py-1.5 px-2"
-          >
-            Hacer una oferta
-          </button>
         </div>
-        <Modal open={isOfferModalOpen} onClose={closeOfferModal}>
-          <Box
-            sx={{
-              width: 1000,
-              height: 800,
-              p: 4,
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              mx: "auto",
-              my: "10vh",
-            }}
-          >
-            {offerDetails ? (
-              <div>
-                <h2>Oferta</h2>
-                <p>
-                  Precio Total:{" "}
-                  {offerDetails.totalPrice
-                    ? offerDetails.totalPrice.toFixed(2).replace(".", ",")
-                    : "N/A"}{" "}
-                  €
-                </p>
-                <p>
-                  Precio Deseado:{" "}
-                  {offerDetails.desiredPrice
-                    ? offerDetails.desiredPrice.toFixed(2).replace(".", ",")
-                    : "N/A"}{" "}
-                  €
-                </p>
-                <ul>
-                  {offerDetails.products > 0
-                    ? offerDetails?.products?.map((product, index) => (
-                        <li key={index}>
-                          {product.name} - {product.quantity} unidades
-                        </li>
-                      ))
-                    : null}
-                </ul>
-                <Button
-                  onClick={() => proceedToOrderSummary(offerDetails)}
-                  variant="contained"
-                  color="primary"
-                  sx={{ mt: 2 }}
-                >
-                  Proceder al pago
-                </Button>
-              </div>
-            ) : (
-              <OfferStepper onOfferFinalize={handleOfferFinalize} />
-            )}
-            <Button
-              onClick={closeOfferModal}
-              variant="contained"
-              color="primary"
-              sx={{ mt: 2 }}
-            >
-              Cerrar
-            </Button>
-          </Box>
-        </Modal>
         <div className="bg-gray-100 py-2 w-full flex">
           <div className="flex px-4 items-center w-full relative">
             <input
@@ -408,8 +301,19 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
             >
               <IoMdSend />
             </button>
+            <button
+              className="absolute right-20 text-accent-darker p-1"
+              onClick={() => setShowOfferStepper(true)}
+            >
+              Send Offer
+            </button>
           </div>
         </div>
+        <Modal open={showOfferStepper} onClose={() => setShowOfferStepper(false)}>
+          <div className="p-4">
+            <OfferStepper onOfferFinalize={handleOfferFinalize} />
+          </div>
+        </Modal>
       </div>
     </div>
   );

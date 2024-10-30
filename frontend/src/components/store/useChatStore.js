@@ -45,6 +45,7 @@ const useChatStore = create((set) => ({
     }),
 
   loadMessages: async (userId1, userId2) => {
+    console.log("LOAD MESSAGES=> ", userId1, userId2);
     try {
       const messages = await new Promise((resolve, reject) => {
         getMessagesBetweenUsers(userId1, userId2, resolve, reject);
@@ -66,9 +67,7 @@ const useChatStore = create((set) => ({
 
   loadInitialMessages: async (userId) => {
     try {
-      const initialMessages = await new Promise((resolve, reject) => {
-        getChatsForUser(userId, resolve, reject);
-      });
+      const initialMessages = await getChatsForUser(userId);
       if (Array.isArray(initialMessages)) {
         const updatedConversations = initialMessages.reduce((acc, msg) => {
           const { senderId, receiverId } = msg;

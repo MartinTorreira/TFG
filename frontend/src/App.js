@@ -127,7 +127,7 @@ export default function App() {
           </div>
           {isChatVisible && (
             <div
-              className="fixed z-50 right-20 bottom-12 w-2/5 h-fit bg-white shadow-lg overflow-y-auto rounded-md"
+              className="fixed z-50 right-20 bottom-12 xl:w-2/5 sm:w-3/4 lg:w-2/3 h-fit bg-white shadow-lg overflow-y-auto rounded-b-2xl "
             >
               <ChatPage
                 setSelectedConversationId={setSelectedConversationId}
@@ -141,7 +141,7 @@ export default function App() {
               onClick={toggleChat}
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
-              className="flex items-center  rounded-t-xl font-medium space-x-2 p-2 pl-4 pr-10 bg-gray-100 text-accent-darker shadow-md hover:bg-gray-50 justify-start"
+              className="flex items-center rounded-t-2xl font-medium space-x-4 p-2 pl-4 pr-10 bg-gray-100 text-accent-darker shadow-md hover:bg-gray-50 justify-start"
             >
               <motion.span
                 animate={{ rotate: isHover ? 180 : 0 }}

@@ -4,6 +4,7 @@ import SockJS from "sockjs-client";
 import { LoginContext } from "../context/LoginContext";
 import useChatStore from "../store/useChatStore";
 import { getUserById } from "../../backend/userService";
+import { getProductById } from "../../backend/productService";
 import { IoMdSend } from "react-icons/io";
 import { getTimeDifference } from "../../utils/formatDate";
 import dayjs from "dayjs";
@@ -11,6 +12,7 @@ import "dayjs/locale/es";
 import OfferStepper from "../form/OfferStepper";
 import { Modal, Box } from "@mui/material";
 import { createOffer, getOfferById } from "../../backend/offerService";
+import { OfferIcon } from "../../icons/OfferIcon.jsx";
 
 const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [message, setMessage] = useState("");
@@ -25,6 +27,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
     sendMessage,
   } = useChatStore();
   const [userDetails, setUserDetails] = useState({});
+  const [productDetails, setProductDetails] = useState({});
   const [isAnimating, setIsAnimating] = useState(false);
   const [timeNow, setTimeNow] = useState(dayjs());
   const [showOfferStepper, setShowOfferStepper] = useState(false);
@@ -167,9 +170,9 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
         amount: offerDetails.offerDetails.desiredPrice,
         items: offerDetails.offerDetails.products
           ? offerDetails.offerDetails.products.map((product) => ({
-              productId: product.id,
-              quantity: product.quantity,
-            }))
+            productId: product.id,
+            quantity: product.quantity,
+          }))
           : [],
       };
 
@@ -204,19 +207,54 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const handleOfferClick = async (msg) => {
     console.log("Offer ID:", msg.offer.id);
     await getOfferById(
-      msg.offer.id, 
-      (data) => setOfferDetails(data), 
-      (error) => console.error("Error fetching offer:", error));
-    
+      msg.offer.id,
+      (data) => setOfferDetails(data),
+      (error) => console.error("Error fetching offer:", error)
+    );
+
+    // Fetch product details
+    if (msg.offer.items) {
+
+      const userId = msg.offer.sellerId;
+      getUserById(
+        userId,
+        (data) => {
+          setUserDetails(data)
+        },
+        (error) => console.error("Error fetching user:", error)
+      )
+
+      const productIds = msg.offer.items.map((item) => item.productId);
+      productIds.forEach((productId) => {
+        getProductById(
+          productId,
+          (data) => {
+            setProductDetails((prevDetails) => ({
+              ...prevDetails,
+              [productId]: data,
+            }));
+          },
+          (error) => console.error("Error fetching product:", error)
+        );
+      });
+    }
     setShowOfferDetails(true);
+
   };
-  
+
   const handleConversationClick = (conversationId) => {
     setSelectedConversationId(conversationId);
   };
-  
+
+  const calculateInitialPrice = () => {
+    return offerDetails?.items?.reduce((total, item) => {
+      const product = productDetails[item.productId];
+      return total + (product ? product.price * item.quantity : 0);
+    }, 0);
+  };
+
   return (
-    <div className={`flex h-[650px] ${isAnimating ? "slide-up" : ""}`}>
+    <div className={`font-sans flex h-[650px] ${isAnimating ? "slide-up" : ""}`}>
       <div className="w-2/5 p-4 bg-gray-100 h-full overflow-y-auto">
         <h2 className="text-lg font-semibold mb-8">Chats</h2>
         {Object.keys(conversations).map((conversationId) => {
@@ -226,7 +264,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
           const lastMessage =
             conversations[conversationId].messages.slice(-1)[0];
           const userDetail = userDetails[otherUserId];
-  
+
           return (
             <div
               key={conversationId}
@@ -278,25 +316,24 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
             conversations[selectedConversationId].messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex w-full mt-2 space-x-3 max-w-xs ${
-                  msg.senderId === user.id ? "ml-auto justify-end" : ""
-                }`}
+                className={`flex w-full mt-2 space-x-3 max-w-xs ${msg.senderId === user.id ? "ml-auto justify-end" : ""
+                  }`}
               >
                 <div>
                   {msg.type === "OFFER" ? (
                     <button
-                      className="p-3 bg-blue-500 text-white rounded"
+                      className="flex items-center text-sm text-left w-full bg-accent-light p-3 text-gray-800 hover:text-opacity-85 underline space-x-1 rounded-l-lg rounded-br-xl"
                       onClick={() => handleOfferClick(msg)}
                     >
-                      View Offer
+                      <OfferIcon size={"20"} className="mr-2" />
+                      <p>Haz click aquí para ver la oferta</p>
                     </button>
                   ) : (
                     <div
-                      className={`p-3 ${
-                        msg.senderId === user.id
-                          ? "bg-accent-dark text-white rounded-l-lg rounded-br-xl"
-                          : "bg-gray-200 rounded-r-lg rounded-bl-xl"
-                      }`}
+                      className={`p-3 ${msg.senderId === user.id
+                        ? "bg-accent-dark text-white rounded-l-lg rounded-br-xl"
+                        : "bg-gray-200 rounded-r-lg rounded-bl-xl"
+                        }`}
                     >
                       <p className="text-sm">{msg.content}</p>
                     </div>
@@ -312,10 +349,10 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
           )}
           <div ref={messagesEndRef} />
         </div>
-        <div className="bg-gray-100 py-2 w-full flex">
-          <div className="flex px-4 items-center w-full relative">
+        <div className="bg-gray-100 py-2 w-full flex sm:flex-col 2xl:flex-row sm:space-y-2 2xl:space-y-0">
+          <div className="flex items-center w-full relative flex-row mr-1">
             <input
-              className="flex-grow p-2 pl-4 pr-8 text-sm focus:outline-none border border-accent-dark rounded"
+              className="flex-grow p-2 pl-4 pr-8 text-sm focus:outline-none border border-accent-light rounded-full focus:placeholder:none"
               type="text"
               placeholder="Escribe un mensaje…"
               value={message}
@@ -328,25 +365,25 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
               }}
             />
             <button
-              className="absolute right-5 text-accent-darker p-1"
+              className="absolute right-2 text-accent-darker p-1"
               onClick={handleSendMessage}
             >
               <IoMdSend />
             </button>
-            <button
-              className="absolute right-20 text-accent-darker p-1"
-              onClick={() => setShowOfferStepper(true)}
-            >
-              Send Offer
-            </button>
           </div>
+          <button
+            className="2xl:w-1/3 sm:w-full sm:p-2 2xl:p-0 text-sm mr-5 rounded-full bg-white hover:opacity-80 transition-all border border-accent-light"
+            onClick={() => setShowOfferStepper(true)}
+          >
+            <p className="text-gray-700">Hacer oferta</p>
+          </button>
         </div>
         <Modal
           open={showOfferStepper}
           onClose={() => setShowOfferStepper(false)}
         >
           <div className="flex items-center justify-center h-full">
-            <div className="bg-white p-4 rounded shadow-lg w-3/4 max-w-lg">
+            <div className="bg-white p-4 rounded shadow-lg w-1/2 h-2/3">
               <OfferStepper onOfferFinalize={handleOfferFinalize} />
             </div>
           </div>
@@ -357,22 +394,57 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
         >
           <Box
             sx={{
-              width: 600,
+              width: 800,
               p: 4,
               bgcolor: "background.paper",
               borderRadius: 2,
               mx: "auto",
-              my: "10vh",
             }}
           >
-            {/* Aquí puedes agregar el contenido que desees para el modal */}
-            <p>Detalles de la oferta</p>
-            <p>{offerDetails.amount}</p>
+            <h2 className="flex flex-row justify-center space-x-3 items-center text-2xl font-semibold text-center mb-6 px-36">
+              <p>Detalles de la oferta</p>
+              <OfferIcon size={"28"} />
+            </h2>
+            <div className="flex flex-col gap-4 mb-6">
+              <div className="flex justify-between">
+                <p className="text-lg font-medium">
+                  {userDetails.userName}
+                </p>
+                <span className="text-lg font-medium text-right">
+                  <p className="text-gray-500 line-through">{offerDetails?.amount.toFixed(2).replace(".", ",")} €<br /></p>
+                  <p className="text-2xl">{calculateInitialPrice()?.toFixed(2).replace(".",",")} €</p>
+                </span>
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold mt-6 mb-4">Productos :</h3>
+            <div className="space-y-4 items-center">
+              {offerDetails?.items?.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 rounded-lg p-2 shadow-md flex items-center"
+                >
+                  <img
+                    src={productDetails[item.productId]?.images[0]}
+                    alt={productDetails[item.productId]?.name}
+                    className="w-20 h-20 object-cover rounded mr-4"
+                  />
+                  <div className="flex flex-col">
+                    <p className="mb-1 font-medium">
+                      {productDetails[item.productId]?.name}
+                    </p>
+                    <p>
+                      x{item.quantity}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </Box>
         </Modal>
+
       </div>
     </div>
   );
-  };
-  
-  export default ChatPage;
+};
+
+export default ChatPage;

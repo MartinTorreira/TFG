@@ -208,4 +208,15 @@ public class PurchaseController {
     }
 
 
+    @DeleteMapping("/{purchaseId}/delete")
+    public ResponseEntity<Void> deletePurchase(@PathVariable Long purchaseId) throws InstanceNotFoundException {
+
+        purchaseDao.findById(purchaseId)
+            .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
+
+        purchaseService.deletePurchase(purchaseId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 }

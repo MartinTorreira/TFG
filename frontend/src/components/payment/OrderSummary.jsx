@@ -60,7 +60,7 @@ const OrderSummary = () => {
     });
   
     navigate("/payment", {
-      state: { products: productsWithQuantities },
+      state: { products: productsWithQuantities, isOffer: disableQuantities },
     });
   };
 

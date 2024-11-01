@@ -14,6 +14,7 @@ const PayPalPayment = () => {
   const location = useLocation();
   const { user } = useContext(LoginContext);
   const [products, setProducts] = useState(location.state?.products || []);
+  const [isOffer, setIsOffer] = useState(location.state?.isOffer || false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { removeFromList } = useProductStore();
@@ -26,7 +27,7 @@ const PayPalPayment = () => {
     products.forEach(async (product) => {
       try {
         await getItemByProductId(
-          product.id,
+          isOffer ? product.productId : product.id,
           (itemId) => removeFromCart(itemId),
           (error) => console.log("Error removing item from cart:", error)
         );
@@ -59,6 +60,7 @@ const PayPalPayment = () => {
   };
 
   const createOrder = async (data, actions) => {
+    console.log("ESPAÑA")
     if (products.length === 0) {
       setError(new Error("Products not loaded"));
       return;
@@ -97,19 +99,7 @@ const PayPalPayment = () => {
         return;
       }
   
-      console.log("Creating order with data:", {
-        buyerId: user.id,
-        sellerId: sellerId,
-        purchaseItems: products.map((product) => ({
-          productId: product.productId,
-          quantity: product.quantity,
-        })),
-        amount: totalAmount,
-        currency: "EUR",
-        paymentMethod: "PAYPAL",
-        purchaseStatus: "PENDING",
-      });
-  
+      
       const response = await fetch("http://localhost:8080/purchase/create", {
         method: "POST",
         headers: {
@@ -119,8 +109,8 @@ const PayPalPayment = () => {
           buyerId: user.id,
           sellerId: sellerId,
           purchaseItems: products.map((product) => ({
-            productId: product.productId,
-            quantity: product.quantity,
+            productId: isOffer ? product.productId : product.id,
+            quantity:  product.quantity ,
           })),
           amount: totalAmount,
           currency: "EUR",

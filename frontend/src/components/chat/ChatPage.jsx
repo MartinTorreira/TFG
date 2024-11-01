@@ -13,6 +13,9 @@ import OfferStepper from "../form/OfferStepper";
 import { Modal, Box } from "@mui/material";
 import { createOffer, getOfferById } from "../../backend/offerService";
 import { OfferIcon } from "../../icons/OfferIcon.jsx";
+import { useNavigate } from "react-router-dom";
+import {Avatar} from "../Avatar.jsx"
+import { RatingComponent } from "../RatingComponent.jsx";
 
 const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [message, setMessage] = useState("");
@@ -33,6 +36,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [showOfferStepper, setShowOfferStepper] = useState(false);
   const [showOfferDetails, setShowOfferDetails] = useState(false);
   const [offerDetails, setOfferDetails] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.id) {
@@ -253,6 +257,39 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
     }, 0);
   };
 
+  const handleAcceptOffer = () => {
+    if (!offerDetails || !productDetails) {
+      console.error("Offer details or product details are missing");
+      return;
+    }
+  
+    const productsWithQuantities = offerDetails.items.map((item) => {
+      const product = productDetails[item.productId];
+      if (!product) {
+        console.error(`Product details for productId ${item.productId} are missing`);
+        return null;
+      }
+  
+      return {
+        productId: item.productId, // Asegúrate de incluir productId
+        quantity: item.quantity,
+        userDto: product.userDto,
+        name: product.name,
+        price: product.price,
+        images: product.images,
+      };
+    }).filter(item => item !== null); // Filter out any null values
+  
+    console.log("Navigating to OrderSummary with state:", {
+      productList: productsWithQuantities,
+      disableQuantities: true,
+    });
+  
+    navigate("../product/order-summary", {
+      state: { productList: productsWithQuantities, disableQuantities: true },
+    });
+  };
+
   return (
     <div className={`font-sans flex h-[650px] ${isAnimating ? "slide-up" : ""}`}>
       <div className="w-2/5 p-4 bg-gray-100 h-full overflow-y-auto">
@@ -399,29 +436,39 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
               bgcolor: "background.paper",
               borderRadius: 2,
               mx: "auto",
+              my: "10vh",
             }}
           >
+
             <h2 className="flex flex-row justify-center space-x-3 items-center text-2xl font-semibold text-center mb-6 px-36">
               <p>Detalles de la oferta</p>
               <OfferIcon size={"28"} />
             </h2>
-            <div className="flex flex-col gap-4 mb-6">
-              <div className="flex justify-between">
-                <p className="text-lg font-medium">
-                  {userDetails.userName}
-                </p>
+            <div className="flex flex-col gap-4 mb-6 mt-14">
+              <div className="flex justify-between mb-6">
+                <div className="flex flex-row items-center border border-gray-100 shadow-sm p-2 rounded-lg justify-center">
+                  <Avatar
+                    size={"10"}
+                    className=""
+                    imagePath={userDetails?.avatar}
+                  />
+                  <div className="flex flex-col gap-y-1">
+                    <p className="text-sm">{userDetails?.userName}</p>
+                    <RatingComponent size="small" rate={userDetails?.rate} />
+                  </div>
+                </div>
                 <span className="text-lg font-medium text-right">
-                  <p className="text-gray-500 line-through">{offerDetails?.amount.toFixed(2).replace(".", ",")} €<br /></p>
-                  <p className="text-2xl">{calculateInitialPrice()?.toFixed(2).replace(".",",")} €</p>
+                  <p className="text-gray-500 line-through">{calculateInitialPrice()?.toFixed(2).replace(".", ",")} €<br /></p>
+                  <p className="text-2xl">{offerDetails?.amount.toFixed(2).replace(".", ",")} €</p>
                 </span>
               </div>
             </div>
-            <h3 className="text-xl font-semibold mt-6 mb-4">Productos :</h3>
+            <h3 className="text-xl font-semibold mt-6 mb-4">Productos</h3>
             <div className="space-y-4 items-center">
               {offerDetails?.items?.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 rounded-lg p-2 shadow-md flex items-center"
+                  className="bg-gray-50 rounded-lg p-2 shadow flex items-center"
                 >
                   <img
                     src={productDetails[item.productId]?.images[0]}
@@ -438,6 +485,15 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
                   </div>
                 </div>
               ))}
+
+            </div>
+            <div className="flex flex-row justify-end items-center mt-6 -mb-3 space-x-4">
+              <div className="rounded-full border border-gray-200 bg-gray-200 text-gray-800 font-semibold py-1 px-3">
+                <button onClick={() => setShowOfferDetails(false)}>Cerrar</button>
+              </div>
+              <button
+                onClick={() => { handleAcceptOffer(); handleAcceptOffer() }}
+                className="border border-accent-dark bg-accent-dark text-gray-100 font-semibold rounded-full py-1 px-3">Aceptar</button>
             </div>
           </Box>
         </Modal>

@@ -63,17 +63,22 @@ const PayPalPayment = () => {
       setError(new Error("Products not loaded"));
       return;
     }
-
-    const sellerId = products[0].userDto.id;
+  
+    const sellerId = products[0]?.userDto?.id;
+    if (!sellerId) {
+      setError(new Error("Seller ID is missing"));
+      return;
+    }
+  
     const allSameSeller = products.every(
       (product) => product.userDto.id === sellerId
     );
-
+  
     if (!allSameSeller) {
       setError(new Error("All products must have the same seller"));
       return;
     }
-
+  
     try {
       const totalAmount = products
         .reduce((total, product) => {
@@ -86,12 +91,25 @@ const PayPalPayment = () => {
           return total + price * quantity;
         }, 0)
         .toFixed(2);
-
+  
       if (parseFloat(totalAmount) <= 0) {
         setError(new Error("Total amount must be greater than zero"));
         return;
       }
-
+  
+      console.log("Creating order with data:", {
+        buyerId: user.id,
+        sellerId: sellerId,
+        purchaseItems: products.map((product) => ({
+          productId: product.productId,
+          quantity: product.quantity,
+        })),
+        amount: totalAmount,
+        currency: "EUR",
+        paymentMethod: "PAYPAL",
+        purchaseStatus: "PENDING",
+      });
+  
       const response = await fetch("http://localhost:8080/purchase/create", {
         method: "POST",
         headers: {
@@ -101,7 +119,7 @@ const PayPalPayment = () => {
           buyerId: user.id,
           sellerId: sellerId,
           purchaseItems: products.map((product) => ({
-            productId: product.id,
+            productId: product.productId,
             quantity: product.quantity,
           })),
           amount: totalAmount,
@@ -110,15 +128,15 @@ const PayPalPayment = () => {
           purchaseStatus: "PENDING",
         }),
       });
-
+  
       if (!response.ok) {
         const text = await response.text();
         console.error("Error response from server:", text);
         throw new Error(text);
       }
-
+  
       const order = await response.json();
-
+  
       if (order.approvalUrl) {
         const urlParams = new URLSearchParams(
           new URL(order.approvalUrl).search

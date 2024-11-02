@@ -3,6 +3,8 @@ package udc.fic.webapp.model.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import udc.fic.webapp.model.entities.Rating;
+import udc.fic.webapp.model.entities.RatingDao;
 import udc.fic.webapp.model.entities.User;
 import udc.fic.webapp.model.entities.UserDao;
 import udc.fic.webapp.model.exceptions.DuplicateInstanceException;
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RatingDao ratingDao;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -136,4 +141,20 @@ public class UserServiceImpl implements UserService {
        return userDao.findById(id).orElseThrow(() -> new InstanceNotFoundException("User", id));
     }
 
+    @Override
+    public void rateUser(Long userId, int rate) throws InstanceNotFoundException {
+        User user = userDao.findById(userId).orElseThrow(() -> new InstanceNotFoundException("User", userId));
+        Rating rating = new Rating(user, rate);
+        ratingDao.save(rating);
+
+        double averageRating = user.getRatings().stream().mapToInt(Rating::getRate).average().orElse(0.0);
+        user.setRate((int) Math.round(averageRating));
+        userDao.save(user);
+    }
+
+    @Override
+    public double getAverageRating(Long userId) throws InstanceNotFoundException {
+        User user = userDao.findById(userId).orElseThrow(() -> new InstanceNotFoundException("User", userId));
+        return user.getRatings().stream().mapToInt(Rating::getRate).average().orElse(0.0);
+    }
 }

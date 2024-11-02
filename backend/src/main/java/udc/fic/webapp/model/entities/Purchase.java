@@ -30,6 +30,7 @@ public class Purchase {
     private String orderId;
     private String captureId;
     private Boolean isRefunded;
+    private int userRate;
     private PurchaseStatus purchaseStatus;
     private List<PurchaseItem> items = new ArrayList<>();
 
@@ -151,6 +152,7 @@ public class Purchase {
     public Boolean getIsRefunded() {
         return isRefunded;
     }
+
     public void setIsRefunded(Boolean isRefunded) {
         this.isRefunded = isRefunded;
     }
@@ -164,4 +166,7 @@ public class Purchase {
         this.purchaseStatus = status;
     }
 
+    public void setUserRate(int userRate) {
+        this.userRate = userRate;
+    }
 }

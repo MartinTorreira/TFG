@@ -251,6 +251,13 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchaseDao.delete(purchase);
     }
 
+    @Override
+    public Long getSellerIdByPurchaseId(Long purchaseId) throws InstanceNotFoundException {
+        return purchaseDao.findById(purchaseId)
+                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId))
+                .getSeller().getId();
+    }
+
 
     // NOTIFICATIONS ==========================================================
 

@@ -26,4 +26,7 @@ public interface UserService {
     void changeAvatar(Long id, String url) throws InstanceNotFoundException;
 
     User getUserById(Long id) throws InstanceNotFoundException;
+
+    double getAverageRating(Long id) throws InstanceNotFoundException;
+    void rateUser(Long userId, int rate) throws InstanceNotFoundException;
 }

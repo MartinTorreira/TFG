@@ -3,23 +3,33 @@ import { formatDate } from "../../utils/formatDate";
 import { useNavigate } from "react-router-dom";
 import { ShoppingBagIcon } from "../../icons/ShoppingBagIcon";
 import usePurchasesStore from "../store/usePurchasesStore";
+import useRatingsStore from "../store/useRatingStore";
 import { LoginContext } from "../context/LoginContext";
 import { DateIcon } from "../../icons/DateIcon";
 import { Spinner } from "../../icons/Spinner";
 import { purchaseStatusMap } from "../../utils/Qualities.js";
 import { MoneyIcon } from "../../icons/MoneyIcon.jsx";
 import { Check } from "../../icons/Check";
+import { getSellerId, getUserById, rateUser } from "../../backend/userService.js";
+import { RatingComponent } from "../RatingComponent";
 
 export const UserPurchaseList = ({ onRefund }) => {
   const navigate = useNavigate();
   const { user } = useContext(LoginContext);
   const { purchases, loadPurchases, updatePurchaseStatus } = usePurchasesStore();
+  const { ratings, setRating, fetchRatings } = useRatingsStore();
   const [loadingRefunds, setLoadingRefunds] = useState({});
   const [statusMap, setStatusMap] = useState({});
 
   const handleNavigate = (id) => {
     navigate(`../purchase/order-confirmation/${id}/`);
   };
+
+  useEffect(() => {
+    if (purchases?.length > 0) {
+      fetchRatings(purchases);
+    }
+  }, [purchases, fetchRatings]);
 
   useEffect(() => {
     loadPurchases(user.id);
@@ -38,7 +48,7 @@ export const UserPurchaseList = ({ onRefund }) => {
       const newStatusMap = {};
       purchases.forEach((purchase) => {
         const status = purchaseStatusMap.find(
-          (item) => item.value === purchase.purchaseStatus,
+          (item) => item.value === purchase.purchaseStatus
         );
         if (status) {
           newStatusMap[purchase.id] = status;
@@ -49,6 +59,34 @@ export const UserPurchaseList = ({ onRefund }) => {
       setStatusMap(newStatusMap);
     }
   }, [purchases]);
+
+  const handleRate = (purchaseId, newValue) => {
+    try {
+      getSellerId(
+        purchaseId,
+        (sellerId) => {
+          rateUser(
+            sellerId,
+            newValue,
+            () => {
+              console.log("User rated successfully");
+              getUserById(sellerId, (user) => {
+                setRating(purchaseId, user.rate);
+              });
+            },
+            (err) => {
+              console.log("Error ", err);
+            }
+          );
+        },
+        (err) => {
+          console.log("Error", err);
+        }
+      );
+    } catch (e) {
+      console.log("Error", e);
+    }
+  };
 
   return (
     <div>
@@ -126,6 +164,24 @@ export const UserPurchaseList = ({ onRefund }) => {
                       </span>
                     </div>
 
+                    {/* Valoración */}
+                    <div className="flex flex-col items-center lg:items-start space-y-1 lg:flex-1">
+                      <span className="text-xs font-semibold text-gray-500">
+                        ¡Valora al vendedor!
+                      </span>
+                      <div className="flex flex-row items-center space-x-1">
+                        {ratings[purchase.id]}
+                        <RatingComponent
+                          rate={ratings[purchase.id]}
+                          size="small"
+                          onChange={(newValue) =>
+                            handleRate(purchase.id, newValue)
+                          }
+                          editable={true}
+                        />
+                      </div>
+                    </div>
+
                     <div className="space-y-10">
                       <div className="flex flex-col space-y-2 lg:flex-1 items-center lg:items-start">
                         {!purchase.isRefunded && (
@@ -135,7 +191,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                                 handleRefund(
                                   purchase.captureId,
                                   purchase.amount,
-                                  purchase.id,
+                                  purchase.id
                                 )
                               }
                               className="w-full text-xs text-red-900/80 font-bold hover:opacity-80 transition-all border border-red-50 p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-red-100/20"

@@ -219,4 +219,11 @@ public class PurchaseController {
     }
 
 
+    @GetMapping("/{purchaseId}/getSellerId")
+    public ResponseEntity<Long> getSellerIdByPurchaseId(@PathVariable Long purchaseId) throws InstanceNotFoundException {
+        return ResponseEntity.ok(purchaseService.getSellerIdByPurchaseId(purchaseId));
+    }
+
+
+
 }

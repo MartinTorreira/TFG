@@ -112,7 +112,7 @@ export const changeAvatar = (userId, url, onSuccess, onErrors) => {
 };
 
 export const getUserById = async (userId, onSuccess, onErrors) => {
-  return appFetch(
+    appFetch(
     `/user/${userId}/getUser`,
     fetchConfig("GET"),
     onSuccess,
@@ -135,6 +135,25 @@ export const markAsRead = async (notificationId, onSuccess, onErrors) => {
   appFetch(
     `/notifications/${notificationId}/markAsRead`,
     fetchConfig("PUT"),
+    onSuccess,
+    onErrors,
+  );
+}
+
+
+export const rateUser = async (id, rate, onSuccess, onErrors) => {
+  appFetch(
+    `/user/${id}/rate?rate=${rate}`,
+    fetchConfig("POST"),
+    onSuccess,
+    onErrors,
+  );
+}
+
+export const getSellerId = async (purchaseId, onSuccess, onErrors) => {
+  appFetch(
+    `/purchase/${purchaseId}/getSellerId`,
+    fetchConfig("GET"),
     onSuccess,
     onErrors,
   );

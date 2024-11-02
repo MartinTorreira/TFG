@@ -105,9 +105,9 @@ const AddProduct = () => {
 
   return (
     <section className="mt-10 mb-20">
-      <div className="flex flex-col items-center justify-start px-10 py-8 mx-auto lg:py-0">
-        <div className="rounded-lg md:mt-0 w-1/2 xl:p-0 ">
-          <div className="py-4 px-20 mx-auto w-full lg:py-10">
+      <div className="flex flex-col items-center justify-start xl:px-10 sm:px-0 py-8 mx-auto lg:py-0">
+        <div className="rounded-lg md:mt-0 2xl:w-1/2 xl:w-10/12 sm:w-full xl:p-0 ">
+          <div className="py-4 xl:px-20 sm:px-2 mx-auto w-full lg:py-10">
             <form onSubmit={handleSubmit}>
               {/* Section 1: Product Name, Quantity, Price */}
               <div className="bg-white p-4 rounded-lg shadow-md mb-4">

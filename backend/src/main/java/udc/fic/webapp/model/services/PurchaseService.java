@@ -45,4 +45,6 @@ public interface PurchaseService {
 
     void deletePurchase(Long purchaseId) throws InstanceNotFoundException;
 
+    Long getSellerIdByPurchaseId(Long purchaseId) throws InstanceNotFoundException;
+
 }

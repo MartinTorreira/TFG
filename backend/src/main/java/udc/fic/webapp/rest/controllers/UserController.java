@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import udc.fic.webapp.model.entities.ShoppingCart;
 import udc.fic.webapp.model.entities.User;
+import udc.fic.webapp.model.entities.UserDao;
 import udc.fic.webapp.model.exceptions.*;
 import udc.fic.webapp.model.services.ShoppingCartService;
 import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.common.ErrorsDto;
 import udc.fic.webapp.rest.common.JwtGenerator;
 import udc.fic.webapp.rest.common.JwtInfo;
-import udc.fic.webapp.rest.dto.AuthenticatedUserDto;
-import udc.fic.webapp.rest.dto.ChangePasswordParamsDto;
-import udc.fic.webapp.rest.dto.LoginParamsDto;
-import udc.fic.webapp.rest.dto.UserDto;
+import udc.fic.webapp.rest.dto.*;
 
 import java.net.URI;
 import java.util.List;
@@ -38,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private ShoppingCartService shoppingCartService;
@@ -144,6 +145,22 @@ public class UserController {
     @GetMapping("/{id}/getUser")
     public UserDto getUser(@PathVariable Long id) throws InstanceNotFoundException {
         return toUserDto(userService.getUserById(id));
+    }
+
+    @PostMapping("/{id}/rate")
+    public ResponseEntity<UserDto> rateUser(@RequestAttribute Long userId, @PathVariable Long id, @RequestParam int rate) throws InstanceNotFoundException {
+        User user = userDao.findById(id).orElseThrow(() -> new InstanceNotFoundException("User", id));
+        if (user.getId().equals(userId)) {
+            throw new IllegalArgumentException("Same user can't rate yourself");
+        }
+        userService.rateUser(id, rate);
+        return ResponseEntity.ok(UserConversor.toUserDto(user));
+    }
+
+    @GetMapping("/{id}/averageRating")
+    public ResponseEntity<Double> getUserAverageRating(@PathVariable Long id) throws InstanceNotFoundException {
+        double averageRating = userService.getAverageRating(id);
+        return ResponseEntity.ok(averageRating);
     }
 
 

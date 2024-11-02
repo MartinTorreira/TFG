@@ -6,7 +6,7 @@ import { getPurchaseById } from "../../backend/paymentService";
 import { Avatar } from "../Avatar.jsx";
 import { RatingComponent } from "../RatingComponent.jsx";
 import { CheckIcon } from "../../icons/CheckIcon.jsx";
-import { motion } from "framer-motion"; // Importa motion
+import { motion } from "framer-motion";
 
 const OrderConfirmation = () => {
   const { id } = useParams();
@@ -23,7 +23,7 @@ const OrderConfirmation = () => {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
 
     if (products.length > 0) {
@@ -45,7 +45,7 @@ const OrderConfirmation = () => {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   }, [id]);
 
@@ -71,13 +71,15 @@ const OrderConfirmation = () => {
             <dl>
               <dd className="mt-1 text-base font-normal text-gray-700">
                 <div className="flex flex-row items-center">
-                  <Avatar
-                    size="10"
-                    imagePath={products[0]?.userDto.avatar}
-                  />
+                  <Avatar size="10" imagePath={products[0]?.userDto.avatar} />
                   <div className="ml-2">
-                    <p className="text-gray-700">{products[0]?.userDto.userName}</p>
-                    <RatingComponent rate={products[0]?.userDto.rate} size="small" />
+                    <p className="text-gray-700">
+                      {products[0]?.userDto.userName}
+                    </p>
+                    <RatingComponent
+                      rate={products[0]?.userDto.rate}
+                      size="small"
+                    />
                   </div>
                 </div>
               </dd>
@@ -89,7 +91,9 @@ const OrderConfirmation = () => {
               <table className="w-full text-left font-medium text-gray-900 dark:text-white">
                 <thead>
                   <tr>
-                    <th className="text-lg font-semibold text-gray-900 ">Resumen de compra</th>
+                    <th className="text-lg font-semibold text-gray-900 ">
+                      Resumen de compra
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-700">
@@ -108,7 +112,9 @@ const OrderConfirmation = () => {
                               x{purchase?.purchaseItems?.[index]?.quantity || 0}
                             </span>
                           </div>
-                          <span className="mt-1 text-sm text-gray-700 truncate">{placeName}</span>
+                          <span className="mt-1 text-sm text-gray-700 truncate">
+                            {placeName}
+                          </span>
                           <span className="text-base justify-end text-gray-900">
                             {purchase?.amount?.toFixed(2).replace(".", ",")} €
                           </span>

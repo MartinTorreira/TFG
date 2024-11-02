@@ -99,7 +99,6 @@ export const changePurchaseStatus = async (
 }
 
 
-
 export const deletePurchase = async (purchaseId, onSuccess, onErrors) => {
   appFetch(
     `/purchase/${purchaseId}/delete`,

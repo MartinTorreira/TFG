@@ -16,16 +16,12 @@ import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
 import udc.fic.webapp.rest.dto.PurchaseConversor;
 import udc.fic.webapp.rest.dto.PurchaseDto;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import udc.fic.webapp.rest.dto.PurchaseItemDto;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -63,7 +59,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         purchase.setAmount(dto.getAmount());
         purchase.setPurchaseDate(new Date());
 
-        // Use the orderId provided by PayPal
         if (dto.getOrderId() == null || dto.getOrderId().isEmpty()) {
             throw new IllegalArgumentException("orderId must be provided by PayPal");
         }
@@ -96,7 +91,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 
             purchaseItemDao.save(purchaseItem);
             notifySeller(purchase);
-
         }
 
         return purchase;
@@ -138,9 +132,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         Purchase purchase = purchaseDao.findByOrderId(orderId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", orderId));
 
-        Optional<PurchaseItem> purchaseItem = purchaseItemDao.findByPurchaseId(purchase.getId());
-        if (purchaseItem.isPresent()) {
-            return purchaseItem.get().getProduct();
+        List<PurchaseItem> purchaseItems = purchaseItemDao.findByPurchaseId(purchase.getId());
+        if (!purchaseItems.isEmpty()) {
+            return purchaseItems.get(0).getProduct();
         } else {
             throw new InstanceNotFoundException("project.entities.product", orderId);
         }
@@ -149,8 +143,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public PurchaseDto getPurchaseByProductId(Long productId) throws InstanceNotFoundException {
                 // Recursive function to notify the seller with all purchase items
-PurchaseItem purchaseItem = purchaseItemDao.findByProductId(productId)
-                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", productId));
+    PurchaseItem purchaseItem = purchaseItemDao.findByProductId(productId)
+                    .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", productId));
 
         Purchase purchase = purchaseItem.getPurchase();
         PurchaseDto purchaseDto = new PurchaseDto();
@@ -265,19 +259,23 @@ PurchaseItem purchaseItem = purchaseItemDao.findByProductId(productId)
         User user = userDao.findById(purchase.getBuyer().getId())
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.user", purchase.getBuyer().getId()));
 
-        Optional<PurchaseItem> purchaseItemOpt = purchaseItemDao.findByPurchaseId(purchase.getId());
-        PurchaseItem purchaseItem = purchaseItemOpt.orElseThrow(() -> new InstanceNotFoundException("project.entities.purchaseItem", purchase.getId()));
+        List<PurchaseItem> purchaseItems = purchaseItemDao.findByPurchaseId(purchase.getId());
+        if (purchaseItems.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.purchaseItem", purchase.getId());
+        }
 
-        Product product = purchaseItem.getProduct();
-        int quantity = purchaseItem.getQuantity();
+        for (PurchaseItem purchaseItem : purchaseItems) {
+            Product product = purchaseItem.getProduct();
+            int quantity = purchaseItem.getQuantity();
 
-        String formattedAmount = String.format("%.2f €", purchase.getAmount());
+            String formattedAmount = String.format("%.2f €", purchase.getAmount());
 
-        String message = "El usuario " + user.getUserName()
-                + " ha realizado una compra de x" + quantity + " " + (quantity == 1 ? "unidad del producto " : "unidades del producto ")
-                + product.getName() + " por un total de " + formattedAmount;
+            String message = "El usuario " + user.getUserName()
+                    + " ha realizado una compra de x" + quantity + " " + (quantity == 1 ? "unidad del producto " : "unidades del producto ")
+                    + product.getName() + " por un total de " + formattedAmount;
 
-        notificationService.createNotification(purchase.getId(), message);
+            notificationService.createNotification(purchase.getId(), message);
+        }
     }
 
 }

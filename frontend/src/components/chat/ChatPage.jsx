@@ -14,10 +14,14 @@ import { Modal, Box } from "@mui/material";
 import { createOffer, getOfferById } from "../../backend/offerService";
 import { OfferIcon } from "../../icons/OfferIcon.jsx";
 import { useNavigate } from "react-router-dom";
-import {Avatar} from "../Avatar.jsx"
+import { Avatar } from "../Avatar.jsx";
 import { RatingComponent } from "../RatingComponent.jsx";
 
-const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
+const ChatPage = ({
+  setSelectedConversationId,
+  selectedConversationId,
+  toggleChat,
+}) => {
   const [message, setMessage] = useState("");
   const [stompClient, setStompClient] = useState(null);
   const messagesEndRef = useRef(null);
@@ -36,6 +40,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   const [showOfferStepper, setShowOfferStepper] = useState(false);
   const [showOfferDetails, setShowOfferDetails] = useState(false);
   const [offerDetails, setOfferDetails] = useState(null);
+  const [sellerDetails, setSellerDetails] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,7 +66,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
       },
       (error) => {
         console.error("Error connecting to WebSocket:", error);
-      }
+      },
     );
 
     setStompClient(client);
@@ -76,14 +81,14 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
   useEffect(() => {
     const fetchDetails = async () => {
       const userIds = Object.keys(conversations).flatMap((conversationId) =>
-        conversationId.split("-").filter((id) => id !== user.id.toString())
+        conversationId.split("-").filter((id) => id !== user.id.toString()),
       );
       const uniqueUserIds = [...new Set(userIds)];
       const detailsPromises = uniqueUserIds.map(
         (userId) =>
           new Promise((resolve, reject) => {
             getUserById(userId, resolve, reject);
-          })
+          }),
       );
       const details = await Promise.all(detailsPromises);
       const detailsMap = details.reduce((acc, detail) => {
@@ -110,7 +115,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
             [user.id]: data,
           }));
         },
-        (error) => console.error("Error fetching user:", error)
+        (error) => console.error("Error fetching user:", error),
       );
     }
   }, [selectedConversationId, user.id, loadMessages]);
@@ -174,9 +179,9 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
         amount: offerDetails.offerDetails.desiredPrice,
         items: offerDetails.offerDetails.products
           ? offerDetails.offerDetails.products.map((product) => ({
-            productId: product.id,
-            quantity: product.quantity,
-          }))
+              productId: product.id,
+              quantity: product.quantity,
+            }))
           : [],
       };
 
@@ -203,7 +208,7 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
         },
         (errors) => {
           console.error("Error creating offer:", errors);
-        }
+        },
       );
     }
   };
@@ -213,20 +218,19 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
     await getOfferById(
       msg.offer.id,
       (data) => setOfferDetails(data),
-      (error) => console.error("Error fetching offer:", error)
+      (error) => console.error("Error fetching offer:", error),
     );
 
     // Fetch product details
     if (msg.offer.items) {
-
-      const userId = msg.offer.sellerId;
+      const userId = msg.offer.buyerId;
       getUserById(
         userId,
         (data) => {
-          setUserDetails(data)
+          setUserDetails(data);
         },
-        (error) => console.error("Error fetching user:", error)
-      )
+        (error) => console.error("Error fetching user:", error),
+      );
 
       const productIds = msg.offer.items.map((item) => item.productId);
       productIds.forEach((productId) => {
@@ -238,12 +242,11 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
               [productId]: data,
             }));
           },
-          (error) => console.error("Error fetching product:", error)
+          (error) => console.error("Error fetching product:", error),
         );
       });
     }
     setShowOfferDetails(true);
-
   };
 
   const handleConversationClick = (conversationId) => {
@@ -262,36 +265,44 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
       console.error("Offer details or product details are missing");
       return;
     }
-  
-    const productsWithQuantities = offerDetails.items.map((item) => {
-      const product = productDetails[item.productId];
-      if (!product) {
-        console.error(`Product details for productId ${item.productId} are missing`);
-        return null;
-      }
-  
-      return {
-        productId: item.productId, // Asegúrate de incluir productId
-        quantity: item.quantity,
-        userDto: product.userDto,
-        name: product.name,
-        price: product.price,
-        images: product.images,
-      };
-    }).filter(item => item !== null); // Filter out any null values
-  
+
+    const productsWithQuantities = offerDetails.items
+      .map((item) => {
+        const product = productDetails[item.productId];
+        if (!product) {
+          console.error(
+            `Product details for productId ${item.productId} are missing`,
+          );
+          return null;
+        }
+
+        return {
+          productId: item.productId,
+          quantity: item.quantity,
+          userDto: product.userDto,
+          name: product.name,
+          price: product.price,
+          images: product.images,
+        };
+      })
+      .filter((item) => item !== null); // Filter out any null values
+
     console.log("Navigating to OrderSummary with state:", {
       productList: productsWithQuantities,
       disableQuantities: true,
     });
-  
+
     navigate("../product/order-summary", {
       state: { productList: productsWithQuantities, disableQuantities: true },
     });
+    toggleChat();
+    setShowOfferDetails(false);
   };
 
   return (
-    <div className={`font-sans flex h-[650px] ${isAnimating ? "slide-up" : ""}`}>
+    <div
+      className={`font-sans flex h-[650px] ${isAnimating ? "slide-up" : ""}`}
+    >
       <div className="w-2/5 p-4 bg-gray-100 h-full overflow-y-auto">
         <h2 className="text-lg font-semibold mb-8">Chats</h2>
         {Object.keys(conversations).map((conversationId) => {
@@ -353,8 +364,9 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
             conversations[selectedConversationId].messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex w-full mt-2 space-x-3 max-w-xs ${msg.senderId === user.id ? "ml-auto justify-end" : ""
-                  }`}
+                className={`flex w-full mt-2 space-x-3 max-w-xs ${
+                  msg.senderId === user.id ? "ml-auto justify-end" : ""
+                }`}
               >
                 <div>
                   {msg.type === "OFFER" ? (
@@ -367,10 +379,11 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
                     </button>
                   ) : (
                     <div
-                      className={`p-3 ${msg.senderId === user.id
-                        ? "bg-accent-dark text-white rounded-l-lg rounded-br-xl"
-                        : "bg-gray-200 rounded-r-lg rounded-bl-xl"
-                        }`}
+                      className={`p-3 ${
+                        msg.senderId === user.id
+                          ? "bg-accent-dark text-white rounded-l-lg rounded-br-xl"
+                          : "bg-gray-200 rounded-r-lg rounded-bl-xl"
+                      }`}
                     >
                       <p className="text-sm">{msg.content}</p>
                     </div>
@@ -439,7 +452,6 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
               my: "10vh",
             }}
           >
-
             <h2 className="flex flex-row justify-center space-x-3 items-center text-2xl font-semibold text-center mb-6 px-36">
               <p>Detalles de la oferta</p>
               <OfferIcon size={"28"} />
@@ -458,8 +470,13 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
                   </div>
                 </div>
                 <span className="text-lg font-medium text-right">
-                  <p className="text-gray-500 line-through">{calculateInitialPrice()?.toFixed(2).replace(".", ",")} €<br /></p>
-                  <p className="text-2xl">{offerDetails?.amount.toFixed(2).replace(".", ",")} €</p>
+                  <p className="text-gray-500 line-through">
+                    {calculateInitialPrice()?.toFixed(2).replace(".", ",")} €
+                    <br />
+                  </p>
+                  <p className="text-2xl">
+                    {offerDetails?.amount.toFixed(2).replace(".", ",")} €
+                  </p>
                 </span>
               </div>
             </div>
@@ -479,25 +496,29 @@ const ChatPage = ({ setSelectedConversationId, selectedConversationId }) => {
                     <p className="mb-1 font-medium">
                       {productDetails[item.productId]?.name}
                     </p>
-                    <p>
-                      x{item.quantity}
-                    </p>
+                    <p>x{item.quantity}</p>
                   </div>
                 </div>
               ))}
-
             </div>
             <div className="flex flex-row justify-end items-center mt-6 -mb-3 space-x-4">
               <div className="rounded-full border border-gray-200 bg-gray-200 text-gray-800 font-semibold py-1 px-3">
-                <button onClick={() => setShowOfferDetails(false)}>Cerrar</button>
+                <button onClick={() => setShowOfferDetails(false)}>
+                  Cerrar
+                </button>
               </div>
               <button
-                onClick={() => { handleAcceptOffer(); handleAcceptOffer() }}
-                className="border border-accent-dark bg-accent-dark text-gray-100 font-semibold rounded-full py-1 px-3">Aceptar</button>
+                onClick={() => {
+                  handleAcceptOffer();
+                  //   handleAcceptOffer();
+                }}
+                className="border border-accent-dark bg-accent-dark text-gray-100 font-semibold rounded-full py-1 px-3"
+              >
+                Aceptar
+              </button>
             </div>
           </Box>
         </Modal>
-
       </div>
     </div>
   );

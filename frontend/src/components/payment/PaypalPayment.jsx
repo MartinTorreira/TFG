@@ -1,5 +1,4 @@
-// src/components/PayPalPayment.js
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LoginContext } from "../context/LoginContext";
@@ -19,9 +18,24 @@ const PayPalPayment = () => {
   const navigate = useNavigate();
   const { removeFromList } = useProductStore();
   const { removeFromCart } = useCartStore();
-  const { addPurchase, updateCaptureId } = usePurchasesStore();
+  const { addPurchase, updateCaptureId, deletePurchase } = usePurchasesStore();
 
   let purchaseId = "";
+
+  useEffect(() => {
+    logLocationState();
+  }, [location.state]);
+
+  const logLocationState = () => {
+    if (location.state) {
+      console.log("Location State:");
+      Object.entries(location.state).forEach(([key, value]) => {
+        console.log(`${key}:`, value);
+      });
+    } else {
+      console.log("No location state available");
+    }
+  };
 
   const removeFromCartList = async () => {
     products.forEach(async (product) => {
@@ -29,7 +43,7 @@ const PayPalPayment = () => {
         await getItemByProductId(
           isOffer ? product.productId : product.id,
           (itemId) => removeFromCart(itemId),
-          (error) => console.log("Error removing item from cart:", error)
+          (error) => console.log("Error removing item from cart:", error),
         );
       } catch (error) {
         console.log("Error in handleDeleteClick:", error);
@@ -60,27 +74,26 @@ const PayPalPayment = () => {
   };
 
   const createOrder = async (data, actions) => {
-    console.log("ESPAÑA")
     if (products.length === 0) {
       setError(new Error("Products not loaded"));
       return;
     }
-  
+
     const sellerId = products[0]?.userDto?.id;
     if (!sellerId) {
       setError(new Error("Seller ID is missing"));
       return;
     }
-  
+
     const allSameSeller = products.every(
-      (product) => product.userDto.id === sellerId
+      (product) => product.userDto.id === sellerId,
     );
-  
+
     if (!allSameSeller) {
       setError(new Error("All products must have the same seller"));
       return;
     }
-  
+
     try {
       const totalAmount = products
         .reduce((total, product) => {
@@ -93,13 +106,12 @@ const PayPalPayment = () => {
           return total + price * quantity;
         }, 0)
         .toFixed(2);
-  
+
       if (parseFloat(totalAmount) <= 0) {
         setError(new Error("Total amount must be greater than zero"));
         return;
       }
-  
-      
+
       const response = await fetch("http://localhost:8080/purchase/create", {
         method: "POST",
         headers: {
@@ -110,7 +122,7 @@ const PayPalPayment = () => {
           sellerId: sellerId,
           purchaseItems: products.map((product) => ({
             productId: isOffer ? product.productId : product.id,
-            quantity:  product.quantity ,
+            quantity: product.quantity,
           })),
           amount: totalAmount,
           currency: "EUR",
@@ -118,18 +130,18 @@ const PayPalPayment = () => {
           purchaseStatus: "PENDING",
         }),
       });
-  
+
       if (!response.ok) {
         const text = await response.text();
         console.error("Error response from server:", text);
         throw new Error(text);
       }
-  
+
       const order = await response.json();
-  
+
       if (order.approvalUrl) {
         const urlParams = new URLSearchParams(
-          new URL(order.approvalUrl).search
+          new URL(order.approvalUrl).search,
         );
         purchaseId = order.purchase.id;
         return urlParams.get("token");
@@ -152,22 +164,23 @@ const PayPalPayment = () => {
             "Content-Type": "application/json",
             userId: user.id,
           },
-        }
+        },
       );
-  
+
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText);
       }
-  
+
       const result = await response.json();
       const captureId = result.captureId;
-  
+
       updateCaptureId(purchaseId, captureId, user.id);
-  
+
       await removeFromCartList();
       handleExitPurchase();
     } catch (err) {
+      console.log("LAST")
       setError(err);
     }
   };
@@ -194,6 +207,7 @@ const PayPalPayment = () => {
                     fundingSource="paypal"
                     createOrder={createOrder}
                     onApprove={onApprove}
+                    onCancel={() => deletePurchase(purchaseId)}
                   />
                 </div>
               </div>
@@ -204,6 +218,7 @@ const PayPalPayment = () => {
                     fundingSource="card"
                     createOrder={createOrder}
                     onApprove={onApprove}
+                    onCancel={() => deletePurchase(purchaseId)}
                   />
                 </div>
               </div>

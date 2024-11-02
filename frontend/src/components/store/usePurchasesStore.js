@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { getUserPurchases, changePurchaseStatus } from "../../backend/paymentService.js";
+import {
+  getUserPurchases,
+  changePurchaseStatus,
+  deletePurchase as deletePurchaseService,
+} from "../../backend/paymentService.js";
 
 const usePurchasesStore = create((set, get) => ({
   purchases: [],
@@ -17,7 +21,7 @@ const usePurchasesStore = create((set, get) => ({
         },
         (errors) => {
           console.log(errors);
-        }
+        },
       );
     } catch (error) {
       console.error(error);
@@ -34,7 +38,7 @@ const usePurchasesStore = create((set, get) => ({
       purchases: state.purchases.map((purchase) =>
         purchase.id === purchaseId
           ? { ...purchase, captureId: captureId }
-          : purchase
+          : purchase,
       ),
     }));
     get().loadPurchases(userId);
@@ -49,19 +53,41 @@ const usePurchasesStore = create((set, get) => ({
           set((state) => ({
             purchases: state.purchases.map((purchase) =>
               purchase.id === purchaseId
-                ? { ...purchase, purchaseStatus: updatedPurchase.purchaseStatus }
-                : purchase
+                ? {
+                    ...purchase,
+                    purchaseStatus: updatedPurchase.purchaseStatus,
+                  }
+                : purchase,
             ),
           }));
         },
         (errors) => {
           console.log(errors);
-        }
+        },
       );
     } catch (error) {
       console.error("Error updating purchase status:", error);
     }
+  },
 
+  deletePurchase: async (purchaseId) => {
+    try {
+      await deletePurchaseService(
+        purchaseId,
+        () => {
+          set((state) => ({
+            purchases: state.purchases.filter(
+              (purchase) => purchase.id !== purchaseId,
+            ),
+          }));
+        },
+        (errors) => {
+          console.log(errors);
+        },
+      );
+    } catch (error) {
+      console.error("Error deleting purchase:", error);
+    }
   },
 
 }));

@@ -28,7 +28,7 @@ export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isChatVisible, setChatVisible] = useState(false);
   const [selectedConversationId, setSelectedConversationId] = useState(
-    localStorage.getItem("selectedConversationId") || null
+    localStorage.getItem("selectedConversationId") || null,
   );
   const [isHover, setIsHover] = useState(false);
 
@@ -126,12 +126,11 @@ export default function App() {
             </Routes>
           </div>
           {isChatVisible && (
-            <div
-              className="fixed z-50 right-20 bottom-12 xl:w-2/5 sm:w-3/4 lg:w-2/3 h-fit bg-white shadow-lg overflow-y-auto rounded-b-2xl "
-            >
+            <div className="fixed z-50 right-20 bottom-12 xl:w-2/5 sm:w-3/4 lg:w-2/3 h-fit bg-white shadow-lg overflow-y-auto rounded-b-2xl ">
               <ChatPage
                 setSelectedConversationId={setSelectedConversationId}
                 selectedConversationId={selectedConversationId}
+                toggleChat={toggleChat}
               />
             </div>
           )}

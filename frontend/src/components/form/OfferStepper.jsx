@@ -12,6 +12,7 @@ import { getProductsByUserId } from "../../backend/productService";
 import { LoginContext } from "../context/LoginContext";
 import { ArrowLeftIcon } from "../../icons/ArrowLeftIcon.jsx";
 import { ArrowRightIcon } from "../../icons/ArrowRightIcon.jsx";
+import { CloseIcon } from "../../icons/CloseIcon.jsx";
 
 const steps = ["Escoger productos", "Establecer precio", "Envíar oferta"];
 
@@ -97,13 +98,15 @@ export default function OfferStepper({ onOfferFinalize }) {
   const [desiredPrice, setDesiredPrice] = useState(0);
   const { user } = useContext(LoginContext);
 
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     if (activeStep === 0 && user?.id) {
       getProductsByUserId(
         user.id,
         { page: 0, size: 10 },
         (data) => setProducts(data.content),
-        (error) => console.log("Error fetching products", error),
+        (error) => console.log("Error fetching products", error)
       );
     }
   }, [activeStep, user]);
@@ -121,52 +124,77 @@ export default function OfferStepper({ onOfferFinalize }) {
     setTotalPrice(newTotalPrice);
   };
 
+  const handleSubmitForm = () => {
+    const hasSelectedProduct = Object.values(quantities).some(
+      (quantity) => quantity > 0
+    );
+
+    if (!hasSelectedProduct) {
+      setError("Debes seleccionar al menos un producto");
+      return;
+    }
+
+    // Desired price must be lower than initial price
+    if (desiredPrice >= totalPrice) {
+      setError("El precio deseado debe ser mayor al precio inicial");
+      return;
+    }
+
+    setError(null);
+    handleNext();
+  };
+
   function getStepContent(step) {
     switch (step) {
       case 0:
         return products.length > 0 ? (
           <div className="flex flex-col gap-4 px-16 mt-16">
-            {products.length > 0
-              ? products.map((product) => (
-                  <div
-                    key={product.id}
-                    className="border p-4 flex items-center rounded-lg shadow-sm mt-1"
-                  >
-                    <img
-                      src={product.images[0]}
-                      alt={product.name}
-                      className="w-14 h-14 object-cover mr-4 rounded border"
-                    />
-                    <div className="flex flex-col flex-grow">
-                      <h5 className="text-lg font-semibold">{product.name}</h5>
-                      <p className="text-gray-600">
-                        {product.price?.toFixed(2).replace(".", ",")}
-                        {" €"}
-                      </p>
+            <form>
+              {products.length > 0
+                ? products.map((product) => (
+                    <div
+                      key={product.id}
+                      className="border p-4 flex items-center rounded-lg shadow-sm mt-1"
+                    >
+                      <img
+                        src={product.images[0]}
+                        alt={product.name}
+                        className="w-14 h-14 object-cover mr-4 rounded border"
+                      />
+                      <div className="flex flex-col flex-grow">
+                        <h5 className="text-lg font-semibold">
+                          {product.name}
+                        </h5>
+                        <p className="text-gray-600">
+                          {product.price?.toFixed(2).replace(".", ",")}
+                          {" €"}
+                        </p>
+                      </div>
+                      <input
+                        type="number"
+                        min="0"
+                        max={product.quantity}
+                        value={quantities[product.id] || 0}
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            product.id,
+                            Math.min(
+                              Math.max(e.target.value, 0),
+                              product.quantity
+                            )
+                          )
+                        }
+                        className="w-16 p-2 border rounded ml-4"
+                      />
                     </div>
-                    <input
-                      type="number"
-                      min="0"
-                      max={product.quantity}
-                      value={quantities[product.id] || 0}
-                      onChange={(e) =>
-                        handleQuantityChange(
-                          product.id,
-                          Math.min(
-                            Math.max(e.target.value, 0),
-                            product.quantity,
-                          ),
-                        )
-                      }
-                      className="w-16 p-2 border rounded ml-4"
-                    />
-                  </div>
-                ))
-              : null}
-            <div className="text-right flex flex-row justify-end space-x-2 font-medium">
-              <p>{"Precio inicial "}</p>
-              <p>{totalPrice.toFixed(2).replace(".", ",")} €</p>
-            </div>
+                  ))
+                : null}
+              <div className="text-right flex flex-row justify-end space-x-2 font-medium">
+                <p>{"Precio inicial "}</p>
+                <p>{totalPrice.toFixed(2).replace(".", ",")} €</p>
+              </div>
+              {error && <p className="text-red-500">{error}</p>}
+            </form>
           </div>
         ) : (
           "Cargando productos..."
@@ -174,25 +202,29 @@ export default function OfferStepper({ onOfferFinalize }) {
       case 1:
         return (
           <div className="flex flex-col gap-4 mt-20 px-20">
-            <div className="flex flex-row items-start space-x-2 font-medium">
-              <p className="font-normal">{"Precio inicial "}</p>
-              <p className="font-normal">
-                {totalPrice.toFixed(2).replace(".", ",")} €
-              </p>
-            </div>
-            <div className="flex flex-row items-center">
-              <label className="mb-2 text-lg font-semibold text-left w-full">
-                Precio total de la oferta
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={desiredPrice}
-                onChange={(e) => setDesiredPrice(Number(e.target.value))}
-                className="w-32 p-2 border rounded"
-              />
-              <p className="font-medium ml-2">{"  €"}</p>
-            </div>
+            <form>
+              <div className="flex flex-row items-start space-x-2 font-medium">
+                <p className="font-normal">{"Precio inicial "}</p>
+                <p className="font-normal">
+                  {totalPrice.toFixed(2).replace(".", ",")} €
+                </p>
+              </div>
+              <div className="flex flex-row items-center">
+                <label className="mb-2 text-lg font-semibold text-left w-full">
+                  Precio total de la oferta
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={desiredPrice}
+                  onChange={(e) => setDesiredPrice(Number(e.target.value))}
+                  className="w-32 p-2 border rounded"
+                />
+                <p className="font-medium ml-2">{"  €"}</p>
+
+              </div>
+              {error && <p className="items-end text-right justify-end mt-8 text-red-500">{error}</p>}
+            </form>
           </div>
         );
 
@@ -218,7 +250,7 @@ export default function OfferStepper({ onOfferFinalize }) {
                         {product.price?.toFixed(2).replace(".", ",")} €
                       </span>
                     </div>
-                  ),
+                  )
               )}
             </div>
             <div className="flex flex-col gap-2 font-semibold mt-6">
@@ -268,6 +300,13 @@ export default function OfferStepper({ onOfferFinalize }) {
             })),
         },
       });
+    }
+
+    if (activeStep === steps.length - 2) {
+      if(desiredPrice >= totalPrice) {  
+        setError("El precio deseado debe ser mayor al precio inicial");
+        return;
+      }
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -321,7 +360,7 @@ export default function OfferStepper({ onOfferFinalize }) {
         </button>
         <div className="flex-1" />
         <button
-          onClick={handleNext}
+          onClick={() => handleSubmitForm()}
           className="flex flex-row items-center justify-center rounded-full px-2 p-1 text-accent-dark font-medium"
         >
           <p className="">

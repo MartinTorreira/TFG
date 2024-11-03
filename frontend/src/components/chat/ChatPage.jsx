@@ -433,7 +433,7 @@ const ChatPage = ({
           onClose={() => setShowOfferStepper(false)}
         >
           <div className="flex items-center justify-center h-full">
-            <div className="bg-white p-4 rounded shadow-lg w-1/2 h-2/3">
+            <div className="bg-white p-4 rounded shadow-lg 2xl:w-1/2 sm:w-11/12 h-2/3">
               <OfferStepper onOfferFinalize={handleOfferFinalize} />
             </div>
           </div>

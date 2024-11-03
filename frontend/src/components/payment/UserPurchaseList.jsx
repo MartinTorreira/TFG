@@ -10,26 +10,38 @@ import { Spinner } from "../../icons/Spinner";
 import { purchaseStatusMap } from "../../utils/Qualities.js";
 import { MoneyIcon } from "../../icons/MoneyIcon.jsx";
 import { Check } from "../../icons/Check";
-import { getSellerId, getUserById, rateUser } from "../../backend/userService.js";
 import { RatingComponent } from "../RatingComponent";
+import { getSellerId } from "../../backend/userService";
+import { UserRatingModal } from "../modals/UserRatingModal.jsx";
 
-export const UserPurchaseList = ({ onRefund }) => {
+export const UserPurchaseList = ({ onRefund, purchases }) => {
   const navigate = useNavigate();
   const { user } = useContext(LoginContext);
-  const { purchases, loadPurchases, updatePurchaseStatus } = usePurchasesStore();
-  const { ratings, setRating, fetchRatings } = useRatingsStore();
+  const { loadPurchases, updatePurchaseStatus } = usePurchasesStore();
+  const { ratings, setRating } = useRatingsStore();
   const [loadingRefunds, setLoadingRefunds] = useState({});
   const [statusMap, setStatusMap] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPurchaseId, setSelectedPurchaseId] = useState(null);
+  const [sellerId, setSellerId] = useState({});
 
   const handleNavigate = (id) => {
     navigate(`../purchase/order-confirmation/${id}/`);
   };
 
   useEffect(() => {
-    if (purchases?.length > 0) {
-      fetchRatings(purchases);
-    }
-  }, [purchases, fetchRatings]);
+    purchases.forEach((purchase) => {
+      getSellerId(
+        purchase.id,
+        (sellerId) => {
+          setSellerId((prev) => ({ ...prev, [purchase.id]: sellerId }));
+        },
+        (err) => {
+          console.log("Error fetching sellerid", err);
+        }
+      );
+    });
+  }, [purchases]);
 
   useEffect(() => {
     loadPurchases(user.id);
@@ -60,24 +72,12 @@ export const UserPurchaseList = ({ onRefund }) => {
     }
   }, [purchases]);
 
-  const handleRate = (purchaseId, newValue) => {
+  const handleRate = async (purchaseId, newValue) => {
     try {
       getSellerId(
         purchaseId,
         (sellerId) => {
-          rateUser(
-            sellerId,
-            newValue,
-            () => {
-              console.log("User rated successfully");
-              getUserById(sellerId, (user) => {
-                setRating(purchaseId, user.rate);
-              });
-            },
-            (err) => {
-              console.log("Error ", err);
-            }
-          );
+          setRating(sellerId, newValue);
         },
         (err) => {
           console.log("Error", err);
@@ -86,6 +86,23 @@ export const UserPurchaseList = ({ onRefund }) => {
     } catch (e) {
       console.log("Error", e);
     }
+  };
+
+  const handleOpenModal = (purchaseId) => {
+    setSelectedPurchaseId(purchaseId);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedPurchaseId(null);
+  };
+
+  const handleConfirmModal = () => {
+    if (selectedPurchaseId) {
+      updatePurchaseStatus(selectedPurchaseId, "COMPLETED");
+    }
+    handleCloseModal();
   };
 
   return (
@@ -110,6 +127,12 @@ export const UserPurchaseList = ({ onRefund }) => {
                       : ""
                   }`}
                 >
+                  <UserRatingModal
+                    open={modalOpen}
+                    handleClose={handleCloseModal}
+                    handleConfirm={handleConfirmModal}
+                    sellerId={sellerId[selectedPurchaseId]}
+                  />
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between text-center lg:text-left py-4 space-y-10 lg:space-y-0 lg:space-x-4">
                     {/* ID de compra */}
                     <div className="flex flex-col space-y-1 items-center lg:items-start lg:flex-1">
@@ -155,31 +178,13 @@ export const UserPurchaseList = ({ onRefund }) => {
                       <span
                         className={`flex flex-row w-full space-x-1 md:w-auto rounded-full border text-xs border-${
                           statusMap[purchase.id]?.color
-                        } bg-${statusMap[purchase.id]?.color}-900 text-${
+                        } bg-${statusMap[purchase.id]?.color}-200 text-${
                           statusMap[purchase.id]?.color
                         }-900 text-center py-0.5 px-1`}
                       >
                         <span>{statusMap[purchase.id]?.label}</span>
                         <span>{statusMap[purchase.id]?.icon}</span>
                       </span>
-                    </div>
-
-                    {/* Valoración */}
-                    <div className="flex flex-col items-center lg:items-start space-y-1 lg:flex-1">
-                      <span className="text-xs font-semibold text-gray-500">
-                        ¡Valora al vendedor!
-                      </span>
-                      <div className="flex flex-row items-center space-x-1">
-                        {ratings[purchase.id]}
-                        <RatingComponent
-                          rate={ratings[purchase.id]}
-                          size="small"
-                          onChange={(newValue) =>
-                            handleRate(purchase.id, newValue)
-                          }
-                          editable={true}
-                        />
-                      </div>
                     </div>
 
                     <div className="space-y-10">
@@ -214,9 +219,7 @@ export const UserPurchaseList = ({ onRefund }) => {
                           </div>
                         )}
                         <button
-                          onClick={() =>
-                            updatePurchaseStatus(purchase.id, "COMPLETED")
-                          }
+                          onClick={() => handleOpenModal(purchase.id)}
                           disabled={purchase.purchaseStatus !== "PENDING"}
                           type="button"
                           className="w-full text-gray-700 text-xs font-bold rounded-md px-2 hover:opacity-80 transition-all sm:mb-10 lg:mb-0 border border-gray-200 p-2 disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-accent-light/20"

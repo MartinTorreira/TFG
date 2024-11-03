@@ -150,6 +150,17 @@ export const rateUser = async (id, rate, onSuccess, onErrors) => {
   );
 }
 
+
+export const getAverageRating = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/user/${userId}/averageRating`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors,
+  );
+}
+
+
 export const getSellerId = async (purchaseId, onSuccess, onErrors) => {
   appFetch(
     `/purchase/${purchaseId}/getSellerId`,

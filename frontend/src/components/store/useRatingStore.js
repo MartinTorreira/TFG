@@ -1,12 +1,22 @@
 import { create } from "zustand";
-import { getSellerId, getUserById } from "../../backend/userService";
+import { getSellerId, getUserById, rateUser } from "../../backend/userService";
 
-const useRatingsStore = create((set) => ({
+const useRatingStore = create((set) => ({
   ratings: {},
-  setRating: (purchaseId, rating) =>
-    set((state) => ({
-      ratings: { ...state.ratings, [purchaseId]: rating },
-    })),
+  setRating: (userId, rate) => {
+    rateUser(
+      userId,
+      rate,
+      (user) => {
+        set((state) => ({
+          ratings: { ...state.ratings, [userId]: user.rate },
+        }));
+      },
+      () => {
+        console.error("Error rating user");
+      }
+    );
+  },
   fetchRatings: async (purchases) => {
     const ratings = {};
     for (const purchase of purchases) {
@@ -20,4 +30,4 @@ const useRatingsStore = create((set) => ({
   },
 }));
 
-export default useRatingsStore;
+export default useRatingStore;

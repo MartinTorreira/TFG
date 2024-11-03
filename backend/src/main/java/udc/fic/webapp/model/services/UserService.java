@@ -28,5 +28,6 @@ public interface UserService {
     User getUserById(Long id) throws InstanceNotFoundException;
 
     double getAverageRating(Long id) throws InstanceNotFoundException;
+
     void rateUser(Long userId, int rate) throws InstanceNotFoundException;
 }

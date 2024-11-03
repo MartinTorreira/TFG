@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import usePurchasesStore from "../store/usePurchasesStore";
+import useRatingsStore from "../store/useRatingStore";
 import { UserPurchaseList } from "./UserPurchaseList";
 import { LoginContext } from "../context/LoginContext";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import { NotFound } from "../../icons/NotFound";
 const UserPurchasesPage = () => {
   const { user, token } = useContext(LoginContext);
   const { purchases, loadPurchases, updateRefundStatus } = usePurchasesStore();
+  const { ratings, fetchRatings } = useRatingsStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +20,12 @@ const UserPurchasesPage = () => {
       loadPurchases(user.id);
     }
   }, [loadPurchases, user, token, navigate]);
+
+  useEffect(() => {
+    if (purchases?.length > 0) {
+      fetchRatings(purchases);
+    }
+  }, [purchases, fetchRatings]);
 
   const handleRefund = async (captureId, amount, productId) => {
     try {
@@ -45,7 +53,7 @@ const UserPurchasesPage = () => {
       updateRefundStatus(productId);
     } catch (error) {
       console.error("Error solicitando reembolso:", error);
-    //  toast.error("Hubo un problema procesando el reembolso");
+      //toast.error("Hubo un problema procesando el reembolso");
     }
   };
 

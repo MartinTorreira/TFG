@@ -322,7 +322,7 @@ export default function OfferStepper({ onOfferFinalize }) {
         <div className="flex-1" />
         <button
           onClick={handleNext}
-          className="flex flex-row items-center justify-center  rounded-full px-2 p-1 text-accent-dark font-medium"
+          className="flex flex-row items-center justify-center rounded-full px-2 p-1 text-accent-dark font-medium"
         >
           <p className="">
             {activeStep === steps.length - 1 ? "Finalizar" : "Siguiente"}

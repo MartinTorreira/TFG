@@ -40,7 +40,7 @@ const ChatPage = ({
   const [showOfferStepper, setShowOfferStepper] = useState(false);
   const [showOfferDetails, setShowOfferDetails] = useState(false);
   const [offerDetails, setOfferDetails] = useState(null);
-  const [sellerDetails, setSellerDetails] = useState(null); 
+  const [sellerDetails, setSellerDetails] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const ChatPage = ({
       },
       (error) => {
         console.error("Error connecting to WebSocket:", error);
-      },
+      }
     );
 
     setStompClient(client);
@@ -81,14 +81,14 @@ const ChatPage = ({
   useEffect(() => {
     const fetchDetails = async () => {
       const userIds = Object.keys(conversations).flatMap((conversationId) =>
-        conversationId.split("-").filter((id) => id !== user.id.toString()),
+        conversationId.split("-").filter((id) => id !== user.id.toString())
       );
       const uniqueUserIds = [...new Set(userIds)];
       const detailsPromises = uniqueUserIds.map(
         (userId) =>
           new Promise((resolve, reject) => {
             getUserById(userId, resolve, reject);
-          }),
+          })
       );
       const details = await Promise.all(detailsPromises);
       const detailsMap = details.reduce((acc, detail) => {
@@ -115,7 +115,7 @@ const ChatPage = ({
             [user.id]: data,
           }));
         },
-        (error) => console.error("Error fetching user:", error),
+        (error) => console.error("Error fetching user:", error)
       );
     }
   }, [selectedConversationId, user.id, loadMessages]);
@@ -134,7 +134,7 @@ const ChatPage = ({
 
   const sendChatMessage = (chatMessage) => {
     const headers = {
-      Authorization: `Bearer ${user.token}`, // Include the authentication token
+      Authorization: `Bearer ${user.token}`,
       "Content-Type": "application/json",
     };
     stompClient.send("/app/sendMessage", headers, JSON.stringify(chatMessage));
@@ -197,7 +197,7 @@ const ChatPage = ({
             content: offerDetails.message,
             timestamp: new Date().toISOString(),
             type: "OFFER",
-            offer: createdOffer, // Incluye la oferta completa
+            offer: createdOffer,
             token: token,
           };
 
@@ -208,7 +208,7 @@ const ChatPage = ({
         },
         (errors) => {
           console.error("Error creating offer:", errors);
-        },
+        }
       );
     }
   };
@@ -218,7 +218,7 @@ const ChatPage = ({
     await getOfferById(
       msg.offer.id,
       (data) => setOfferDetails(data),
-      (error) => console.error("Error fetching offer:", error),
+      (error) => console.error("Error fetching offer:", error)
     );
 
     // Fetch product details
@@ -229,7 +229,7 @@ const ChatPage = ({
         (data) => {
           setUserDetails(data);
         },
-        (error) => console.error("Error fetching user:", error),
+        (error) => console.error("Error fetching user:", error)
       );
 
       const productIds = msg.offer.items.map((item) => item.productId);
@@ -242,7 +242,7 @@ const ChatPage = ({
               [productId]: data,
             }));
           },
-          (error) => console.error("Error fetching product:", error),
+          (error) => console.error("Error fetching product:", error)
         );
       });
     }
@@ -271,7 +271,7 @@ const ChatPage = ({
         const product = productDetails[item.productId];
         if (!product) {
           console.error(
-            `Product details for productId ${item.productId} are missing`,
+            `Product details for productId ${item.productId} are missing`
           );
           return null;
         }
@@ -285,7 +285,7 @@ const ChatPage = ({
           images: product.images,
         };
       })
-      .filter((item) => item !== null); // Filter out any null values
+      .filter((item) => item !== null); 
 
     console.log("Navigating to OrderSummary with state:", {
       productList: productsWithQuantities,
@@ -364,11 +364,11 @@ const ChatPage = ({
             conversations[selectedConversationId].messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex w-full mt-2 space-x-3 max-w-xs ${
+                className={`flex mt-2 space-x-3 max-w-sm ${
                   msg.senderId === user.id ? "ml-auto justify-end" : ""
                 }`}
               >
-                <div>
+                <div className="max-w-[100%]">
                   {msg.type === "OFFER" ? (
                     <button
                       className="flex items-center text-sm text-left w-full bg-accent-light p-3 text-gray-800 hover:text-opacity-85 underline space-x-1 rounded-l-lg rounded-br-xl"

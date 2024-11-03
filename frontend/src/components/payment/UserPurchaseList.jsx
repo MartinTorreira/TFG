@@ -13,6 +13,7 @@ import { Check } from "../../icons/Check";
 import { RatingComponent } from "../RatingComponent";
 import { getSellerId } from "../../backend/userService";
 import { UserRatingModal } from "../modals/UserRatingModal.jsx";
+import { UserRefundModal } from "../modals/UserRefundModal.jsx";
 
 export const UserPurchaseList = ({ onRefund, purchases }) => {
   const navigate = useNavigate();
@@ -22,8 +23,14 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
   const [loadingRefunds, setLoadingRefunds] = useState({});
   const [statusMap, setStatusMap] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
+  const [refundModalOpen, setRefundModalOpen] = useState(false);
+
   const [selectedPurchaseId, setSelectedPurchaseId] = useState(null);
   const [sellerId, setSellerId] = useState({});
+
+  const [selectedCaptureId, setSelectedCaptureId] = useState({});
+  const [selectedAmount, setSelectedAmount] = useState({});
+  const [purchaseId, setPurchaseId] = useState({});
 
   const handleNavigate = (id) => {
     navigate(`../purchase/order-confirmation/${id}/`);
@@ -46,14 +53,6 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
   useEffect(() => {
     loadPurchases(user.id);
   }, [loadPurchases, user]);
-
-  const handleRefund = async (captureId, amount, purchaseId) => {
-    setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: true }));
-    await onRefund(captureId, amount, purchaseId);
-    loadPurchases(user.id);
-    setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: false }));
-    updatePurchaseStatus(purchaseId, "REFUNDED");
-  };
 
   useEffect(() => {
     if (purchases?.length > 0) {
@@ -88,6 +87,22 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
     }
   };
 
+  const handleOpenRefundModal = async (captureId, amount, purchaseId) => {
+    //setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: true }));
+    //await onRefund(captureId, amount, purchaseId);
+    //loadPurchases(user.id);
+    //setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: false }));
+    //updatePurchaseStatus(purchaseId, "REFUNDED");
+    setSelectedPurchaseId(purchaseId);
+    setSelectedAmount(amount);
+    setSelectedCaptureId(captureId);
+    setRefundModalOpen(true);
+  };
+
+  const handleCloseRefundModal = () => {
+    setRefundModalOpen(false);
+  };
+
   const handleOpenModal = (purchaseId) => {
     setSelectedPurchaseId(purchaseId);
     setModalOpen(true);
@@ -96,6 +111,23 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
   const handleCloseModal = () => {
     setModalOpen(false);
     setSelectedPurchaseId(null);
+  };
+
+  const handleConfirmRefundModal = async (captureId, amount, purchaseId) => {
+    if (selectedPurchaseId && selectedAmount && selectedCaptureId) {
+      setLoadingRefunds((prev) => ({ ...prev, [selectedPurchaseId]: true })); // Cambia a selectedPurchaseId
+
+      try {
+        await onRefund(selectedCaptureId, selectedAmount, selectedPurchaseId);
+        loadPurchases(user.id);
+        updatePurchaseStatus(selectedPurchaseId, "REFUNDED");
+      } catch (error) {
+        console.error("Error during refund:", error);
+      } finally {
+        setLoadingRefunds((prev) => ({ ...prev, [selectedPurchaseId]: false })); // Cambia a selectedPurchaseId
+      }
+    }
+    handleCloseRefundModal();
   };
 
   const handleConfirmModal = () => {
@@ -132,6 +164,14 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
                     handleClose={handleCloseModal}
                     handleConfirm={handleConfirmModal}
                     sellerId={sellerId[selectedPurchaseId]}
+                  />
+                  <UserRefundModal
+                    open={refundModalOpen}
+                    handleClose={handleCloseRefundModal}
+                    handleConfirm={handleConfirmRefundModal}
+                    captureId={purchase.captureId}
+                    amount={purchase.amount}
+                    purchaseId={purchase.id}
                   />
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between text-center lg:text-left py-4 space-y-10 lg:space-y-0 lg:space-x-4">
                     {/* ID de compra */}
@@ -193,14 +233,17 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
                           <div className="flex flex-row w-full">
                             <button
                               onClick={() =>
-                                handleRefund(
+                                handleOpenRefundModal(
                                   purchase.captureId,
                                   purchase.amount,
                                   purchase.id
                                 )
                               }
                               className="w-full text-xs text-red-900/80 font-bold hover:opacity-80 transition-all border border-red-50 p-2 rounded-md disabled:bg-gray-200 disabled:border-gray-200 disabled:opacity-40 disabled:text-gray-500 hover:bg-red-100/20"
-                              disabled={purchase.purchaseStatus !== "PENDING"}
+                              disabled={
+                                purchase.purchaseStatus !== "PENDING" ||
+                                loadingRefunds[purchase.id]
+                              } // Añade la condición para loadingRefunds
                             >
                               {loadingRefunds[purchase.id] ? (
                                 <div className="flex items-center justify-center space-x-1">

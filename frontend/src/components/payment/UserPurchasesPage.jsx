@@ -28,6 +28,7 @@ const UserPurchasesPage = () => {
   }, [purchases, fetchRatings]);
 
   const handleRefund = async (captureId, amount, productId) => {
+    console.log("Refund requested for captureId:", captureId);
     try {
       const response = await fetch("http://localhost:8080/purchase/refund", {
         method: "POST",
@@ -48,7 +49,7 @@ const UserPurchasesPage = () => {
       }
 
       toast.success(
-        "Tu reembolso está siendo procesado. Te informaremos cuando se haya completado"
+        "Tu reembolso ha sido solicitado con éxito"
       );
       updateRefundStatus(productId);
     } catch (error) {

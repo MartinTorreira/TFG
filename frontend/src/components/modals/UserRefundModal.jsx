@@ -12,10 +12,9 @@ import { LoginContext } from "../context/LoginContext";
 import { ArrowLeftIcon } from "../../icons/ArrowLeftIcon.jsx";
 import { ArrowRightIcon } from "../../icons/ArrowRightIcon.jsx";
 import { CheckIcon as Check } from "../../icons/CheckIcon.jsx";
-import { RatingComponent } from "../RatingComponent";
-import { rateUser } from "../../backend/userService";
+import { RefundIcon } from "../../icons/RefundIcon.jsx";
 
-const steps = ["Confirmar entrega", "Valorar vendedor"];
+const steps = ["Reembolsar compra", "Confirmar"];
 
 // Estilos para el conector personalizado
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
@@ -82,28 +81,36 @@ function CustomStepIcon(props) {
   );
 }
 
-export const UserRefundModal = ({ open, handleClose, handleConfirm, sellerId }) => {
+export const UserRefundModal = ({
+  open,
+  handleClose,
+  handleConfirm,
+  captureId,
+  amount,
+  purchaseId,
+}) => {
   const [activeStep, setActiveStep] = useState(0);
   const [direction, setDirection] = useState("forward");
   const { user } = useContext(LoginContext);
 
-  const handleRate = (value) => {
-    console.log("Nuevo valor"+ value);
-    rateUser(sellerId, value, () => {
-      console.log("Valoración realizada", value);
-    }, (err) => {console.log("Error al realizar la valoración"+err)});
-  }
+  const handleRate = (value) => {};
 
   function getStepContent(step) {
     switch (step) {
       case 0:
         return (
-          <div className="flex flex-col space-y-8 mt-6">
+          <div className="flex flex-col space-y-10 items-center mb-20">
+            <RefundIcon size={60} />
             <h1 className="text-3xl">
-              ¿Seguro que quieres marcar la compra como finalizada?
+              ¿Estás seguro de que quieres reembolsar la compra?
             </h1>
+          </div>
+        );
+      case 1:
+        return (
+          <div className="flex flex-col space-y-8 mt-6">
             <div
-              className="flex items-center w-fit mx-auto p-4 mb-10 text-sm text-gray-800 rounded-lg bg-accent-light/40"
+              className="flex items-center w-fit mx-auto p-4 mb-10 text-sm text-gray-800 rounded-lg bg-transparent shadow-sm border" 
               role="alert"
             >
               <svg
@@ -116,18 +123,9 @@ export const UserRefundModal = ({ open, handleClose, handleConfirm, sellerId }) 
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
               </svg>
               <div>
-                <p>Si marcas la compra como finalizada no podrás solicitar un reembolso</p>
+                <p>Si confirmas se te devolverá el importe en unos instantes</p>
               </div>
             </div>
-          </div>
-        );
-      case 1:
-        return (
-          <div className="flex flex-col space-y-8 mt-6">
-            <h1 className="text-3xl">
-              ¡Valora al vendedor!
-            </h1>
-            <RatingComponent rate={0} onChange={(value) => {handleRate(value)}} editable />
           </div>
         );
       default:
@@ -138,7 +136,7 @@ export const UserRefundModal = ({ open, handleClose, handleConfirm, sellerId }) 
   const handleNext = () => {
     setDirection("forward");
     if (activeStep === steps.length - 1) {
-      handleConfirm();
+      handleConfirm(captureId, amount, purchaseId);
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
@@ -155,7 +153,7 @@ export const UserRefundModal = ({ open, handleClose, handleConfirm, sellerId }) 
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <div className="w-1/3 bg-white mx-auto flex flex-col justify-center mt-20 rounded shadow-lg p-6">
+      <div className="2xl:w-1/3 sm:w-4/5  bg-white mx-auto flex flex-col justify-center mt-20 rounded shadow-lg p-6">
         <Stepper
           alternativeLabel
           activeStep={activeStep}

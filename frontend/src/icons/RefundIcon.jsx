@@ -1,4 +1,4 @@
-export const RefundIcon = ({size = 20, color = "#000000"}) => {
+export const RefundIcon = ({ size = 60, color = "#000000" }) => {
   return (
     <svg
       fill={color}
@@ -6,10 +6,10 @@ export const RefundIcon = ({size = 20, color = "#000000"}) => {
       width={size}
       version="1.1"
       id="Layer_1"
-    //  xmlns="http://www.w3.org/2000/svg"
-    //  xmlns:xlink="http://www.w3.org/1999/xlink"
+      //  xmlns="http://www.w3.org/2000/svg"
+      //  xmlns:xlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 193.769 193.769"
-    //  xml:space="preserve"
+      //  xml:space="preserve"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g

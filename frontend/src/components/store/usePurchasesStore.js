@@ -45,6 +45,7 @@ const usePurchasesStore = create((set, get) => ({
   },
 
   updatePurchaseStatus: async (purchaseId, purchaseStatus) => {
+    console.log("llego aqui")
     try {
       await changePurchaseStatus(
         purchaseId,

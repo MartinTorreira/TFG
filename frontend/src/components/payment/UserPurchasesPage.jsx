@@ -48,7 +48,7 @@ const UserPurchasesPage = () => {
         throw new Error(errorText);
       }
 
-      toast.success("Tu reembolso ha sido solicitado con éxito");
+      toast.success("Tu reembolso ha sido solicitado con éxito, en breve recibirás el importe de la compra");
       updateRefundStatus(productId);
     } catch (error) {
       console.error("Error solicitando reembolso:", error);

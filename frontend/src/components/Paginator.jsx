@@ -14,7 +14,7 @@ const Paginator = ({ page, totalPages, onPageChange }) => {
   };
 
   return (
-    <nav aria-label="Page navigation example" className="mt-4">
+    <nav aria-label="Page navigation example" className="mt-4 mb-10">
       <ul className="flex items-center -space-x-px h-8 text-sm">
         <li>
           <button

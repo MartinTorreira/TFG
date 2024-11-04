@@ -23,6 +23,7 @@ import UserSalesPage from "./components/payment/UserSalesPage.jsx";
 import ChatPage from "./components/chat/ChatPage.jsx";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import { motion } from "framer-motion";
+import { Footer } from "./components/Footer.jsx";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -150,6 +151,9 @@ export default function App() {
               </motion.span>
               <p>Mensajes</p>
             </motion.button>
+          </div>
+          <div className="absolute w-full right-0 bottom-0">
+            <Footer />
           </div>
         </div>
       </div>

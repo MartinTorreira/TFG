@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/form/OfferStepper.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/form/OfferStepper.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserSalesPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CardGrid.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CardGrid.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/usePurchasesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/usePurchasesStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useSalesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useSalesStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,6 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { NotificationOff } from "../../icons/NotificationOff";
-import { NotificationOn } from "../../icons/NotificationOn";
+import React, { useContext } from "react";
 import { LoginContext } from "../context/LoginContext";
 import { NavbarDropdown } from "./NavbarDropdown";
 import { useNavigate, NavLink } from "react-router-dom";

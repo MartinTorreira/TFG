@@ -112,6 +112,9 @@ const PayPalPayment = () => {
         return;
       }
 
+      products.forEach((product) => {console.log("españita"+Object.keys(product))});
+      products.forEach((product) => {console.log("españa"+Object.values(product))});
+
       const response = await fetch("http://localhost:8080/purchase/create", {
         method: "POST",
         headers: {
@@ -122,7 +125,7 @@ const PayPalPayment = () => {
           sellerId: sellerId,
           purchaseItems: products.map((product) => ({
             productId: isOffer ? product.productId : product.id,
-            quantity: product.quantity,
+            quantity: isOffer ? product.quantity  : product.originalQuantity - product.quantity,
           })),
           amount: totalAmount,
           currency: "EUR",

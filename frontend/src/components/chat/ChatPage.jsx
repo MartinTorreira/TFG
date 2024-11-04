@@ -16,6 +16,7 @@ import { OfferIcon } from "../../icons/OfferIcon.jsx";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "../Avatar.jsx";
 import { RatingComponent } from "../RatingComponent.jsx";
+import { ChatOff } from "../../icons/ChatOff.jsx";
 
 const ChatPage = ({
   setSelectedConversationId,
@@ -104,19 +105,23 @@ const ChatPage = ({
   }, [conversations, user.id]);
 
   useEffect(() => {
-    if (selectedConversationId) {
+    if (selectedConversationId && selectedConversationId !== "default") {
       const [userId1, userId2] = selectedConversationId.split("-");
-      loadMessages(userId1, userId2);
-      getUserById(
-        user.id,
-        (data) => {
-          setUserDetails((prevDetails) => ({
-            ...prevDetails,
-            [user.id]: data,
-          }));
-        },
-        (error) => console.error("Error fetching user:", error)
-      );
+      if (userId1 && userId2) {
+        loadMessages(userId1, userId2).catch((error) =>
+          console.error("Error loading messages:", error)
+        );
+        getUserById(user.id)
+          .then((data) => {
+            setUserDetails((prevDetails) => ({
+              ...prevDetails,
+              [user.id]: data,
+            }));
+          })
+          .catch((error) => console.error("Error fetching user:", error));
+      } else {
+        console.log("Invalid conversation ID");
+      }
     }
   }, [selectedConversationId, user.id, loadMessages]);
 
@@ -146,7 +151,8 @@ const ChatPage = ({
       stompClient &&
       stompClient.connected &&
       message.trim() &&
-      selectedConversationId
+      selectedConversationId &&
+      selectedConversationId !== "default"
     ) {
       const receiverId = selectedConversationId
         .split("-")
@@ -285,17 +291,20 @@ const ChatPage = ({
           images: product.images,
         };
       })
-      .filter((item) => item !== null); 
+      .filter((item) => item !== null);
 
     console.log("Navigating to OrderSummary with state:", {
       productList: productsWithQuantities,
       disableQuantities: true,
     });
 
-    navigate("../product/order-summary", {
-      state: { productList: productsWithQuantities, disableQuantities: true },
-    });
-    toggleChat();
+    if (user.id !== offerDetails.buyerId) {
+      navigate("../product/order-summary", {
+        state: { productList: productsWithQuantities, disableQuantities: true },
+      });
+      toggleChat();
+      setShowOfferDetails(false);
+    }
     setShowOfferDetails(false);
   };
 
@@ -310,7 +319,7 @@ const ChatPage = ({
           const otherUserId =
             userId1 === user.id.toString() ? userId2 : userId1;
           const lastMessage =
-            conversations[conversationId].messages.slice(-1)[0];
+            conversations[conversationId]?.messages.slice(-1)[0];
           const userDetail = userDetails[otherUserId];
 
           return (
@@ -320,12 +329,14 @@ const ChatPage = ({
               onClick={() => handleConversationClick(conversationId)}
             >
               <img
-                src={userDetail?.avatar}
+                src={userDetail?.avatar || ""}
                 alt="Receiver Avatar"
                 className="w-10 h-10 rounded-full"
               />
               <div className="flex flex-col text-left text-sm ml-2">
-                <p className=" font-medium">{userDetail?.userName}</p>
+                <p className=" font-medium">
+                  {userDetail?.userName || "Unknown"}
+                </p>
                 <p className=" text-gray-600">
                   {lastMessage?.content || "No messages"}
                 </p>
@@ -335,70 +346,75 @@ const ChatPage = ({
         })}
       </div>
       <div className="flex flex-col items-center justify-center w-3/4 bg-white overflow-hidden h-full">
-        {selectedConversationId && (
-          <div className="w-full p-4 border shadow-sm flex items-center">
-            <img
-              src={
-                userDetails[
+        {selectedConversationId && selectedConversationId !== "default" ? (
+          <>
+            <div className="w-full p-4 border shadow-sm flex items-center">
+              <img
+                src={
+                  userDetails[
+                    selectedConversationId
+                      .split("-")
+                      .find((id) => id !== user.id.toString())
+                  ]?.avatar || ""
+                }
+                alt="Receiver Avatar"
+                className="w-10 h-10 rounded-full mr-4"
+              />
+              <p className="font-medium">
+                {userDetails[
                   selectedConversationId
                     .split("-")
                     .find((id) => id !== user.id.toString())
-                ]?.avatar || ""
-              }
-              alt="Receiver Avatar"
-              className="w-10 h-10 rounded-full mr-4"
-            />
-            <p className="font-medium">
-              {
-                userDetails[
-                  selectedConversationId
-                    .split("-")
-                    .find((id) => id !== user.id.toString())
-                ]?.userName
-              }
-            </p>
+                ]?.userName || "Unknown"}
+              </p>
+            </div>
+            <div className="flex flex-col flex-grow w-full p-4 overflow-auto">
+              {conversations[selectedConversationId]?.messages.map(
+                (msg, index) => (
+                  <div
+                    key={index}
+                    className={`flex mt-2 space-x-3 max-w-sm ${
+                      msg.senderId === user.id ? "ml-auto justify-end" : ""
+                    }`}
+                  >
+                    <div className="max-w-[100%]">
+                      {msg.type === "OFFER" ? (
+                        <button
+                          className="flex items-center text-sm text-left w-full bg-accent-light p-3 text-gray-800 hover:text-opacity-85 underline space-x-1 rounded-l-lg rounded-br-xl"
+                          onClick={() => handleOfferClick(msg)}
+                        >
+                          <OfferIcon size={"20"} className="mr-2" />
+                          <p>Haz click aquí para ver la oferta</p>
+                        </button>
+                      ) : (
+                        <div
+                          className={`p-3 ${
+                            msg.senderId === user.id
+                              ? "bg-accent-dark text-white rounded-l-lg rounded-br-xl"
+                              : "bg-gray-200 rounded-r-lg rounded-bl-xl"
+                          }`}
+                        >
+                          <p className="text-sm">{msg.content}</p>
+                        </div>
+                      )}
+                      <span className="text-xs text-gray-500 leading-none">
+                        {getTimeDifference(msg.timestamp)}
+                      </span>
+                    </div>
+                  </div>
+                )
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          </>
+        ) : (
+          <div className="flex-grow flex items-center justify-center">
+            <div className="flex flex-col items-center space-y-2 text-gray-400">
+              <ChatOff size={"64"} />
+              <p className="text-lg">Ningún chat seleccionado</p>
+            </div>
           </div>
         )}
-        <div className="flex flex-col flex-grow w-full p-4 overflow-auto">
-          {selectedConversationId && conversations[selectedConversationId] ? (
-            conversations[selectedConversationId].messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex mt-2 space-x-3 max-w-sm ${
-                  msg.senderId === user.id ? "ml-auto justify-end" : ""
-                }`}
-              >
-                <div className="max-w-[100%]">
-                  {msg.type === "OFFER" ? (
-                    <button
-                      className="flex items-center text-sm text-left w-full bg-accent-light p-3 text-gray-800 hover:text-opacity-85 underline space-x-1 rounded-l-lg rounded-br-xl"
-                      onClick={() => handleOfferClick(msg)}
-                    >
-                      <OfferIcon size={"20"} className="mr-2" />
-                      <p>Haz click aquí para ver la oferta</p>
-                    </button>
-                  ) : (
-                    <div
-                      className={`p-3 ${
-                        msg.senderId === user.id
-                          ? "bg-accent-dark text-white rounded-l-lg rounded-br-xl"
-                          : "bg-gray-200 rounded-r-lg rounded-bl-xl"
-                      }`}
-                    >
-                      <p className="text-sm">{msg.content}</p>
-                    </div>
-                  )}
-                  <span className="text-xs text-gray-500 leading-none">
-                    {getTimeDifference(msg.timestamp)}
-                  </span>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No messages available</p>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
         <div className="bg-gray-100 py-2 w-full flex sm:flex-col 2xl:flex-row sm:space-y-2 2xl:space-y-0">
           <div className="flex items-center w-full relative flex-row mr-1">
             <input
@@ -428,98 +444,94 @@ const ChatPage = ({
             <p className="text-gray-700">Hacer oferta</p>
           </button>
         </div>
-        <Modal
-          open={showOfferStepper}
-          onClose={() => setShowOfferStepper(false)}
+      </div>
+      <Modal open={showOfferStepper} onClose={() => setShowOfferStepper(false)}>
+        <div className="flex items-center justify-center h-full">
+          <div className="bg-white p-4 rounded shadow-lg 2xl:w-1/2 sm:w-11/12 h-2/3">
+            <OfferStepper onOfferFinalize={handleOfferFinalize} />
+          </div>
+        </div>
+      </Modal>
+      <Modal open={showOfferDetails} onClose={() => setShowOfferDetails(false)}>
+        <Box
+          sx={{
+            width: 800,
+            p: 4,
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            mx: "auto",
+            my: "10vh",
+          }}
         >
-          <div className="flex items-center justify-center h-full">
-            <div className="bg-white p-4 rounded shadow-lg 2xl:w-1/2 sm:w-11/12 h-2/3">
-              <OfferStepper onOfferFinalize={handleOfferFinalize} />
+          <h2 className="flex flex-row justify-center space-x-3 items-center text-2xl font-semibold text-center mb-6 px-36">
+            <p>Detalles de la oferta</p>
+            <OfferIcon size={"28"} />
+          </h2>
+          <div className="flex flex-col gap-4 mb-6 mt-14">
+            <h3 className="text-xl font-semibold mt-6 mb-2">Vendedor</h3>
+            <div className="flex justify-between mb-6">
+              <div className="flex flex-row items-center border border-gray-100 shadow-sm p-2 rounded-lg justify-center">
+                <Avatar
+                  size={"10"}
+                  className=""
+                  imagePath={userDetails?.avatar || ""}
+                />
+                <div className="flex flex-col gap-y-1">
+                  <p className="text-sm">
+                    {userDetails?.userName || "Unknown"}
+                  </p>
+                  {console.log(userDetails.rate)}
+                  <RatingComponent size="small" rate={userDetails?.rate || 0} />
+                </div>
+              </div>
+              <span className="text-lg font-medium text-right">
+                <p className="text-gray-500 line-through">
+                  {calculateInitialPrice()?.toFixed(2).replace(".", ",")} €
+                  <br />
+                </p>
+                <p className="text-2xl">
+                  {offerDetails?.amount.toFixed(2).replace(".", ",")} €
+                </p>
+              </span>
             </div>
           </div>
-        </Modal>
-        <Modal
-          open={showOfferDetails}
-          onClose={() => setShowOfferDetails(false)}
-        >
-          <Box
-            sx={{
-              width: 800,
-              p: 4,
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              mx: "auto",
-              my: "10vh",
-            }}
-          >
-            <h2 className="flex flex-row justify-center space-x-3 items-center text-2xl font-semibold text-center mb-6 px-36">
-              <p>Detalles de la oferta</p>
-              <OfferIcon size={"28"} />
-            </h2>
-            <div className="flex flex-col gap-4 mb-6 mt-14">
-              <div className="flex justify-between mb-6">
-                <div className="flex flex-row items-center border border-gray-100 shadow-sm p-2 rounded-lg justify-center">
-                  <Avatar
-                    size={"10"}
-                    className=""
-                    imagePath={userDetails?.avatar}
-                  />
-                  <div className="flex flex-col gap-y-1">
-                    <p className="text-sm">{userDetails?.userName}</p>
-                    <RatingComponent size="small" rate={userDetails?.rate} />
-                  </div>
-                </div>
-                <span className="text-lg font-medium text-right">
-                  <p className="text-gray-500 line-through">
-                    {calculateInitialPrice()?.toFixed(2).replace(".", ",")} €
-                    <br />
-                  </p>
-                  <p className="text-2xl">
-                    {offerDetails?.amount.toFixed(2).replace(".", ",")} €
-                  </p>
-                </span>
-              </div>
-            </div>
-            <h3 className="text-xl font-semibold mt-6 mb-4">Productos</h3>
-            <div className="space-y-4 items-center">
-              {offerDetails?.items?.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-50 rounded-lg p-2 shadow flex items-center"
-                >
-                  <img
-                    src={productDetails[item.productId]?.images[0]}
-                    alt={productDetails[item.productId]?.name}
-                    className="w-20 h-20 object-cover rounded mr-4"
-                  />
-                  <div className="flex flex-col">
-                    <p className="mb-1 font-medium">
-                      {productDetails[item.productId]?.name}
-                    </p>
-                    <p>x{item.quantity}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-row justify-end items-center mt-6 -mb-3 space-x-4">
-              <div className="rounded-full border border-gray-200 bg-gray-200 text-gray-800 font-semibold py-1 px-3">
-                <button onClick={() => setShowOfferDetails(false)}>
-                  Cerrar
-                </button>
-              </div>
-              <button
-                onClick={() => {
-                  handleAcceptOffer();
-                  //   handleAcceptOffer();
-                }}
-                className="border border-accent-dark bg-accent-dark text-gray-100 font-semibold rounded-full py-1 px-3"
+          <h3 className="text-xl font-semibold mt-6 mb-4">Productos</h3>
+          <div className="space-y-4 items-center">
+            {offerDetails?.items?.map((item, index) => (
+              <div
+                key={index}
+                className="bg-gray-50 rounded-lg p-2 shadow flex items-center"
               >
-                Aceptar
-              </button>
+                <img
+                  src={productDetails[item.productId]?.images[0] || ""}
+                  alt={productDetails[item.productId]?.name || "Unknown"}
+                  className="w-20 h-20 object-cover rounded mr-4"
+                />
+                <div className="flex flex-col">
+                  <p className="mb-1 font-medium">
+                    {productDetails[item.productId]?.name || "Unknown"}
+                  </p>
+                  <p>x{item.quantity}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-row justify-end items-center mt-6 -mb-3 space-x-4">
+            <div className="rounded-full border border-gray-200 bg-gray-200 text-gray-800 font-semibold py-1 px-3">
+              <button onClick={() => setShowOfferDetails(false)}>Cerrar</button>
             </div>
-          </Box>
-        </Modal>
-      </div>
+            <button
+              onClick={() => {
+                handleAcceptOffer();
+                //   handleAcceptOffer();
+              }}
+              className="border border-accent-dark bg-accent-dark text-gray-100 font-semibold rounded-full py-1 px-3"
+            >
+              Aceptar
+            </button>
+          </div>
+        </Box>
+      </Modal>
     </div>
   );
 };

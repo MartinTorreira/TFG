@@ -28,7 +28,7 @@ export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isChatVisible, setChatVisible] = useState(false);
   const [selectedConversationId, setSelectedConversationId] = useState(
-    localStorage.getItem("selectedConversationId") || null,
+    localStorage.getItem("selectedConversationId") || "default"
   );
   const [isHover, setIsHover] = useState(false);
 

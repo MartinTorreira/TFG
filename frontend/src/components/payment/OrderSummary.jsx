@@ -39,7 +39,7 @@ const OrderSummary = () => {
     setQuantities(newQuantities);
   };
 
-  const handleProceedToPayment = () => {
+  const handleProceedToPayment = () => {  
     const productsWithQuantities = productList.map((product, index) => ({
       ...product,
       originalQuantity: product.quantity,
@@ -85,7 +85,7 @@ const OrderSummary = () => {
                           onQuantityChange={(newQuantity) =>
                             handleQuantityChange(index, newQuantity)
                           }
-                          disabled={disableQuantities}
+                          //disabled={disableQuantities}
                         />
                       </td>
                       <td className="whitespace-nowrap py-4 md:w-[384px]">

@@ -34,7 +34,6 @@ const OfferDetailsModal = ({ offerId, show, handleClose }) => {
                 <p>ID: {offerDetails.id}</p>
                 <p>Description: {offerDetails.description}</p>
                 <p>Price: {offerDetails.price}</p>
-                {/* Add more details as needed */}
               </div>
           ) : (
               <p>Loading...</p>

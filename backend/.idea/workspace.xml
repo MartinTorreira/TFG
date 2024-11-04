@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/modals/UserRefundModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/modals/UserRefundModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchasesPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/chat/ChatPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/chat/ChatPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/modals/OfferDetailsModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/modals/OfferDetailsModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/OrderSummary.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/OrderSummary.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/PaypalPayment.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useChatStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useChatStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -328,7 +331,10 @@
       <workItem from="1730572496482" duration="688000" />
       <workItem from="1730575601417" duration="1145000" />
       <workItem from="1730640228870" duration="327000" />
-      <workItem from="1730640567451" duration="11988000" />
+      <workItem from="1730640567451" duration="14455000" />
+      <workItem from="1730727890277" duration="2756000" />
+      <workItem from="1730732173764" duration="113000" />
+      <workItem from="1730733064634" duration="799000" />
     </task>
     <servers />
   </component>

@@ -7,26 +7,39 @@ import {
 
 const usePurchasesStore = create((set, get) => ({
   purchases: [],
+  page: 0,
+  size: 10,
+  totalPages: 0,
 
   setPurchases: (purchases) => set({ purchases }),
 
-  loadPurchases: async (userId) => {
+  loadPurchases: async (userId, page = 0, size = 10) => {
     try {
       getUserPurchases(
         userId,
-        { page: 0, size: 10 },
+        { page, size },
         (data) => {
-          set({ purchases: data.content });
-          console.log("data.content" + data.content.captureId);
+          set({
+            purchases: data.content,
+            page: data.pageable.pageNumber,
+            totalPages: data.totalPages,
+          });
         },
         (errors) => {
           console.log(errors);
-        },
+        }
       );
     } catch (error) {
-      console.error(error);
+      console.error("Error al cargar compras:", error);
     }
   },
+
+  setPage: (page) => set((state) => {
+    if (page >= 0 && page < state.totalPages) {
+      return { page };
+    }
+    return state;
+  }),
 
   addPurchase: (purchase) =>
     set((state) => ({
@@ -45,7 +58,6 @@ const usePurchasesStore = create((set, get) => ({
   },
 
   updatePurchaseStatus: async (purchaseId, purchaseStatus) => {
-    console.log("llego aqui")
     try {
       await changePurchaseStatus(
         purchaseId,
@@ -91,6 +103,7 @@ const usePurchasesStore = create((set, get) => ({
     }
   },
 
+  clearPurchases: () => set({ purchases: [] }),
 }));
 
 export default usePurchasesStore;

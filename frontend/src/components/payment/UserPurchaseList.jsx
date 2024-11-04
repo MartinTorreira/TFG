@@ -88,11 +88,6 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
   };
 
   const handleOpenRefundModal = async (captureId, amount, purchaseId) => {
-    //setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: true }));
-    //await onRefund(captureId, amount, purchaseId);
-    //loadPurchases(user.id);
-    //setLoadingRefunds((prev) => ({ ...prev, [purchaseId]: false }));
-    //updatePurchaseStatus(purchaseId, "REFUNDED");
     setSelectedPurchaseId(purchaseId);
     setSelectedAmount(amount);
     setSelectedCaptureId(captureId);
@@ -115,7 +110,7 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
 
   const handleConfirmRefundModal = async (captureId, amount, purchaseId) => {
     if (selectedPurchaseId && selectedAmount && selectedCaptureId) {
-      setLoadingRefunds((prev) => ({ ...prev, [selectedPurchaseId]: true })); // Cambia a selectedPurchaseId
+      setLoadingRefunds((prev) => ({ ...prev, [selectedPurchaseId]: true }));
 
       try {
         await onRefund(selectedCaptureId, selectedAmount, selectedPurchaseId);
@@ -124,7 +119,7 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
       } catch (error) {
         console.error("Error during refund:", error);
       } finally {
-        setLoadingRefunds((prev) => ({ ...prev, [selectedPurchaseId]: false })); // Cambia a selectedPurchaseId
+        setLoadingRefunds((prev) => ({ ...prev, [selectedPurchaseId]: false }));
       }
     }
     handleCloseRefundModal();
@@ -174,7 +169,6 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
                     purchaseId={purchase.id}
                   />
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between text-center lg:text-left py-4 space-y-10 lg:space-y-0 lg:space-x-4">
-                    {/* ID de compra */}
                     <div className="flex flex-col space-y-1 items-center lg:items-start lg:flex-1">
                       <span className="text-xs font-semibold text-gray-500">
                         ID de compra
@@ -187,7 +181,6 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
                       </button>
                     </div>
 
-                    {/* Fecha */}
                     <div className="flex flex-col items-center lg:items-start space-y-1 lg:flex-1">
                       <span className="text-xs font-semibold text-gray-500">
                         Fecha
@@ -200,7 +193,6 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
                       </div>
                     </div>
 
-                    {/* Total */}
                     <div className="flex flex-col space-y-1 lg:flex-1 items-center lg:items-start">
                       <span className="text-xs font-semibold text-gray-500">
                         Precio total
@@ -210,7 +202,6 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
                       </p>
                     </div>
 
-                    {/* Estado */}
                     <div className="flex flex-col items-center lg:items-start space-y-1 lg:flex-1">
                       <span className="text-xs font-semibold text-gray-500">
                         Estado
@@ -243,7 +234,7 @@ export const UserPurchaseList = ({ onRefund, purchases }) => {
                               disabled={
                                 purchase.purchaseStatus !== "PENDING" ||
                                 loadingRefunds[purchase.id]
-                              } // Añade la condición para loadingRefunds
+                              }
                             >
                               {loadingRefunds[purchase.id] ? (
                                 <div className="flex items-center justify-center space-x-1">

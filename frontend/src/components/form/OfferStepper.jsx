@@ -149,7 +149,7 @@ export default function OfferStepper({ onOfferFinalize }) {
       case 0:
         return products.length > 0 ? (
           <div className="flex flex-col gap-4 px-16 mt-16">
-            <form>
+            <form className="space-y-4">
               {products.length > 0
                 ? products.map((product) => (
                     <div
@@ -243,6 +243,7 @@ export default function OfferStepper({ onOfferFinalize }) {
                       className="flex justify-between items-center bg-gray-100 p-3 rounded-md"
                     >
                       <span className="flex-grow text-left">
+                        {console.log(product.name)}
                         {product.name}
                       </span>
                       <span>

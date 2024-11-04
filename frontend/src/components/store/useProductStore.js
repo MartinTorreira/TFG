@@ -6,7 +6,6 @@ import {
   updateProduct as updateProductService,
 } from "../../backend/productService";
 
-
 export const useProductStore = create((set, get) => ({
   price: "",
   category: "all",
@@ -16,6 +15,9 @@ export const useProductStore = create((set, get) => ({
   filteredProducts: [],
   favouriteProducts: [],
   sort: null,
+  page: 0,
+  size: 10,
+  totalPages: 0,
 
   setPriceFilter: (price) => {
     set({ price });
@@ -44,23 +46,19 @@ export const useProductStore = create((set, get) => ({
     set({ sort });
     get().filterProducts();
   },
+  setPage: (page) => set({ page }),
 
-  fetchProducts: async () => {
+  fetchProducts: async (page = 0, size = 10) => {
     try {
       getProducts(
-        { page: 0, size: 10 },
+        { page, size },
         (data) => {
-          // Filtro para eliminar productos con cantidad 0
-          const filteredProducts = data.content.filter(
-            (product) => product.quantity > 0,
-          );
-
-          set({ products: data.content });
-          set({ filteredProducts }); // Guardar solo productos con cantidad mayor que 0
+          set({ products: data.content, totalPages: data.totalPages });
+          get().filterProducts(); // Call filterProducts after setting products
         },
         (errors) => {
           console.log(errors);
-        },
+        }
       );
     } catch (error) {
       console.error(error);
@@ -70,21 +68,16 @@ export const useProductStore = create((set, get) => ({
   filterProducts: () => {
     const { query, category, price, quality, state, products } = get();
     let filteredProducts = products;
-    // Filtrar por texto de búsqueda
     if (query) {
       filteredProducts = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(query.toLowerCase()),
+        product.name.toLowerCase().includes(query.toLowerCase())
       );
     }
-
-    // Filtrar por categoría
     if (category && category !== "all") {
       filteredProducts = filteredProducts.filter((product) => {
         return product.categoryDto.id === category;
       });
     }
-
-    // Filtrar por rango de precios
     if (price && Array.isArray(price) && price.length === 2) {
       const [minPrice, maxPrice] = price.map(Number);
       filteredProducts = filteredProducts.filter((product) => {
@@ -92,39 +85,30 @@ export const useProductStore = create((set, get) => ({
         return productPrice >= minPrice && productPrice <= maxPrice;
       });
     }
-
-    // Filtrar por calidad
     if (quality && quality !== "--") {
       filteredProducts = filteredProducts.filter((product) => {
         return product.quality === quality;
       });
     }
-
-    // Filtrar por estado
     if (state && state !== "Todos") {
       filteredProducts = filteredProducts.filter((product) => {
         return product.state === state;
       });
     }
-
-    // Actualizar la lista de productos filtrados
     set({ filteredProducts });
   },
 
   getProductById: (id) => {
     const { products } = get();
-
     if (products.length === 0) {
       get().fetchProducts();
       return null;
     }
-
     return products.find((product) => product.id === id);
   },
 
   getFavoriteProducts: () => {
     const { products } = get();
-
     return products.filter((product) => product.isFavourite);
   },
 
@@ -137,7 +121,7 @@ export const useProductStore = create((set, get) => ({
         },
         (errors) => {
           console.error(errors);
-        },
+        }
       );
     } catch (error) {
       console.error(error);
@@ -151,14 +135,14 @@ export const useProductStore = create((set, get) => ({
         () => {},
         (errors) => {
           console.log(errors);
-        },
+        }
       );
       set((state) => {
         const products = state.products.filter(
-          (product) => product.id !== productId,
+          (product) => product.id !== productId
         );
         const filteredProducts = state.filteredProducts.filter(
-          (product) => product.id !== productId,
+          (product) => product.id !== productId
         );
         return { products, filteredProducts };
       });
@@ -174,10 +158,10 @@ export const useProductStore = create((set, get) => ({
         const updatedProducts = state.products.map((product) =>
           product.id === productId
             ? { ...product, ...updatedProduct }
-            : product,
+            : product
         );
         const filteredProducts = updatedProducts.filter(
-          (product) => product.quantity > 0,
+          (product) => product.quantity > 0
         );
         return { products: updatedProducts, filteredProducts };
       });
@@ -189,10 +173,10 @@ export const useProductStore = create((set, get) => ({
   removeFromList: (productId) => {
     set((state) => {
       const updatedProducts = state.products.filter(
-        (product) => product.id !== productId,
+        (product) => product.id !== productId
       );
       const updatedFilteredProducts = state.filteredProducts.filter(
-        (product) => product.id !== productId,
+        (product) => product.id !== productId
       );
 
       return {

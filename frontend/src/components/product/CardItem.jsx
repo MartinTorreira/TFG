@@ -25,9 +25,15 @@ import useCartStore from "../store/useCartStore.js";
 export const CardItem = ({ product }) => {
   const navigate = useNavigate();
   const { removeFavorite, addFavorite, isFavorite } = useFavoriteStore();
-  const { removeProduct, cart, } = useProductStore();
-  const { addToCart, isAdded, cartProducts, removeFromCart, productList, loadCart } =
-    useCartStore();
+  const { removeProduct, cart } = useProductStore();
+  const {
+    addToCart,
+    isAdded,
+    cartProducts,
+    removeFromCart,
+    productList,
+    loadCart,
+  } = useCartStore();
 
   const favorite = isFavorite(product.id);
   const { token, user } = useContext(LoginContext);
@@ -38,7 +44,11 @@ export const CardItem = ({ product }) => {
 
   useEffect(() => {
     loadCart();
-  }, [isAdded])
+  }, [isAdded]);
+
+  const handleNavigate = () => {
+    navigate("../users/login");
+  };
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -63,13 +73,9 @@ export const CardItem = ({ product }) => {
     if (!token) {
       navigate("../users/login");
     } else {
-
-      
-      console.log("productList"+productList.length);
+      console.log("productList" + productList.length);
 
       if (!isProductAdded) {
-       
-
         addToCart(
           productId,
           1,
@@ -102,7 +108,7 @@ export const CardItem = ({ product }) => {
     e.stopPropagation();
     setIsAnimating(true);
 
-    if (!token) {
+    if (token === null) {
       navigate("../users/login");
     } else {
       const favoriteId = product.id;
@@ -175,59 +181,69 @@ export const CardItem = ({ product }) => {
               {product.price} €
             </span>
             <div className="flex flex-row gap-x-3 mb-2">
-              {token && isOwnProduct ? (
-                <>
-                  <button
-                    onClick={(e) => handleEditClick(e)}
-                    title="Este es tu producto"
-                    className="border border-gray-300 p-2 rounded-lg hover:opacity-80 transition-all"
-                  >
-                    <EditIcon size={20} color={"text-gray-800"} />
-                  </button>
-                  <button
-                    onClick={(e) => handleDeleteClick(e)}
-                    title="Este es tu producto"
-                    className="border border-red-100 p-2 bg-transparent rounded-lg hover:opacity-80 transition-all"
-                  >
-                    <DeleteIcon size={20} color={"text-red-400 "} />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    title={
-                      favorite ? "Quitar de favoritos" : "Añadir a favoritos"
-                    }
-                    disabled={token !== null ? false : true}
-                    className="border border-gray-300/80 p-2 rounded-lg"
-                    onClick={(e) => handleFavoriteClick(e)}
-                  >
-                    <span
-                      className={`hover:scale-125 transition-transform duration-300 ease-in-out `}
+              <>
+                {isOwnProduct ? (
+                  <>
+                    <button
+                      onClick={(e) => handleEditClick(e)}
+                      title="Este es tu producto"
+                      className="border border-gray-300 p-2 rounded-lg hover:opacity-80 transition-all"
                     >
-                      {favorite && token !== null ? (
-                        <FavoriteIconFilled size={20} />
-                      ) : (
-                        <FavoriteIcon size={20} />
-                      )}
-                    </span>
-                  </button>
+                      <EditIcon size={20} color={"text-gray-800"} />
+                    </button>
+                    <button
+                      onClick={(e) => handleDeleteClick(e)}
+                      title="Este es tu producto"
+                      className="border border-red-100 p-2 bg-transparent rounded-lg hover:opacity-80 transition-all"
+                    >
+                      <DeleteIcon size={20} color={"text-red-400 "} />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      title={
+                        favorite ? "Quitar de favoritos" : "Añadir a favoritos"
+                      }
+                      //disabled={!token}
+                      className="border border-gray-300/80 p-2 rounded-lg"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (!token) {
+                          e.preventDefault(); // Evita que otros manejadores afecten la navegación
+                          navigate("../users/login");
+                        } else {
+                          handleFavoriteClick(e);
+                        }
+                      }}
+                    >
+                      <span
+                        className={`hover:scale-125 transition-transform duration-300 ease-in-out`}
+                      >
+                        {favorite ? (
+                          <FavoriteIconFilled size={20} />
+                        ) : (
+                          <FavoriteIcon size={20} />
+                        )}
+                      </span>
+                    </button>
 
-                  <button
-                    onClick={(e) => handleCartClick(e, product.id)}
-                    title={
-                      isProductAdded ? "Quitar del carro" : "Añadir al carro"
-                    }
-                    className="border border-gray-300/80 p-2 rounded-lg"
-                  >
-                    {isProductAdded ? (
-                      <CartIconFilled size={20} />
-                    ) : (
-                      <CartIcon size={20} />
-                    )}
-                  </button>
-                </>
-              )}
+                    <button
+                      onClick={(e) => handleCartClick(e, product.id)}
+                      title={
+                        isProductAdded ? "Quitar del carro" : "Añadir al carro"
+                      }
+                      className="border border-gray-300/80 p-2 rounded-lg"
+                    >
+                      {isProductAdded ? (
+                        <CartIconFilled size={20} />
+                      ) : (
+                        <CartIcon size={20} />
+                      )}
+                    </button>
+                  </>
+                )}
+              </>
             </div>
           </div>
         </div>

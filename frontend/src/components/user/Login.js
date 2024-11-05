@@ -102,7 +102,7 @@ const Login = () => {
               )}
             </div>
 
-            <div className="flex items-start">
+            {/* <div className="flex items-start">
               <div className="flex items-center h-5">
                 <input
                   id="terms"
@@ -112,7 +112,7 @@ const Login = () => {
                   required=""
                 />
               </div>
-            </div>
+            </div> */}
 
             <button
               onClick={handleLogin}

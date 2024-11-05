@@ -10,7 +10,6 @@ import { LoginContext } from "../context/LoginContext";
 import { NotificationOn } from "../../icons/NotificationOn.jsx";
 import { NotificationOff } from "../../icons/NotificationOff.jsx";
 import { useNavigate } from "react-router-dom";
-import { markAsRead } from "../../backend/userService.js";
 import { purchaseStatusMap } from "../../utils/Qualities.js";
 import { InfoIcon } from  "../../icons/InfoIcon.jsx";
 
@@ -20,27 +19,15 @@ const NotificationPopover = () => {
     fetchNotifications,
     setNotifications,
     clearNotifications,
+    markAllAsRead,
   } = useNotificationsStore();
   const { user } = useContext(LoginContext);
   const navigate = useNavigate();
   const [hasUnseenNotifications, setHasUnseenNotifications] = useState(false);
 
   const handleNotificationClick = async (path) => {
-    await Promise.all(
-      notifications.content.map((notification) => markAsRead(notification.id))
-    );
-
-    const updatedNotifications = {
-      ...notifications,
-      content: notifications.content.map((notification) => ({
-        ...notification,
-        read: true,
-      })),
-    };
-
-    setNotifications(updatedNotifications);
-    clearNotifications();
-
+    await markAllAsRead(user.id);
+    fetchNotifications(user.id); // Fetch notifications again to update the state
     navigate(path);
   };
 
@@ -103,8 +90,7 @@ const NotificationPopover = () => {
     if (statusObj) {
       return `${statusObj.background}`;
     }
-    //return "#F5F5F5";
-    return "transparent" 
+    return "transparent";
   };
   
   const content = (
@@ -115,30 +101,32 @@ const NotificationPopover = () => {
             Notificaciones
           </p>
           {notifications && notifications.content.length > 0 ? (
-            notifications.content.map((notification, index) => {
-              const message = notification.message; 
-              const status = getStatusFromMessage(message); 
-              const icon = getIconForStatus(status);
-              const bgColor = getColorForStatus(status);
-  
-              return (
-                <button
-                  key={`${index}-${notification.id}`}
-                  onClick={() => handleNotificationClick("../users/my-sales")}
-                  className={`w-full text-left mt-2 p-2 py-4 border rounded-lg hover:bg-gray-50 transition-all cursor-pointer flex items-center`}
-                  style={{ backgroundColor: bgColor }} 
-                >
-                  <div className="mr-4">{icon}</div>
-                  <div>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: formatMessage(notification.message),
-                      }}
-                    />
-                  </div>
-                </button>
-              );
-            })
+            notifications.content
+              .filter((notification) => !notification.read) // Filtrar notificaciones leídas
+              .map((notification, index) => {
+                const message = notification.message; 
+                const status = getStatusFromMessage(message); 
+                const icon = getIconForStatus(status);
+                const bgColor = getColorForStatus(status);
+    
+                return (
+                  <button
+                    key={`${index}-${notification.id}`}
+                    onClick={() => handleNotificationClick("../users/my-sales")}
+                    className={`w-full text-left mt-2 p-2 py-4 border rounded-lg hover:bg-gray-50 transition-all cursor-pointer flex items-center`}
+                    style={{ backgroundColor: bgColor }} 
+                  >
+                    <div className="mr-4">{icon}</div>
+                    <div>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: formatMessage(notification.message),
+                        }}
+                      />
+                    </div>
+                  </button>
+                );
+              })
           ) : (
             <p>No tienes notificaciones.</p>
           )}

@@ -153,7 +153,7 @@ export const UserRefundModal = ({
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <div className="2xl:w-1/3 sm:w-4/5  bg-white mx-auto flex flex-col justify-center mt-20 rounded shadow-lg p-6">
+      <div className="2xl:w-1/3 sm:w-4/5 h-1/2 bg-white mx-auto flex flex-col justify-center mt-20 rounded shadow-lg p-6">
         <Stepper
           alternativeLabel
           activeStep={activeStep}

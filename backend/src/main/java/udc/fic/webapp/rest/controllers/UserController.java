@@ -105,10 +105,15 @@ public class UserController {
     @PostMapping("/{id}/changePassword")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void changePassword(@RequestAttribute Long userId, @PathVariable Long id, @Validated @RequestBody ChangePasswordParamsDto params)
-        throws PermissionException, InstanceNotFoundException, IncorrectPasswordException {
+        throws PermissionException, InstanceNotFoundException, IncorrectPasswordException, IncorrectOldPasswordException {
 
         if (!id.equals(userId)){
             throw new PermissionException();
+        }
+
+        //Check if the old password is correct
+        if (!passwordEncoder.matches(params.getOldPassword(), userService.getUserById(id).getPassword())) {
+            throw new IncorrectOldPasswordException("Old password is incorrect", userId);
         }
 
         userService.changePassword(id, params.getOldPassword(), params.getNewPassword());

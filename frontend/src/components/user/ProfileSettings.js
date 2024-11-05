@@ -7,9 +7,7 @@ import ButtonSubmit from "../form/ButtonSubmit.jsx";
 import { changeAvatar, updateProfile } from "../../backend/userService.js";
 import { changePassword } from "../../backend/userService.js";
 import { toast } from "sonner";
-import { EditIcon } from "../../icons/EditoIcon.jsx";
-import { setReauthenticationCallback } from "../../backend/appFetch.js";
-
+import { getUserById } from "../../backend/userService.js";
 
 const ProfileSettings = () => {
   // ------ Context -----------------------------------------------
@@ -35,22 +33,24 @@ const ProfileSettings = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [globalError, setGlobalError] = useState("");
 
+  const [userDetails, setUserDetails] = useState({});
+
   const onSuccess = () => {
     toast.success("Datos actualizados");
   };
 
   const onErrors = (error) => {
-    console.log("ERROR" + error.globalError);
-    if (
-      error.globalError &&
-      error.globalError.includes("DuplicateEmailException")
-    ) {
+    console.log("ERROR: " + error.globalError);
+
+    if (error.globalError?.includes("DuplicateEmailException")) {
       toast.error("Correo ya registrado");
-    } else if (
-      error.globalError &&
-      error.globalError.includes("IncorrectPasswordException")
-    ) {
+    } else if (error.globalError?.includes("IncorrectPasswordException")) {
       toast.error("Contraseña actual incorrecta");
+    } else if (error.globalError?.includes("IllegalOldPasswordException")) {
+      // Actualizamos el estado para mostrar el error en el campo de contraseña
+      setErrors({ ...errors, password: "Contraseña actual incorrecta" });
+    } else {
+      toast.error("Ocurrió un error");
     }
   };
 
@@ -69,8 +69,7 @@ const ProfileSettings = () => {
 
       setUserAvatar(avatarUrl);
       updateUserAvatar(avatarUrl);
-    //  changeAvatar(user.id, avatarUrl, () => {}, onErrors);
-
+      //  changeAvatar(user.id, avatarUrl, () => {}, onErrors);
     }
 
     const updatedUser = {
@@ -88,37 +87,45 @@ const ProfileSettings = () => {
         onSuccess();
         localStorage.setItem("user", JSON.stringify(updatedUser));
       },
-      onErrors,
+      onErrors
     );
   };
 
-  const handleChangePassword = () => {
+  const handleChangePassword = async () => {
     if (newPassword !== newPasswordConfirm) {
       setErrors({ ...errors, password: "Las contraseñas no coinciden" });
       return;
     }
+
     changePassword(
       user.id,
       oldPassword,
       newPassword,
       onSuccess,
       onErrors,
-      reauthenticationCallback,
+      reauthenticationCallback
     );
   };
 
-  const handleChangeAvatar = async(files) => {
+  const handleChangeAvatar = async (files) => {
     const avatar = files[0];
     setAvatar(avatar);
     const result = await uploadFile(avatar);
-		const fullPath = result.metadata.fullPath;
-		const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
+    const fullPath = result.metadata.fullPath;
+    const route = `https://firebasestorage.googleapis.com/v0/b/${config.FIREBASE_PROJECT}.appspot.com/o/${fullPath}?alt=media`;
 
-		setUserAvatar(route);
-		localStorage.setItem("avatar", route);
+    setUserAvatar(route);
+    localStorage.setItem("avatar", route);
 
-		changeAvatar(user.id, route, () => {console.log("Avatar cambiado con éxito")}, onErrors);
-  }
+    changeAvatar(
+      user.id,
+      route,
+      () => {
+        console.log("Avatar cambiado con éxito");
+      },
+      onErrors
+    );
+  };
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -143,158 +150,159 @@ const ProfileSettings = () => {
 
   return (
     <div className="flex flex-col items-center p-10 space-y-10 mx-auto max-w-6xl">
-      {/* Avatar y Datos públicos */}
-      <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
-        <h2 className="font-semibold text-2xl text-gray-800 mb-10 text-center">
-          Datos públicos
-        </h2>
+      <div className="flex flex-col space-y-10 w-full mb-20">
+        {/* Avatar y Datos públicos */}
+        <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
+          <h2 className="font-semibold text-2xl text-gray-800 mb-10 text-center">
+            Datos públicos
+          </h2>
 
-        {/* Avatar centralizado */}
-        <div className="flex justify-center items-center py-6">
-          <div className="flex flex-col items-center gap-2">
-            <input
-              className="hidden"
-              type="file"
-              accept=".jpeg, .png, .jpg, .svg"
-              id="formFile"
-              onChange={(e) => handleChangeAvatar(e.target.files)}
-            />
-            <button
-              className="relative block w-full max-w-xs rounded group"
-              onClick={handleButtonClick}
-            >
-              <div className="relative h-28 w-28 mb-4">
-                <img
-                  src={userAvatar || user.avatar}
-                  alt="profile-picture"
-                  className="h-full w-full object-cover rounded-full border border-gray-800 transition-all duration-300 group-hover:brightness-50 group-hover:opacity-20"
-                />
-                <div className="absolute inset-0 flex justify-center items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <p className="text-dark text-lg font-semibold">Cambiar</p>
-                </div>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        {/* Datos personales */}
-        <div className="mt-2 flex flex-col lg:grid lg:grid-cols-2 gap-y-6 px-40">
-          <div className="flex justify-center">
-            <InputProfile
-              label={"Username"}
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
-              icon={true}
-              placeholder={userName}
-              edit={true}
-            />
-            {errors.userName && (
-              <p className="text-red-500 font-bold text-sm">
-                {errors.userName}
-              </p>
-            )}
-          </div>
-          <div className="flex justify-center">
-            <InputProfile
-              label={"Nombre"}
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              icon={true}
-              placeholder={firstName}
-              edit={true}
-            />
-          </div>
-          <div className="flex justify-center">
-            <InputProfile
-              label={"Apellidos"}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              icon={true}
-              placeholder={lastName}
-              edit={true}
-            />
-            {errors.lastName && (
-              <p className="text-red-500 font-bold text-sm">
-                {errors.userName}
-              </p>
-            )}
-          </div>
-          <div className="flex justify-center">
-            <div>
-              <InputProfile
-                label={"Email"}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                icon={true}
-                placeholder={email}
-                edit={true}
+          {/* Avatar centralizado */}
+          <div className="flex justify-center items-center py-6">
+            <div className="flex flex-col items-center gap-2">
+              <input
+                className="hidden"
+                type="file"
+                accept=".jpeg, .png, .jpg, .svg"
+                id="formFile"
+                onChange={(e) => handleChangeAvatar(e.target.files)}
               />
-              <div className="flex font-bold">{validateEmail(email)}</div>
+              <button
+                className="relative block w-full max-w-xs rounded group"
+                onClick={handleButtonClick}
+              >
+                <div className="relative h-28 w-28 mb-4">
+                  <img
+                    src={userAvatar || user.avatar}
+                    alt="profile-picture"
+                    className="h-full w-full object-cover rounded-full border border-gray-800 transition-all duration-300 group-hover:brightness-50 group-hover:opacity-20"
+                  />
+                  <div className="absolute inset-0 flex justify-center items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <p className="text-dark text-lg font-semibold">Cambiar</p>
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
-        </div>
 
-        {/* Botón guardar */}
-        <div className="flex justify-end w-full mt-6">
-          <ButtonSubmit
-            label={"Guardar"}
-            fn={handleUpdateProfile}
-            dark={true}
-          />
-        </div>
-      </section>
-
-      {/* Cambiar contraseña */}
-      <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
-        <h2 className="font-semibold text-2xl text-gray-800 mb-16 text-center">
-          Cambiar contraseña
-        </h2>
-
-        {/* Campos de contraseña */}
-        <div className="mt-10 flex flex-col lg:grid lg:grid-cols-2 gap-y-6 px-40 ">
-          <div className="flex justify-center">
-            <InputProfile
-              label={"Contraseña actual"}
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-              type={"password"}
-            />
-          </div>
-          <div className="flex justify-center">
-            <InputProfile
-              label={"Nueva contraseña"}
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              type={"password"}
-            />
-          </div>
-          <div className="flex justify-center">
-            <div>
+          {/* Datos personales */}
+          <div className="mt-2 flex flex-col lg:grid lg:grid-cols-2 gap-y-6 px-40">
+            <div className="flex justify-center">
               <InputProfile
-                label={"Confirmar nueva contraseña"}
-                value={newPasswordConfirm}
-                onChange={(e) => setNewPasswordConfirm(e.target.value)}
-                type={"password"}
+                label={"Username"}
+                value={userName}
+                onChange={(e) => setUsername(e.target.value)}
+                icon={true}
+                placeholder={userName}
+                edit={true}
               />
-
-              {errors.password && (
+              {errors.userName && (
                 <p className="text-red-500 font-bold text-sm">
-                  {errors.password}
+                  {errors.userName}
                 </p>
               )}
             </div>
+            <div className="flex justify-center">
+              <InputProfile
+                label={"Nombre"}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                icon={true}
+                placeholder={firstName}
+                edit={true}
+              />
+            </div>
+            <div className="flex justify-center">
+              <InputProfile
+                label={"Apellidos"}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                icon={true}
+                placeholder={lastName}
+                edit={true}
+              />
+              {errors.lastName && (
+                <p className="text-red-500 font-bold text-sm">
+                  {errors.userName}
+                </p>
+              )}
+            </div>
+            <div className="flex justify-center">
+              <div>
+                <InputProfile
+                  label={"Email"}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  icon={true}
+                  placeholder={email}
+                  edit={true}
+                />
+                <div className="flex font-bold">{validateEmail(email)}</div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Botón guardar contraseña */}
-        <div className="flex justify-end w-full mt-6">
-          <ButtonSubmit
-            label={"Guardar"}
-            fn={handleChangePassword}
-            dark={true}
-          />
-        </div>
-      </section>
+          {/* Botón guardar */}
+          <div className="flex justify-end w-full mt-6">
+            <ButtonSubmit
+              label={"Guardar"}
+              fn={handleUpdateProfile}
+              dark={true}
+            />
+          </div>
+        </section>
+
+        {/* Cambiar contraseña */}
+        <section className="w-full p-6 rounded-lg shadow-md bg-gray-50 border border-gray-200">
+          <h2 className="font-semibold text-2xl text-gray-800 mb-16 text-center">
+            Cambiar contraseña
+          </h2>
+
+          {/* Campos de contraseña */}
+          <div className="mt-10 flex flex-col lg:grid lg:grid-cols-2 gap-y-6 px-40 ">
+            <div className="flex justify-center">
+              <InputProfile
+                label={"Contraseña actual"}
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                type={"password"}
+              />
+            </div>
+            <div className="flex justify-center">
+              <InputProfile
+                label={"Nueva contraseña"}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                type={"password"}
+              />
+            </div>
+            <div className="flex justify-center">
+              <div>
+                <InputProfile
+                  label={"Confirmar nueva contraseña"}
+                  value={newPasswordConfirm}
+                  onChange={(e) => setNewPasswordConfirm(e.target.value)}
+                  type={"password"}
+                />
+                {errors.password && (
+                  <p className="text-red-500 font-bold text-sm">
+                    {errors.password}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Botón guardar contraseña */}
+          <div className="flex justify-end w-full mt-6">
+            <ButtonSubmit
+              label={"Guardar"}
+              fn={handleChangePassword}
+              dark={true}
+            />
+          </div>
+        </section>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer class=" bg-gray-100 rounded backdrop-blur-3xl shadow-sm">
+    <footer class=" bg-gray-100 rounded backdrop-blur-3xl shadow-sm mt-20">
       <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         <span class="text-sm text-gray-700 sm:text-center dark:text-gray-400">
           <span className="font-medium">TFG{" "}</span>

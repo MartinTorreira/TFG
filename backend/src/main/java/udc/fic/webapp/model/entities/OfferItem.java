@@ -21,7 +21,22 @@ public class OfferItem {
     @Column(nullable = false)
     private Integer quantity;
 
-    // Getters and setters
+    public OfferItem(Long id, Offer offer, Product product, Integer quantity) {
+        this.id = id;
+        this.offer = offer;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public OfferItem(Offer offer, Product product, Integer quantity) {
+        this.offer = offer;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public OfferItem() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -39,10 +39,8 @@ public class FavoriteServiceTest {
     @Autowired
     private UserService userService;
 
-
     private static Product product1;
     private static User user1;
-
 
     private static Category parentCategory;
     private static Category category1;

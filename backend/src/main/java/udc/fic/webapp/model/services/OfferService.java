@@ -14,7 +14,7 @@ public interface OfferService {
 
     Offer getOffer(Long id) throws InstanceNotFoundException;
 
-    Offer updateOffer(Long id, Offer updatedOffer) throws InstanceNotFoundException;
+   // Offer updateOffer(Long id, Offer updatedOffer) throws InstanceNotFoundException;
 
     void deleteOffer(Long id) throws InstanceNotFoundException;
 

@@ -70,28 +70,28 @@ public class OfferController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity<OfferDto> updateOffer(@RequestParam Long userId, @PathVariable Long id, @RequestBody OfferDto offerDto) throws InstanceNotFoundException {
-        User buyer = userDao.findById(userId)
-                .orElseThrow(() -> new InstanceNotFoundException("User not found", userId));
-
-        User seller = userDao.findById(offerDto.getSellerId())
-                .orElseThrow(() -> new InstanceNotFoundException("User not found", offerDto.getSellerId()));
-
-        List<Product> products = offerDto.getItems().stream()
-                .map(item -> {
-                    try {
-                        return productService.findProductById(item.getProductId());
-                    } catch (InstanceNotFoundException e) {
-                        throw new RuntimeException("Product not found", e);
-                    }
-                })
-                .collect(Collectors.toList());
-
-        Offer offer = offerService.updateOffer(id, OfferConversor.toEntity(offerDto, buyer, seller, products));
-        OfferDto responseDto = OfferConversor.toDto(offer);
-        return ResponseEntity.ok(responseDto);
-    }
+//    @PutMapping("/{id}/update")
+//    public ResponseEntity<OfferDto> updateOffer(@RequestParam Long userId, @PathVariable Long id, @RequestBody OfferDto offerDto) throws InstanceNotFoundException {
+//        User buyer = userDao.findById(userId)
+//                .orElseThrow(() -> new InstanceNotFoundException("User not found", userId));
+//
+//        User seller = userDao.findById(offerDto.getSellerId())
+//                .orElseThrow(() -> new InstanceNotFoundException("User not found", offerDto.getSellerId()));
+//
+//        List<Product> products = offerDto.getItems().stream()
+//                .map(item -> {
+//                    try {
+//                        return productService.findProductById(item.getProductId());
+//                    } catch (InstanceNotFoundException e) {
+//                        throw new RuntimeException("Product not found", e);
+//                    }
+//                })
+//                .collect(Collectors.toList());
+//
+//        Offer offer = offerService.updateOffer(id, OfferConversor.toEntity(offerDto, buyer, seller, products));
+//        OfferDto responseDto = OfferConversor.toDto(offer);
+//        return ResponseEntity.ok(responseDto);
+//    }
 
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<Void> deleteOffer(@RequestParam Long userId, @PathVariable Long id) throws InstanceNotFoundException {

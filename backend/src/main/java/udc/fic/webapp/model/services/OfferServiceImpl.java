@@ -28,13 +28,13 @@ public class OfferServiceImpl implements OfferService {
         return offerDao.findById(id).orElseThrow(() -> new InstanceNotFoundException("Offer not found", id));
     }
 
-    @Override
-    public Offer updateOffer(Long id, Offer updatedOffer) throws InstanceNotFoundException {
-        Offer offer = getOffer(id);
-        offer.setAmount(updatedOffer.getAmount());
-        offer.setItems(updatedOffer.getItems());
-        return offerDao.save(offer);
-    }
+    //@Override
+    //public Offer updateOffer(Long id, Offer updatedOffer) throws InstanceNotFoundException {
+    //    Offer offer = getOffer(id);
+    //    offer.setAmount(updatedOffer.getAmount());
+    //    offer.setItems(updatedOffer.getItems());
+    //    return offerDao.save(offer);
+    //}
 
     @Override
     public void deleteOffer(Long id) throws InstanceNotFoundException {

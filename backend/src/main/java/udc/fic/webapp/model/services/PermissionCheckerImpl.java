@@ -18,8 +18,6 @@ public class PermissionCheckerImpl implements PermissionChecker {
     @Autowired
     private UserDao userDao;
 
-    //@Autowired
-    //private OrderDao orderDao;
 
     @Override
     public void checkUserExists(Long userId) throws InstanceNotFoundException {

@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.DuplicateEmailException;
 import udc.fic.webapp.model.exceptions.DuplicateInstanceException;
 import udc.fic.webapp.model.exceptions.InstanceNotFoundException;
-import udc.fic.webapp.model.services.ProductService;
 import udc.fic.webapp.model.services.PurchaseService;
 import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.dto.PurchaseDto;
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -30,16 +31,22 @@ public class PurchaseServiceTest {
     private UserService userService;
 
     @Autowired
-    private PurchaseService purchaseService;
+    private PurchaseDao purchaseDao;
 
     @Autowired
-    private PurchaseDao purchaseDao;
+    private PurchaseItemDao purchaseItemDao;
 
     @Autowired
     private ProductDao productDao;
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private PurchaseService purchaseService;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
     private final String ORDER_ID = "38K03169BH194974M";
     private final String CAPTURE_ID = "3GD54926EH467243K";
@@ -64,7 +71,6 @@ public class PurchaseServiceTest {
         categoryDao.save(parentCategory);
         categoryDao.save(category1);
         categoryDao.save(category2);
-
 
         seller = new User("seller", "password", "firstName", "lastName", "seller" + "@" + "seller" + ".com", 0,  "avatar",null);
         buyer = new User("buyer", "password", "firstName", "lastName", "buyer" + "@" + "buyer" + ".com", 0,  "avatar",null);
@@ -165,5 +171,79 @@ public class PurchaseServiceTest {
         assertEquals(Purchase.PurchaseStatus.PENDING, purchase.getPurchaseStatus());
     }
 
+    @Test
+    public void testChangePurchaseStatus() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        PurchaseDto purchaseDto1 = new PurchaseDto();
+        purchaseDto1.setPurchaseStatus(Purchase.PurchaseStatus.COMPLETED.toString());
+        PurchaseDto purchaseDto2 = purchaseService.changePurchaseStatus(purchase.getId(), purchaseDto1);
+        assertEquals(Purchase.PurchaseStatus.COMPLETED.toString(), purchaseDto2.getPurchaseStatus());
+    }
+
+
+    @Test
+    public void testGetPurchaseByCaptureIdThrowsException() throws InstanceNotFoundException {
+        assertThrows(InstanceNotFoundException.class, () -> {
+            purchaseService.getPurchaseByCaptureId(CAPTURE_ID);
+        });
+    }
+
+    @Test
+    public void testGetPurchaseItems() {
+        Product product1 = new Product("product", "description", 10.0, 10, Product.Quality.NEW, 0.0, 0.0, images, seller, category1);
+        Product product2 = new Product("product", "description", 10.0, 10, Product.Quality.NEW, 0.0, 0.0, images, seller, category1);
+        Product product3 = new Product("product", "description", 10.0, 10, Product.Quality.NEW, 0.0, 0.0, images, seller, category1);
+
+        productDao.saveAll(List.of(product1, product2, product3));
+        List<Product> products = List.of(product1, product2, product3);
+
+        List<PurchaseItem> purchaseItems = purchaseService.getPurchaseItems(products);
+
+        assertEquals(3, purchaseItems.size());
+        assertEquals(product1, purchaseItems.get(0).getProduct());
+        assertEquals(product2, purchaseItems.get(1).getProduct());
+        assertEquals(product3, purchaseItems.get(2).getProduct());
+        assertEquals(1, purchaseItems.get(0).getQuantity());
+        assertEquals(1, purchaseItems.get(1).getQuantity());
+        assertEquals(1, purchaseItems.get(2).getQuantity());
+    }
+
+
+    @Test
+    public void testGetSalesByUserId() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        assertEquals(1, purchaseService.getSalesByUserId(seller.getId(), 0, 10).getTotalElements());
+    }
+
+    @Test
+    public void testGetSalesByUserIdThrowsExceptionIfUserDoesNotExist() {
+        assertThrows(InstanceNotFoundException.class, () -> {
+            purchaseService.getSalesByUserId(100L, 0, 10);
+        });
+    }
+
+
+
+    @Test
+    public void testDeletePurchase() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        purchaseService.deletePurchase(purchase.getId());
+        assertThrows(InstanceNotFoundException.class, () -> {
+            purchaseService.getPurchaseById(purchase.getId());
+        });
+    }
+
+    @Test
+    public void testGetSellerIdByPurchaseId() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        Long sellerId = purchaseService.getSellerIdByPurchaseId(purchase.getId());
+        assertEquals(seller.getId(), sellerId);
+    }
+
 
 }
+

@@ -214,6 +214,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
 
+    @Override
     public List<PurchaseItem> getPurchaseItems(List<Product> products) {
         return products.stream().map(product -> {
             PurchaseItem purchaseItem = new PurchaseItem();
@@ -242,7 +243,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         Purchase purchase = purchaseDao.findById(purchaseId)
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId));
 
-        // Borrar todas las notificaciones asociadas
         List<Notification> notifications = notificationService.getNotificationsByPurchaseId(purchaseId);
         for (Notification notification : notifications) {
             notificationService.deleteNotification(notification.getId());

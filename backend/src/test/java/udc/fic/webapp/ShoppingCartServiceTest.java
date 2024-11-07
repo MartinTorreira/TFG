@@ -1,5 +1,6 @@
 package udc.fic.webapp;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -34,6 +37,9 @@ public class ShoppingCartServiceTest {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+
+    @Autowired
+    private ShoppingCartItemDao shoppingCartItemDao;
 
     @Autowired
     private PurchaseService purchaseService;
@@ -48,8 +54,6 @@ public class ShoppingCartServiceTest {
     private CategoryDao categoryDao;
 
     private final String ORDER_ID = "38K03169BH194974M";
-    private final String CAPTURE_ID = "3GD54926EH467243K";
-
 
     private static Category parentCategory;
     private static Category category1;
@@ -60,6 +64,10 @@ public class ShoppingCartServiceTest {
     private static Product product;
     private static User buyer;
     private static User seller;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private ShoppingCartDao shoppingCartDao;
 
     @BeforeEach
     public void setUp() throws DuplicateEmailException, DuplicateInstanceException {
@@ -272,5 +280,90 @@ public class ShoppingCartServiceTest {
             assertNotNull(e);
         }
     }
+
+   @Test
+   public void testGetProductByCartItemId() throws InstanceNotFoundException {
+       shoppingCartService.createShoppingCart(buyer.getId());
+       product.setImage(Stream.of("image1", "image2", "image3").map(image -> new Product_Images(product, image)).toList());
+
+       ShoppingCartItemDto shoppingCartItemDto = new ShoppingCartItemDto();
+       shoppingCartItemDto.setProductId(product.getId());
+       shoppingCartItemDto.setQuantity(1);
+
+       shoppingCartService.addItemToCart(buyer.getId(), shoppingCartItemDto);
+
+       List<ShoppingCartItemDto> shoppingCartItems = shoppingCartService.getShoppingCartItemsByUser(buyer.getId());
+       Assertions.assertNotNull(shoppingCartItems);
+
+       Long cartItemId = shoppingCartItems.get(0).getId();
+       ProductDto productDto = shoppingCartService.getProductByCartItemId(buyer.getId(), cartItemId);
+       Assertions.assertNotNull(productDto);
+       assertEquals(product.getId(), productDto.getId());
+   }
+
+
+    @Test
+    public void testAddItemToCartProductAlreadyInCartThrowsException() throws InstanceNotFoundException {
+
+        shoppingCartService.createShoppingCart(buyer.getId());
+
+        ShoppingCartItemDto shoppingCartItemDto = new ShoppingCartItemDto();
+        shoppingCartItemDto.setProductId(product.getId());
+        shoppingCartItemDto.setQuantity(1);
+
+        shoppingCartService.addItemToCart(buyer.getId(), shoppingCartItemDto);
+
+        List<ShoppingCartItemDto> shoppingCartItems = shoppingCartService.getShoppingCartItemsByUser(buyer.getId());
+        assertNotNull(shoppingCartItems);
+
+        ShoppingCartItemDto shoppingCartItemDto2 = new ShoppingCartItemDto();
+        shoppingCartItemDto2.setProductId(product.getId());
+        shoppingCartItemDto2.setQuantity(1);
+
+        assertThrows(IllegalArgumentException.class, () -> shoppingCartService.addItemToCart(buyer.getId(), shoppingCartItemDto2));
+    }
+
+    @Test
+    public void testAddItemToCartUserOwnerOfProductCantAddItToHisCartThrowsException()  {
+        shoppingCartService.createShoppingCart(seller.getId());
+
+        ShoppingCartItemDto shoppingCartItemDto = new ShoppingCartItemDto();
+        shoppingCartItemDto.setProductId(product.getId());
+        shoppingCartItemDto.setQuantity(1);
+
+        assertThrows(IllegalArgumentException.class, () -> shoppingCartService.addItemToCart(seller.getId(), shoppingCartItemDto));
+    }
+
+    @Test
+    public void testRemoveItemFromCartItemNotFound() throws InstanceNotFoundException {
+        shoppingCartService.createShoppingCart(buyer.getId());
+
+        assertThrows(InstanceNotFoundException.class, () -> {
+            shoppingCartService.removeItemFromCart(buyer.getId(), 1L);
+        });
+    }
+
+
+
+    @Test
+    public void testUpdateItemQuantityItemNotFound() throws InstanceNotFoundException {
+        shoppingCartService.createShoppingCart(buyer.getId());
+
+        ShoppingCartItemDto shoppingCartItemDto = new ShoppingCartItemDto();
+        shoppingCartItemDto.setProductId(product.getId());
+        shoppingCartItemDto.setQuantity(1);
+
+        shoppingCartService.addItemToCart(buyer.getId(), shoppingCartItemDto);
+
+        shoppingCartItemDto.setId(1L);
+        shoppingCartItemDto.setQuantity(2);
+
+        assertThrows(InstanceNotFoundException.class, () -> {
+            shoppingCartService.updateItemQuantity(buyer.getId(), shoppingCartItemDto);
+        });
+    }
+
+
+
 
 }

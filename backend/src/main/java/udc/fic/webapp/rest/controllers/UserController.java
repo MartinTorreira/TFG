@@ -156,17 +156,17 @@ public class UserController {
     public ResponseEntity<UserDto> rateUser(@RequestAttribute Long userId, @PathVariable Long id, @RequestParam int rate) throws InstanceNotFoundException {
         User user = userDao.findById(id).orElseThrow(() -> new InstanceNotFoundException("User", id));
         if (user.getId().equals(userId)) {
-            throw new IllegalArgumentException("Same user can't rate yourself");
+            throw new IllegalArgumentException("A user cannot rate himself");
         }
         userService.rateUser(id, rate);
         return ResponseEntity.ok(UserConversor.toUserDto(user));
     }
 
-    @GetMapping("/{id}/averageRating")
-    public ResponseEntity<Double> getUserAverageRating(@PathVariable Long id) throws InstanceNotFoundException {
-        double averageRating = userService.getAverageRating(id);
-        return ResponseEntity.ok(averageRating);
-    }
+//    @GetMapping("/{id}/averageRating")
+//    public ResponseEntity<Double> getUserAverageRating(@PathVariable Long id) throws InstanceNotFoundException {
+//        double averageRating = userService.getAverageRating(id);
+//        return ResponseEntity.ok(averageRating);
+//    }
 
 
 

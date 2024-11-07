@@ -71,7 +71,6 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!passwordEncoder.matches(password, user.get().getPassword())) {
-            System.out.println(user.get().getPassword());
             throw new IncorrectLoginException(userName, password);
         }
 
@@ -152,9 +151,9 @@ public class UserServiceImpl implements UserService {
         userDao.save(user);
     }
 
-    @Override
-    public double getAverageRating(Long userId) throws InstanceNotFoundException {
-        User user = userDao.findById(userId).orElseThrow(() -> new InstanceNotFoundException("User", userId));
-        return user.getRatings().stream().mapToInt(Rating::getRate).average().orElse(0.0);
-    }
+//    @Override
+//    public double getAverageRating(Long userId) throws InstanceNotFoundException {
+//        User user = userDao.findById(userId).orElseThrow(() -> new InstanceNotFoundException("User", userId));
+//        return user.getRatings().stream().mapToInt(Rating::getRate).average().orElse(0.0);
+//    }
 }

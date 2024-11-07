@@ -5,14 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ChatServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/OfferServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PaypalServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/OfferItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/OfferItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/OfferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/OfferService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/OfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/OfferServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/OfferController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/OfferController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/FavoriteServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/FavoriteServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/RatingDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/RatingDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PaypalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PaypalService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PermissionCheckerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PermissionCheckerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/dto/PurchaseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/NotificationServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/NotificationServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/OfferServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/OfferServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/PurchaseServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ShoppingCartServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/ShoppingCartServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/udc/fic/webapp/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/modals/UserRatingModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/modals/UserRatingModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/modals/UserRefundModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/modals/UserRefundModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/payment/UserPurchaseList.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,40 +87,94 @@
     "JUnit.FavoriteServiceTest.testAddFavorite.executor": "Run",
     "JUnit.FavoriteServiceTest.testAddFavoriteSameUser.executor": "Run",
     "JUnit.FavoriteServiceTest.testRemoveFavoriteNonExistentUser.executor": "Debug",
-    "JUnit.OfferServiceTest.executor": "Debug",
+    "JUnit.NotificationServiceTest.testNotifySellerThrowsExceptionIfPurchaseDoesNotExists.executor": "Coverage",
+    "JUnit.OfferServiceTest.executor": "Coverage",
     "JUnit.OfferServiceTest.testCreateOffer.executor": "Run",
     "JUnit.OfferServiceTest.testDeleteOffer.executor": "Run",
     "JUnit.OfferServiceTest.testGetAllOffers.executor": "Run",
     "JUnit.OfferServiceTest.testGetOffersByBuyerId.executor": "Run",
     "JUnit.OfferServiceTest.testGetOffersBySellerId.executor": "Run",
     "JUnit.OfferServiceTest.testUpdateOffer.executor": "Debug",
+    "JUnit.PaypalServiceTest.executor": "Coverage",
+    "JUnit.PaypalServiceTest.testCaptureOrder.executor": "Run",
+    "JUnit.PaypalServiceTest.testCaptureOrderThrowsHttpException.executor": "Coverage",
+    "JUnit.PaypalServiceTest.testCreateOrder.executor": "Run",
+    "JUnit.PaypalServiceTest.testCreateOrderThrowsHttpException.executor": "Coverage",
+    "JUnit.PaypalServiceTest.testCreateOrderThrowsIOException.executor": "Coverage",
+    "JUnit.PaypalServiceTest.testRefundOrder.executor": "Coverage",
+    "JUnit.PaypalServiceTest.testRefundOrderThrowsHttpException.executor": "Coverage",
+    "JUnit.PaypalServiceTest.testRefundOrderThrowsIOException.executor": "Coverage",
     "JUnit.ProductServiceTest.executor": "Coverage",
     "JUnit.ProductServiceTest.testAddProduct.executor": "Run",
     "JUnit.ProductServiceTest.testAddProductWithInvalidCategory.executor": "Run",
     "JUnit.ProductServiceTest.testAddProductWithInvalidQuality.executor": "Run",
+    "JUnit.ProductServiceTest.testAddProductWithSubcategories.executor": "Coverage",
     "JUnit.ProductServiceTest.testChangeProductImages.executor": "Run",
+    "JUnit.ProductServiceTest.testGetProductsByPurchaseId.executor": "Run",
     "JUnit.ProductServiceTest.testGetProductsByUserIdWithInvalidId.executor": "Run",
     "JUnit.ProductServiceTest.testUpdateProduct.executor": "Run",
-    "JUnit.PurchaseServiceTest.executor": "Debug",
+    "JUnit.PurchaseServiceTest.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testChangePurchaseStatus.executor": "Coverage",
     "JUnit.PurchaseServiceTest.testCompleteOrder.executor": "Run",
     "JUnit.PurchaseServiceTest.testCompleteOrderWithCaptureId.executor": "Run",
     "JUnit.PurchaseServiceTest.testCompletePurchase.executor": "Run",
     "JUnit.PurchaseServiceTest.testCreateOrder.executor": "Debug",
+    "JUnit.PurchaseServiceTest.testCreatePurchaseAndExecutePayment.executor": "Run",
+    "JUnit.PurchaseServiceTest.testCreatePurchaseWithInvalidPaymentMethod.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testCreatePurchaseWithoutOrderId.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testCreatePurchaseWithoutOrderIdOrPurchaseStatus.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testCreatePurchaseWithoutPurchaseStatus.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testDeletePurchase.executor": "Run",
     "JUnit.PurchaseServiceTest.testExecutePayment.executor": "Run",
+    "JUnit.PurchaseServiceTest.testGetProductByOrderIdThrowsInstanceNotFoundException.executor": "Coverage",
     "JUnit.PurchaseServiceTest.testGetPurchaseByCaptureId.executor": "Run",
+    "JUnit.PurchaseServiceTest.testGetPurchaseByCaptureIdThrowsException.executor": "Debug",
     "JUnit.PurchaseServiceTest.testGetPurchaseByOrderId.executor": "Debug",
+    "JUnit.PurchaseServiceTest.testGetPurchaseItems.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testGetPurchaseItemsByUser.executor": "Run",
+    "JUnit.PurchaseServiceTest.testGetSalesByUserId.executor": "Run",
+    "JUnit.PurchaseServiceTest.testGetSalesByUserIdThrowsException.executor": "Run",
+    "JUnit.PurchaseServiceTest.testGetSalesByUserIdThrowsExceptionIfUserDoesNotExist.executor": "Coverage",
+    "JUnit.PurchaseServiceTest.testGetSellerIdByPurchaseId.executor": "Run",
     "JUnit.ShoppingCartServiceTest.createShoppingCart.executor": "Run",
     "JUnit.ShoppingCartServiceTest.executor": "Coverage",
-    "JUnit.ShoppingCartServiceTest.getProductByCartItemId.executor": "Run",
+    "JUnit.ShoppingCartServiceTest.getProductByCartItemId.executor": "Coverage",
+    "JUnit.ShoppingCartServiceTest.purchaseWithInvalidSeller.executor": "Run",
+    "JUnit.ShoppingCartServiceTest.testAddItemToCartProductAlreadyInCartThrowsException.executor": "Coverage",
+    "JUnit.ShoppingCartServiceTest.testAddItemToCartUserOwnerOfProductCantAddItToHisCartThrowsException.executor": "Coverage",
+    "JUnit.ShoppingCartServiceTest.testDeleteFromCartNotOwnerThrowsException.executor": "Run",
+    "JUnit.ShoppingCartServiceTest.testGetProductByCartItemId.executor": "Coverage",
+    "JUnit.ShoppingCartServiceTest.testRemoveItemFromCartItemNotFound.executor": "Run",
+    "JUnit.ShoppingCartServiceTest.testRemoveItemFromCartItemNotInCart.executor": "Run",
+    "JUnit.ShoppingCartServiceTest.testRemoveItemFromCartUserNotOwner.executor": "Run",
+    "JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFound.executor": "Coverage",
+    "JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFoundInCart.executor": "Run",
     "JUnit.Testo.a.executor": "Run",
     "JUnit.UserServiceTest.a.executor": "Run",
     "JUnit.UserServiceTest.executor": "Coverage",
     "JUnit.UserServiceTest.simpleTest.executor": "Run",
     "JUnit.UserServiceTest.test1.executor": "Run",
+    "JUnit.UserServiceTest.testChangeAvatar.executor": "Run",
     "JUnit.UserServiceTest.testChangePassword.executor": "Run",
+    "JUnit.UserServiceTest.testCheckUser.executor": "Coverage",
+    "JUnit.UserServiceTest.testCheckUserExists.executor": "Coverage",
+    "JUnit.UserServiceTest.testCheckUserExistsSuccess.executor": "Coverage",
+    "JUnit.UserServiceTest.testCheckUserExistsWithNonExistentId.executor": "Coverage",
+    "JUnit.UserServiceTest.testCheckUserWithNonExistentId.executor": "Coverage",
+    "JUnit.UserServiceTest.testFindAll.executor": "Coverage",
+    "JUnit.UserServiceTest.testGetAverageRating.executor": "Run",
+    "JUnit.UserServiceTest.testGetUserById.executor": "Run",
+    "JUnit.UserServiceTest.testLoginFromId.executor": "Run",
     "JUnit.UserServiceTest.testLoginFromNonExistentId.executor": "Run",
+    "JUnit.UserServiceTest.testLoginIncorrectPassword.executor": "Coverage",
+    "JUnit.UserServiceTest.testLoginInexistentUser.executor": "Coverage",
+    "JUnit.UserServiceTest.testRateUser.executor": "Run",
     "JUnit.UserServiceTest.testSignUpAndLoginFromId.executor": "Run",
+    "JUnit.UserServiceTest.testSignUpDuplicatedEmailThrowsException.executor": "Coverage",
     "JUnit.UserServiceTest.testSignUpDuplicatedUserName.executor": "Run",
+    "JUnit.UserServiceTest.testUpdateProfileWithDuplicateEmail.executor": "Run",
+    "JUnit.UserServiceTest.testUpdateProfileWithDuplicateUserName.executor": "Run",
+    "JUnit.UserServiceTest.testUpdateProfileWithDuplicatedUserName.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -147,7 +214,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OfferServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShoppingCartServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -156,13 +223,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.OfferServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ShoppingCartServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OfferServiceTest.testDeleteOffer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShoppingCartServiceTest.testRemoveItemFromCartItemNotInCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -171,14 +238,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.OfferServiceTest" />
-      <option name="METHOD_NAME" value="testDeleteOffer" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ShoppingCartServiceTest" />
+      <option name="METHOD_NAME" value="testRemoveItemFromCartItemNotInCart" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OfferServiceTest.testGetOffersByBuyerId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShoppingCartServiceTest.testUpdateItemQuantityItemNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -187,14 +254,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.OfferServiceTest" />
-      <option name="METHOD_NAME" value="testGetOffersByBuyerId" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ShoppingCartServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateItemQuantityItemNotFound" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OfferServiceTest.testGetOffersBySellerId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ShoppingCartServiceTest.testUpdateItemQuantityItemNotFoundInCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="webapp" />
       <extension name="coverage">
         <pattern>
@@ -203,8 +270,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="udc.fic.webapp" />
-      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.OfferServiceTest" />
-      <option name="METHOD_NAME" value="testGetOffersBySellerId" />
+      <option name="MAIN_CLASS_NAME" value="udc.fic.webapp.ShoppingCartServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateItemQuantityItemNotFoundInCart" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -227,10 +294,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in webapp" />
-        <item itemvalue="JUnit.OfferServiceTest" />
-        <item itemvalue="JUnit.OfferServiceTest.testDeleteOffer" />
-        <item itemvalue="JUnit.OfferServiceTest.testGetOffersBySellerId" />
-        <item itemvalue="JUnit.OfferServiceTest.testGetOffersByBuyerId" />
+        <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFoundInCart" />
+        <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFound" />
+        <item itemvalue="JUnit.ShoppingCartServiceTest" />
+        <item itemvalue="JUnit.ShoppingCartServiceTest.testRemoveItemFromCartItemNotInCart" />
       </list>
     </recent_temporary>
   </component>
@@ -355,6 +422,9 @@
       <workItem from="1730732173764" duration="113000" />
       <workItem from="1730733064634" duration="5559000" />
       <workItem from="1730817551601" duration="4021000" />
+      <workItem from="1730903611293" duration="10733000" />
+      <workItem from="1730989842392" duration="4064000" />
+      <workItem from="1730995133083" duration="3805000" />
     </task>
     <servers />
   </component>
@@ -384,40 +454,158 @@
           <line>44</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/udc/fic/webapp/ProductServiceTest.java</url>
+          <line>319</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="udc.fic.webapp.model.entities.Purchase" memberName="id" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1729633180074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testCreateOrderThrowsIOException.ic" NAME="PaypalServiceTest.testCreateOrderThrowsIOException Coverage Results" MODIFIED="1730995463736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$NotificationServiceTest.ic" NAME="NotificationServiceTest Coverage Results" MODIFIED="1729871619106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testRefundOrderThrowsIOException.ic" NAME="PaypalServiceTest.testRefundOrderThrowsIOException Coverage Results" MODIFIED="1730995909622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1730831894772" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testCreatePurchaseWithoutOrderId.ic" NAME="PurchaseServiceTest.testCreatePurchaseWithoutOrderId Coverage Results" MODIFIED="1730906924334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testGetPurchaseByCaptureIdThrowsException.ic" NAME="PurchaseServiceTest.testGetPurchaseByCaptureIdThrowsException Coverage Results" MODIFIED="1730911254202" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testGetSalesByUserIdThrowsExceptionIfUserDoesNotExist.ic" NAME="PurchaseServiceTest.testGetSalesByUserIdThrowsExceptionIfUserDoesNotExist Coverage Results" MODIFIED="1730912055188" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_getProductByCartItemId.ic" NAME="ShoppingCartServiceTest.getProductByCartItemId Coverage Results" MODIFIED="1730912884393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testGetProductByOrderIdThrowsInstanceNotFoundException.ic" NAME="PurchaseServiceTest.testGetProductByOrderIdThrowsInstanceNotFoundException Coverage Results" MODIFIED="1730911100420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/backend$ChatServiceTest_testGetChatsForUserWithEmptyMessages.ic" NAME="ChatServiceTest.testGetChatsForUserWithEmptyMessages Coverage Results" MODIFIED="1730829271692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest.ic" NAME="PurchaseServiceTest Coverage Results" MODIFIED="1729633126382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testRateUser.ic" NAME="UserServiceTest.testRateUser Coverage Results" MODIFIED="1730914131374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1729633157971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest.ic" NAME="PurchaseServiceTest Coverage Results" MODIFIED="1730912079926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testCreatePurchaseWithoutOrderIdOrPurchaseStatus.ic" NAME="PurchaseServiceTest.testCreatePurchaseWithoutOrderIdOrPurchaseStatus Coverage Results" MODIFIED="1730906982073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testCheckUserWithNonExistentId.ic" NAME="UserServiceTest.testCheckUserWithNonExistentId Coverage Results" MODIFIED="1730996590232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testCreateOrder.ic" NAME="PaypalServiceTest.testCreateOrder Coverage Results" MODIFIED="1730993765287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testCreateOrderThrowsHttpException.ic" NAME="PaypalServiceTest.testCreateOrderThrowsHttpException Coverage Results" MODIFIED="1730996133666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$OfferServiceTest.ic" NAME="OfferServiceTest Coverage Results" MODIFIED="1730832083763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testGetPurchaseItems.ic" NAME="PurchaseServiceTest.testGetPurchaseItems Coverage Results" MODIFIED="1730911822347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testCheckUser.ic" NAME="UserServiceTest.testCheckUser Coverage Results" MODIFIED="1730996577340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ProductServiceTest_testAddProductWithSubcategories.ic" NAME="ProductServiceTest.testAddProductWithSubcategories Coverage Results" MODIFIED="1730904521124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testLoginIncorrectPassword.ic" NAME="UserServiceTest.testLoginIncorrectPassword Coverage Results" MODIFIED="1730993122692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testCheckUserExistsWithNonExistentId.ic" NAME="UserServiceTest.testCheckUserExistsWithNonExistentId Coverage Results" MODIFIED="1730996537858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testChangePurchaseStatus.ic" NAME="PurchaseServiceTest.testChangePurchaseStatus Coverage Results" MODIFIED="1730911194985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testCreatePurchaseWithInvalidPaymentMethod.ic" NAME="PurchaseServiceTest.testCreatePurchaseWithInvalidPaymentMethod Coverage Results" MODIFIED="1730907173198" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/backend$FavoriteServiceTest.ic" NAME="FavoriteServiceTest Coverage Results" MODIFIED="1729633197373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testCreatePurchaseWithoutPurchaseStatus.ic" NAME="PurchaseServiceTest.testCreatePurchaseWithoutPurchaseStatus Coverage Results" MODIFIED="1730907040405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testSignUpDuplicatedEmailThrowsException.ic" NAME="UserServiceTest.testSignUpDuplicatedEmailThrowsException Coverage Results" MODIFIED="1730992989614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_testAddItemToCartUserOwnerOfProductCantAddItToHisCartThrowsException.ic" NAME="ShoppingCartServiceTest.testAddItemToCartUserOwnerOfProductCantAddItToHisCartThrowsException Coverage Results" MODIFIED="1730996911010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testLoginInexistentUser.ic" NAME="UserServiceTest.testLoginInexistentUser Coverage Results" MODIFIED="1730993075271" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest.ic" NAME="PaypalServiceTest Coverage Results" MODIFIED="1730996332147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testRefundOrderThrowsHttpException.ic" NAME="PaypalServiceTest.testRefundOrderThrowsHttpException Coverage Results" MODIFIED="1730996195134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_testUpdateItemQuantityItemNotFound.ic" NAME="ShoppingCartServiceTest.testUpdateItemQuantityItemNotFound Coverage Results" MODIFIED="1730998761885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$NotificationServiceTest_testNotifySellerThrowsExceptionIfPurchaseDoesNotExists.ic" NAME="NotificationServiceTest.testNotifySellerThrowsExceptionIfPurchaseDoesNotExists Coverage Results" MODIFIED="1730912264606" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testRefundOrder.ic" NAME="PaypalServiceTest.testRefundOrder Coverage Results" MODIFIED="1730995597678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testUpdateProfileWithDuplicatedUserName.ic" NAME="UserServiceTest.testUpdateProfileWithDuplicatedUserName Coverage Results" MODIFIED="1730993189668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1730993507515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testFindAll.ic" NAME="UserServiceTest.testFindAll Coverage Results" MODIFIED="1730913116703" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testCaptureOrderThrowsHttpException.ic" NAME="PaypalServiceTest.testCaptureOrderThrowsHttpException Coverage Results" MODIFIED="1730996168075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_testAddItemToCartProductAlreadyInCartThrowsException.ic" NAME="ShoppingCartServiceTest.testAddItemToCartProductAlreadyInCartThrowsException Coverage Results" MODIFIED="1730996859828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ProductServiceTest.ic" NAME="ProductServiceTest Coverage Results" MODIFIED="1730906463852" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_testGetProductByCartItemId.ic" NAME="ShoppingCartServiceTest.testGetProductByCartItemId Coverage Results" MODIFIED="1730913050479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$NotificationServiceTest.ic" NAME="NotificationServiceTest Coverage Results" MODIFIED="1729871619106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$All_in_webapp.ic" NAME="All in webapp Coverage Results" MODIFIED="1730996348909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$ChatServiceTest.ic" NAME="ChatServiceTest Coverage Results" MODIFIED="1730830604164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest.ic" NAME="ShoppingCartServiceTest Coverage Results" MODIFIED="1729873193074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testCheckUserExists.ic" NAME="UserServiceTest.testCheckUserExists Coverage Results" MODIFIED="1730996478299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$OfferServiceTest.ic" NAME="OfferServiceTest Coverage Results" MODIFIED="1730831297500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testCheckUserExistsSuccess.ic" NAME="UserServiceTest.testCheckUserExistsSuccess Coverage Results" MODIFIED="1730996667524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_testDeleteFromCartNotOwnerThrowsException.ic" NAME="ShoppingCartServiceTest.testDeleteFromCartNotOwnerThrowsException Coverage Results" MODIFIED="1730997652466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>udc.fic.webapp.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest.ic" NAME="ShoppingCartServiceTest Coverage Results" MODIFIED="1730998702749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
   </component>

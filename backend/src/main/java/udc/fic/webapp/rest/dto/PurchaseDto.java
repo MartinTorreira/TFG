@@ -31,6 +31,22 @@ public class PurchaseDto {
 
     public PurchaseDto() {}
 
+    public PurchaseDto(Long buyerId, Long sellerId, List<Long> productIds, List<Integer> quantities, List<PurchaseItemDto> purchaseItems, Date purchaseDate, Double amount, String currency, String paymentMethod, String orderId, String captureId, Boolean isRefunded, String purchaseStatus) {
+        this.buyerId = buyerId;
+        this.sellerId = sellerId;
+        this.productIds = productIds;
+        this.quantities = quantities;
+        this.purchaseItems = purchaseItems;
+        this.purchaseDate = purchaseDate;
+        this.amount = amount;
+        this.currency = currency;
+        this.paymentMethod = paymentMethod;
+        this.orderId = orderId;
+        this.captureId = captureId;
+        this.isRefunded = isRefunded;
+        this.purchaseStatus = purchaseStatus;
+    }
+
     public Long getId() {
         return id;
     }

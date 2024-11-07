@@ -5,10 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import udc.fic.webapp.model.entities.Rating;
+import udc.fic.webapp.model.entities.RatingDao;
 import udc.fic.webapp.model.entities.User;
 import udc.fic.webapp.model.entities.UserDao;
 import udc.fic.webapp.model.exceptions.*;
+import udc.fic.webapp.model.services.PermissionCheckerImpl;
 import udc.fic.webapp.model.services.UserService;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,8 +28,13 @@ public class UserServiceTest {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private RatingDao ratingDao;
+
 
     private final Long NON_EXISTENT_ID = Long.valueOf(-1);
+    @Autowired
+    private PermissionCheckerImpl permissionCheckerImpl;
 
 
     private User createUser(String userName) {
@@ -55,8 +65,49 @@ public class UserServiceTest {
     }
 
     @Test
+    public void testSignUpDuplicatedEmailThrowsException() throws DuplicateInstanceException, DuplicateEmailException {
+
+        User user1 = createUser("user1");
+        User user2 = createUser("user2");
+
+        userService.signUp(user1);
+        user2.setEmail(user1.getEmail());
+
+        assertThrows(DuplicateEmailException.class, () -> userService.signUp(user2));
+    }
+
+    @Test
     public void testLoginFromNonExistentId() {
         assertThrows(InstanceNotFoundException.class, () -> userService.loginFromId(NON_EXISTENT_ID));
+    }
+
+    @Test
+    public void testLoginInexistentUser() throws DuplicateInstanceException, DuplicateEmailException {
+        User user = createUser("user");
+
+        userService.signUp(user);
+
+        assertThrows(IncorrectLoginException.class, () -> userService.login("X" + user.getUserName(), user.getPassword()));
+    }
+
+    @Test
+    public void testLoginIncorrectPassword() throws DuplicateInstanceException, DuplicateEmailException {
+        User user = createUser("user");
+
+        userService.signUp(user);
+
+        assertThrows(IncorrectLoginException.class, () -> userService.login(user.getUserName(), "X" + user.getPassword()));
+    }
+
+    @Test
+    public void testLoginFromId() throws DuplicateInstanceException, InstanceNotFoundException, DuplicateEmailException {
+        User user = createUser("user");
+
+        userService.signUp(user);
+
+        User loggedInUser = userService.loginFromId(user.getId());
+
+        assertEquals(user, loggedInUser);
     }
 
     @Test
@@ -83,6 +134,34 @@ public class UserServiceTest {
         assertThrows(InstanceNotFoundException.class, () ->
                 userService.updateProfile(NON_EXISTENT_ID, "X", "X", "X", "X", "X"));
     }
+
+
+    @Test
+    public void testUpdateProfileWithDuplicateUserName() throws DuplicateInstanceException, DuplicateEmailException {
+        User user1 = createUser("user1");
+        User user2 = createUser("user2");
+
+        userService.signUp(user1);
+        userService.signUp(user2);
+
+        assertThrows(DuplicateInstanceException.class, () ->
+                userService.updateProfile(user2.getId(), user1.getUserName(), user2.getFirstName(), user2.getLastName(), user2.getEmail(), user2.getAvatar())
+        );
+    }
+
+    @Test
+    public void testUpdateProfileWithDuplicateEmail() throws DuplicateInstanceException, DuplicateEmailException {
+        User user1 = createUser("user1");
+        User user2 = createUser("user2");
+
+        userService.signUp(user1);
+        userService.signUp(user2);
+
+        assertThrows(DuplicateEmailException.class, () ->
+                userService.updateProfile(user2.getId(), user2.getUserName(), user2.getFirstName(), user2.getLastName(), user1.getEmail(), user2.getAvatar())
+        );
+    }
+
 
     @Test
     public void testChangePassword() throws DuplicateInstanceException, InstanceNotFoundException,
@@ -116,6 +195,83 @@ public class UserServiceTest {
         assertThrows(IncorrectPasswordException.class, () ->
                 userService.changePassword(user.getId(), 'Y' + oldPassword, newPassword));
 
+    }
+
+
+    @Test
+    public void testFindAll() throws DuplicateEmailException, DuplicateInstanceException {
+        User user1 = createUser("user1");
+        User user2 = createUser("user2");
+
+        userService.signUp(user1);
+        userService.signUp(user2);
+
+        assertEquals(2, userService.findAll().size());
+    }
+
+    // change avatar
+    @Test
+    public void testChangeAvatar() throws DuplicateInstanceException, InstanceNotFoundException, DuplicateEmailException {
+        User user = createUser("user");
+        userService.signUp(user);
+        String newAvatar = "newAvatar";
+
+        userService.changeAvatar(user.getId(), newAvatar);
+        User updatedUser = userService.loginFromId(user.getId());
+
+        assertEquals(newAvatar, updatedUser.getAvatar());
+    }
+
+    @Test
+    public void testGetUserById() throws DuplicateInstanceException, InstanceNotFoundException, DuplicateEmailException {
+        User user = createUser("user");
+        userService.signUp(user);
+
+        User userById = userService.getUserById(user.getId());
+
+        assertEquals(user, userById);
+    }
+
+
+    @Test
+    public void testRateUser() throws InstanceNotFoundException, DuplicateEmailException, DuplicateInstanceException {
+        User user = createUser("user");
+        userService.signUp(user);
+
+        int rate = 5;
+        userService.rateUser(user.getId(), rate);
+
+        List<Rating> rating = ratingDao.findByUserId(user.getId());
+        assertEquals(rate, rating.get(0).getRate());
+    }
+
+
+    @Test
+    public void testCheckUserExists() throws InstanceNotFoundException {
+        User user = createUser("user");
+        userDao.save(user);
+
+        permissionCheckerImpl.checkUserExists(user.getId());
+    }
+
+
+    @Test
+    public void testCheckUserExistsWithNonExistentId() {
+        assertThrows(InstanceNotFoundException.class, () -> permissionCheckerImpl.checkUserExists(NON_EXISTENT_ID));
+    }
+
+    @Test
+    public void testCheckUser() throws InstanceNotFoundException {
+        User user = createUser("user");
+        userDao.save(user);
+
+        User checkedUser = permissionCheckerImpl.checkUser(user.getId());
+        assertEquals(user, checkedUser);
+    }
+
+    @Test
+    public void testCheckUserWithNonExistentId() {
+        assertThrows(InstanceNotFoundException.class, () -> permissionCheckerImpl.checkUser(NON_EXISTENT_ID));
     }
 
 

@@ -47,4 +47,7 @@ public interface PurchaseService {
 
     Long getSellerIdByPurchaseId(Long purchaseId) throws InstanceNotFoundException;
 
-}
+    List<PurchaseItem> getPurchaseItems(List<Product> products);
+
+
+    }

@@ -65,25 +65,6 @@ public class PaypalService {
         }
     }
 
-    private OrderRequest buildRequestBody(Double total, String currency, String description, String cancelUrl, String successUrl) {
-        OrderRequest orderRequest = new OrderRequest();
-        orderRequest.checkoutPaymentIntent("CAPTURE");
-
-        ApplicationContext applicationContext = new ApplicationContext()
-                .cancelUrl(cancelUrl)
-                .returnUrl(successUrl);
-        orderRequest.applicationContext(applicationContext);
-
-        List<PurchaseUnitRequest> purchaseUnits = new ArrayList<>();
-        PurchaseUnitRequest purchaseUnitRequest = new PurchaseUnitRequest()
-                .description(description)
-                .amountWithBreakdown(new AmountWithBreakdown().currencyCode(currency).value(String.format("%.2f", total)));
-        purchaseUnits.add(purchaseUnitRequest);
-        orderRequest.purchaseUnits(purchaseUnits);
-
-        return orderRequest;
-    }
-
 
     public Refund refundOrder(String captureId, Double amount, String currency) throws IOException {
         RefundRequest refundRequest = new RefundRequest();

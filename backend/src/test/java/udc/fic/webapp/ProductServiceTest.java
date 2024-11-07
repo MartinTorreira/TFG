@@ -8,14 +8,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-import udc.fic.webapp.model.entities.Category;
-import udc.fic.webapp.model.entities.CategoryDao;
-import udc.fic.webapp.model.entities.Product;
-import udc.fic.webapp.model.entities.User;
+import udc.fic.webapp.model.entities.*;
 import udc.fic.webapp.model.exceptions.*;
 import udc.fic.webapp.model.services.ProductService;
+import udc.fic.webapp.model.services.PurchaseService;
 import udc.fic.webapp.model.services.UserService;
+import udc.fic.webapp.rest.dto.ProductDto;
+import udc.fic.webapp.rest.dto.PurchaseConversor;
+import udc.fic.webapp.rest.dto.PurchaseDto;
+import udc.fic.webapp.rest.dto.PurchaseItemDto;
 
+import java.util.Date;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +37,11 @@ public class ProductServiceTest {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Autowired
+    private PurchaseDao purchaseDao;
+
+    @Autowired
+    private PurchaseService purchaseService;
 
     private static Category parentCategory;
     private static Category category1;
@@ -69,6 +77,16 @@ public class ProductServiceTest {
         Product product = productService.addProduct(user.getId(),  category1.getId(), "product", "description", 10.0, 1, "new", 0.0, 0.0, images);
 
         assertNotNull(product);
+
+    }
+
+    // Test add product checking if the category has subcategories
+    @Test
+    public void testAddProductWithSubcategories() throws InstanceNotFoundException, DuplicateEmailException, DuplicateInstanceException {
+        User user = createUser("user");
+        userService.signUp(user);
+
+        assertThrows(IllegalArgumentException.class, () -> productService.addProduct(user.getId(),  parentCategory.getId(), "product", "description", 10.0, 1, "new", 0.0, 0.0, images));
 
     }
 
@@ -268,6 +286,42 @@ public class ProductServiceTest {
         assertThrows(InstanceNotFoundException.class, () -> productService.changeProductImages(user.getId(), Long.valueOf(-1), newImages));
 
     }
+
+
+    @Test
+    public void testGetProductsByPurchaseId() throws InstanceNotFoundException, DuplicateEmailException, DuplicateInstanceException {
+        User user = createUser("user");
+        User user2 = createUser("user2");
+        userService.signUp(user);
+        userService.signUp(user2);
+
+        Product product1 = productService.addProduct(user.getId(),  category1.getId(), "product1", "description", 10.0, 1, "new", 0.0, 0.0, images);
+
+        PurchaseItemDto purchaseItemDto = new PurchaseItemDto();
+        purchaseItemDto.setProductId(product1.getId());
+        purchaseItemDto.setQuantity(1);
+        purchaseItemDto.setPrice(10.0);
+
+
+        PurchaseDto purchaseDto = new PurchaseDto();
+        purchaseDto.setBuyerId(user2.getId());
+        purchaseDto.setSellerId(user.getId());
+        purchaseDto.setProductIds(List.of(product1.getId()));
+        purchaseDto.setQuantities(List.of(1));
+        purchaseDto.setPurchaseStatus("PENDING");
+        purchaseDto.setAmount(20.0);
+        purchaseDto.setCurrency("EUR");
+        purchaseDto.setPaymentMethod("CREDIT_CARD");
+        purchaseDto.setOrderId("ORDER_ID");
+        purchaseDto.setPurchaseItems(List.of(purchaseItemDto));
+
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+
+        List<ProductDto> products = productService.getProductsByPurchaseId(purchase.getId());
+        assertEquals(1, products.size());
+    }
+
+
 
 
 }

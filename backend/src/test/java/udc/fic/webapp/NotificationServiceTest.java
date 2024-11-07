@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -171,6 +172,17 @@ public class NotificationServiceTest {
         assertEquals(2, notificationService.getNotificationsByPurchaseId(purchase.getId()).size() - 1);
     }
 
+
+    // Test assertThrows InstanceNotFoundException if purchase not found in notifySeller
+    @Test
+    public void testNotifySellerThrowsExceptionIfPurchaseDoesNotExists() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        purchaseDao.delete(purchase);
+
+        assertThrows(InstanceNotFoundException.class, () -> purchaseService.notifySeller(purchase));
+
+    }
 
 
 

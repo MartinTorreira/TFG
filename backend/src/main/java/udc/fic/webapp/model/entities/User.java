@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class User {
     private RoleType role;
     private String avatar;
     private ShoppingCart shoppingCart;
-    private List<Rating> ratings;
+    private List<Rating> ratings = new ArrayList<>();
 
     public User () {}
 

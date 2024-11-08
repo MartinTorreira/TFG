@@ -275,4 +275,83 @@ public class UserServiceTest {
     }
 
 
+    @Test
+    public void testIncorrectLoginException() {
+        String userName = "testUser";
+        String password = "testPassword";
+
+        IncorrectLoginException exception = new IncorrectLoginException(userName, password);
+
+        assertEquals(userName, exception.getUserName());
+        assertEquals(password, exception.getPassword());
+    }
+
+
+    private class TestInstanceException extends InstanceException {
+        public TestInstanceException(String name, Object key) {
+            super(name, key);
+        }
+    }
+
+    @Test
+    public void testInstanceException() {
+        String name = "testName";
+        Object key = "testKey";
+
+        InstanceException exception = new TestInstanceException(name, key);
+
+        assertEquals(name, exception.getName());
+        assertEquals(key, exception.getKey());
+    }
+
+
+    @Test
+    public void testIncorrectOldPasswordException() {
+        String name = "testName";
+        Object key = "testKey";
+
+        IncorrectOldPasswordException exception = new IncorrectOldPasswordException(name, key);
+
+        assertEquals(name, exception.getName());
+        assertEquals(key, exception.getKey());
+    }
+
+    @Test
+    public void testNonExistentSessionException() {
+        String message = "Session does not exist";
+
+        NonExistentSessionException exception = new NonExistentSessionException(message);
+
+        assertEquals(message, exception.getMessage());
+    }
+
+
+    @Test
+    public void testPermissionException() {
+        String message = "Permission denied";
+
+        PermissionException exception = new PermissionException(message);
+
+        assertEquals(message, exception.getMessage());
+    }
+
+    @Test
+    public void testPermissionExceptionMessage() {
+        String errorMessage = "Permission denied";
+        PermissionException exception = assertThrows(PermissionException.class, () -> {
+            throw new PermissionException(errorMessage);
+        });
+
+        assertEquals(errorMessage, exception.getMessage());
+    }
+
+    @Test
+    public void testSessionAlreadyStartedException() {
+        String message = "Session already started";
+
+        SessionAlreadyStartedException exception = new SessionAlreadyStartedException(message);
+
+        assertEquals(message, exception.getMessage());
+    }
+
 }

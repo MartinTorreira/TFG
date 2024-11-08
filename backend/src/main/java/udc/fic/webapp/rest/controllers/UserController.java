@@ -108,7 +108,7 @@ public class UserController {
         throws PermissionException, InstanceNotFoundException, IncorrectPasswordException, IncorrectOldPasswordException {
 
         if (!id.equals(userId)){
-            throw new PermissionException();
+            throw new PermissionException("Permission exception");
         }
 
         //Check if the old password is correct
@@ -126,7 +126,7 @@ public class UserController {
             throws InstanceNotFoundException,  DuplicateInstanceException, DuplicateEmailException,PermissionException {
 
         if (!id.equals(userId)) {
-            throw new PermissionException();
+            throw new PermissionException("Permission exception");
         }
 
         return toUserDto(userService.updateProfile(id, userDto.getUserName(), userDto.getFirstName(), userDto.getLastName(),
@@ -141,7 +141,7 @@ public class UserController {
                              @Validated @RequestBody String imageUrl) throws PermissionException, InstanceNotFoundException {
 
         if (!id.equals(userId)) {
-            throw new PermissionException();
+            throw new PermissionException("Permission exception");
         }
 
         userService.changeAvatar(id, imageUrl);

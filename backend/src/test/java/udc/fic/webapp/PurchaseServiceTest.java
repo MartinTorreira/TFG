@@ -1,9 +1,14 @@
 package udc.fic.webapp;
 
+import com.paypal.core.PayPalHttpClient;
+import com.paypal.http.HttpResponse;
+import com.paypal.http.exceptions.HttpException;
+import com.paypal.orders.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -16,11 +21,13 @@ import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 import udc.fic.webapp.rest.dto.PurchaseItemConversor;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Transactional
@@ -47,6 +54,9 @@ public class PurchaseServiceTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @MockBean
+    private PayPalHttpClient payPalClient;
 
     private final String ORDER_ID = "38K03169BH194974M";
     private final String CAPTURE_ID = "3GD54926EH467243K";
@@ -243,6 +253,22 @@ public class PurchaseServiceTest {
         Long sellerId = purchaseService.getSellerIdByPurchaseId(purchase.getId());
         assertEquals(seller.getId(), sellerId);
     }
+
+
+    @Test
+    public void testExecutePaymentThrowsIOException() throws IOException {
+        String orderId = "ORDER_ID";
+        HttpException httpException = new HttpException("Error capturing order", 500, new com.paypal.http.Headers());
+
+        when(payPalClient.execute(any())).thenThrow(httpException);
+
+        assertThrows(IOException.class, () -> {
+            purchaseService.executePayment(orderId);
+        });
+
+        verify(payPalClient, times(1)).execute(any());
+    }
+
 
 
 }

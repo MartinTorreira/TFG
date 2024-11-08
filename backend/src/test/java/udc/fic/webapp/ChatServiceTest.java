@@ -1,5 +1,6 @@
 package udc.fic.webapp;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.dto.ChatMessageDto;
 import udc.fic.webapp.rest.dto.OfferConversor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -145,7 +148,6 @@ public class ChatServiceTest {
     }
 
 
-    // Test throw IllegalArgumentException if send an offer message with null offer
     @Test
     public void sendOfferMessageTypeWithNullOffer() {
         assertThrows(IllegalArgumentException.class, () -> chatService.sendMessage(new ChatMessageDto(user1.getId(), user2.getId(), "Hello", "2021-06-01T12:00:00", "OFFER", null)));
@@ -153,7 +155,39 @@ public class ChatServiceTest {
 
 
 
+    @Test
+    public void testChatMessageConstructorWithoutType() {
+        String content = "Hello";
+        LocalDateTime timestamp = LocalDateTime.now();
+        User sender = new User();
+        User receiver = new User();
 
+        ChatMessage chatMessage = new ChatMessage(content, timestamp, sender, receiver);
+
+        Assertions.assertNotNull(chatMessage);
+        assertEquals(content, chatMessage.getContent());
+        assertEquals(timestamp, chatMessage.getTimestamp());
+        assertEquals(sender, chatMessage.getSender());
+        assertEquals(receiver, chatMessage.getReceiver());
+    }
+
+    @Test
+    public void testChatMessageConstructorWithType() {
+        String content = "Hello";
+        LocalDateTime timestamp = LocalDateTime.now();
+        User sender = new User();
+        User receiver = new User();
+        ChatMessage.MessageType type = ChatMessage.MessageType.TEXT;
+
+        ChatMessage chatMessage = new ChatMessage(content, timestamp, sender, receiver, type);
+
+        Assertions.assertNotNull(chatMessage);
+        assertEquals(content, chatMessage.getContent());
+        assertEquals(timestamp, chatMessage.getTimestamp());
+        assertEquals(sender, chatMessage.getSender());
+        assertEquals(receiver, chatMessage.getReceiver());
+        assertEquals(type, chatMessage.getType());
+    }
 
 
 

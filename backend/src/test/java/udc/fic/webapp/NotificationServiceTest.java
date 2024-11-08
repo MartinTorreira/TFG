@@ -173,7 +173,6 @@ public class NotificationServiceTest {
     }
 
 
-    // Test assertThrows InstanceNotFoundException if purchase not found in notifySeller
     @Test
     public void testNotifySellerThrowsExceptionIfPurchaseDoesNotExists() throws InstanceNotFoundException {
         PurchaseDto purchaseDto = createPurchaseDto();
@@ -185,6 +184,21 @@ public class NotificationServiceTest {
     }
 
 
+    @Test
+    public void testNotificationConstructor() {
+        Purchase purchase = new Purchase();
+        String message = "Test message";
+        Date createdAt = new Date();
+        boolean isRead = false;
+
+        Notification notification = new Notification(purchase, message, createdAt, isRead);
+
+        assertNotNull(notification);
+        assertEquals(purchase, notification.getPurchase());
+        assertEquals(message, notification.getMessage());
+        assertEquals(createdAt, notification.getCreatedAt());
+        assertEquals(isRead, notification.isRead());
+    }
 
 
 }

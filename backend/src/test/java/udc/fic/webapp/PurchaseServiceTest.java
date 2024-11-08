@@ -1,9 +1,14 @@
 package udc.fic.webapp;
 
+import com.paypal.core.PayPalHttpClient;
+import com.paypal.http.HttpResponse;
+import com.paypal.http.exceptions.HttpException;
+import com.paypal.orders.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -16,11 +21,14 @@ import udc.fic.webapp.model.services.UserService;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 import udc.fic.webapp.rest.dto.PurchaseItemConversor;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Transactional
@@ -46,7 +54,13 @@ public class PurchaseServiceTest {
     private PurchaseService purchaseService;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @MockBean
+    private PayPalHttpClient payPalClient;
 
     private final String ORDER_ID = "38K03169BH194974M";
     private final String CAPTURE_ID = "3GD54926EH467243K";
@@ -266,6 +280,68 @@ public class PurchaseServiceTest {
     }
 
 
+
+
+    @Test
+    public void testExecutePaymentThrowsIOException() throws IOException {
+        String orderId = "ORDER_ID";
+        HttpException httpException = new HttpException("Error capturing order", 500, new com.paypal.http.Headers());
+
+        when(payPalClient.execute(any())).thenThrow(httpException);
+
+        assertThrows(IOException.class, () -> {
+            purchaseService.executePayment(orderId);
+        });
+
+        verify(payPalClient, times(1)).execute(any());
+    }
+
+
+//    @Override
+//    public Product getProductByOrderId(String orderId) throws InstanceNotFoundException {
+//        Purchase purchase = purchaseDao.findByOrderId(orderId)
+//                .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", orderId));
+//
+//        List<PurchaseItem> purchaseItems = purchaseItemDao.findByPurchaseId(purchase.getId());
+//        if (!purchaseItems.isEmpty()) {
+//            return purchaseItems.get(0).getProduct();
+//        } else {
+//            throw new InstanceNotFoundException("project.entities.product", orderId);
+//        }
+//    }
+
+    @Test
+    public void getProductByOrderIdThrowsException() {
+        Product product = new Product("product", "description", 10.0, 10, Product.Quality.NEW, 0.0, 0.0, null, seller, category1);
+        productDao.save(product);
+
+        Purchase purchase = new Purchase();
+        purchase.setBuyer(buyer);
+        purchase.setSeller(seller);
+        purchase.setOrderId("ORDER_ID");
+        purchase.setAmount(10.0);
+        purchase.setPurchaseStatus(Purchase.PurchaseStatus.PENDING);
+        purchase.setIsRefunded(false);
+        purchase.setPaymentMethod(Purchase.PaymentMethod.PAYPAL);
+        purchase.setPurchaseDate(new Date());
+        purchaseDao.save(purchase);
+
+        PurchaseItem purchaseItem = new PurchaseItem();
+        purchaseItem.setPurchase(purchase);
+        purchaseItem.setProduct(product);
+        purchaseItem.setQuantity(1);
+        purchaseItemDao.save(purchaseItem);
+
+        assertThrows(InstanceNotFoundException.class, () -> {
+            purchaseService.getProductByOrderId("NON_EXISTENT_ORDER_ID");
+        });
+
+        purchaseItemDao.delete(purchaseItem);
+
+        assertThrows(InstanceNotFoundException.class, () -> {
+            purchaseService.getProductByOrderId("ORDER_ID");
+        });
+    }
 
 
 }

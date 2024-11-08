@@ -51,13 +51,9 @@ public class Favorite {
         this.product = product;
     }
 
-
     @Column(name = "favoritedAt", nullable = false)
     public LocalDateTime getFavoritedAt() {
         return favoritedAt;
     }
 
-    public void setFavoritedAt(LocalDateTime favoritedAt) {
-        this.favoritedAt = favoritedAt;
-    }
 }

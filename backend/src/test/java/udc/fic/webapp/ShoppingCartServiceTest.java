@@ -19,6 +19,7 @@ import udc.fic.webapp.rest.dto.PurchaseDto;
 import udc.fic.webapp.rest.dto.PurchaseItemConversor;
 import udc.fic.webapp.rest.dto.ShoppingCartItemDto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -364,6 +365,30 @@ public class ShoppingCartServiceTest {
     }
 
 
+//    @Test
+//    public void testRemoveItemFromCartThrowsIllegalArgumentException() throws InstanceNotFoundException {
+//        // Crear y guardar un producto
+//        Product product = new Product("product", "description", 10.0, 10, Product.Quality.NEW, 0.0, 0.0, null, buyer, category1);
+//        productDao.save(product);
+//
+//        // Crear y guardar un carrito de compras para el comprador
+//        ShoppingCart cart = new ShoppingCart();
+//        cart.setUser(buyer);
+//        cart.setCreatedAt(new Date());
+//        shoppingCartDao.save(cart);
+//
+//        // Crear y guardar un ítem en el carrito del comprador
+//        ShoppingCartItem item = new ShoppingCartItem();
+//        item.setCart(cart);
+//        item.setProductId(product.getId());
+//        item.setQuantity(1);
+//        shoppingCartItemDao.save(item);
+//
+//        // Intentar eliminar el ítem del carrito con el usuario incorrecto
+//        assertThrows(IllegalArgumentException.class, () -> {
+//            shoppingCartService.removeItemFromCart(seller.getId(), item.getId());
+//        });
+//    }
 
 
 }

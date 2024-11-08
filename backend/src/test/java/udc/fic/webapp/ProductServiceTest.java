@@ -18,6 +18,7 @@ import udc.fic.webapp.rest.dto.PurchaseConversor;
 import udc.fic.webapp.rest.dto.PurchaseDto;
 import udc.fic.webapp.rest.dto.PurchaseItemDto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -319,6 +320,107 @@ public class ProductServiceTest {
 
         List<ProductDto> products = productService.getProductsByPurchaseId(purchase.getId());
         assertEquals(1, products.size());
+    }
+
+
+
+    @Test
+    public void testProductImagesConstructor() {
+        Product product = new Product();
+        product.setId(1L);
+        String image = "image.jpg";
+
+        Product_Images productImages = new Product_Images(product, image);
+
+        assertNotNull(productImages.getId());
+        assertEquals(1L, productImages.getId().getProductId());
+        assertEquals(image, productImages.getId().getImage());
+        assertEquals(product, productImages.getProduct());
+    }
+
+    @Test
+    public void testSetImage() {
+        Product product = new Product();
+        product.setId(1L);
+        String image = "image.jpg";
+
+        Product_Images productImages = new Product_Images(product, image);
+        String newImage = "new_image.jpg";
+        productImages.setImage(newImage);
+
+        assertEquals(newImage, productImages.getImage());
+    }
+
+
+    @Test
+    public void testEquals() {
+        Product_Images.ProductImageId id1 = new Product_Images.ProductImageId(1L, "image1.jpg");
+        Product_Images.ProductImageId id2 = new Product_Images.ProductImageId(1L, "image1.jpg");
+        Product_Images.ProductImageId id3 = new Product_Images.ProductImageId(2L, "image2.jpg");
+
+        assertEquals(id1, id2);
+        assertNotEquals(id1, id3);
+    }
+
+
+    @Test
+    public void testSetSubcategories() {
+        Category subcategory1 = new Category();
+        subcategory1.setName("Subcategory 1");
+
+        Category subcategory2 = new Category();
+        subcategory2.setName("Subcategory 2");
+
+        List<Category> subcategories = new ArrayList<>();
+        subcategories.add(subcategory1);
+        subcategories.add(subcategory2);
+
+        Category category = new Category();
+        category.setSubcategories(subcategories);
+
+        assertNotNull(category.getSubcategories());
+        assertEquals(2, category.getSubcategories().size());
+        assertEquals(subcategory1, category.getSubcategories().get(0));
+        assertEquals(subcategory2, category.getSubcategories().get(1));
+    }
+
+
+    @Test
+    public void testSetId() {
+        Product product = new Product();
+        product.setId(1L);
+        String image = "image.jpg";
+
+        Product_Images productImages = new Product_Images();
+        Product_Images.ProductImageId id = new Product_Images.ProductImageId(product.getId(), image);
+        productImages.setId(id);
+
+        assertNotNull(productImages.getId());
+        assertEquals(id, productImages.getId());
+    }
+
+    @Test
+    public void testSetProduct() {
+        Product product = new Product();
+        product.setId(1L);
+
+        Product_Images productImages = new Product_Images();
+        productImages.setProduct(product);
+
+        assertNotNull(productImages.getProduct());
+        assertEquals(product, productImages.getProduct());
+    }
+
+
+
+    @Test
+    public void testHashCode() {
+        Product_Images.ProductImageId id1 = new Product_Images.ProductImageId(1L, "image1.jpg");
+        Product_Images.ProductImageId id2 = new Product_Images.ProductImageId(1L, "image1.jpg");
+        Product_Images.ProductImageId id3 = new Product_Images.ProductImageId(2L, "image2.jpg");
+
+        assertEquals(id1.hashCode(), id2.hashCode());
+        assertNotEquals(id1.hashCode(), id3.hashCode());
     }
 
 

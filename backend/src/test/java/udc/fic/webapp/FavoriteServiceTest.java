@@ -267,10 +267,11 @@ public class FavoriteServiceTest {
 
     @Test
     public void testFindFavoriteByIdNonExistent() {
-
         assertThrows(InstanceNotFoundException.class, () -> favoriteService.findFavoriteById(1L));
-
     }
+
+
+
 
 
 }

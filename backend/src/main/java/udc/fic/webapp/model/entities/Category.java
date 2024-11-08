@@ -45,10 +45,6 @@ public class Category {
         return parentCategory;
     }
 
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
-    }
-
     @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Category> getSubcategories() {
         return subcategories;

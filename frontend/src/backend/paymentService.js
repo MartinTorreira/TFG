@@ -22,7 +22,7 @@ export const executeOrder = async (orderId, userId) => {
       `/purchase/execute?orderId=${orderId}`,
       fetchConfig("POST", null, { userId }),
       resolve,
-      reject,
+      reject
     );
   });
 };
@@ -30,13 +30,13 @@ export const executeOrder = async (orderId, userId) => {
 export const getPurchaseByProductId = async (
   productId,
   onSuccess,
-  onErrors,
+  onErrors
 ) => {
   return appFetch(
     `/purchase/${productId}`,
     fetchConfig("GET"),
     onSuccess,
-    onErrors,
+    onErrors
   );
 };
 
@@ -45,7 +45,7 @@ export const getUserPurchases = async (userId, state, onSuccess, onErrors) => {
     `/purchase/${userId}/getUserPurchases?page=${state.page}&size=${state.size}`,
     fetchConfig("GET"),
     onSuccess,
-    onErrors,
+    onErrors
   );
 };
 
@@ -54,20 +54,18 @@ export const getUserSales = async (userId, state, onSuccess, onErrors) => {
     `/purchase/${userId}/getUserSales?page=${state.page}&size=${state.size}`,
     fetchConfig("GET"),
     onSuccess,
-    onErrors,
+    onErrors
   );
-}
-
+};
 
 export const getPurchaseById = async (purchaseId, onSuccess, onErrors) => {
   return appFetch(
     `/purchase/${purchaseId}/getPurchase`,
     fetchConfig("GET"),
     onSuccess,
-    onErrors,
+    onErrors
   );
-}
-
+};
 
 export const changeRefundStatus = async (
   purchaseId,
@@ -79,10 +77,9 @@ export const changeRefundStatus = async (
     `/purchase/${Number(purchaseId)}/changeRefundStatus`,
     fetchConfig("PUT", isRefunded),
     onSuccess,
-    onErrors,
+    onErrors
   );
 };
-
 
 export const changePurchaseStatus = async (
   purchaseId,
@@ -92,18 +89,46 @@ export const changePurchaseStatus = async (
 ) => {
   appFetch(
     `/purchase/${Number(purchaseId)}/changePurchaseStatus`,
-    fetchConfig("PUT", {purchaseStatus}),
+    fetchConfig("PUT", { purchaseStatus }),
     onSuccess,
-    onErrors,
+    onErrors
   );
-}
-
+};
 
 export const deletePurchase = async (purchaseId, onSuccess, onErrors) => {
   appFetch(
     `/purchase/${purchaseId}/delete`,
     fetchConfig("DELETE"),
     onSuccess,
-    onErrors,
+    onErrors
+  );
+};
+
+
+export const countPurchases = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/purchase/${userId}/countPurchases`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors
+  );
+}
+
+
+export const countRefundedPurchases = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/purchase/${userId}/countRefundedPurchases`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors
+  );
+};
+
+export const countCompletedPurchases = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/purchase/${userId}/countCompletedPurchases`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors
   );
 };

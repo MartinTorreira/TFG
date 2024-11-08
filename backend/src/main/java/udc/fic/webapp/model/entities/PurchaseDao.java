@@ -27,4 +27,12 @@ public interface PurchaseDao extends PagingAndSortingRepository<Purchase, Long> 
     @Query("SELECT p FROM Purchase p WHERE p.seller.id = :sellerId")
     Page<Purchase> findBySellerId(@Param("sellerId") Long sellerId, Pageable pageable);
 
+    @Query("SELECT COUNT(p) FROM Purchase p WHERE p.seller.id = :sellerId AND p.purchaseStatus = '1'")
+    long countCompletedPurchases(@Param("sellerId") Long sellerId);
+
+    @Query("SELECT COUNT(p) FROM Purchase p WHERE p.seller.id = :sellerId AND p.purchaseStatus = '2'")
+    long countRefundedPurchases(@Param("sellerId") Long sellerId);
+
+    @Query("SELECT COUNT(p) FROM Purchase p WHERE p.seller.id = :sellerId")
+    long countPurchases(@Param("sellerId") Long sellerId);
 }

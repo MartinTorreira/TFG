@@ -225,5 +225,25 @@ public class PurchaseController {
     }
 
 
+    @GetMapping("/{userId}/countPurchases")
+    public ResponseEntity<Long> countPurchases(@PathVariable Long userId) {
+        long count = purchaseService.countPurchases(userId);
+        return ResponseEntity.ok(count);
+    }
+
+
+    @GetMapping("/{userId}/countRefundedPurchases")
+    public ResponseEntity<Long> getRefundedPurchases(@PathVariable Long userId) {
+        long count = purchaseService.countRefundedPurchases(userId);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/{userId}/countCompletedPurchases")
+    public ResponseEntity<Long> countCompletedPurchases(@PathVariable Long userId) {
+        long count = purchaseService.countCompletedPurchases(userId);
+        return ResponseEntity.ok(count);
+    }
+
+
 
 }

@@ -24,6 +24,7 @@ import ChatPage from "./components/chat/ChatPage.jsx";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import { motion } from "framer-motion";
 import { Footer } from "./components/Footer.jsx";
+import { UserProfile } from "./components/user/UserProfile.js";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -86,6 +87,7 @@ export default function App() {
               <Route path="/users/signUp" element={<Register />} />
               <Route path="/users/profile" element={<ProfileSettings />} />
               <Route path="/users/stats" element={<Stats />} />
+              <Route path="/users/userProfile/:id" element={<UserProfile />} />
               <Route
                 path="/users/my-purchases"
                 element={<UserPurchasesPage />}

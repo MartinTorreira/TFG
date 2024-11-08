@@ -225,7 +225,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
 
-
     @Override
     public Page<Purchase> getSalesByUserId(Long userId, int page, int size) throws InstanceNotFoundException {
         User user = userDao.findById(userId)
@@ -257,6 +256,22 @@ public class PurchaseServiceImpl implements PurchaseService {
                 .orElseThrow(() -> new InstanceNotFoundException("project.entities.purchase", purchaseId))
                 .getSeller().getId();
     }
+
+    @Override
+    public Long countRefundedPurchases(Long sellerId) {
+        return purchaseDao.countRefundedPurchases(sellerId);
+    }
+
+    @Override
+    public Long countCompletedPurchases(Long sellerId) {
+        return purchaseDao.countCompletedPurchases(sellerId);
+    }
+
+    @Override
+    public Long countPurchases(Long sellerId) {
+        return purchaseDao.countPurchases(sellerId);
+    }
+
 
 
     // NOTIFICATIONS ==========================================================

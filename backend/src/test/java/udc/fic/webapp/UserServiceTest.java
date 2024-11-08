@@ -31,10 +31,12 @@ public class UserServiceTest {
     @Autowired
     private RatingDao ratingDao;
 
-
-    private final Long NON_EXISTENT_ID = Long.valueOf(-1);
     @Autowired
     private PermissionCheckerImpl permissionCheckerImpl;
+
+
+    private final Long NON_EXISTENT_ID = Long.valueOf(-1);
+
 
 
     private User createUser(String userName) {
@@ -272,6 +274,51 @@ public class UserServiceTest {
     @Test
     public void testCheckUserWithNonExistentId() {
         assertThrows(InstanceNotFoundException.class, () -> permissionCheckerImpl.checkUser(NON_EXISTENT_ID));
+    }
+
+    @Test
+    public void testIncorrectOldPasswordException() {
+        String expectedName = "testName";
+        Object expectedKey = "testKey";
+
+        IncorrectOldPasswordException exception = new IncorrectOldPasswordException(expectedName, expectedKey);
+
+        assertEquals(expectedName, exception.getName());
+        assertEquals(expectedKey, exception.getKey());
+    }
+
+
+    @Test
+    public void testNonExistentSessionException() {
+        String expectedMessage = "Session does not exist";
+        NonExistentSessionException exception = new NonExistentSessionException(expectedMessage);
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+
+    @Test
+    public void testIncorrectLoginException() {
+        String expectedUserName = "testUser";
+        String expectedPassword = "testPassword";
+
+        IncorrectLoginException exception = new IncorrectLoginException(expectedUserName, expectedPassword);
+
+        assertEquals(expectedUserName, exception.getUserName());
+        assertEquals(expectedPassword, exception.getPassword());
+    }
+
+
+    @Test
+    public void testSessionAlreadyStartedException() {
+        String expectedMessage = "Session has already started";
+        SessionAlreadyStartedException exception = new SessionAlreadyStartedException(expectedMessage);
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    public void testPermissionException() {
+        PermissionException exception = new PermissionException();
+        assertNotNull(exception);
     }
 
 

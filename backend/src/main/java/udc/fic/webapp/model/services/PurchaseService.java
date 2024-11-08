@@ -49,5 +49,9 @@ public interface PurchaseService {
 
     List<PurchaseItem> getPurchaseItems(List<Product> products);
 
+    Long countPurchases(Long sellerId);
 
-    }
+    Long countRefundedPurchases(Long sellerId);
+
+    Long countCompletedPurchases(Long sellerId);
+}

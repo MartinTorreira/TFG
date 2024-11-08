@@ -244,6 +244,29 @@ public class PurchaseServiceTest {
         assertEquals(seller.getId(), sellerId);
     }
 
+    @Test
+    public void testCountPurchases() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        assertEquals(1, purchaseService.countPurchases(seller.getId()));
+    }
+
+    @Test
+    public void testCountRefundedPurchases() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        assertEquals(0, purchaseService.countRefundedPurchases(seller.getId()));
+    }
+
+    @Test
+    public void testCountCompletedPurchases() throws InstanceNotFoundException {
+        PurchaseDto purchaseDto = createPurchaseDto();
+        Purchase purchase = purchaseService.createPurchase(purchaseDto);
+        assertEquals(0, purchaseService.countCompletedPurchases(seller.getId()));
+    }
+
+
+
 
 }
 

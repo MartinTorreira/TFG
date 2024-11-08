@@ -165,7 +165,7 @@ export const CardItem = ({ product }) => {
         <div className="relative w-full h-64 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-transparent to-black/70 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 pointer-events-none"></div>
           <img
-            className="w-full h-full object-fit transition-opacity duration-500 ease-in-out cursor-pointer rounded"
+            className="w-full h-full object-cover transition-opacity duration-500 ease-in-out cursor-pointer rounded"
             src={product.images[0]}
             alt={`${product.name}`}
             onClick={handleImageClick}
@@ -210,7 +210,7 @@ export const CardItem = ({ product }) => {
                       onClick={(e) => {
                         e.stopPropagation();
                         if (!token) {
-                          e.preventDefault(); // Evita que otros manejadores afecten la navegación
+                          e.preventDefault();
                           navigate("../users/login");
                         } else {
                           handleFavoriteClick(e);

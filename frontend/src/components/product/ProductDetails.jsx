@@ -176,6 +176,12 @@ const ProductDetails = ({ setChatVisible, setSelectedConversationId }) => {
     getProductById(productId, onSuccess, onErrors);
   }, [id, setProduct]);
 
+
+  const handleUserClick = () => {
+    navigate(`/users/userProfile/${product.userDto.id}`);
+  }
+
+
   if (!product) return null;
 
   return (
@@ -312,12 +318,13 @@ const ProductDetails = ({ setChatVisible, setSelectedConversationId }) => {
             </div>
           </div>
 
-          <div className="lg:col-span-2 w-full justify-center items-center mt-10">
-            <label className="flex flex-row text-xl font-semibold space-x-2 mb-10 ">
+          <div className="lg:col-span-2 w-full justify-center items-center mt-10 mb-24">
+            <label className="flex flex-row text-xl font-semibold space-x-2 mb-10">
               <UserIcon size={"30"} />
               <p>Vendedor</p>
             </label>
-            <div className="flex flex-row items-center">
+            <button className="flex w-full items-start justify-start text-left" onClick={() => handleUserClick()}>
+            <div className="flex flex-row items-center border border-gray-400/30 hover:bg-gray-100/30 hover:border-gray-100/30 rounded-lg transition-all p-2 cursor-pointer 2xl:w-1/3 sm:w-full">
               <Avatar
                 size={"16"}
                 className=""
@@ -328,6 +335,7 @@ const ProductDetails = ({ setChatVisible, setSelectedConversationId }) => {
                 <RatingComponent rate={product.userDto.rate} />
               </div>
             </div>
+            </button>
           </div>
         </div>
       </div>

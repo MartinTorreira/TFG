@@ -224,6 +224,18 @@ public class PurchaseController {
         return ResponseEntity.ok(purchaseService.getSellerIdByPurchaseId(purchaseId));
     }
 
+    @GetMapping("/{sellerId}/countSales")
+    public ResponseEntity<Long> countPurchases(@PathVariable Long sellerId) {
+        return ResponseEntity.ok(purchaseDao.countBySellerId(sellerId));
+    }
 
+    @GetMapping("/{sellerId}/countCompletedSales")
+    public ResponseEntity<Long> countCompletedPurchases(@PathVariable Long sellerId) {
+        return ResponseEntity.ok(purchaseDao.countCompletedBySellerId(sellerId));
+    }
 
+    @GetMapping("/{sellerId}/countRefundedSales")
+    public ResponseEntity<Long> countRefundedPurchases(@PathVariable Long sellerId) {
+        return ResponseEntity.ok(purchaseDao.countRefundedBySellerId(sellerId));
+    }
 }

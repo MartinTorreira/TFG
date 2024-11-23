@@ -11,8 +11,9 @@ import { LoginContext } from "../context/LoginContext";
 import { useNavigate } from "react-router-dom";
 
 export const NavbarDropdown = ({ imagePath }) => {
-  const { setToken } = useContext(LoginContext);
+  const { user, setToken } = useContext(LoginContext);
   const navigate = useNavigate();
+  const id = user?.id;
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -40,15 +41,15 @@ export const NavbarDropdown = ({ imagePath }) => {
       </DropdownTrigger>
 
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="profile">
-          <button onClick={() => handleNavigate("/users/profile")}>
-            Mi perfil
+        <DropdownItem key="stats">
+          <button onClick={() => handleNavigate(`/users/userProfile/${id}`)}>
+            Mis datos
           </button>
         </DropdownItem>
 
-        <DropdownItem key="stats">
-          <button onClick={() => handleNavigate("/users/stats")}>
-            Estadísticas
+        <DropdownItem key="profile">
+          <button onClick={() => handleNavigate("/users/profile")}>
+            Editar perfil
           </button>
         </DropdownItem>
 

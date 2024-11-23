@@ -43,7 +43,7 @@ export const FavoriteRow = ({ item }) => {
           {productDto.categoryDto.name}
         </p>
         <p className="font-semibold text-gray-800 col-span-1 text-center">
-          {userDto.userName}
+          {productDto.userDto.userName}
         </p>
         <p className="font-semibold text-gray-800  col-span-1 text-center">
           {new Date(favoritedAt).toLocaleDateString()}
@@ -68,6 +68,7 @@ export const FavoriteRow = ({ item }) => {
           >
             Quitar
           </button>
+
         </div>
       </div>
     </div>

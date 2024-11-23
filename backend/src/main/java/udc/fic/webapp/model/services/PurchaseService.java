@@ -49,5 +49,4 @@ public interface PurchaseService {
 
     List<PurchaseItem> getPurchaseItems(List<Product> products);
 
-
     }

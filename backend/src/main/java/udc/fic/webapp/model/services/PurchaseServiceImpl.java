@@ -224,8 +224,6 @@ public class PurchaseServiceImpl implements PurchaseService {
         }).toList();
     }
 
-
-
     @Override
     public Page<Purchase> getSalesByUserId(Long userId, int page, int size) throws InstanceNotFoundException {
         User user = userDao.findById(userId)

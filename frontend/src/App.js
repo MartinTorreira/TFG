@@ -24,6 +24,7 @@ import ChatPage from "./components/chat/ChatPage.jsx";
 import { RxDoubleArrowDown } from "react-icons/rx";
 import { motion } from "framer-motion";
 import { Footer } from "./components/Footer.jsx";
+import {UserProfile} from "./components/user/UserProfile.js";
 
 export default function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -61,8 +62,8 @@ export default function App() {
     <BrowserRouter>
       <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} className="z-50" />
       <Toaster richColors position="top-center" />
-      <div className="relative min-h-screen w-full bg-gray-200">
-        <div
+      <div className="flex flex-col min-h-screen bg-gray-200 relative">
+      <div
           className="absolute inset-0 h-full w-full"
           style={{
             background: `radial-gradient(circle at 10% 90%, rgba(97, 197, 193, 0.3), transparent 45%),
@@ -70,8 +71,8 @@ export default function App() {
           }}
         ></div>
 
-        <div className="relative z-0 min-h-screen w-full">
-          <Navbar toggleSidebar={toggleSidebar} />
+<div className="flex flex-col flex-grow relative z-10">
+<Navbar toggleSidebar={toggleSidebar} />
           <div className="relative z-10 mb-10">
             <Routes>
               <Route
@@ -86,6 +87,7 @@ export default function App() {
               <Route path="/users/signUp" element={<Register />} />
               <Route path="/users/profile" element={<ProfileSettings />} />
               <Route path="/users/stats" element={<Stats />} />
+              <Route path="/users/userProfile/:id" element={<UserProfile />} />
               <Route
                 path="/users/my-purchases"
                 element={<UserPurchasesPage />}

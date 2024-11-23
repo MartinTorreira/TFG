@@ -218,7 +218,7 @@ const Register = () => {
 
             <div>
               <InputForm
-                label="Confirmar constraseña *"
+                label="Confirmar contraseña *"
                 type="password"
                 placeholder="*************"
                 value={confirmPassword}

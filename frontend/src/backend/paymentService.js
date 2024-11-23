@@ -107,3 +107,31 @@ export const deletePurchase = async (purchaseId, onSuccess, onErrors) => {
     onErrors,
   );
 };
+
+export const countSales = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/purchase/${userId}/countSales`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors
+  );
+}
+
+
+export const countRefundedSales = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/purchase/${userId}/countRefundedSales`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors
+  );
+};
+
+export const countCompletedSales = async (userId, onSuccess, onErrors) => {
+  appFetch(
+    `/purchase/${userId}/countCompletedSales`,
+    fetchConfig("GET"),
+    onSuccess,
+    onErrors
+  );
+};

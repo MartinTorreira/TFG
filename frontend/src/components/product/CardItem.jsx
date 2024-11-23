@@ -165,7 +165,7 @@ export const CardItem = ({ product }) => {
         <div className="relative w-full h-64 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-transparent to-black/70 opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 pointer-events-none"></div>
           <img
-            className="w-full h-full object-fit transition-opacity duration-500 ease-in-out cursor-pointer rounded"
+            className="w-full h-full object-cover transition-opacity duration-500 ease-in-out cursor-pointer rounded"
             src={product.images[0]}
             alt={`${product.name}`}
             onClick={handleImageClick}
@@ -182,7 +182,7 @@ export const CardItem = ({ product }) => {
             </span>
             <div className="flex flex-row gap-x-3 mb-2">
               <>
-                {isOwnProduct ? (
+                {isOwnProduct && token!== null ? (
                   <>
                     <button
                       onClick={(e) => handleEditClick(e)}
@@ -193,7 +193,7 @@ export const CardItem = ({ product }) => {
                     </button>
                     <button
                       onClick={(e) => handleDeleteClick(e)}
-                      title="Este es tu producto"
+                      title="Eliminar producto"
                       className="border border-red-100 p-2 bg-transparent rounded-lg hover:opacity-80 transition-all"
                     >
                       <DeleteIcon size={20} color={"text-red-400 "} />

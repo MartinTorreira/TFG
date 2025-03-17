@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fa4b16e-bb5b-4bf6-914a-6ccf38833891" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/entities/PurchaseDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/model/services/PurchaseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/common/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/udc/fic/webapp/rest/controllers/PurchaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/backend/appFetch.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/appFetch.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/backend/paymentService.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/backend/paymentService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Paginator.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Paginator.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/CardItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/FavoriteRow.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/FavoriteRow.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/product/ProductDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/product/ProductDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/user/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/user/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/store/useProductStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/store/useProductStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,27 +278,27 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.All in webapp" />
-      <item itemvalue="JUnit.java in webapp" />
-      <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFound" />
       <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFoundInCart" />
+      <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFound" />
+      <item itemvalue="JUnit.java in webapp" />
       <item itemvalue="JUnit.webapp in webapp" />
       <item itemvalue="Spring Boot.BackendApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.java in webapp" />
         <item itemvalue="JUnit.webapp in webapp" />
-        <item itemvalue="JUnit.All in webapp" />
-        <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFoundInCart" />
+        <item itemvalue="JUnit.java in webapp" />
         <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFound" />
+        <item itemvalue="JUnit.ShoppingCartServiceTest.testUpdateItemQuantityItemNotFoundInCart" />
+        <item itemvalue="JUnit.All in webapp" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
       </set>
     </attachedChunks>
   </component>
@@ -439,6 +433,22 @@
       <workItem from="1732213208539" duration="2086000" />
       <workItem from="1732290446346" duration="1406000" />
       <workItem from="1732387255326" duration="1909000" />
+      <workItem from="1739982521966" duration="14000" />
+      <workItem from="1739982557191" duration="31000" />
+      <workItem from="1740493740908" duration="627000" />
+      <workItem from="1740579658966" duration="730000" />
+      <workItem from="1740580402729" duration="52000" />
+      <workItem from="1740580859600" duration="56000" />
+      <workItem from="1740580932578" duration="165000" />
+      <workItem from="1740581107367" duration="160000" />
+      <workItem from="1740581395390" duration="75000" />
+      <workItem from="1740581529141" duration="69000" />
+      <workItem from="1740581726096" duration="17000" />
+      <workItem from="1740581756187" duration="18000" />
+      <workItem from="1740581791573" duration="475000" />
+      <workItem from="1740583706853" duration="27000" />
+      <workItem from="1740583756278" duration="55000" />
+      <workItem from="1740583845901" duration="964000" />
     </task>
     <servers />
   </component>
@@ -492,17 +502,17 @@
     <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_testAddItemToCartUserOwnerOfProductCantAddItToHisCartThrowsException.ic" NAME="ShoppingCartServiceTest.testAddItemToCartUserOwnerOfProductCantAddItToHisCartThrowsException Coverage Results" MODIFIED="1730996911010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$java_in_webapp.ic" NAME="java in webapp Coverage Results" MODIFIED="1732290754862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/backend$java_in_webapp.ic" NAME="java in webapp Coverage Results" MODIFIED="1740493776010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/backend$ProductServiceTest_testAddProductWithSubcategories.ic" NAME="ProductServiceTest.testAddProductWithSubcategories Coverage Results" MODIFIED="1730904521124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/backend$PaypalServiceTest_testRefundOrder.ic" NAME="PaypalServiceTest.testRefundOrder Coverage Results" MODIFIED="1730995597678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testCreatePurchaseWithoutPurchaseStatus.ic" NAME="PurchaseServiceTest.testCreatePurchaseWithoutPurchaseStatus Coverage Results" MODIFIED="1730907040405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testLoginIncorrectPassword.ic" NAME="UserServiceTest.testLoginIncorrectPassword Coverage Results" MODIFIED="1730993122692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testLoginIncorrectPassword.ic" NAME="UserServiceTest.testLoginIncorrectPassword Coverage Results" MODIFIED="1730993122692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$PurchaseServiceTest_testCreatePurchaseWithoutPurchaseStatus.ic" NAME="PurchaseServiceTest.testCreatePurchaseWithoutPurchaseStatus Coverage Results" MODIFIED="1730907040405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/backend$NotificationServiceTest.ic" NAME="NotificationServiceTest Coverage Results" MODIFIED="1729871619106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
@@ -541,10 +551,10 @@
     <SUITE FILE_PATH="coverage/backend$ShoppingCartServiceTest_getProductByCartItemId.ic" NAME="ShoppingCartServiceTest.getProductByCartItemId Coverage Results" MODIFIED="1730912884393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$FavoriteServiceTest.ic" NAME="FavoriteServiceTest Coverage Results" MODIFIED="1729633197373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testSignUpDuplicatedEmailThrowsException.ic" NAME="UserServiceTest.testSignUpDuplicatedEmailThrowsException Coverage Results" MODIFIED="1730992989614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/backend$UserServiceTest_testSignUpDuplicatedEmailThrowsException.ic" NAME="UserServiceTest.testSignUpDuplicatedEmailThrowsException Coverage Results" MODIFIED="1730992989614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+    <SUITE FILE_PATH="coverage/backend$FavoriteServiceTest.ic" NAME="FavoriteServiceTest Coverage Results" MODIFIED="1729633197373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
       <FILTER>udc.fic.webapp.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/backend$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1730993507515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

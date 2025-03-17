@@ -382,6 +382,7 @@ const ChatPage = ({
                         <button
                           className="flex items-center text-sm text-left w-full bg-accent-light p-3 text-gray-800 hover:text-opacity-85 underline space-x-1 rounded-l-lg rounded-br-xl"
                           onClick={() => handleOfferClick(msg)}
+                          disabled={msg.senderId === user.id}
                         >
                           <OfferIcon size={"20"} className="mr-2" />
                           <p>Haz click aquí para ver la oferta</p>

@@ -16,7 +16,7 @@ export const useProductStore = create((set, get) => ({
   favouriteProducts: [],
   sort: null,
   page: 0,
-  size: 10,
+  size: 6,
   totalPages: 0,
 
   setPriceFilter: (price) => {
@@ -48,7 +48,7 @@ export const useProductStore = create((set, get) => ({
   },
   setPage: (page) => set({ page }),
 
-  fetchProducts: async (page = 0, size = 10) => {
+  fetchProducts: async (page = 0, size = 6) => {
     try {
       getProducts(
         { page, size },

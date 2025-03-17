@@ -320,7 +320,7 @@ const ProductDetails = ({ setChatVisible, setSelectedConversationId }) => {
           
               <button
                 className="flex flex-row items-center bg-gray-200 bg-opacity-60 rounded-md p-6 hover:opacity-80 cursor-pointer w-1/2 text-left"
-                onClick={() => navigate(`/users/userProfile/${user.id}`)}
+                onClick={() => navigate(`/users/userProfile/${product.userDto.id}`)}
               >
               <Avatar
                 size={"16"}

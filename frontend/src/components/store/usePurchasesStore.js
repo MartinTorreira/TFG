@@ -8,12 +8,12 @@ import {
 const usePurchasesStore = create((set, get) => ({
   purchases: [],
   page: 0,
-  size: 10,
+  size: 7,
   totalPages: 0,
 
   setPurchases: (purchases) => set({ purchases }),
 
-  loadPurchases: async (userId, page = 0, size = 10) => {
+  loadPurchases: async (userId, page = 0, size = 7) => {
     try {
       getUserPurchases(
         userId,

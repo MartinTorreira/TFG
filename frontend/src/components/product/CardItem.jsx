@@ -178,7 +178,7 @@ export const CardItem = ({ product }) => {
           </h5>
           <div className="flex items-center justify-between">
             <span className="text-xl font-bold text-gray-900">
-              {product.price} €
+              {product.price?.toFixed(2)?.replace(".",",")} €
             </span>
             <div className="flex flex-row gap-x-3 mb-2">
               <>

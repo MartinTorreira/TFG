@@ -38,6 +38,7 @@ export const getPurchaseByProductId = async (
     onSuccess,
     onErrors,
   );
+
 };
 
 export const getUserPurchases = async (userId, state, onSuccess, onErrors) => {
